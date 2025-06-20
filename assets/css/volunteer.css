@@ -1,0 +1,101 @@
+.alert-box {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 100000 !important;
+  width: 300px !important;
+  display: block !important;
+}
+
+.alert {
+  padding: 15px !important;
+  margin-bottom: 10px !important;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important;
+  opacity: 0.9 !important;
+}
+
+.alert-success {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+.alert-error {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+.alert-close {
+  float: right !important;
+  cursor: pointer !important;
+  font-weight: bold !important;
+  margin-left: 10px !important;
+}
+
+
+.volunteer-box {
+    display: flex;
+    gap: 12px;
+    font-size: 19px;
+    font-family: "Monospace, Montserrat", sans-serif;
+}
+.volunteer-img {
+    width: 100%;
+   aspect-ratio: 3/2;
+    border-radius: 10px;
+   
+}
+
+.team-img {
+    width: 100% !important;
+    aspect-ratio: 3/3 !important;
+    border-radius: 10px !important;
+    -webkit-border-radius: 10px !important;
+    -moz-border-radius: 10px !important;
+    -ms-border-radius: 10px !important;
+    -o-border-radius: 10px !important;
+}
+.team-img img {
+    width: 100% !important;
+    aspect-ratio: 3/3 !important;
+    border-radius: 10px !important;
+    -webkit-border-radius: 10px !important;
+    -moz-border-radius: 10px !important;
+    -ms-border-radius: 10px !important;
+    -o-border-radius: 10px !important;
+    object-fit: cover;
+}
+
+.team-desig2 {
+    font-size: 16px !important;
+    font-weight: 500  !important;
+    /* color: var(--theme-color2) !important; */
+    margin-top: 10px !important;
+}
+
+.btn-team{
+  background-color: var(--theme-color);
+  border: 10px;
+  background-color: var(--theme-color);
+  color: var(--white-color);
+  font-family: var(--body-font);
+  border-radius: 50px;
+  box-shadow: inset 0 0 0 0 var(--theme-color2);
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.btn-team:hover, .btn-team:active {
+  box-shadow: inset 0 -100px 0 0 var(--theme-color2);
+  background: var(--theme-color);
+  color: var(--white-color);
+}
+
+@media (max-width: 768px) {
+    .volunteer-box {
+      flex-direction: column;
+      text-align: center;
+      justify-content: center;
+    }
+  }

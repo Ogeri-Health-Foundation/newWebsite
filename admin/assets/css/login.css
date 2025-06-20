@@ -1,0 +1,108 @@
+/* styling sheet for login page */
+body {
+    
+    background-color: #f8f9fa;
+    font-family: "Montserrat", serif;
+    color: #2D3F53;
+}
+.login-container {
+    display: flex;
+    height: 100vh;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.image-section {
+    flex: 1;
+    background: url('../images/login/photo_2025-04-15_21-55-31.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+}
+.back-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+
+    background: #2D3F53;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.login-section {
+    flex: 1;
+    padding: 40px;
+}
+.logo-section{
+   
+    display: flex;
+    justify-content: end;
+}
+
+
+.login-form{
+    /* border: 2px red solid; */
+    
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.btn-primary {
+    background-color: #FF6E3B;
+    border: none;
+    color: black;
+}
+.btn-primary:hover {
+    background-color: #e64a19;
+    color: black;
+}
+
+.forgot-link {
+    color: #2D3F53;
+    text-decoration: none;
+}
+
+.password-wrapper {
+    position: relative;
+}
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 55%;
+    /* transform: translateY(-%); */
+    cursor: pointer;
+    
+}
+
+.sign-up{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.sign-up a{
+    color: #FF6E3B;
+    text-decoration: none;
+}
+
+@media (max-width: 400px) {
+    .logo{
+     width: 200px;
+     aspect-ratio: 3/2;
+     justify-content: center;
+    }
+ 
+    .logo-section{
+     justify-content: center;}
+
+     .forgot-link {
+        font-size: .9rem;
+        margin-top: 1px;
+    }
+
+    .form-check-label{
+        font-size: .9rem;
+    }
+ }
+ 

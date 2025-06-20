@@ -1,0 +1,111 @@
+:root {
+  --primary-color: #ff6b35;
+  --font-primary: "Nunito";
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: white;
+}
+.add-donation-btn, .don-export-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+.add-donation-btn:hover, .don-export-btn:hover {
+  background-color: #ff6b35 !important;
+  color: white !important;
+  filter: brightness(120%);
+}
+
+.don-table-head {
+  background-color: #eeeeee;
+  height: 50px;
+  padding: 20px;
+}
+table {
+  width: 100%;
+}
+tr {
+  height: 50px;
+  padding: 1000px;
+  border-bottom: 1px solid #ddd
+}
+tr:hover {
+  background-color: #eeeeee;
+}
+.don-status {
+  border: 1px solid;
+  height: 20px;
+  width: 70px;
+  margin-top: 14px;
+  border-radius: 25px;
+  border: none;
+}
+.don-open {
+  color: white;
+  background-color: rgb(54, 218, 54);
+}
+.don-closed {
+  color: white;
+  background-color: red;
+}
+.don-nav-btn {
+  background: var(--primary-color);
+  width: 30px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+}
+
+.don-nav-right, .don-nav-left {
+  color: #333;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+.btn-group {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: auto !important;
+}
+/* popup */
+.don-dropdown-container {
+  position: relative;
+}
+.don-dropdown-menu {
+  background-color: white;
+  border-radius: 5px;
+  width: 120px;
+  height: 103px;
+  z-index: 12;
+  position: absolute;
+  margin-top: -20px;
+  margin-left: 15px;
+  box-shadow: 0 0 5px 0px #eeeeee;
+  display: none;
+}
+.don-dropdown-menu a {
+  display: flex;
+  font-style: normal;
+  color: black;
+  padding-left: 15px;
+  padding-top: 10px;;
+  width: 100%;
+  text-decoration: none;
+}
+
+.don-dropdown-menu a:hover {
+  background-color: #ddd;
+} 
+/* donation modal */
+.don-modal-body-container {
+  font-family: var(--font-primary) !important;
+}
+
+.modal-don-date, .modal-don-amount {
+  margin-top: -20px;
+}
+hr {
+  margin-top: -20px;
+}
