@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+:root {
+  --header-font: 'Patrick Hand';
+  --body-font: 'Poppins';
+  --primary-color: #F7A234;
+  --secondary-color: rgb(36, 171, 160);
+  --page-background: #F8F4F4;
+}
+
+/* Hero Section */
+.hero-section {
+   background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgb(36, 171, 160, 0.7)),
+    url('/assets/img/community/images/hero_image.jpg');
+}
