@@ -5,16 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="./assets/css/community-2.css" />
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
   </head>
   <body>
-    <section class="hero-section">
+    <!-- HERO SECTION -->
+    <section
+      class="hero-section container-fluid d-flex justify-content-center flex-column align-items-center"
+    >
       <p class="hero-0">Community Members</p>
-      <h2 class="hero-1">Together for Health, Together for Hope</h2>
+      <p class="hero-1">Together for Health, Together for Hope</p>
       <button class="hero-btn">Get Medical Support</button>
     </section>
-    <section class="providers-section">
-      <div class="provider-intro-sect">
-        <div class="provider-text-container">
+    <!-- PROVIDER SECTION -->
+    <section class="providers-section container-fluid">
+      <div
+        class="provider-intro-sect d-md-flex justify-content-md-between align-items-md-center container-fluid"
+      >
+        <div class="provider-text-container container-fluid">
           <p class="provider-text">Health Providers</p>
           <h2 class="provider-text-header">Meet Our Healthcare Providers</h2>
         </div>
@@ -27,7 +34,9 @@
           </p>
         </div>
       </div>
-      <div class="provider-cards-container">
+      <div
+        class="provider-cards-container container-fluid d-flex flex-column justify-content-around align-content-center flex-sm-row"
+      >
         <div class="provider-card">
           <img
             src="./assets/img/community/images/avatar_0.png"
@@ -115,13 +124,18 @@
         </div>
       </div>
     </section>
-    <section class="news-art-section">
-      <div class="news-art-header-container">
+    <!-- NEWS ARTCLE SECTION -->
+    <section class="news-art-section container-fluid pt-5">
+      <div
+        class="news-art-header-container d-flex flex-column flex-md-row px-4"
+      >
         <div class="news-art-text">
           <h2 class="news-art-head">News article</h2>
-          <p class="news-art-subhead">Our Latest News & Articles</p>
+          <p class="news-art-subhead d-block mt-4">
+            Our Latest News & Articles
+          </p>
         </div>
-        <div class="news-art-nav">
+        <div class="news-art-nav mb-3">
           <img
             src="./assets/img/community/icons/left-arrow.png"
             alt="left facing arrow"
@@ -134,7 +148,9 @@
           />
         </div>
       </div>
-      <div class="news-art-card-container">
+      <div
+        class="news-art-card-container container-fluid d-flex flex-column align-items-center justify-content-around flex-md-row"
+      >
         <div class="news-art-card">
           <img
             src="./assets/img/community/images/hero_image.jpg"
@@ -233,19 +249,21 @@
         </div>
       </div>
     </section>
-    <section class="support-section">
+    <!-- SUPPORT SECTION -->
+    <section class="support-section pt-3 pb-3">
       <h2 class="support-title">Get Medical Support</h2>
-      <div class="form-container">
+      <div class="form-container mt-3">
         <form action="" class="form">
-          <input type="text" name="name" placeholder="Name" /> <br />
-          <input type="email" placeholder="Email" /> <br />
+          <input type="text" name="name" placeholder="Name" class="mb-3" />
+          <br />
+          <input type="email" placeholder="Email" class="mb-3" /> <br />
           <textarea
             name="question"
             id="question"
             placeholder="Question"
           ></textarea>
           <br />
-          <input type="button" value="Submit" class="hero-btn" />
+          <input type="button" value="Submit" class="hero-btn form-btn" />
         </form>
       </div>
     </section>

@@ -12,7 +12,6 @@
 /* general styles */
 body {
   background-color: var(--page-background);
-  max-width: 1280px;
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
@@ -23,11 +22,8 @@ body {
   background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgb(36, 171, 160, 0.7)),
     url('/assets/img/community/images/hero_image.jpg');
   background-size: cover;
+  background-position: center center;
   height: 600px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .hero-btn {
@@ -57,20 +53,12 @@ body {
 }
 
 /* provider section */
-.provider-intro-sect {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.provider-intro-sect>* {
-  flex-grow: 0;
-  flex-shrink: 0;
-  width: 50%;
+.provider-text-container {
+  margin-bottom: 55px;
 }
 
 .provider-text {
-  font-family: Poppins;
+  font-family: var(--body-font);
   font-weight: 500;
   font-size: 20px;
 }
@@ -84,7 +72,7 @@ body {
 }
 
 .provider-intro {
-  font-family: Poppins;
+  font-family: var(--body-font);
   font-weight: 400;
   font-size: 20px;
 }
@@ -94,7 +82,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  background-color: #F8F4F4;
 }
 
 .provider-card {
@@ -102,7 +90,7 @@ body {
   width: 230px;
   height: 450px;
   padding-bottom: 15px;
-  font-family: Poppins;
+  font-family: var(--body-font);
   margin-bottom: 50px;
   background-color: white;
   border-top-left-radius: 10px;
@@ -146,7 +134,7 @@ body {
 }
 
 .provider-title {
-  font-family: Poppins;
+  font-family: var(--body-font);
   line-height: 20%;
   font-weight: 400;
   padding: 0 15px;
@@ -161,11 +149,12 @@ body {
 }
 
 /* news article section */
+.news-art-section {
+  background-color: #F8F4F4;
+}
+
 .news-art-card-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px
+  gap: 10px;
 }
 
 .news-art-header-container {
@@ -175,7 +164,7 @@ body {
 }
 
 .news-art-head {
-  font-family: 'Patrick Hand';
+  font-family: var(--header-font);
   font-weight: 400;
   font-size: 40px;
   line-height: 10%;
@@ -236,7 +225,7 @@ body {
   padding: 5px 10px;
   color: white;
   font-size: small;
-  font-family: Poppins;
+  font-family: var(--body-font);
 }
 
 .art-date {
@@ -253,10 +242,11 @@ body {
   font-weight: 400;
   font-size: 28px;
   margin-bottom: 0;
+  margin-top: 25px;
 }
 
 .art-summary {
-  font-family: Poppins;
+  font-family: var(--body-font);
   font-weight: 400;
   font-size: 16px;
   text-align: center;
@@ -285,6 +275,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #F8F4F4;
+  font-family: var(--body-font);
 }
 
 .support-title {
@@ -325,55 +316,6 @@ textarea {
   resize: none;
 }
 
-input[type='button'] {
-  width: 400px
-}
-
-/* media queries  768px */
-@media (max-width: 768px) {
-
-  /* provider section */
-  .provider-intro-sect {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    padding: 10px;
-  }
-
-  .provider-intro-sect>* {
-    width: 100%;
-  }
-
-  .provider-intro {
-    margin-top: -45px;
-  }
-
-  .provider-cards-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-
-  .provider-cards-container>* {
-    flex-grow: 1;
-    flex-basis: auto;
-    flex-wrap: wrap;
-  }
-
-  /* news article section */
-  .news-art-card-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .news-art-header-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
+.form-btn {
+  width: 300px;
 }
