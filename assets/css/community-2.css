@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+:root {
+  --header-font: 'Patrick Hand';
+  --body-font: 'Poppins';
+  --primary-color: #F7A234;
+  --secondary-color: rgb(36, 171, 160);
+  --page-background: #F8F4F4;
+}
+
+/* general styles */
+body {
+  background-color: var(--page-background);
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Hero section */
+.hero-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgb(36, 171, 160, 0.7)),
+    url('/assets/img/community/images/hero_image.jpg');
+  background-size: cover;
+  background-position: center center;
+  height: 600px;
+}
+
+.hero-btn {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  font-family: Poppins;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-family: Poppins;
+  font-weight: 600;
+}
+
+.hero-1,
+.hero-0 {
+  color: white;
+}
+
+.hero-0 {
+  font-family: Poppins;
+  font-size: large;
+}
+
+.hero-1 {
+  font-family: 'Patrick Hand';
+  font-size: 30px;
+}
+
+/* provider section */
+.provider-text-container {
+  margin-bottom: 55px;
+}
+
+.provider-text {
+  font-family: var(--body-font);
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.provider-text-header {
+  font-family: 'Patrick Hand';
+  font-weight: 400;
+  font-size: 40px;
+  margin-top: -20px;
+  color: var(--primary-color);
+}
+
+.provider-intro {
+  font-family: var(--body-font);
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.provider-cards-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F8F4F4;
+}
+
+.provider-card {
+  position: relative;
+  width: 230px;
+  height: 450px;
+  padding-bottom: 15px;
+  font-family: var(--body-font);
+  margin-bottom: 50px;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.provider-hours {
+  font-weight: 500;
+  position: absolute;
+  width: 55px;
+  text-align: center;
+  padding: 2px 1px;
+  font-size: 8px;
+  border-radius: 15px;
+  right: 8px;
+  top: 12px;
+  color: white;
+  background: var(--secondary-color)
+}
+
+.provider-contact {
+  padding: 5px 8px;
+  margin-left: 15px;
+}
+
+.provider-img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 230px;
+}
+
+.provider-name {
+  font-family: 'Patrick Hand';
+  font-weight: 400;
+  font-size: 25px;
+  padding: 0 15px;
+  margin-top: -4px;
+
+}
+
+.provider-title {
+  font-family: var(--body-font);
+  line-height: 20%;
+  font-weight: 400;
+  padding: 0 15px;
+  font-size: 18px;
+}
+
+.provider-details {
+  font-weight: 300;
+  padding: 15px;
+  margin-top: -8px;
+
+}
+
+/* news article section */
+.news-art-section {
+  background-color: #F8F4F4;
+}
+
+.news-art-card-container {
+  gap: 10px;
+}
+
+.news-art-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.news-art-head {
+  font-family: var(--header-font);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 10%;
+  color: var(--primary-color);
+}
+
+.news-art-subhead {
+  font-family: Poppins;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 10%;
+
+}
+
+.right-arrow,
+.left-arrow {
+  width: 45;
+  height: 45;
+  border-radius: 40px;
+  padding: 10px;
+  gap: 10px;
+  border: 1px solid var(--secondary-color);
+
+}
+
+.right-arrow {
+  background-color: var(--secondary-color);
+  margin-left: 10px;
+
+}
+
+.news-art-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 320px;
+  margin-bottom: 25px;
+  background-color: white;
+  border-radius: 8px;
+  padding-bottom: 15px;
+}
+
+.news-art-img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 320px;
+}
+
+.article-details {
+  position: absolute;
+  left: 35px;
+  top: 200px;
+  background: var(--primary-color);
+  border-radius: 10px;
+  text-align: center;
+  padding: 5px 10px;
+  color: white;
+  font-size: small;
+  font-family: var(--body-font);
+}
+
+.art-date {
+  padding: 0 5px;
+  border-left: 2px solid;
+  border-right: 2px solid;
+  margin: 0 2px;
+}
+
+.art-title {
+  color: var(--primary-color);
+  text-align: center;
+  font-family: 'Patrick Hand';
+  font-weight: 400;
+  font-size: 28px;
+  margin-bottom: 0;
+  margin-top: 25px;
+}
+
+.art-summary {
+  font-family: var(--body-font);
+  font-weight: 400;
+  font-size: 16px;
+  text-align: center;
+  padding: 0px 15px;
+
+}
+
+.art-detail-btn {
+  display: flex;
+  text-align: center;
+  padding: 5px 15px;
+  gap: 5px;
+  background-color: var(--secondary-color);
+}
+
+.art-detail-btn img {
+  height: auto;
+  width: 10px;
+}
+
+/* support section */
+.support-section {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #F8F4F4;
+  font-family: var(--body-font);
+}
+
+.support-title {
+  font-family: var(--header-font);
+  color: var(--primary-color);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: 10%;
+
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.form {
+  width: 60%;
+  text-align: center;
+}
+
+input,
+textarea {
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  padding: 20px;
+  background-color: var(--page-background);
+  border: 1px solid black
+}
+
+textarea {
+  width: 100%;
+  height: 200px;
+  resize: none;
+}
+
+.form-btn {
+  width: 300px;
+}
