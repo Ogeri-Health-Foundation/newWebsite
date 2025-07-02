@@ -1,0 +1,71 @@
+.what-hero{
+    background-image: url('../img/what-we-do/hero-2.svg') !important;
+    background-size: cover;
+    background-position: center !important;
+    padding: 60px 0px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    /* border: 2px red solid !important; */
+}
+.stats-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+.stats-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.stats-label {
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.foundation-section {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.foundation-content {
+    color: #333;
+    line-height: 1.8;
+}
+
+.highlight-text {
+    color: #FF6B35;
+    font-weight: bold;
+}
+
+.section-bg {
+     background-image: url('../img/what-we-do/tech-bg.svg');
+    position: relative;
+    overflow: hidden;
+    padding: 200px 0px;
+}
+
+
+
+.content-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
