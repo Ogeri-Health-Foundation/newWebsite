@@ -90,10 +90,10 @@ Version: 1.0.0
 /*------------------- 1.3. Variable-------------------*/
 :root {
   --theme-dark: #122F2A;
-  --theme-color: #2d3f53
+  --theme-color: #24ABA0
   ;
   
-  --theme-color2: #ff6e3b;
+  --theme-color2: #F7A234;
   --title-color: #1F1F1F;
   --body-color: #797E88;
   --smoke-color: #F8F8F8;
@@ -118,8 +118,8 @@ Version: 1.0.0
   --th-border-color4: #353B45;
   --th-border-color5: #49515C;
   --th-border-color6: #383D46;
-  --title-font: "Nunito", sans-serif;
-  --body-font: "Nunito Sans", sans-serif;
+  --title-font: "Patrick Hand", cursive;
+  --body-font: "Poppins", sans-serif;
   --caveat-font: "Caveat", cursive;
   --icon-font: "Font Awesome 6 Pro";
   --main-container: 1290px;
@@ -451,6 +451,22 @@ h6 {
 /*------------------- 1.5. Wordpress Default -------------------*/
 p.has-drop-cap {
   margin-bottom: 20px;
+}
+
+.text-theme2{
+  color: var(--theme-color2);
+}
+
+.text-theme{
+  color: var(--theme-color);
+}
+
+.bg-theme{
+  background-color: var(--theme-color);
+}
+
+.bg-theme2{
+  background-color: var(--theme-color2);
 }
 
 .page--item p:last-child .alignright {
