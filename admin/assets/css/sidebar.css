@@ -1,0 +1,119 @@
+:root {
+    --w: 270px; /* Default sidebar width */
+}
+
+body {
+    height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--w);
+    height: 100%;
+    padding-top: 80px;
+    background: #fff;
+    border-right: 2px solid #ddd;
+    transition: width 0.3s ease-in-out;
+    -webkit-transition: width 0.3s ease-in-out;
+    -moz-transition: width 0.3s ease-in-out;
+    -ms-transition: width 0.3s ease-in-out;
+    -o-transition: width 0.3s ease-in-out;
+}
+
+main {
+    flex-grow: 1;
+    padding: 90px 20px;
+    padding-left: calc(var(--w) + 30px);
+    /* overflow-y: hidden; */
+    background-color: #FBFFFE;
+    transition: padding-left 0.3s ease; /* Smooth transition */
+}
+
+/* Sidebar and Main adjustments for smaller screens */
+@media (max-width: 1200px) {
+    :root {
+        --w: 220px; /* Adjust width for medium screens */
+    }
+}
+
+@media (max-width: 992px) {
+    :root {
+        --w: 180px; /* Further reduce width on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --w: 100px; /* Reduce sidebar width on small screens */
+    }
+
+    main {
+        padding-left: calc(var(--w) + 10px);
+        width: 50%;
+    }
+
+    .sidebar a {
+        gap: 10px; /* Reduce spacing */
+    }
+
+    .sidebar a span {
+        display: none; /* Hide text labels on very small screens */
+    }
+}
+
+@media (max-width: 576px) {
+    :root {
+        --w: 70px; /* Smaller sidebar but still visible */
+    }
+
+    main {
+        padding-left: calc(var(--w) + 10px);
+    }
+
+    .sidebar a {
+        justify-content: center; /* Reduce spacing */
+    }
+}
+
+.sidebar {
+    width: 100%;
+    height: 100%;
+    padding: 20px 10px;
+    transition: width 0.3s ease-in-out;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;  
+    gap: 15px;
+    padding: 10px;
+    color: #2D3F53;
+    text-decoration: none;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar a i {
+    font-size: 20px;
+}
+
+.sidebar a:hover, .activee{
+    background: #2D3F53;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.activee {
+    color: #fff !important;
+    /* background: #2D3F53; */
+
+}
+
+hr {
+    height: 2px !important;
+}

@@ -1,0 +1,36 @@
+.about-logo_link{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.about-logo_link img{
+display: block;
+   height: 150px;
+   width: 150px;
+   /* border:2px solid #ff6e3b; */
+    
+}
+
+.about-logo_text{
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    /* margin-bottom: 1rem; */
+    display: flex;
+    flex-direction: column;
+}
+.about-logo_text span{
+    font-size: .7rem;
+    font-weight: 400;
+    color: #fff;
+}
+
+.about-logo_text h2{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ff6e3b;
+    margin: 0px 0px;
+   
+}
+

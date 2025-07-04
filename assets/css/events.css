@@ -1,0 +1,311 @@
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Patrick Hand", cursive;
+  font-weight: 400;
+  background-color: #f8f4f4;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 700px;
+  overflow: hidden;
+}
+
+.hero-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+.overlay-text p {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+.overlay-text p a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.overlay-text h1 {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 16px;
+}
+
+.breadcrumb svg {
+  margin: 0 4px;
+  vertical-align: middle;
+  fill: white;
+}
+
+/* Discover-impact Section */
+.intro {
+  text-align: center;
+  margin: 50px 100px;
+}
+
+.intro h2 {
+  color: #f7a234;
+  font-size: 36px;
+  text-align: center;
+  line-height: 100%;
+  letter-spacing: 10%;
+  margin-top: 80px;
+  text-transform: uppercase;
+}
+
+.intro p {
+  text-align: center;
+  font-family: var(--text-font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 25px;
+  letter-spacing: 10%;
+  margin-top: 20px;
+  color: var(--color-text);
+}
+
+/* Call to action section */
+.cta {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.cta-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+}
+
+.cta-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 900px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+}
+
+.cta h2 {
+  margin-bottom: 30px;
+  margin-top: -40px;
+}
+
+.cta p {
+  font-size: 18px;
+  margin-bottom: 100px;
+  color: #eee;
+  font-family: var(--text-font-family);
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.donate-btn,
+.volunteer-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.donate-btn {
+  background-color: white;
+  color: var(--button-bg-color);
+}
+
+.donate-btn:hover {
+  background-color: var(--button-bg-color);
+  color: white;
+}
+
+.volunteer-btn {
+  /* background-color: #f16e22; */
+  background-color: var(--button-bg-color);
+  color: white;
+  width: 215px;
+}
+
+/* Responsive Design */
+@media (max-width: 1344px) {
+  .event-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .event-content .event-desc {
+    font-size: 16px;
+  }
+
+  .event-content .event-location,
+  .event-content .event-date {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hero-section {
+    height: 500px;
+  }
+
+  .overlay-text h1 {
+    font-size: 50px;
+  }
+
+  .event-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .event-content .label {
+    font-size: 26px;
+    margin-bottom: 70px;
+  }
+  .event-content .event-desc {
+    font-size: 18px;
+  }
+
+  .event-title {
+    font-size: 20px;
+  }
+
+  .event-content .event-location,
+  .event-content .event-date {
+    font-size: 17px;
+  }
+
+  .cta {
+    height: 400px;
+  }
+
+  .cta p {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 944px) {
+  .event-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .hero-section {
+    height: 400px;
+  }
+
+  .overlay-text h1 {
+    font-size: 33px;
+  }
+
+  .cta {
+    height: 350px;
+  }
+
+  .cta p {
+    font-size: 24px;
+  }
+  .cta h2 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 704px) {
+  .intro {
+    margin: 20px 50px;
+  }
+
+  .intro h1 {
+    font-size: 35px;
+  }
+
+  .intro p {
+    font-size: 19px;
+  }
+
+  .cta {
+    height: 300px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 544px) {
+  .hero-section h1 {
+    font-size: 18px;
+  }
+
+  .hero-section {
+    height: 300px;
+  }
+  .overlay-text h1 {
+    font-size: 24px;
+  }
+
+  .overlay-text p {
+    font-size: 20px;
+  }
+
+  .event-content .label {
+    font-size: 26px;
+    margin-bottom: 47px;
+  }
+  .event-content .event-desc {
+    font-size: 18px;
+  }
+
+  .event-content .event-location,
+  .event-content .event-date {
+    font-size: 15px;
+  }
+
+  .intro {
+    margin: 20px 10px;
+  }
+
+  .intro h1 {
+    font-size: 30px;
+  }
+
+  .cta p {
+    font-size: 20px;
+  }
+  .cta h2 {
+    font-size: 16px;
+  }
+}

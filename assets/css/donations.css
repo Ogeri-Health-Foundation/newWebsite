@@ -1,0 +1,1136 @@
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Patrick Hand", cursive;
+  font-weight: 400;
+  background-color: #f8f4f4;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 700px;
+  overflow: hidden;
+}
+
+.hero-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5);
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.overlay-text p {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.overlay-text h1 {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.donate-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+.donate-btn {
+  background-color: var(--button-bg-color);
+  color: white;
+}
+
+/* Impact section */
+.impact-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.section-subtitle {
+  color: #333;
+  font-size: 20px;
+  margin-bottom: 5px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.section-title {
+  color: #f7a234;
+  font-size: 40px;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.impact-container {
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+}
+
+.impact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 250px;
+  width: 100%;
+}
+
+.impact-circle {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.impact-circle-outline {
+  border: 2px solid #5aa595;
+  background-color: transparent;
+  color: #8c8c8c;
+}
+
+.impact-circle-filled {
+  background-color: #5aa595;
+  border: none;
+  color: #ffffff;
+}
+
+.impact-circle .impact-number {
+  font-size: 26px;
+}
+
+.impact-circle-outline .impact-number {
+  color: #000;
+}
+
+.impact-circle .impact-description {
+  font-size: 18px;
+  width: 75%;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  position: relative;
+  width: 100%;
+  min-height: 130vh;
+  height: 100%;
+  overflow: hidden;
+  overflow-x: hidden;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.background-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4);
+}
+
+.content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1px;
+}
+
+.testimonials-section .section-header {
+  text-align: center;
+  color: #fff;
+  margin-top: 50px;
+  margin-bottom: 40px;
+}
+
+.section-header h1 {
+  font-size: 40px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  color: #f7a234;
+}
+
+.section-header p {
+  font-size: 20px;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.slider-wrapper {
+  overflow: hidden;
+  width: 95%;
+  margin-top: 20px;
+}
+
+.testimonials-container {
+  display: flex;
+  gap: 31px;
+  flex-wrap: nowrap;
+  margin-top: 20px;
+  transition: transform 0.6s ease-in-out;
+  will-change: transform;
+}
+
+.testimonial-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  position: relative;
+  padding: 30px 50px;
+  color: #8c8c8c;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  flex: 0 0 calc(100% / 3 - 30px); /* For 3 cards per slide */
+}
+
+.testimonial-card.colored-card {
+  background-color: #24aba0;
+  color: #fff;
+}
+
+.testimonial-card .quote-icon-wrapper {
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  background-color: #28a745;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial-card .quote-icon-wrapper svg {
+  width: 20px;
+  height: 20px;
+  fill: #fff;
+}
+
+.colored-card .quote-icon-wrapper {
+  background-color: #ffffff;
+}
+
+.colored-card .quote-icon-wrapper svg {
+  fill: #24aba0;
+}
+
+.testimonial-card p {
+  font-size: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-card.colored-card p {
+  color: #fff;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+}
+
+.author-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.author-info .author-name {
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0;
+  color: #333;
+}
+
+.testimonial-card.colored-card .author-info .author-name {
+  color: #fff;
+}
+
+.author-info .author-title {
+  font-size: 0.8em;
+  color: #666;
+  margin: 0;
+}
+
+.testimonial-card.colored-card .author-info .author-title {
+  color: #eee;
+}
+
+.pagination-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: #3cb371;
+  width: 30px;
+  border-radius: 5px;
+}
+
+/* Causes Section */
+.causes-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  overflow: hidden;
+  overflow-x: hidden;
+}
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h2 {
+  color: var(--button-bg-color);
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.header p {
+  color: #000000;
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1135px;
+  width: 100%;
+}
+
+.card {
+  position: relative;
+  background-color: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card img {
+  width: 100%;
+  height: 310px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-tag {
+  background-color: #24aba0;
+  color: #fff;
+  padding: 5px 15px;
+  border-radius: 10px;
+  width: fit-content;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 1;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.card-content h3 {
+  font-size: 30px;
+  color: #000000;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 20px;
+  color: #8c8c8c;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.card-bottom {
+  background-color: #edeaea;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.progress-bar-container {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 15px;
+  height: 20px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--button-bg-color);
+  border-radius: 15px;
+  width: 70%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #ffffff;
+  font-size: 20px;
+  padding-right: 10px;
+}
+
+.amounts {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #333;
+  font-family: "Poppins", sans-serif;
+}
+
+.amounts .label {
+  color: #8c8c8c;
+  font-weight: 400;
+}
+
+.amounts .value {
+  color: black;
+  font-weight: 600;
+}
+
+/* Donate section */
+.donate-section {
+  background-color: #f8f4f4;
+  padding: 50px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.donate-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.donation-form {
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  padding: 10px;
+  max-width: 800px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header .title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.header img {
+  width: 60px;
+  margin-bottom: 15px;
+}
+
+.header h2 {
+  color: var(--button-bg-color);
+  font-size: 2em;
+  margin-bottom: 5px;
+}
+
+.header p {
+  color: #000000;
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+
+.form-section {
+  margin-bottom: 30px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.form-section h3 {
+  color: #333;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 26px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #8c8c8c;
+  font-weight: 500;
+}
+
+.form-group select,
+.form-group input[type="text"],
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1em;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.form-group input[type="text"]::placeholder,
+.form-group textarea::placeholder {
+  color: #000000;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.form-group select {
+  appearance: none; /* To remove default select arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.9H5.4c-7.9%200-11.2%209.4-6.4%2014.2l130.4%20129.2c4.4%204.3%2011.6%204.3%2016%200l130.4-129.2c4.8-4.8%201.6-14.2-6.3-14.2z%22%2F%3E%3C%2Fsvg%3E"); /* Custom arrow */
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 10px;
+}
+
+.amount-options {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.amount-option-btn {
+  background-color: #f0f0f0;
+  border: 1px solid #e0e0e0;
+  padding: 12px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  color: #333;
+  transition: background-color 0.3s, border-color 0.3s;
+  text-align: center;
+}
+
+.amount-option-btn:hover {
+  background-color: #e5e5e5;
+  border-color: #d0d0d0;
+}
+
+.amount-option-btn.selected {
+  background-color: #ff8c00;
+  border-color: #ff8c00;
+  color: #fff;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
+}
+
+.row .form-group {
+  flex: 1;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-button {
+  width: 100%;
+  max-width: 500px;
+  padding: 15px;
+  background-color: var(--button-bg-color);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2em;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px auto 0;
+}
+
+.submit-button:hover {
+  background-color: #e67e00;
+}
+/* Responsive Design */
+@media (max-width: 1344px) {
+  .impact-circle {
+    width: 230px;
+    height: 230px;
+  }
+
+  .donate-section {
+    padding: 40px 20px;
+  }
+
+  .donate-container {
+    width: 100%;
+  }
+
+  /* .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  } */
+
+  .header h2 {
+    font-size: 1.8em;
+  }
+
+  .header p {
+    font-size: 18px;
+  }
+
+  .form-section h3 {
+    font-size: 24px;
+  }
+
+  .form-group label {
+    font-size: 16px;
+  }
+
+  .form-group select,
+  .form-group input[type="text"],
+  .form-group textarea {
+    font-size: 16px;
+  }
+
+  .amount-option-btn {
+    font-size: 16px;
+  }
+
+  .submit-button {
+    font-size: 1.1em;
+  }
+
+  .testimonials-section {
+    height: 150vh;
+  }
+
+  .testimonial-card p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .hero-section {
+    height: 600px;
+  }
+
+  .impact-section {
+    padding: 40px 20px;
+  }
+
+  .impact-container {
+    gap: 35px;
+  }
+
+  .impact-item {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .impact-circle {
+    width: 200px;
+    height: 200px;
+    gap: 20px;
+  }
+
+  .impact-circle .impact-number {
+    font-size: 20px;
+  }
+
+  .impact-circle .impact-description {
+    font-size: 16px;
+  }
+
+  .slider-wrapper {
+    overflow: hidden;
+    width: 90%;
+    margin-top: 20px;
+  }
+
+  .testimonial-card {
+    flex: 0 0 calc(100% / 2 - 30px); /* Tablet */
+  }
+
+  .testimonials-section {
+    height: 130vh;
+  }
+
+  /* .cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  } */
+
+  .header h2 {
+    font-size: 32px;
+  }
+
+  .header p {
+    font-size: 16px;
+  }
+
+  .card-tag {
+    top: 49%;
+    padding: 5px 20px;
+    font-size: 19px;
+  }
+
+  .card-content p {
+    font-size: 25px;
+  }
+
+  .amounts {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 944px) {
+  .hero-section {
+    height: 400px;
+  }
+
+  .overlay-text h1 {
+    font-size: 33px;
+  }
+
+  .impact-section {
+    padding: 30px 10px;
+  }
+
+  .impact-container {
+    gap: 10px;
+  }
+
+  .impact-item {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .impact-circle {
+    width: 180px;
+    height: 180px;
+    gap: 15px;
+  }
+
+  .impact-circle .impact-number {
+    font-size: 16px;
+  }
+
+  .impact-circle .impact-description {
+    font-size: 14px;
+  }
+
+  .donate-section {
+    padding: 30px 15px;
+  }
+
+  .donate-container {
+    width: 100%;
+  }
+
+  .header h2 {
+    font-size: 30px;
+  }
+
+  .header p {
+    font-size: 16px;
+  }
+
+  .card-tag {
+    top: 53%;
+    padding: 5px 20px;
+    font-size: 19px;
+  }
+
+  .card-content h3 {
+    font-size: 25px;
+  }
+
+  .card-content p {
+    font-size: 22px;
+  }
+
+  .amounts {
+    font-size: 16px;
+  }
+
+  .form-section h3 {
+    font-size: 20px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+  }
+
+  .form-group select,
+  .form-group input[type="text"],
+  .form-group textarea {
+    font-size: 14px;
+  }
+
+  .amount-option-btn {
+    font-size: 14px;
+  }
+
+  .submit-button {
+    font-size: 1em;
+    padding: 12px;
+    margin-top: 20px;
+  }
+
+  .slider-wrapper {
+    overflow: hidden;
+    width: 95%;
+    margin-top: 20px;
+  }
+
+  .testimonial-card p {
+    font-size: 17px;
+  }
+
+  .testimonials-section {
+    height: 145vh;
+  }
+}
+
+@media (max-width: 790px) {
+  .impact-section {
+    padding: 20px 10px;
+  }
+
+  .impact-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title {
+    font-size: 30px;
+  }
+
+  .impact-circle {
+    width: 250px;
+    height: 250px;
+  }
+
+  .impact-circle .impact-number {
+    font-size: 20px;
+  }
+
+  .impact-circle .impact-description {
+    font-size: 17px;
+  }
+
+  .card-tag {
+    top: 50%;
+    padding: 5px 20px;
+    font-size: 19px;
+  }
+
+  .slider-wrapper {
+    overflow: hidden;
+    width: 90%;
+    margin-top: 10px;
+  }
+
+  .testimonials-section {
+    height: 140vh;
+  }
+}
+
+@media (max-width: 777px) {
+  .hero-section {
+    height: 350px;
+  }
+  .overlay-text h1 {
+    font-size: 28px;
+  }
+  .overlay-text p {
+    font-size: 18px;
+  }
+
+  .donate-section {
+    flex-direction: column;
+    padding: 30px 10px;
+  }
+
+  .donate-container {
+    width: 100%;
+  }
+
+  .header h2 {
+    font-size: 32px;
+  }
+
+  .header p {
+    font-size: 16px;
+  }
+
+  .form-section h3 {
+    font-size: 22px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+  }
+
+  .form-group select,
+  .form-group input[type="text"],
+  .form-group textarea {
+    font-size: 14px;
+  }
+
+  .amount-options {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .amount-option-btn {
+    font-size: 14px;
+  }
+
+  .submit-button {
+    font-size: 1em;
+  }
+
+  .testimonial-card {
+    padding: 20px;
+  }
+
+  .testimonial-card p {
+    font-size: 16px;
+  }
+
+  .testimonials-section {
+    height: 145vh;
+  }
+}
+
+@media (max-width: 750px) {
+  .cards-container {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 544px) {
+  .hero-section {
+    height: 300px;
+  }
+
+  .overlay-text h1 {
+    font-size: 20px;
+  }
+
+  .overlay-text p {
+    font-size: 18px;
+  }
+
+  .impact-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .impact-item {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .impact-item p {
+    font-size: 16px;
+    width: 90%;
+  }
+
+  .impact-circle {
+    width: 250px;
+    height: 250px;
+  }
+
+  .impact-circle .impact-number {
+    font-size: 22px;
+  }
+
+  .impact-circle .impact-description {
+    font-size: 16px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+  .card img {
+    height: 250px;
+  }
+
+  .card-tag {
+    top: 43%;
+    padding: 5px 20px;
+    font-size: 19px;
+  }
+
+  .amounts {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 10px;
+    justify-content: space-between;
+    font-size: 15px;
+    color: #333;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .amount-options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .amount-option-btn {
+    font-size: 14px;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .donate-section {
+    padding: 20px;
+  }
+
+  .donate-container {
+    width: 100%;
+    max-width: none;
+  }
+
+  .testimonials-section {
+    height: 130vh;
+  }
+
+  .testimonial-card {
+    flex: 0 0 calc(100% - 30px); /* For 1 card per slide */
+    padding: 10px 20px;
+  }
+
+  .testimonial-card p {
+    font-size: 15px;
+    margin-top: 12px;
+  }
+
+  .slider-wrapper {
+    overflow: hidden;
+    width: 90%;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 432px) {
+  .card img {
+    height: 250px;
+  }
+  .card-tag {
+    top: 43%;
+    padding: 5px 20px;
+    font-size: 19px;
+  }
+
+  .card-content p {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 353px) {
+  .card img {
+    height: 250px;
+  }
+  .card-tag {
+    top: 39%;
+    padding: 5px 20px;
+    font-size: 19px;
+  }
+}
