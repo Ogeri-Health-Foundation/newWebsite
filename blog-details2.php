@@ -103,9 +103,7 @@ $addons = array(
 
 <head>
     <?php include 'include/head.php'; ?>
-    <script src="https://kit.fontawesome.com/706f90924a.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/blog.css">
+
 
 </head>
 
@@ -126,278 +124,309 @@ $addons = array(
     <!--==============================
     Breadcumb
 ============================== -->
-    <!-- header section starts -->
-    <section class="header">
-        <img src="<?= $image ?>" class="header-img img-fluid img-responsive" alt="header-img">
-
-        <div class="header-details" class="text-danger">
-            <a href="./" class="text-white text-decoration-none">Home &gt;</a>
-            <span>Blog</span>
-            <h1 class="ohf_font"><?= $blogName ?></h1>
+    <div class="breadcumb-wrapper " data-bg-src="assets/img/about/hero-img.png" data-overlay="theme">
+        <div class="container">
+            <div class="breadcumb-content">
+                <h1 class="breadcumb-title">Blog Details</h1>
+                <ul class="breadcumb-menu">
+                    <li><a href="index.php">Home</a></li>
+                    <li>blog Details</li>
+                </ul>
+            </div>
         </div>
-    </section>
-
-
-
-
-
-
-    <!-- header section ends --><!--==============================
+    </div><!--==============================
     Blog Area
 ==============================-->
-    <section class="blog-container container my-5">
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-8 mt-5">
-                <!-- BLOG LIST starts -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card h-100" style="border: none;border-bottom: 1px solid #c7c7c7;">
-                            <div class="img-section position-relative ratio ratio-16x9">
-                                <img src="<?= $image ?>" class="card-img-top img-fluid" alt="..."
-                                    style="border-bottom: 4px solid sandybrown; object-fit: cover;">
+    <section class="th-blog-wrapper blog-details space-top space-extra2-bottom">
+        <div class="container">
+            <div class="row gx-40">
+                <div class="col-xxl-8 col-lg-7">
+                    <div class="th-blog blog-single">
+                        <div class="blog-img">
+                            <img src="<?= $image ?>" class="w-100" alt="Blog Image">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <a href="blog.php"><i class="fas fa-calendar-days"></i><?= $date ?></a>
+                                <a href="blog.php"><i class="fas fa-tags"></i><?= $category ?></a>
+
                             </div>
-                            <div class="card-body">
-                                <div class="single-date">
-                                    <i class="fa-solid fa-calendar-days text-orange"></i>
-                                    <span class="me-3"><?= $date ?></span>
-                                    <i class="fa-solid fa-square-plus text-orange"></i>
-                                    <span><?= $category ?></span>
-                                </div>
-                                <h5 class="card-title ohf_font mt-3"><?= $blogName ?></h5>
-                                <div class="card-text">
-                                    <?php
-                                    if (!empty($blog_images)) {
-                                        $paragraphs = preg_split('/\r\n\r\n|\n\n|\r\r/', $body);
+                            <h2 class="blog-title"><?= $blogName ?></h2>
 
-                                        if (count($paragraphs) < count($blog_images)) {
-                                            $temp_paragraphs = [];
-                                            foreach ($paragraphs as $p) {
-                                                $sentences = preg_split('/(?<=[.!?])\s+/', $p);
-                                                if (count($sentences) > 3) {
-                                                    $chunks = array_chunk($sentences, rand(3, 4));
-                                                    foreach ($chunks as $chunk) {
-                                                        $temp_paragraphs[] = implode(' ', $chunk);
-                                                    }
-                                                } else {
-                                                    $temp_paragraphs[] = $p;
+                            <blockquote class="bg-white">
+                                <?php
+                                // Only proceed with image insertion if we have images
+                                if (!empty($blog_images)) {
+                                    // Parse the body text into paragraphs (splits on double newlines)
+                                    $paragraphs = preg_split('/\r\n\r\n|\n\n|\r\r/', $body);
+
+                                    // If very few paragraphs but multiple images, we'll need to potentially split paragraphs further
+                                    if (count($paragraphs) < count($blog_images)) {
+                                        $temp_paragraphs = [];
+                                        foreach ($paragraphs as $p) {
+                                            // Split longer paragraphs into sentences
+                                            $sentences = preg_split('/(?<=[.!?])\s+/', $p);
+                                            if (count($sentences) > 3) {
+                                                // Group sentences into smaller paragraphs (3-4 sentences each)
+                                                $chunks = array_chunk($sentences, rand(3, 4));
+                                                foreach ($chunks as $chunk) {
+                                                    $temp_paragraphs[] = implode(' ', $chunk);
                                                 }
-                                            }
-                                            $paragraphs = $temp_paragraphs;
-                                        }
-
-                                        $total_paragraphs = count($paragraphs);
-                                        $image_count = count($blog_images);
-                                        $insertion_points = range(0, $total_paragraphs - 1);
-
-                                        if ($total_paragraphs > 2) {
-                                            array_shift($insertion_points);
-                                            array_pop($insertion_points);
-                                        }
-
-                                        shuffle($insertion_points);
-                                        $insertion_points = array_slice($insertion_points, 0, $image_count);
-                                        sort($insertion_points);
-
-                                        foreach ($paragraphs as $index => $paragraph) {
-                                            echo "<p>" . nl2br($paragraph) . "</p>";
-
-                                            if (in_array($index, $insertion_points)) {
-                                                $img_pos = array_search($index, $insertion_points);
-                                                if (isset($blog_images[$img_pos])) {
-                                                    $img = $blog_images[$img_pos];
-                                                    echo '<img src="' . $img['img_path'] . '" class="d-block w-100 my-4" alt="Blog Image">';
-                                                    if (!empty($img['caption'])) {
-                                                        echo '<figcaption class="text-center mt-2 fst-italic">' . $img['caption'] . '</figcaption>';
-                                                    }
-                                                }
+                                            } else {
+                                                $temp_paragraphs[] = $p;
                                             }
                                         }
+                                        $paragraphs = $temp_paragraphs;
+                                    }
 
-                                        $unused_count = $image_count - count($insertion_points);
-                                        if ($unused_count > 0) {
-                                            echo '<div class="row mt-4">';
-                                            for ($i = count($insertion_points); $i < $image_count; $i++) {
-                                                echo '<div class="col-md-6 mb-4">';
-                                                echo '<img src="' . $blog_images[$i]['img_path'] . '" alt="Blog Image" class="w-100">';
-                                                if (!empty($blog_images[$i]['caption'])) {
-                                                    echo '<figcaption class="text-center mt-2 fst-italic">' . $blog_images[$i]['caption'] . '</figcaption>';
+                                    // Determine insertion points, avoiding consecutive insertions
+                                    $total_paragraphs = count($paragraphs);
+                                    $image_count = count($blog_images);
+
+                                    // Create an array of potential insertion points (after which paragraphs to insert images)
+                                    $insertion_points = range(0, $total_paragraphs - 1);
+                                    // Remove first and last paragraph as insertion points to avoid awkward placement
+                                    if ($total_paragraphs > 2) {
+                                        array_shift($insertion_points); // Remove first paragraph
+                                        array_pop($insertion_points);   // Remove last paragraph
+                                    }
+                                    // Shuffle the insertion points for randomness
+                                    shuffle($insertion_points);
+                                    // Take only as many insertion points as we have images
+                                    $insertion_points = array_slice($insertion_points, 0, $image_count);
+                                    // Sort them back in ascending order for proper content flow
+                                    sort($insertion_points);
+
+                                    // Output the content with images
+                                    foreach ($paragraphs as $index => $paragraph) {
+                                        echo "<p>" . nl2br($paragraph) . "</p>";
+
+                                        // If this paragraph index is in our insertion points, add an image
+                                        if (in_array($index, $insertion_points)) {
+                                            // Find which image to insert (find position in insertion_points array)
+                                            $img_pos = array_search($index, $insertion_points);
+                                            if (isset($blog_images[$img_pos])) {
+                                                $img = $blog_images[$img_pos];
+                                                echo '<div class="blog-inner-img my-4">';
+                                                echo '<img src="' . $img['img_path'] . '" alt="Blog Image" class="w-100" style="width: 100%; height: 270px;">';
+                                                if (!empty($img['caption'])) {
+                                                    echo '<figcaption class="text-center mt-2 fst-italic">' . $img['caption'] . '</figcaption>';
                                                 }
                                                 echo '</div>';
                                             }
+                                        }
+                                    }
+
+                                    // If there are any unused images, add them at the end in a gallery style
+                                    $unused_count = $image_count - count($insertion_points);
+                                    if ($unused_count > 0) {
+                                        echo '<div class="blog-gallery-section mt-4">';
+                                        echo '<div class="row">';
+
+                                        for ($i = count($insertion_points); $i < $image_count; $i++) {
+                                            echo '<div class="col-md-6 mb-4">';
+                                            echo '<div class="blog-gallery-item">';
+                                            echo '<img src="' . $blog_images[$i]['img_path'] . '" alt="Blog Image" class="" style="width: 100%; height: 270px;">';
+                                            if (!empty($blog_images[$i]['caption'])) {
+                                                echo '<figcaption class="text-center mt-2 fst-italic">' . $blog_images[$i]['caption'] . '</figcaption>';
+                                            }
+                                            echo '</div>';
                                             echo '</div>';
                                         }
-                                    } else {
-                                        echo "<p>" . nl2br($body) . "</p>";
+
+                                        echo '</div>'; // end row
+                                        echo '</div>'; // end gallery section
                                     }
+                                } else {
+                                    // If no images, just display the body text as is
+                                    echo "<p>" . nl2br($body) . "</p>";
+                                }
+                                ?>
+                            </blockquote>
+
+                            <!-- <p>We prioritize your security. Our donation process uses the latest encryption technology to protect your personal and financial information. Donate with confidence knowing your data is secure and your contribution is directly benefiting those in need.</p> -->
+                            <div class="share-links clearfix ">
+                                <div class="row justify-content-between">
+                                    <div class="col-md-auto">
+                                        <span class="share-links-title">Tags:</span>
+                                        <div class="tagcloud">
+                                            <a href="blog.php"><?= $category ?></a>
+
+                                        </div>
+                                    </div>
+                                    <?php
+                                    $eventUrl = "https://" . $_SERVER['HTTP_HOST'] . "/event-details.php?id=" . urlencode($blogid);
+                                    $encodedEventUrl = urlencode($eventUrl);
                                     ?>
+                                    <div class="col-md-auto text-xl-end">
+                                        <span class="share-links-title">Share:</span>
+                                        <div class="th-social align-items-center">
+                                            <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $encodedEventUrl ?>" target="_blank">
+                                                <i class="fab fa-facebook-f"></i>
+                                            </a>
+                                            <a href="https://twitter.com/intent/tweet?url=<?= $encodedEventUrl ?>" target="_blank">
+                                                <i class="fab fa-twitter"></i>
+                                            </a>
+                                            <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?= $encodedEventUrl ?>" target="_blank">
+                                                <i class="fab fa-linkedin-in"></i>
+                                            </a>
+                                            <a href="https://api.whatsapp.com/send?text=<?= $encodedEventUrl ?>" target="_blank">
+                                                <i class="fab fa-whatsapp"></i>
+                                            </a>
+                                        </div>
+                                    </div><!-- Share Links Area end -->
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- BLOG LIST ends -->
 
-                <!-- links and social media -->
-                <div class="row mt-4 px-4">
-                    <div class="col-12 col-md-6">
-                        <div class="blog-tags d-flex flex-sm-row flex-column align-items-start">
-                            <h4 class="me-2">Tags:</h4>
-                            <div class="tags">
-                                <a href="blog.php?category=<?= urlencode($category) ?>" class="tag btn text-muted"><?= $category ?></a>
-                            </div>
-                        </div>
                     </div>
-                    <div class="col-12 col-md-6">
-                        <div class="blog-tags d-flex flex-sm-row flex-column align-items-start">
-                            <h4 class="me-2">Share:</h4>
-                            <div class="tags d-flex">
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $encodedEventUrl ?>"
-                                    class="tag btn btn p-0 d-flex align-items-center justify-content-center me-2 rounded-circle btn-1 btn-brands"
-                                    target="_blank">
-                                    <i class="fa-brands fa-facebook-f fs-6"></i>
-                                </a>
-                                <a href="https://twitter.com/intent/tweet?url=<?= $encodedEventUrl ?>"
-                                    class="tag btn btn p-0 d-flex align-items-center justify-content-center me-2 rounded-circle btn-1 btn-brands"
-                                    target="_blank">
-                                    <i class="fa-brands fa-x-twitter fs-6"></i>
-                                </a>
-                                <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?= $encodedEventUrl ?>"
-                                    class="tag btn btn p-0 d-flex align-items-center justify-content-center me-2 rounded-circle btn-1 btn-brands"
-                                    target="_blank">
-                                    <i class="fa-brands fa-linkedin fs-6"></i>
-                                </a>
-                                <a href="https://api.whatsapp.com/send?text=<?= $encodedEventUrl ?>"
-                                    class="tag btn btn p-0 d-flex align-items-center justify-content-center me-2 rounded-circle btn-1 btn-brands"
-                                    target="_blank">
-                                    <i class="fa-brands fa-whatsapp fs-6"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <section class="th-blog-wrapper blog-details space-extra2-bottom">
+                        <div class="container">
+                            <div class="">
+                                <div class="">
+                                    <div class="th-comments-wrap">
+                                        <h2 class="blog-inner-title h4"><i class="far fa-comments"></i> Comments (<span id="comment-count">0</span>)</h2>
+                                        <ul class="comment-list" id="comment-list">
+                                            <!-- Comments will be loaded dynamically here -->
+                                        </ul>
+                                    </div> <!-- Comment end -->
 
-                <!-- comments section -->
-                <div class="row mt-4 px-4">
-                    <div class="col-12">
-                        <h4>Comments <span class="count" id="comment-count">0</span></h4>
-
-                        <div class="comment-list" id="comment-list">
-                            <!-- Comments will be loaded dynamically here -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- leave a reply -->
-                <div class="row my-4">
-                    <div class="col-12 box-shadow p-4">
-                        <h4>Leave a Reply</h4>
-                        <p>Your email address will not be published. Required fields are marked</p>
-                        <form id="comment-form" data-id="<?= $blogid ?>">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <input type="text" id="name" placeholder="Your Name" name="name" class="form-controls" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <input type="email" id="email" placeholder="Your Email" name="email" class="form-controls" required>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <input type="url" id="website" placeholder="Your Website" name="website" class="form-controls">
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <textarea name="message" class="form-controls" id="message" rows="6"
-                                        placeholder="Type a message ..." required></textarea>
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <button type="submit" id="submit" class="form-controls btn-3">SUBMIT COMMENT</button>
+                                    <!-- Comment Form -->
+                                    <div class="th-comment-form" data-id="<?= $blogid ?>" id="comment-form">
+                                        <div class="form-title">
+                                            <h3 class="blog-inner-title h4 mb-2">Leave a Reply</h3>
+                                            <p class="form-text">Your email address will not be published. Required fields are marked</p>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 form-group style-border">
+                                                <input type="text" id="name" placeholder="Your Name" class="form-control">
+                                            </div>
+                                            <div class="col-md-6 form-group style-border">
+                                                <input type="text" id="email" placeholder="Your Email" class="form-control">
+                                            </div>
+                                            <div class="col-12 form-group style-border">
+                                                <input type="text" id="website" placeholder="Website" class="form-control">
+                                            </div>
+                                            <div class="col-12 form-group style-border">
+                                                <textarea id="message" placeholder="Type Your Message" class="form-control"></textarea>
+                                            </div>
+                                            <div class="col-12 form-group mb-0">
+                                                <button id="submit-comment" class="th-btn btn-fw">SUBMIT COMMENT</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                        </div>
+                    </section>
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4 mt-5">
-                <div class="blog-search">
-                    <form action="blog.php" method="GET" class="searchForm">
-                        <input type="search" name="keyword" id="search" placeholder="Enter Keyword..." class="searchInput">
-                        <button type="submit" id="blog-search-btn" class="btn" name="search">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </form>
                 </div>
 
-                <div class="blog-search blog-categories mt-4">
-                    <h4 class="ohf_font text-orange">Categories</h4>
-                    <div class="category-lists">
-                        <?php
-                        $query = "SELECT DISTINCT category FROM blog_posts WHERE status = 'published'";
-                        $stmt = $dbh->prepare($query);
-                        $stmt->execute();
 
-                        while ($category_row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<a href="blog.php?category=' . urlencode($category_row['category']) . '" class="d-flex justify-content-between cat-link btn my-3">';
-                            echo '<div class="cat-title">' . htmlspecialchars($category_row['category']) . '</div>';
-                            echo '<div class="cat-icon"><i class="fa-solid fa-arrow-right"></i></div>';
-                            echo '</a>';
-                        }
-                        ?>
-                    </div>
-                </div>
+                <div class="col-xxl-4 col-lg-5">
+                    <aside class="sidebar-area">
+                        <!-- <div class="widget widget_search  ">
+                            <form class="search-form">
+                                <input type="text" placeholder="Enter Keyword">
+                                <button type="submit"><i class="far fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="widget widget_categories  ">
+                            <h3 class="widget_title">Category</h3>
+                            <ul>
+                                <li>
+                                    <a href="blog.php">Donations</a>
+                                    <span><i class="fas fa-arrow-right"></i></span>
+                                </li>
+                                <li>
+                                    <a href="blog.php">Educations</a>
+                                    <span><i class="fas fa-arrow-right"></i></span>
+                                </li>
+                                <li>
+                                    <a href="blog.php">Fundraising</a>
+                                    <span><i class="fas fa-arrow-right"></i></span>
+                                </li>
+                                <li>
+                                    <a href="blog.php">Foods</a>
+                                    <span><i class="fas fa-arrow-right"></i></span>
+                                </li>
+                                <li>
+                                    <a href="blog.php">Medical Help</a>
+                                    <span><i class="fas fa-arrow-right"></i></span>
+                                </li>
+                                <li>
+                                    <a href="blog.php">Water Support</a>
+                                    <span><i class="fas fa-arrow-right"></i></span>
+                                </li>
+                            </ul>
+                        </div> -->
+                        <div class="widget">
+                            <h3 class="widget_title">Recent Posts</h3>
 
-                <div class="blog-search mt-4">
-                    <h4 class="ohf_font text-orange">Recent Posts</h4>
+                            <div class="recent-post-wrap">
+                                <?php
+                                try {
+                                    if (!isset($dbh)) {
+                                        throw new Exception("Database connection not found.");
+                                    }
 
-                    <?php
-                    $query = "SELECT * FROM blog_posts WHERE status = 'published' ORDER BY published_at DESC LIMIT 3";
-                    $stmt = $dbh->prepare($query);
-                    $stmt->execute();
-
-                    while ($recent_post = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $recent_image = !empty($recent_post['image']) ? "uploads/" . htmlspecialchars($recent_post['image']) : "assets/img/default-image.jpg";
-                        $recent_date = date("F, Y", strtotime($recent_post['published_at']));
-
-                        echo '<div class="related-container-list my-3">';
-                        echo '<div class="related-img">';
-                        echo '<img src="' . $recent_image . '" alt="' . htmlspecialchars($recent_post['blog_title']) . '" class="img-fluid">';
-                        echo '</div>';
-                        echo '<div class="related-content">';
-                        echo '<div class="related-date">';
-                        echo '<i class="fa-solid fa-calendar-days text-orange"></i> &nbsp;';
-                        echo '<span class="date-text">' . $recent_date . '</span>';
-                        echo '</div>';
-                        echo '<h6 class="related-title">';
-                        echo '<a href="blog-details.php?id=' . $recent_post['blog_id'] . '">' . htmlspecialchars($recent_post['blog_title']) . '</a>';
-                        echo '</h6>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                    ?>
-                </div>
-
-                <div class="blog-search mt-4">
-                    <h4 class="ohf_font text-orange">Popular Tags</h4>
-                    <div class="tags mt-3">
-                        <?php
-                        $query = "SELECT category FROM blog_posts WHERE status = 'published' GROUP BY category LIMIT 6";
-                        $stmt = $dbh->prepare($query);
-                        $stmt->execute();
-
-                        while ($tag = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<a href="blog.php?category=' . urlencode($tag['category']) . '" class="tag btn text-muted">' . htmlspecialchars($tag['category']) . '</a>';
-                        }
-                        ?>
-                    </div>
+                                    // Fetch the three most recent events
+                                    $query = "SELECT * FROM blog_posts WHERE status = 'published' ORDER BY published_at DESC LIMIT 3";
+                                    $stmt = $dbh->prepare($query);
+                                    $stmt->execute();
+                                    if ($stmt->rowCount() > 0) {
+                                        while ($event = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                            $eventName = htmlspecialchars($event['blog_title']);
+                                            $eventDate = date("F, Y", strtotime($event['published_at']));
+                                            $image = !empty($event['image']) ? "uploads/" . htmlspecialchars($event['image']) : "assets/img/default-image.jpg";
+                                            $eventid = htmlspecialchars($event['blog_id']);
+                                ?>
+                                            <div class="recent-post">
+                                                <div class="media-img">
+                                                    <a href="blog-details.php?id=<?= $eventid ?>">
+                                                        <img src="<?= $image ?>" alt="Blog Image" />
+                                                    </a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <div class="recent-post-meta">
+                                                        <a href="events.php">
+                                                            <i class="fas fa-calendar-days"></i> <?= $eventDate ?>
+                                                        </a>
+                                                    </div>
+                                                    <h4 class="post-title">
+                                                        <a class="text-inherit" href="event-details.php?id=<?= $eventid ?>">
+                                                            <?= $eventName ?>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                <?php
+                                        }
+                                    } else {
+                                        echo "<p style='font-size: 1.2rem; font-weight: 600;'>No recent posts available.</p>";
+                                    }
+                                } catch (Exception $e) {
+                                    echo "<p>Error fetching recent posts: " . $e->getMessage() . "</p>";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <!-- <div class="widget widget_tag_cloud  ">
+                            <h3 class="widget_title">Popular Tags</h3>
+                            <div class="tagcloud">
+                                <a href="blog.php">Donations</a>
+                                <a href="blog.php">Help</a>
+                                <a href="blog.php">Foods</a>
+                                <a href="blog.php">Educations</a>
+                                <a href="blog.php">Fundraising</a>
+                                <a href="blog.php">Tips</a>
+                            </div>
+                        </div> -->
+                    </aside>
                 </div>
             </div>
         </div>
     </section>
-
-
-
-
-
-
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById("comment-form");
@@ -446,7 +475,10 @@ $addons = array(
 
                 ws.onopen = function() {
                     console.log("WebSocket connection established");
+                    // Reset reconnection attempts on successful connection
                     reconnectAttempts = 0;
+
+                    // Update connection status
                     updateConnectionStatus(true);
 
                     // Send blog ID as the initial message to register this client
@@ -460,10 +492,11 @@ $addons = array(
                         ws.send(message);
                     });
 
+                    // Clear the queue once the messages are sent
                     messageQueue = [];
 
                     // Enable submit button once connection is established
-                    const submitBtn = document.getElementById('submit');
+                    const submitBtn = document.getElementById('submit-comment');
                     if (submitBtn) {
                         submitBtn.disabled = false;
                     }
@@ -471,9 +504,12 @@ $addons = array(
 
                 ws.onclose = function(event) {
                     console.log("WebSocket connection closed", event);
+
+                    // Update connection status
                     updateConnectionStatus(false);
 
-                    const submitBtn = document.getElementById('submit');
+                    // Disable submit button when connection is lost
+                    const submitBtn = document.getElementById('submit-comment');
                     if (submitBtn) {
                         submitBtn.disabled = true;
                     }
@@ -488,7 +524,7 @@ $addons = array(
                         }, RECONNECT_DELAY);
                     } else if (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
                         console.error("Max reconnection attempts reached");
-                        showNotification("Connection lost. Please refresh the page to reconnect.", "error");
+                        alert("Connection lost. Please refresh the page to reconnect.");
                     }
                 };
 
@@ -502,7 +538,7 @@ $addons = array(
                 return ws;
             }
 
-            // Actually initialize the socket
+            // Actually initialize the socket - this was the missing call
             socket = initializeWebSocket();
 
             function createStatusIndicator() {
@@ -529,10 +565,15 @@ $addons = array(
             }
 
             // Handle main comment form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                submitComment();
-            });
+            const submitBtn = document.getElementById('submit-comment');
+            if (submitBtn) {
+                submitBtn.disabled = true; // Disable until connection is ready
+
+                submitBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    submitComment();
+                });
+            }
 
             // Function to handle main comment submission
             function submitComment() {
@@ -540,7 +581,6 @@ $addons = array(
                 const emailInput = document.getElementById('email');
                 const websiteInput = document.getElementById('website');
                 const messageInput = document.getElementById('message');
-                const submitBtn = document.getElementById('submit');
 
                 if (!nameInput || !messageInput) {
                     console.error("Required form fields not found");
@@ -552,7 +592,7 @@ $addons = array(
 
                 // Validate required fields
                 if (!name || !message) {
-                    showNotification("Name and comment are required", "error");
+                    alert("Name and comment are required");
                     return;
                 }
 
@@ -567,7 +607,7 @@ $addons = array(
 
                 // Show loading state
                 submitBtn.disabled = true;
-                submitBtn.value = 'Posting...';
+                submitBtn.innerHTML = 'Posting...';
 
                 sendMessage(comment)
                     .then(() => {
@@ -577,14 +617,10 @@ $addons = array(
                         if (websiteInput) websiteInput.value = '';
                         if (messageInput) messageInput.value = '';
                     })
-                    .catch(err => {
-                        console.error("Error sending comment:", err);
-                        showNotification("Error sending comment. Please try again.", "error");
-                    })
                     .finally(() => {
                         // Reset button state
                         submitBtn.disabled = false;
-                        submitBtn.value = 'SUBMIT COMMENT';
+                        submitBtn.innerHTML = 'Post Comment <i class="fas fa-arrow-right ms-2"></i>';
                     });
             }
 
@@ -593,19 +629,22 @@ $addons = array(
                 return new Promise((resolve, reject) => {
                     const messageJson = JSON.stringify(message);
 
+                    // If the socket is open, send the message directly
                     if (socket.readyState === WebSocket.OPEN) {
                         socket.send(messageJson);
                         console.log("Message sent:", message);
                         resolve();
                     } else {
+                        // Queue the message to send later
                         messageQueue.push(messageJson);
                         console.log("Message queued:", message);
 
+                        // Show notification if connection is not open
                         if (socket.readyState === WebSocket.CLOSED || socket.readyState === WebSocket.CLOSING) {
                             showNotification("Connection lost. Your message will be submitted when connection is restored.", "warning");
                             reject(new Error("WebSocket connection closed"));
                         } else {
-                            resolve();
+                            resolve(); // Connecting state, message is queued
                         }
                     }
                 });
@@ -622,21 +661,32 @@ $addons = array(
                         return;
                     }
 
+                    // Handle different message types
                     switch (data.type) {
                         case 'initial_comments':
                             handleInitialComments(data);
                             break;
 
                         case 'new_comment':
+                            // Store comment author in our map
                             authorMap['comment_' + data.comment_id] = data.name;
+
+                            // Handle a single new comment
                             appendComment(data);
                             incrementCommentCount();
+
+                            // Show a notification
                             showNotification("New comment posted successfully!", "success");
                             break;
 
                         case 'new_reply':
+                            // Store reply author in our map
                             authorMap['reply_' + data.reply_id] = data.name;
+
+                            // Handle a new reply
                             appendReply(data);
+
+                            // Show a notification
                             showNotification("Reply posted successfully!", "success");
                             break;
 
@@ -665,8 +715,10 @@ $addons = array(
                     return;
                 }
 
+                // Clear existing comments
                 commentList.innerHTML = '';
 
+                // First, store all comment and reply authors in our map
                 data.comments.forEach(comment => {
                     authorMap['comment_' + comment.comment_id] = comment.name;
                 });
@@ -677,24 +729,31 @@ $addons = array(
                     });
                 }
 
+                // Now render all comments
                 data.comments.forEach(comment => {
                     appendComment(comment);
                 });
 
+                // After all comments are rendered, add all replies
                 if (data.replies && Array.isArray(data.replies)) {
+                    // Sort replies to ensure parent replies are added before child replies
                     const sortedReplies = sortRepliesByHierarchy(data.replies);
                     sortedReplies.forEach(reply => {
                         appendReply(reply);
                     });
                 }
 
+                // Update comment count
                 updateCommentCount(data.comments.length);
             }
 
+            // Helper function to sort replies so parents come before children
             function sortRepliesByHierarchy(replies) {
+                // First, separate direct replies (to comments) from nested replies (to other replies)
                 const directReplies = replies.filter(reply => !reply.parent_reply_id);
                 const nestedReplies = replies.filter(reply => reply.parent_reply_id);
 
+                // Build a map of parent_reply_id to child replies
                 const replyTree = {};
                 nestedReplies.forEach(reply => {
                     if (!replyTree[reply.parent_reply_id]) {
@@ -703,8 +762,10 @@ $addons = array(
                     replyTree[reply.parent_reply_id].push(reply);
                 });
 
+                // Start with direct replies and build the sorted array
                 const sortedReplies = [...directReplies];
 
+                // Helper function to recursively add child replies
                 function addChildReplies(parentId) {
                     const children = replyTree[parentId] || [];
                     children.forEach(child => {
@@ -713,6 +774,7 @@ $addons = array(
                     });
                 }
 
+                // Add all nested replies in correct order
                 directReplies.forEach(reply => {
                     addChildReplies(reply.reply_id);
                 });
@@ -720,59 +782,43 @@ $addons = array(
                 return sortedReplies;
             }
 
+            // Helper function to append a comment to the list
             function appendComment(comment) {
                 const commentList = document.getElementById('comment-list');
                 if (!commentList) return;
 
-                // Format the date and time
+                const commentItem = document.createElement('li');
+                commentItem.classList.add('th-comment-item');
+                commentItem.setAttribute('data-comment-id', comment.comment_id);
+
+                // Format the date
                 let commentDate = 'Just now';
-                let commentTime = '';
                 if (comment.created_at) {
                     try {
                         const date = new Date(comment.created_at);
-                        commentDate = date.toLocaleDateString('en-US', {
-                            weekday: 'short',
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric'
-                        });
-                        commentTime = date.toLocaleTimeString('en-US', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        });
+                        commentDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
                     } catch (e) {
                         console.warn("Could not parse date:", comment.created_at);
                     }
                 }
 
-                const commentItem = document.createElement('div');
-                commentItem.classList.add('comment-section', 'mt-4');
-                commentItem.setAttribute('data-comment-id', comment.comment_id);
-
                 commentItem.innerHTML = `
-            <div class="comment-img">
-                <img src="assets/img/blog/comment-icon-symbol-design-illustration-vector-removebg-preview.png" class="com-img img-responsive" alt="Comment Author">
-            </div>
-            <div class="comment-area">
-                <h5>${sanitizeHTML(comment.name)}</h5>
-                <span class="date">
-                    <i class="fa-solid fa-calendar-days text-orange"></i>
-                    ${commentDate}
-                </span>
-                <span class="time">
-                    <i class="fa-solid fa-clock text-orange"></i>
-                    ${commentTime}
-                </span>
-                <p class="comment-description mt-2">
-                    ${sanitizeHTML(comment.message)}
-                </p>
-                <div class="reply_and_edit">
-                    <a href="#" class="reply-btn" data-comment-id="${comment.comment_id}" data-author="${sanitizeHTML(comment.name)}">
-                        <i class="fa-solid fa-reply"></i> Reply
-                    </a>
+            <div class="th-post-comment">
+                <div class="comment-avater">
+                    <img src="assets/img/blog/comment-icon-symbol-design-illustration-vector-removebg-preview.png" alt="Comment Author">
+                </div>
+                <div class="comment-content">
+                    <h3 class="name">${sanitizeHTML(comment.name)}</h3>
+                    <span class="commented-on">${commentDate}</span>
+                    <p class="text">${sanitizeHTML(comment.message)}</p>
+                    <div class="reply_and_edit" style="position: absolute; top: 0; right: 0;">
+                        <a href="#" class="reply-btn" data-comment-id="${comment.comment_id}" data-author="${sanitizeHTML(comment.name)}" style="display: flex; align-items: center;">
+                            <i class="fas fa-reply"></i>Reply
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="replies-container" id="replies-${comment.comment_id}"></div>
+            <ul class="children" id="replies-${comment.comment_id}"></ul>
             <div class="reply-form-container" id="reply-form-container-${comment.comment_id}"></div>
         `;
 
@@ -785,11 +831,12 @@ $addons = array(
                         e.preventDefault();
                         const commentId = this.getAttribute('data-comment-id');
                         const authorName = this.getAttribute('data-author');
-                        toggleReplyForm(commentId, authorName, null);
+                        toggleReplyForm(commentId, authorName, null); // null for parent_reply_id
                     });
                 }
             }
 
+            // Helper function to append a reply to its parent comment
             function appendReply(reply) {
                 // Find the parent container - either for a comment or a reply
                 let parentContainer;
@@ -799,6 +846,7 @@ $addons = array(
                     // This is a nested reply to another reply
                     parentContainer = document.getElementById(`nested-replies-${reply.parent_reply_id}`);
                     if (!parentContainer) {
+                        // Create the nested container if it doesn't exist
                         const parentReply = document.querySelector(`[data-reply-id="${reply.parent_reply_id}"]`);
                         if (parentReply) {
                             parentContainer = document.createElement('div');
@@ -810,6 +858,8 @@ $addons = array(
                             return;
                         }
                     }
+
+                    // Get the name of the reply author being replied to
                     repliedToName = authorMap['reply_' + reply.parent_reply_id];
                 } else {
                     // This is a first-level reply to a comment
@@ -818,58 +868,45 @@ $addons = array(
                         console.error(`Replies container for comment ${reply.parent_comment_id} not found`);
                         return;
                     }
+
+                    // Get the name of the comment author being replied to
                     repliedToName = authorMap['comment_' + reply.parent_comment_id];
                 }
 
-                // Format the date and time
+                const replyItem = document.createElement('div');
+                replyItem.classList.add('th-comment-item', 'reply-item');
+                replyItem.setAttribute('data-reply-id', reply.reply_id);
+
+                // Format the date
                 let replyDate = 'Just now';
-                let replyTime = '';
                 if (reply.created_at) {
                     try {
                         const date = new Date(reply.created_at);
-                        replyDate = date.toLocaleDateString('en-US', {
-                            weekday: 'short',
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric'
-                        });
-                        replyTime = date.toLocaleTimeString('en-US', {
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        });
+                        replyDate = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
                     } catch (e) {
                         console.warn("Could not parse date:", reply.created_at);
                     }
                 }
 
-                const replyItem = document.createElement('div');
-                replyItem.classList.add('comment-section', 'mt-4');
-                replyItem.setAttribute('data-reply-id', reply.reply_id);
-
+                // Get replied to name from multiple sources with fallback chain
                 const displayRepliedToName = reply.replied_to_name || repliedToName || "Unknown";
 
                 replyItem.innerHTML = `
-            <div class="comment-img">
-                <img src="assets/img/blog/discussion-icon-symbol-design-illustration-vector-removebg-preview.png" class="com-img img-responsive" alt="Reply Author">
-            </div>
-            <div class="comment-area">
-                <h5>${sanitizeHTML(reply.name)}</h5>
-                <span class="replied-to">replied to ${sanitizeHTML(displayRepliedToName)}</span>
-                <span class="date">
-                    <i class="fa-solid fa-calendar-days text-orange"></i>
-                    ${replyDate}
-                </span>
-                <span class="time">
-                    <i class="fa-solid fa-clock text-orange"></i>
-                    ${replyTime}
-                </span>
-                <p class="comment-description mt-2">
-                    ${sanitizeHTML(reply.message)}
-                </p>
-                <div class="reply_and_edit">
-                    <a href="#" class="nested-reply-btn" data-reply-id="${reply.reply_id}" data-comment-id="${reply.parent_comment_id}" data-author="${sanitizeHTML(reply.name)}">
-                        <i class="fa-solid fa-reply"></i> Reply
-                    </a>
+            <div class="th-post-comment">
+                <div class="comment-avater">
+                    <img src="assets/img/blog/discussion-icon-symbol-design-illustration-vector-removebg-preview.png" alt="Reply Author">
+                </div>
+                <div class="comment-content">
+                    <h3 class="name">${sanitizeHTML(reply.name)}</h3>
+                    <span class="replied-to">replied to ${sanitizeHTML(displayRepliedToName)}</span>
+                    <span class="commented-on">${replyDate}</span>
+                    <p class="text">${sanitizeHTML(reply.message)}</p>
+                    <div class="reply_and_edit" style="position: absolute; top: 0; right: 0;">
+                        <a href="#" class="nested-reply-btn" data-reply-id="${reply.reply_id}" data-comment-id="${reply.parent_comment_id}" data-author="${sanitizeHTML(reply.name)}">
+                            <i class="fas fa-reply"></i> Reply
+                        </a>
+                    </div>
+                    <hr width='100%'>
                 </div>
             </div>
             <div class="reply-form-container" id="reply-form-container-reply-${reply.reply_id}"></div>
@@ -891,7 +928,9 @@ $addons = array(
                 }
             }
 
+            // Function to toggle the reply form
             function toggleReplyForm(commentId, authorName, replyId = null) {
+                // Determine the correct container ID based on whether we're replying to a comment or a reply
                 const containerId = replyId ?
                     `reply-form-container-reply-${replyId}` :
                     `reply-form-container-${commentId}`;
@@ -899,41 +938,45 @@ $addons = array(
                 const replyFormContainer = document.getElementById(containerId);
                 if (!replyFormContainer) return;
 
+                // If there's already an active reply form, close it first
                 if (activeReplyForm && activeReplyForm !== replyFormContainer) {
                     activeReplyForm.innerHTML = '';
                 }
 
+                // Toggle the current reply form
                 if (replyFormContainer.innerHTML === '') {
                     replyFormContainer.innerHTML = `
-                <div class="reply-form" style="margin-top: 30px; background: #f9f9f9; padding: 15px; border-radius: 5px;">
-                    <span style="font-style: italic; font-weight: 600; font-size: 17px;">
-                        <i class="fa-solid fa-reply"></i> Replying to ${sanitizeHTML(authorName)}
-                    </span>
-                    <div class="row mt-3">
-                        <div class="col-md-6 mb-3">
-                            <input type="text" placeholder="Your Name*" class="form-controls reply-name" required>
+                <div class="reply-form" style="margin-top: 30px;">
+                    <a href="#" class="nested-reply-btn">
+                        <i class="fas fa-reply"></i> 
+                    </a>
+                    <span class="" style="font-style: italic; padding: 10px; margin-bottom:50px; font-weight: 600; font-size: 17px;">Replying to ${sanitizeHTML(authorName)}</span>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <input type="text" placeholder="Your Name*" class="form-control reply-name" required>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <input type="email" placeholder="Your Email*" class="form-controls reply-email" required>
+                        <div class="col-md-6 form-group">
+                            <input type="email" placeholder="Your Email*" class="form-control reply-email" required>
                         </div>
-                        <div class="col-12 mb-3">
-                            <textarea placeholder="Your Reply*" class="form-controls reply-message" required></textarea>
+                        <div class="col-12 form-group">
+                            <textarea placeholder="Your Reply*" class="form-control reply-message" required></textarea>
                         </div>
-                        <div class="col-12 mb-3">
-                            <button type="button" class="form-controls btn-3 submit-reply-btn" 
+                        <div class="col-12 form-group">
+                            <button type="button" style="margin-bottom: 10px" class="th-btn submit-reply-btn" 
                                 data-comment-id="${commentId}" 
                                 data-replied-to="${sanitizeHTML(authorName)}"
                                 ${replyId ? `data-reply-id="${replyId}"` : ''}>
-                                Post Reply
+                                Post Reply <i class="fas fa-arrow-right ms-2"></i>
                             </button>
-                            <button type="button" class="form-controls btn-3 cancel-reply-btn" style="background: #f44336; margin-top: 10px;">
-                                Cancel
+                            <button type="button" class="th-btn cancel-reply-btn">
+                                Cancel <i class="fas fa-times ms-2"></i>
                             </button>
                         </div>
                     </div>
                 </div>
             `;
 
+                    // Add event listeners for the new buttons
                     const submitReplyBtn = replyFormContainer.querySelector('.submit-reply-btn');
                     if (submitReplyBtn) {
                         submitReplyBtn.addEventListener('click', function() {
@@ -952,6 +995,7 @@ $addons = array(
                         });
                     }
 
+                    // Auto-focus on name field
                     const nameField = replyFormContainer.querySelector('.reply-name');
                     if (nameField) {
                         setTimeout(() => nameField.focus(), 100);
@@ -964,6 +1008,7 @@ $addons = array(
                 }
             }
 
+            // Function to submit a reply
             function submitReply(commentId, replyId = null, repliedToName = 'Unknown') {
                 const containerId = replyId ?
                     `reply-form-container-reply-${replyId}` :
@@ -986,27 +1031,30 @@ $addons = array(
                 const email = emailInput.value.trim();
                 const message = messageInput.value.trim();
 
+                // Validate required fields
                 if (!name || !email || !message) {
-                    showNotification("Name, email, and reply message are required", "error");
+                    alert("Name, email, and reply message are required");
                     return;
                 }
 
+                // Show loading state
                 if (submitButton) {
                     submitButton.disabled = true;
-                    submitButton.textContent = 'Posting...';
+                    submitButton.innerHTML = 'Posting...';
                 }
 
                 const reply = {
                     type: 'reply',
                     blogId,
                     parent_comment_id: commentId,
-                    parent_reply_id: replyId,
+                    parent_reply_id: replyId, // Will be null for direct replies to comments
                     name,
                     email,
                     message,
-                    replied_to_name: repliedToName
+                    replied_to_name: repliedToName // Add the name of the person being replied to
                 };
 
+                // Store this information locally too, even before the server responds
                 authorMap[`reply_${replyId ? replyId : commentId}`] = name;
 
                 sendMessage(reply)
@@ -1015,15 +1063,19 @@ $addons = array(
                         showNotification("Error sending reply. Please try again.", "error");
                     })
                     .finally(() => {
+                        // Reset button state
                         if (submitButton) {
                             submitButton.disabled = false;
-                            submitButton.textContent = 'Post Reply';
+                            submitButton.innerHTML = 'Post Reply <i class="fas fa-arrow-right ms-2"></i>';
                         }
+
+                        // Clear form and hide it
                         replyFormContainer.innerHTML = '';
                         activeReplyForm = null;
                     });
             }
 
+            // Helper function to increment comment count
             function incrementCommentCount() {
                 const commentCount = document.getElementById('comment-count');
                 if (commentCount) {
@@ -1032,6 +1084,7 @@ $addons = array(
                 }
             }
 
+            // Helper function to set comment count
             function updateCommentCount(count) {
                 const commentCount = document.getElementById('comment-count');
                 if (commentCount) {
@@ -1039,7 +1092,9 @@ $addons = array(
                 }
             }
 
+            // Function to show notification
             function showNotification(message, type = 'info') {
+                // Create notification container if it doesn't exist
                 let notificationContainer = document.getElementById('notification-container');
 
                 if (!notificationContainer) {
@@ -1053,6 +1108,7 @@ $addons = array(
                     document.body.appendChild(notificationContainer);
                 }
 
+                // Create notification element
                 const notification = document.createElement('div');
                 notification.className = `notification notification-${type}`;
                 notification.innerHTML = `
@@ -1062,6 +1118,7 @@ $addons = array(
             </div>
         `;
 
+                // Style based on type
                 let bgColor, textColor;
                 switch (type) {
                     case 'success':
@@ -1081,6 +1138,7 @@ $addons = array(
                         textColor = 'white';
                 }
 
+                // Apply styles
                 notification.style.backgroundColor = bgColor;
                 notification.style.color = textColor;
                 notification.style.padding = '12px';
@@ -1090,6 +1148,7 @@ $addons = array(
                 notification.style.opacity = '0';
                 notification.style.transition = 'opacity 0.3s';
 
+                // Add close button event
                 const closeBtn = notification.querySelector('.notification-close');
                 closeBtn.style.background = 'none';
                 closeBtn.style.border = 'none';
@@ -1106,12 +1165,15 @@ $addons = array(
                     }, 300);
                 });
 
+                // Add to container
                 notificationContainer.appendChild(notification);
 
+                // Fade in
                 setTimeout(() => {
                     notification.style.opacity = '1';
                 }, 10);
 
+                // Auto remove after 5 seconds
                 setTimeout(() => {
                     if (notification.parentNode) {
                         notification.style.opacity = '0';
@@ -1124,6 +1186,7 @@ $addons = array(
                 }, 5000);
             }
 
+            // Helper function to sanitize HTML
             function sanitizeHTML(text) {
                 if (!text) return '';
                 const temp = document.createElement('div');
@@ -1136,95 +1199,34 @@ $addons = array(
             style.textContent = `
         .replied-to {
             font-size: 0.85em;
-            color: #007bff;
+            color: #007bff;  /* Use a blue color to make it stand out */
             display: block;
             margin-top: -5px;
             margin-bottom: 5px;
             font-weight: 500;
         }
         
-        .comment-section {
-            display: flex;
-            gap: 15px;
+        
+        
+        /* Reply form transitions */
+        .reply-form {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+            background-color: #f9f9f9;
             padding: 15px;
-            border-bottom: 1px solid #eee;
+            border-radius: 5px;
+            margin-bottom: 15px;
         }
         
-        .comment-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            overflow: hidden;
+        /* Connection status pulse animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
-        .comment-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .comment-area {
-            flex: 1;
-            position: relative;
-        }
-        
-        .comment-area h5 {
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-        }
-        
-        .date, .time {
-            font-size: 0.8rem;
-            color: #666;
-            margin-right: 10px;
-        }
-        
-        .comment-description {
-            margin-top: 10px;
-            line-height: 1.6;
-        }
-        
-        .reply_and_edit {
-            margin-top: 10px;
-        }
-        
-        .reply-btn, .nested-reply-btn {
-            color: #ff6b00;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        
-        .reply-btn:hover, .nested-reply-btn:hover {
-            text-decoration: underline;
-        }
-        
-        .nested-replies {
-            margin-left: 75px;
-            border-left: 2px solid #ff6b00;
-            padding-left: 15px;
-        }
-        
-        #connection-status {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #ccc;
-            transition: background-color 0.3s;
-            z-index: 1000;
-        }
-        
-        .notification {
-            background-color: #2196F3;
-            color: white;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            opacity: 0;
-            transition: opacity 0.3s;
+        #connection-status.disconnected {
+            animation: pulse 1s infinite;
         }
     `;
             document.head.appendChild(style);
