@@ -627,11 +627,6 @@ Team Area
             </div>
             <div class="row gy-30">
             <?php
-              
-              
-               
-              
-               
               try {
                   // Prepare and execute query
                   $query = "SELECT * FROM volunteer_opportunities WHERE status = 'published' ORDER BY created_at DESC LIMIT 8";
@@ -870,15 +865,15 @@ Team Area
             </div>
         </div>
         <div class="success-message" id="successMessage">
-    <div class="success-content">
-      <div class="success-icon">
-        <i class="fas fa-check"></i>
-      </div>
-      <h3 class="success-title">Application Submitted Successfully!</h3>
-      <p>Thank you for your interest in volunteering with us. We have received your application and will be in touch with you shortly.</p>
-      <button class="success-button" id="closeSuccessBtn">Close</button>
-    </div>
-  </div>
+          <div class="success-content">
+            <div class="success-icon">
+              <i class="fas fa-check"></i>
+            </div>
+            <h3 class="success-title">Application Submitted Successfully!</h3>
+            <p>Thank you for your interest in volunteering with us. We have received your application and will be in touch with you shortly.</p>
+            <button class="success-button" id="closeSuccessBtn">Close</button>
+          </div>
+        </div>
     </section>
 
     <!--==============================

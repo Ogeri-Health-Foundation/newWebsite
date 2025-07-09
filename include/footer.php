@@ -1,5 +1,5 @@
 <div id="alertBox"></div>
-<footer class="footer-wrapper footer-default" data-bg-src="assets/img/bg/footer-default-bg-mask.png">
+<footer class="footer-wrapper footer-default" data-bg-src="assets/img/bg/footer-default-bg-mask.png" style="background-color: rgb(45, 63, 83);">
     
     <div class="footer-bg-shape2 shape-mockup jump" data-top="20%" data-right="0">
         <img src="assets/img/about/testimonial-heart.png" alt="img">

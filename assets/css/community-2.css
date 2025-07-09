@@ -21,7 +21,8 @@ body {
 /* Hero section */
 .hero-section {
   background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgb(36, 171, 160, 0.7)),
-    url('/assets/img/community/images/hero_image.jpg');
+    url('../img/community/images/hero_image.jpg');
+   
   background-size: cover;
   background-position: center center;
   height: 450px;

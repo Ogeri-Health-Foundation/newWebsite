@@ -7,7 +7,7 @@ USE PHPMailer\PHPMailer\Exception;
 
 trait sendMail
     {
-        public function sendMail($email, $otp_link_code){
+        public function sendMail($email, $otp_link_code){ 
 
             $mail = new PHPMailer(true);
     

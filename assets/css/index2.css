@@ -480,3 +480,7 @@
   border-radius: 50%;
   text-align: center;
 }
+
+.texts h4, .texts p {
+  color: white;
+}

@@ -1,23 +1,57 @@
+<?php
+// session_start();
+// require 'api/Database/DatabaseConn.php';
+
+ // Create an instance of DatabaseConn and establish connection
+//  $db = new DatabaseConn();
+//  $dbh = $db->connect();
+?>
+
+<?php
+
+// $page_title = "Ogeri Health Foundation - About";
+
+// $page_author = "Praise!";
+
+// $page_description = "";
+
+// $page_rel = '';
+
+// $page_name = 'Volunteers';
+
+// $customs = array(
+//     "stylesheets" => ["assets/css/about.css"],
+//     "scripts" => ["admin/assets/js/demo.js"]
+// );
+
+// $addons = array(
+//     "stylesheets" => ["https://some-external-url.css"],
+//     "scripts" => ["https://some-external-url.js"]
+// );
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <?php // include 'include/head.php'; ?> 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/volunter-2.css" />
     <title>Volunteer Page</title>
+    
   </head>
   <body>
     <!-- HERO SECTION -->
     <section class="hero-section container-fluid">
-      <div class="hero-text-container container-sm">
+      <div class="hero-text-container">
         <p class="page-title">Volunteers</p>
-        <h4 class="hero-tagline">
+        <h2 class="hero-tagline">
           Every moment you give can change lives. Join our mission to create
           healthier communities.
-        </h4>
+        </h2>
         <a href="#volunteerForm">
           <button class="btn register-btn">Register Now</button>
         </a>
@@ -27,8 +61,8 @@
       </div>
     </section>
     <!-- TESTIMONIAL SECTION -->
-    <section class="container px-4 pb-3">
-      <div class="testimonial-header text-center">
+    <section class="testimonial-section container-fluid">
+      <div class="testimonial-header">
         <h2>Testimonials</h2>
         <p>What People Say About Our Charity</p>
       </div>
@@ -280,16 +314,16 @@
       </div>
     </section>
     <!-- VOLUNTEER SECTION -->
-    <section class="volunteer-section container px-4 py-5">
-      <div class="volunteer-header pb-3 text-center">
+    <section class="volunteer-section">
+      <div class="volunteer-header">
         <h2>Meet Our Volunteer</h2>
-        <p class="">
+        <p>
           Behind every smile, direction, and helping hand is a volunteer making
           a difference. Meet the heroes who make it all happen!
         </p>
       </div>
       <div
-        class="card-container container d-flex flex-column flex-md-row align-items-center justify-content-center"
+        class="card-container container-fluid d-flex flex-column flex-md-row align-items-center justify-content-center"
       >
         <div class="volunteer-card">
           <img
@@ -299,33 +333,33 @@
           />
           <h3>Jason Smith</h3>
           <p>Volunteer</p>
-          <div class="social-icons" id="social-icons">
-            <a href="www.facebook.com" class="volunteer-social">
+          <div class="social-icons">
+            <a href="www.facebook.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/facebook-icon-cycle.png"
                 alt="facebook icon"
               />
             </a>
-            <a href="www.instagram.com" class="volunterr-social">
+            <a href="www.instagram.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/instagram-icon-cycle.png"
                 alt="instagram icon"
               />
             </a>
-            <a href="www.x.com" class="volunteer-social">
+            <a href="www.x.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/x-icon-cycle.png"
                 alt="x icon"
               />
             </a>
-            <a href="www.linkedin.com" class="volunterr-social">
+            <a class="overlay">
               <img
                 src="./assets/img/volunteer/icons/linkedin-icon.png"
                 alt="linkedin icon"
                 class=""
               />
             </a>
-            <a href="www.facebook.com" class="volunteer-social">
+            <a href="www.facebook.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/youtube-icon-cycle.png"
                 alt="youtube icon"
@@ -343,32 +377,32 @@
           <h3>Jason Smith</h3>
           <p>Volunteer</p>
           <div class="social-icons">
-            <a href="www.facebook.com" class="volunteer-social">
+            <a href="www.facebook.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/facebook-icon-cycle.png"
                 alt="facebook icon"
               />
             </a>
-            <a href="www.instagram.com" class="volunteer-social">
+            <a href="www.instagram.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/instagram-icon-cycle.png"
                 alt="instagram icon"
               />
             </a>
-            <a href="www.x.com" class="volunteer-social">
+            <a href="www.x.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/x-icon-cycle.png"
                 alt="x icon"
               />
             </a>
-            <a href="www.linkedin.com" class="volunteer-social">
+            <a class="overlay">
               <img
                 src="./assets/img/volunteer/icons/linkedin-icon.png"
                 alt="linkedin icon"
                 class=""
               />
             </a>
-            <a href="www.facebook.com" class="volunteer-social">
+            <a href="www.facebook.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/youtube-icon-cycle.png"
                 alt="youtube icon"
@@ -386,32 +420,32 @@
           <h3>Jason Smith</h3>
           <p>Volunteer</p>
           <div class="social-icons">
-            <a href="www.facebook.com" class="volunteer-social">
+            <a href="www.facebook.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/facebook-icon-cycle.png"
                 alt="facebook icon"
               />
             </a>
-            <a href="www.instagram.com" class="volunteer-social">
+            <a href="www.instagram.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/instagram-icon-cycle.png"
                 alt="instagram icon"
               />
             </a>
-            <a href="www.x.com" class="volunteer-social">
+            <a href="www.x.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/x-icon-cycle.png"
                 alt="x icon"
               />
             </a>
-            <a href="www.linkedin.com" class="volunteer-social">
+            <a class="overlay">
               <img
                 src="./assets/img/volunteer/icons/linkedin-icon.png"
                 alt="linkedin icon"
                 class=""
               />
             </a>
-            <a href="www.facebook.com" class="volunteer-social">
+            <a href="www.facebook.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/youtube-icon-cycle.png"
                 alt="youtube icon"
@@ -429,32 +463,32 @@
           <h3>Jason Smith</h3>
           <p>Volunteer</p>
           <div class="social-icons">
-            <a href="www.facebook.com" class="volunteer-social">
+            <a href="www.facebook.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/facebook-icon-cycle.png"
                 alt="facebook icon"
               />
             </a>
-            <a href="www.instagram.com" class="volunteer-social">
+            <a href="www.instagram.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/instagram-icon-cycle.png"
                 alt="instagram icon"
               />
             </a>
-            <a href="www.x.com" class="volunteer-social">
+            <a href="www.x.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/x-icon-cycle.png"
                 alt="x icon"
               />
             </a>
-            <a href="www.linkedin.com" class="volunteer-social">
+            <a class="overlay">
               <img
                 src="./assets/img/volunteer/icons/linkedin-icon.png"
                 alt="linkedin icon"
                 class=""
               />
             </a>
-            <a href="www.facebook.com" class="volunteer-social">
+            <a href="www.facebook.com" class="overlay">
               <img
                 src="./assets/img/volunteer/icons/youtube-icon-cycle.png"
                 alt="youtube icon"
@@ -467,22 +501,22 @@
     </section>
     <!-- BENEFIT SECTION -->
     <section
-      class="benefit-section container px-4 py-5 gap-4 d-flex flex-column flex-column-reverse flex-lg-row"
+      class="benefit-section d-flex flex-column flex-column-reverse flex-md-row"
     >
-      <div class="image-container align-self-center">
+      <div class="image-container container-fluid">
         <img
           src="./assets/img/volunteer/img/volunteer-image.png"
           alt=""
-          class=""
+          class="img-fluid"
         />
       </div>
-      <div class="benefit-list">
+      <div class="benefit-list container-fluid">
         <h2 class="benefit-header">Benefits Of Volunteering</h2>
         <p class="benefit-sub-header">
           Volunteering opens doors to new experiences, connections, and
           opportunities.
         </p>
-        <div class="benefit-container">
+        <div class="benefit-container container-fluid">
           <div class="benefit container-fluid">
             <img
               src="./assets/img/volunteer/icons/location-icon-3.png"
@@ -547,13 +581,13 @@
       </div>
     </section>
     <!-- VOLUNTEER OPPORTUNITY SECTION -->
-    <section class="volunteer-opportunity  container px-4 py-5" id="volunteerOp">
+    <section class="volunteer-opportunity" id="volunteerOp">
       <div class="volunteer-op-header">
         <h2>Volunteering Opportunities</h2>
         <p>Find the right place to lend your time, talents, and heart.</p>
       </div>
       <div id="testimonialCarousel" class="carousel slide">
-        <div class="carousel-indicators c-indicator ">
+        <div class="carousel-indicators c-indicator">
           <button
             type="button"
             data-bs-target="#testimonialCarousel"
@@ -580,14 +614,14 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="row citem">
-              <div class="volunteer-op-card col-3 p-0">
+              <div class="volunteer-op-card col-3">
                 <img
                   src="./assets/img/volunteer/img/volunteer-op-img-0.png"
                   alt="image of white man volunteering"
                   class="volunteering-img"
                 />
                 <h3>Role</h3>
-                <p class="px-1">
+                <p>
                   Separated they live in Bookmarks grove right at the coast of
                   the Semantics, a large language ocean Separated they live in
                   Bookmarks grove right at the coast of the Semantics, a large
@@ -611,7 +645,7 @@
                   class="volunteering-img"
                 />
                 <h3>Role</h3>
-                <p class="px-1">
+                <p>
                   Separated they live in Bookmarks grove right at the coast of
                   the Semantics, a large language ocean Separated they live in
                   Bookmarks grove right at the coast of the Semantics, a large
@@ -635,83 +669,7 @@
                   class="volunteering-img"
                 />
                 <h3>Role</h3>
-                <p class="px-1">
-                  Separated they live in Bookmarks grove right at the coast of
-                  the Semantics, a large language ocean Separated they live in
-                  Bookmarks grove right at the coast of the Semantics, a large
-                  language ocean Separated they live in Bookmarks grove right at
-                  the coast of the Semantics, a large language ocean Separated
-                  they live in Bookmarks grove right at the coast of the
-                  Semantics, a large language ocean
-                </p>
-                <button>
-                  Apply Now
-                  <img
-                    src="./assets/img/volunteer/icons/diagonal-arrow-icon.png"
-                    alt="diagonal facing arrow"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="row citem">
-              <div class="volunteer-op-card col-3">
-                <img
-                  src="./assets/img/volunteer/img/volunteer-op-img-0.png"
-                  alt="image of white man volunteering"
-                  class="volunteering-img"
-                />
-                <h3>Role</h3>
-                <p class="px-1">
-                  Separated they live in Bookmarks grove right at the coast of
-                  the Semantics, a large language ocean Separated they live in
-                  Bookmarks grove right at the coast of the Semantics, a large
-                  language ocean Separated they live in Bookmarks grove right at
-                  the coast of the Semantics, a large language ocean Separated
-                  they live in Bookmarks grove right at the coast of the
-                  Semantics, a large language ocean
-                </p>
-                <button>
-                  Apply Now
-                  <img
-                    src="./assets/img/volunteer/icons/diagonal-arrow-icon.png"
-                    alt="diagonal facing arrow"
-                  />
-                </button>
-              </div>
-              <div class="volunteer-op-card col-3">
-                <img
-                  src="./assets/img/volunteer/img/volunteer-op-img-0.png"
-                  alt="image of white man volunteering"
-                  class="volunteering-img"
-                />
-                <h3>Role</h3>
-                <p class="px-1">
-                  Separated they live in Bookmarks grove right at the coast of
-                  the Semantics, a large language ocean Separated they live in
-                  Bookmarks grove right at the coast of the Semantics, a large
-                  language ocean Separated they live in Bookmarks grove right at
-                  the coast of the Semantics, a large language ocean Separated
-                  they live in Bookmarks grove right at the coast of the
-                  Semantics, a large language ocean
-                </p>
-                <button>
-                  Apply Now
-                  <img
-                    src="./assets/img/volunteer/icons/diagonal-arrow-icon.png"
-                    alt="diagonal facing arrow"
-                  />
-                </button>
-              </div>
-              <div class="volunteer-op-card col-3">
-                <img
-                  src="./assets/img/volunteer/img/volunteer-op-img-0.png"
-                  alt="image of white man volunteering"
-                  class="volunteering-img"
-                />
-                <h3>Role</h3>
-                <p class="px-1">
+                <p>
                   Separated they live in Bookmarks grove right at the coast of
                   the Semantics, a large language ocean Separated they live in
                   Bookmarks grove right at the coast of the Semantics, a large
@@ -739,7 +697,7 @@
                   class="volunteering-img"
                 />
                 <h3>Role</h3>
-                <p class="px-1">
+                <p>
                   Separated they live in Bookmarks grove right at the coast of
                   the Semantics, a large language ocean Separated they live in
                   Bookmarks grove right at the coast of the Semantics, a large
@@ -763,7 +721,7 @@
                   class="volunteering-img"
                 />
                 <h3>Role</h3>
-                <p class="px-1">
+                <p>
                   Separated they live in Bookmarks grove right at the coast of
                   the Semantics, a large language ocean Separated they live in
                   Bookmarks grove right at the coast of the Semantics, a large
@@ -787,7 +745,83 @@
                   class="volunteering-img"
                 />
                 <h3>Role</h3>
-                <p class="px-1">
+                <p>
+                  Separated they live in Bookmarks grove right at the coast of
+                  the Semantics, a large language ocean Separated they live in
+                  Bookmarks grove right at the coast of the Semantics, a large
+                  language ocean Separated they live in Bookmarks grove right at
+                  the coast of the Semantics, a large language ocean Separated
+                  they live in Bookmarks grove right at the coast of the
+                  Semantics, a large language ocean
+                </p>
+                <button>
+                  Apply Now
+                  <img
+                    src="./assets/img/volunteer/icons/diagonal-arrow-icon.png"
+                    alt="diagonal facing arrow"
+                  />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row citem">
+              <div class="volunteer-op-card col-3">
+                <img
+                  src="./assets/img/volunteer/img/volunteer-op-img-0.png"
+                  alt="image of white man volunteering"
+                  class="volunteering-img"
+                />
+                <h3>Role</h3>
+                <p>
+                  Separated they live in Bookmarks grove right at the coast of
+                  the Semantics, a large language ocean Separated they live in
+                  Bookmarks grove right at the coast of the Semantics, a large
+                  language ocean Separated they live in Bookmarks grove right at
+                  the coast of the Semantics, a large language ocean Separated
+                  they live in Bookmarks grove right at the coast of the
+                  Semantics, a large language ocean
+                </p>
+                <button>
+                  Apply Now
+                  <img
+                    src="./assets/img/volunteer/icons/diagonal-arrow-icon.png"
+                    alt="diagonal facing arrow"
+                  />
+                </button>
+              </div>
+              <div class="volunteer-op-card col-3">
+                <img
+                  src="./assets/img/volunteer/img/volunteer-op-img-0.png"
+                  alt="image of white man volunteering"
+                  class="volunteering-img"
+                />
+                <h3>Role</h3>
+                <p>
+                  Separated they live in Bookmarks grove right at the coast of
+                  the Semantics, a large language ocean Separated they live in
+                  Bookmarks grove right at the coast of the Semantics, a large
+                  language ocean Separated they live in Bookmarks grove right at
+                  the coast of the Semantics, a large language ocean Separated
+                  they live in Bookmarks grove right at the coast of the
+                  Semantics, a large language ocean
+                </p>
+                <button>
+                  Apply Now
+                  <img
+                    src="./assets/img/volunteer/icons/diagonal-arrow-icon.png"
+                    alt="diagonal facing arrow"
+                  />
+                </button>
+              </div>
+              <div class="volunteer-op-card col-3">
+                <img
+                  src="./assets/img/volunteer/img/volunteer-op-img-0.png"
+                  alt="image of white man volunteering"
+                  class="volunteering-img"
+                />
+                <h3>Role</h3>
+                <p>
                   Separated they live in Bookmarks grove right at the coast of
                   the Semantics, a large language ocean Separated they live in
                   Bookmarks grove right at the coast of the Semantics, a large
@@ -815,7 +849,7 @@
                   class="volunteering-img"
                 />
                 <h3>Role</h3>
-                <p class="px-1">
+                <p>
                   Separated they live in Bookmarks grove right at the coast of
                   the Semantics, a large language ocean Separated they live in
                   Bookmarks grove right at the coast of the Semantics, a large
@@ -839,7 +873,7 @@
                   class="volunteering-img"
                 />
                 <h3>Role</h3>
-                <p class="px-1">
+                <p>
                   Separated they live in Bookmarks grove right at the coast of
                   the Semantics, a large language ocean Separated they live in
                   Bookmarks grove right at the coast of the Semantics, a large
@@ -863,7 +897,7 @@
                   class="volunteering-img"
                 />
                 <h3>Role</h3>
-                <p class="px-1">
+                <p>
                   Separated they live in Bookmarks grove right at the coast of
                   the Semantics, a large language ocean Separated they live in
                   Bookmarks grove right at the coast of the Semantics, a large
@@ -904,7 +938,7 @@
       </div>
     </section>
     <!-- FORM SECTION -->
-    <section class="form-section container-fluid px-4 py-5" id="volunteerForm">
+    <section class="form-section" id="volunteerForm">
       <div class="form-header">
         <h2 class="form-header-title">Volunteering Requirement</h2>
         <p class="section-header-description">
@@ -915,7 +949,7 @@
           generosity.
         </p>
       </div>
-      <div class="form-container container  ">
+      <div class="form-container">
         <div class="mb-3">
           <label for="fullName" class="form-label">Full Name</label>
           <input
@@ -1031,11 +1065,10 @@
         </div>
         <div class="social-link-container mb-3">
           <div class="row">
-            <div class="input-group mb-3 col-12">
+            <div class="input-group mb-3 col-12 col-sm">
               <span class="input-group-text" id="basic-addon1"
                 ><img
                   src="./assets/img/volunteer/icons/facebook-icon-form.png"
-                  class="img-"
                   alt=""
               /></span>
               <input
@@ -1047,8 +1080,8 @@
                 id="facebookUsername"
               />
             </div>
-            <div class="input-group mb-3 col-12">
-              <span class="input-group-text" id="basic-addon2"
+            <div class="input-group mb-3 col-12 col-sm">
+              <span class="input-group-text" id="basic-addon1"
                 ><img
                   src="./assets/img/volunteer/icons/linkedin-icon-form.png"
                   alt=""
@@ -1058,37 +1091,37 @@
                 class="form-control"
                 placeholder="Username"
                 aria-label="Username"
-                aria-describedby="basic-addon2"
+                aria-describedby="basic-addon1"
                 id="linkedUsername"
               />
             </div>
           </div>
           <div class="row">
-            <div class="input-group mb-3 col-12">
-              <span class="input-group-text" id="basic-addon3"
-                ><img src="./assets/img/volunteer/icons/x-icon-form.png" alt="x icon"
+            <div class="input-group mb-3 col-12 col-sm">
+              <span class="input-group-text" id="basic-addon1"
+                ><img src="./assets/img/volunteer/icons/x-icon-form.png" alt=""
               /></span>
               <input
                 type="text"
                 class="form-control"
                 placeholder="Username"
                 aria-label="Username"
-                aria-describedby="basic-addon3"
+                aria-describedby="basic-addon1"
                 id="xUsername"
               />
             </div>
-            <div class="input-group mb-3 col-12">
-              <span class="input-group-text" id="basic-addon4"
+            <div class="input-group mb-3 col-12 col-sm">
+              <span class="input-group-text" id="basic-addon1"
                 ><img
                   src="./assets/img/volunteer/icons/instagram-icon-form.png"
-                  alt="instagram icon"
+                  alt=""
               /></span>
               <input
                 type="text"
                 class="form-control"
                 placeholder="Username"
                 aria-label="Username"
-                aria-describedby="basic-addon4"
+                aria-describedby="basic-addon1"
                 id="instagramUsername"
               />
             </div>
