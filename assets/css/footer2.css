@@ -1,0 +1,155 @@
+footer {
+    background: linear-gradient(to bottom, white, #9c3d7d);
+    padding-bottom: 15px;
+    padding-top: 30px;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  #footer-container {
+    width: 95%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  
+  .footer {
+    width: 32%;
+    font-size: 13px;
+  }
+  
+  .f-h2 {
+    color: #9c3d7d;
+  }
+  
+  .f-p {
+    margin-top: 10px;
+    line-height: 20px;
+  }
+  
+  #social-media {
+    margin-top: 10px;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+  }
+  
+  #social-media img {
+    background-color: #e28225;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 50%;
+  }
+  
+  #f-ul {
+    margin-top: 10px;
+    line-height: 30px;
+    list-style: none;
+  }
+  
+  .f-li a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .f-li a:visited {
+    color: black;
+  }
+  
+  .f-li a:hover {
+    color: #fa8510;
+  }
+  
+  .footer form {
+    background-image: linear-gradient(to bottom, #f8d6ed, #9c3d7d);
+    padding: 20px;
+    border-radius: 8px;
+    font-family: inherit;
+  }
+  
+  .footer form p {
+    margin-top: 15px;
+  }
+  
+  .footer form input,
+  .footer form textarea {
+    width: 100%;
+    border-radius: 8px;
+    padding: 10px;
+    border: none;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  #f-button-div {
+    width: 40%;
+    margin: 20px auto 0px;
+    cursor: pointer !important;
+  }
+  
+  #f-button {
+    width: 100%;
+    background-color: #e28225;
+    color: white;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    cursor: pointer !important;
+  }
+  
+  /* responsive design */
+  @media (max-width: 800px) {
+    .f-h2 {
+      color: #9c3d7d;
+      font-size: 16px;
+    }
+  
+    .f-p {
+      line-height: 15px;
+      font-size: 12px;
+    }
+  
+    #f-contacts {
+      margin-left: 40px;
+    }
+  
+    #social-media img {
+      width: 25px;
+      height: 25px;
+    }
+  
+    #f-ul {
+      line-height: 25px;
+    }
+  
+    .footer form {
+      padding: 15px;
+    }
+  
+    .footer form p {
+      margin-top: 15px;
+    }
+  
+    .footer form input,
+    .footer form textarea {
+      padding: 10px;
+      font-size: 10px;
+    }
+  }
+  
+  @media (max-width: 750px) {
+    #footer-container {
+      flex-direction: column;
+      margin: auto;
+      gap: 40px;
+      width: 80%;
+    }
+  
+    .footer {
+      width: 100%;
+    }
+  
+    #f-contacts {
+      margin-left: 0px;
+    }
+  }
+  
