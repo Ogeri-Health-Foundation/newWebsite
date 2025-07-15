@@ -50,6 +50,7 @@ $addons = array(
 
 </head>
 <body>
+    <?php include 'include/header.php'; ?>
 
     <main>
         <div class="breadcumb-wrapper about-hero">
@@ -72,7 +73,7 @@ $addons = array(
                         <h4 class="text-theme2 text-center text-sm-start">WELCOME TO OGERI HEALTH FOUNDATION</h4>
                         <p class="sub-head my-3 text-dark text-center text-sm-start">We Believe We Can Save More Lives With You </p>
 
-                        <p class="about-text mb-5 px-2 px-sm-0">
+                        <p class="about-text mb-5 px-2 px-sm-0 text-black">
                             The OGERI Health Foundation is committed to improving health and empowering communities across Africa, starting with our impactful initiatives in Nigeria. Through health education, disease prevention, and innovative healthcare programs as  we strive to address critical health challenges and create lasting change. Our journey began in Southeastern Nigeria, where we launched community outreach programs focused on blood pressure screenings, health education, and empowering individuals to take control of their health.
                         </p>
 
@@ -212,8 +213,9 @@ $addons = array(
 
                 <div class="row mt-5">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-3">
-                        <div class="leader-div">
-                            <img src="assets/img/about/outreach-1.svg" alt="" class="leader-img">
+                        <div class="leader-div"  data-aos="flip-left"
+     data-aos-delay="200">
+                            <img src="assets/img/about/outreach-1.svg" alt="" class="leader-img"  >
                             <div class="text-center leader-card">
                                 <p class="text-theme2 leader-name" >Dr Joseph Ekuma Irem</p>
                                 <p class="text-dark mt-1">Chief Operating Officer</p>
@@ -225,8 +227,9 @@ $addons = array(
                         </div>
                     </div>
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-3" >
-                        <div class="leader-div">
-                            <img src="assets/img/about/outreach-1.svg" alt="" class="leader-img">
+                        <div class="leader-div"  data-aos="flip-left"
+     data-aos-delay="200">
+                            <img src="assets/img/about/outreach-1.svg" alt="" class="leader-img" >
                             <div class="text-center leader-card">
                                 <p class="text-theme2 leader-name">Otu Irem</p>
                                 <p class="text-dark mt-1">Outreach Cordinator</p>
@@ -281,7 +284,8 @@ heroes who make it all happen!</p>
                             $twitter = htmlspecialchars($volunteer['twitter']);
                ?>
                     <div class="col-md-6 mb-3" >
-                        <div class="leader-div">
+                        <div class="leader-div"  data-aos="flip-right"
+     data-aos-delay="200">
                             <?php
                                 $primaryPath = "volunteer_uploads/profiles/" . $profilePicture;
                                 $fallbackPath = "admin/assets/images/volunteer-img-uploads/" . $profilePicture;
@@ -529,6 +533,7 @@ heroes who make it all happen!</p>
             </div>
         </section>
     </main>
+    <?php include 'include/footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>

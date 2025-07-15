@@ -34,3 +34,14 @@ display: block;
    
 }
 
+.menu li a {
+    color: white !important;
+}
+
+.about-text{
+    font-size: 1.2rem;
+    color: #fff;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
