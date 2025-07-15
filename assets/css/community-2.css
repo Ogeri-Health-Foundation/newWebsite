@@ -69,58 +69,86 @@ body {
 
 
 .provider-card {
-  position: relative;
-  width: 230px;
-  height: 460px;
-  padding-bottom: 15px;
+  width: 100%;
+  max-width: 260px;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
   font-family: var(--body-font);
-  margin-bottom: 50px;
-  background-color: white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.provider-hours {
-  font-size: 8px;
-  position: absolute;
-  width: 75px;
-  text-align: center;
-  padding: 0;
-  border-radius: 15px;
-  right: 4px;
-  top: 5px;
-  color: white;
-  background: var(--secondary-color)
-}
-
-.provider-contact {
-  padding: 5px 8px;
-  margin-left: 15px;
+.provider-img-wrapper {
+  width: 100%;
+  height: 210px;
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 .provider-img {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.provider-hours {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--secondary-color);
+  color: white;
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+}
+
+.color-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: gray;
+}
+
+.color-indicator.active {
+  background-color: #28a745;
 }
 
 .provider-name {
-  font-family: 'Patrick Hand';
-  font-weight: 800;
-  padding-top: 0.5rem;
-  padding-left: 1rem;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.2rem;
 }
 
- .provider-title {
-  font-family: var(--body-font);
-  margin-top: -1rem;
-  padding-left: 1rem;
+.provider-title {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: #6c757d;
 }
 
 .provider-details {
- margin-top: -0.5rem;
- padding-left: 1rem;
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.provider-contact {
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-top: auto;
 }
 
 /* NEWS ARTICLE SECTION */
@@ -154,35 +182,55 @@ body {
 }
 
 .news-art-card {
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 280px;
   margin-bottom: 25px;
   background-color: white;
   border-radius: 8px;
   padding-bottom: 15px;
+  overflow: hidden;
 }
 
 .news-art-img {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  height: 185px !important;
+  width: 100%;
+  object-fit: cover;
+  /* border: 2px red solid; */
 }
 
 .article-details {
-  position: absolute;
-  font-size: 10px;
-  width: 200px;
-  left: 140px;
-  top: 185px;
-  transform: translate(-50%, -50%);
+  margin-top: -12px; /* pull slightly over the image */
+  padding: 5px 10px;
   background: var(--primary-color);
   border-radius: 10px;
   text-align: center;
   color: white;
   font-family: var(--body-font);
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.art-title {
+  color: var(--primary-color);
+  text-align: center;
+  font-family: 'Patrick Hand';
+  margin: 20px 0 5px;
+}
+
+.art-summary {
+  font-family: var(--body-font);
+  font-weight: 400;
+  text-align: center;
+  padding: 0 15px;
+  margin-bottom: 10px;
 }
 
 .art-date {
@@ -190,22 +238,6 @@ body {
   border-left: 2px solid;
   border-right: 2px solid;
   margin: 0 2px;
-}
-
-.art-title {
-  color: var(--primary-color);
-  text-align: center;
-  font-family: 'Patrick Hand';
-  margin-bottom: 0;
-  margin-top: 25px;
-}
-
-.art-summary {
-  font-family: var(--body-font);
-  font-weight: 400;
-  text-align: center;
-  padding: 0px 15px;
-
 }
 
 .support-title {

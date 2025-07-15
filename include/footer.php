@@ -63,7 +63,7 @@
                             <ul class="menu">
                                 <li><a href="about.php">About Us</a></li>
                                 <li><a href="blog.php">Blogs/Articles</a></li>
-                                <li><a href="index.php#events">Our Events</a></li>
+                                <li><a href="events.php">Our Events</a></li>
                                 <li><a href="contact.php">Privacy Policy</a></li>
                                 <li><a href="contact.php">Contact Us</a></li>
                             </ul>
@@ -78,7 +78,7 @@
                                 <li><a href="donation.php">Give Donation</a></li>
                                 <li><a href="community-member.php">Community Members</a></li>
                                 <li><a href="partnership.php">Partner With Us</a></li>
-                                <li><a href="team.php">Volunteer</a></li>
+                                <li><a href="volunteer.php">Volunteer</a></li>
                             </ul>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
             <div class="row justify-content-center gy-3 align-items-center">
                 <div class="col-lg-12">
                     <p class="copyright-text text-center">
-                        <i class="fal fa-copyright"></i> Copyright 2024 <a href="index.html">The Ogeri Health Foundation</a>. All Rights Reserved.
+                        <i class="fal fa-copyright"></i> Copyright 2024 <a href="index.php">The Ogeri Health Foundation</a>. All Rights Reserved.
                     </p>
                 </div>
             </div>
@@ -126,7 +126,13 @@
     </div>
 </footer>
 
-
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800, // You can adjust duration if needed
+    once: true     // Animate only once when scrolled into view
+  });
+</script>
 <script>
     
 $(document).ready(function () {
@@ -172,4 +178,53 @@ $(document).ready(function () {
             alertDiv.fadeOut(300, () => alertDiv.remove());
         }, 4000);
     }
+</script>
+
+<script>
+// Scroll background effect
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('header');
+  if (window.scrollY > 10) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+});
+
+// Mobile menu toggle
+const menuIcon2 = document.getElementById('menu-icon2');
+const closeIcon = document.getElementById('close-icon');
+const header = document.getElementById('header');
+
+menuIcon2.addEventListener('click', () => {
+  header.style.display = 'flex';
+});
+
+closeIcon.addEventListener('click', () => {
+  header.style.display = 'none';
+});
+
+// Mobile dropdown toggle
+// const getInvolvedBtn = document.getElementById('getInvolvedBtn');
+// const getInvolvedMenu = document.getElementById('getInvolvedMenu');
+
+// getInvolvedBtn.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   getInvolvedMenu.classList.toggle('open');
+// });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleLink = document.getElementById('getInvolvedToggle');
+  const dropdown = document.getElementById('getInvolvedDropdown');
+
+  // Initially hide dropdown
+  dropdown.style.display = 'none';
+
+  toggleLink.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent link navigation
+    dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+  });
+});
 </script>

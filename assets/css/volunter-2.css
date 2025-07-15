@@ -18,8 +18,8 @@ body {
 /* Hero Section */
 .hero-section {
   padding-top: 1.5rem;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgb(36, 171, 160, 0.7)),
-    url('../img/volunteer/img/hero-img.jpg');
+  background-image: 
+    url('../img/volunteer/img/Frame 617.png');
   background-size: cover;
   background-position: center center;
   height: 90vh;
@@ -92,7 +92,15 @@ body {
   border-radius: 15px;
   margin-bottom: 30px;
   background-color: white;
+
 }
+/* .testimonial-text {
+  font-family: var(--body-font);
+  font-weight: 400;
+  text-align: left;
+  font-size: 0.8rem !important;
+  
+} */
 
 .testimonial-footer {
   display: flex;
@@ -109,6 +117,11 @@ body {
 }
 .middle-card {
   background-color: var(--secondary-color);
+}
+
+.middle-card p {
+  color: white;
+  font-weight: 400;
 }
 /* TESTIMONIAL CAROUSEL */
 .citem {
@@ -332,6 +345,11 @@ body {
 }
 
 /* FORM SECTION */
+.section-header-description{
+  /* border: 2px red solid; */
+  width: 70%;
+  margin: 0 auto;
+}
 .form-section {
   font-family: var(--body-font);
 }
@@ -347,13 +365,26 @@ body {
 }
 
 .form-container {
-  max-width: 560px;
+  max-width: 70%;
   margin: auto;
   padding: 30px;
 }
 
 textarea {
   resize: none;
+}
+#errorMessage{
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #ff4d4f;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  z-index: 9999;
+  font-weight: 500;
 }
 
 .file-input-wrapper {

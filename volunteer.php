@@ -37,22 +37,317 @@ $addons = array(
     <?php  include 'include/head.php'; ?> 
     
     <link rel="stylesheet" href="./assets/css/volunter-2.css" />
+    <style>
+      .form-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+    }
     
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #4b5563;
+    }
+    
+    .file-upload {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      /* background-color: #fcfcfc; */
+      transition: all 0.3s ease;
+      cursor: pointer;
+      /* height: 100%; */
+      
+    }
+    
+    .file-upload:hover {
+      border-color: var(--primary-light);
+      background-color: rgba(67, 97, 238, 0.03);
+    }
+    
+    .file-upload input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      cursor: pointer;
+      border: 2px solid red;
+    }
+    
+    .file-upload-icon {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+    }
+    
+    .file-upload-text {
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-align: center;
+    }
+    
+    .file-upload-text strong {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+    
+    .file-name {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--dark);
+      display: none;
+    }
+    
+    /* Image preview */
+    .image-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 1rem auto;
+      border: 3px solid var(--primary-light);
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
+      display: none;
+    }
+    
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .socials-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .social-input-group {
+      display: flex;
+      align-items: center;
+      flex: 1 1 calc(50% - 0.5rem);
+    }
+    
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      background-color: #f8f9fa;
+      border: 1px solid var(--border);
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      color: #4b5563;
+    }
+    
+    .social-input-group .form-control {
+      border-radius: 0 8px 8px 0;
+      flex: 1;
+    }
+    
+    .skills-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      min-height: 48px;
+      background-color: #fcfcfc;
+    }
+    
+    .skill-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      background-color: var(--theme-color);
+      color: white;
+      border-radius: 50px;
+      font-size: 0.875rem;
+    }
+    
+    .skill-tag .remove-skill {
+      margin-left: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .skill-input {
+      flex: 1;
+      min-width: 100px;
+      border: none;
+      outline: none;
+      background: transparent;
+      padding: 0.25rem;
+      font-size: 1rem;
+    }
+    
+    .submit-btn {
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      text-align: center;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(67, 97, 238, 0.3);
+    }
+    
+    /* Success Message Styling */
+    .success-message {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .success-content {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      animation: slide-up 0.4s ease-out;
+    }
+    
+    @keyframes slide-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background-color: #4ade80;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    
+    .success-icon i {
+      color: white;
+      font-size: 2.5rem;
+    }
+    
+    .success-title {
+      font-size: 1.5rem;
+      color: var(--dark);
+      margin-bottom: 1rem;
+    }
+    
+    .success-message p {
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
+    
+    .success-button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .success-button:hover {
+      background-color: var(--dark);
+    }
+    
+    /* Resume file icon */
+    .resume-icon {
+      display: none;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    
+    .resume-icon i {
+      font-size: 2rem;
+      color: #6b7280;
+    }
+
+    .checklist ul{
+      padding-left: 0.5rem;
+    }
+    
+    .resume-file-name {
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      color: var(--dark);
+    }
+    
+    @media (max-width: 768px) {
+      .volunteer-container {
+        padding: 1.5rem;
+        margin: 1rem;
+      }
+      
+      .form-group.half-width {
+        flex: 1 1 100%;
+      }
+      
+      .social-input-group {
+        flex: 1 1 100%;
+      }
+    }
+ 
+    </style>
   </head>
   <body>
     <!-- HERO SECTION -->
     <section class="hero-section container-fluid">
       <div class="hero-text-container container-sm">
-        <p class="page-title">Volunteers</p>
-        <h4 class="hero-tagline">
+        <p class="page-title text-white fs-4">Volunteers</p>
+        <h4 class="hero-tagline text-white">
           Every moment you give can change lives. Join our mission to create
           healthier communities.
         </h4>
         <a href="#volunteerForm">
-          <button class="btn register-btn">Register Now</button>
+          <button class="btn register-btn text-white">Register Now</button>
         </a>
         <a href="#volunteerOp">
-          <button class="btn discover-btn">Discover Opportunities</button>
+          <button class="btn discover-btn text-white">Discover Opportunities</button>
         </a>
       </div>
     </section>
@@ -103,7 +398,7 @@ $addons = array(
                     alt="quote icon image"
                   />
                 </div>
-                <p>
+                <p class="testimonial-text">
                   Lorem ipsum dolor sit amet, consecte tur adipiscing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                   Lorem ipsum dolor sit amet, consecte tur adipiscing elit, sed
@@ -536,13 +831,13 @@ $addons = array(
                         />
                         <h3><?= $title ?></h3>
                         <p class="px-1"><?= substr($description, 0, 180) ?>...</p>
-                        <button>
+                        <a class="th-btn" href="#volunteerForm">
                           Apply Now
                           <img
                             src="./assets/img/volunteer/icons/diagonal-arrow-icon.png"
-                            alt="arrow icon"
+                            alt="arrow icon" class="ms-2"
                           />
-                        </button>
+                        </a>
                       </div>
                       <?php
                   }
@@ -571,7 +866,7 @@ $addons = array(
       </div>
     </section>
     <!-- FORM SECTION -->
-    <section class="form-section container-fluid px-4 py-5" id="volunteerForm">
+    <section class="form-section container px-4 py-5" id="volunteerFormSection">
       <div class="form-header">
         <h2 class="form-header-title">Volunteering Requirement</h2>
         <p class="section-header-description">
@@ -582,8 +877,10 @@ $addons = array(
           generosity.
         </p>
       </div>
+      
+
       <div class="form-container container  ">
-        <form action="volunteer-form-script.php" method="POST" class="volunteer-form" enctype="multipart/form-data" id="volunteerForm">
+        <form  method="POST" class="volunteer-form" enctype="multipart/form-data" id="volunteerForm">
           <div class="mb-3">
             <label for="fullName" class="form-label">Full Name</label>
             <input
@@ -615,6 +912,7 @@ $addons = array(
             />
           </div>
           <div class="mb-3">
+            <label for="profession" class="form-label">Select Your Gender</label>
             <select
               class="form-select"
               aria-label="Default select example"
@@ -627,13 +925,14 @@ $addons = array(
             </select>
           </div>
           <div class="mb-3">
+
             <label for="homeAddress" class="form-label">Home address</label>
             <input
               type="text"
               class="form-control"
               id="address"
               name="home_address"
-              placeholder="name@example.com"
+              placeholder="Enter your complete home address"
             />
           </div>
           <div class="mb-3">
@@ -647,6 +946,7 @@ $addons = array(
             />
           </div>
           <div class="mb-3">
+            <label for="profession" class="form-label">Role</label>
             <select
               class="form-select"
               aria-label="Default select example"
@@ -676,6 +976,7 @@ $addons = array(
                 <img src="" alt="Profile Preview" id="previewImg">
               </div>
               <div id="profile-upload" class="file-upload">
+                <input type="file" name="profile_picture" id="profile_picture" accept="image/*">
                 <img src="./assets/img/volunteer/icons/avatar-icon.png" alt="" />
                 <p>
                   Drag and drop your photo or
@@ -685,21 +986,18 @@ $addons = array(
               </div>
             </div>
           </div>
-          <div class="mb-3">
-            <label for="resume" class="form-label">Resume/CV</label>
-            <div class="file-input-wrapper resumeWrapper" id="resume-upload">
-              <input type="file" class="form-control" id="resume" name="resume" hidden />
-              <div id="resumeCustomBtn">
-                <img
-                  src="./assets/img/volunteer/icons/doc-icon.png"
-                  alt="documnt icon"
-                />
-                <p>
-                  Drag and drop your photo or
-                  <span class="browse-text">browse</span> PDF, DOC or
-                  DOCX(max.5MB)
-                </p>
+          <div class="form-group full-width mb-3">
+            <label class="form-label">Resume/CV</label>
+            <div class="file-upload bg-white" id="resume-upload">
+              <input type="file" name="resume" id="resume" accept=".pdf,.doc,.docx">
+              <div class="file-upload-icon">
+                <i class="fas fa-file-alt"></i>
               </div>
+              <p class="file-upload-text">Drag and drop your resume or <strong>browse</strong><br>PDF, DOC or DOCX (max. 5MB)</p>
+            </div>
+            <div class="resume-icon" id="resumeIcon">
+              <i class="fas fa-file-pdf"></i>
+              <p class="resume-file-name" id="resume-file-name"></p>
             </div>
           </div>
           <div class="mb-3">
@@ -800,13 +1098,15 @@ $addons = array(
               placeholder="Share you motivation for volunteering with us."
             ></textarea>
           </div>
-          <input
-            type="button"
-            value="Submit Application"
-            class="btn btn-primary form-btn"
-          />
+          <button
+            id="submitBtn"
+            type="submit"
+            
+            class="th-btn style3 d-block mx-auto w-75"
+          >Submit Application</button>
         </form>
       </div>
+      <div id="errorMessage"></div>
       <div class="success-message d-none" id="successMessage">
           <div class="success-content">
             <div class="success-icon">
@@ -904,51 +1204,86 @@ $addons = array(
     function updateHiddenField() {
       skillsHidden.value = skills.join(',');
     }
-    
-    // Form submission handling
-    document.getElementById('volunteerForm').addEventListener('submit', function(e) {
-      e.preventDefault(); // Prevent actual form submission for demo purposes
-      
-      // Show success message
-      // document.getElementById('successMessage').style.display = 'flex';
-      
-      // In a real implementation, you would submit the form data via AJAX here
-      const formData = new FormData(this);
-      fetch('https://ogerihealth.org/api/v1/post_volunteer.php', {
+    function showError(message) {
+        const errorBox = document.getElementById('errorMessage');
+        errorBox.textContent = message;
+        errorBox.style.display = 'block';
+
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          errorBox.style.display = 'none';
+        }, 5000);
+      }
+      function clearPreviewAndSkills() {
+        const imagePreview = document.getElementById('imagePreview');
+        const resumeIcon = document.getElementById('resumeIcon');
+        const profileFileName = document.getElementById('profile-file-name');
+        const resumeFileName = document.getElementById('resume-file-name');
+
+        if (imagePreview) imagePreview.style.display = 'none';
+        if (resumeIcon) resumeIcon.style.display = 'none';
+        if (profileFileName) {
+          profileFileName.textContent = '';
+          profileFileName.style.display = 'none';
+        }
+        if (resumeFileName) {
+          resumeFileName.textContent = '';
+          resumeFileName.style.display = 'none';
+        }
+
+        // Clear skill tags
+        const skillTags = document.querySelectorAll('.skill-tag');
+        skillTags.forEach(tag => {
+          skillsContainer.removeChild(tag);
+        });
+
+        skills.length = 0;
+        updateHiddenField();
+      }
+   document.addEventListener('DOMContentLoaded', function () {
+  const volunteerForm = document.getElementById('volunteerForm');
+  const successMessage = document.getElementById('successMessage');
+  const errorMessageBox = document.getElementById('errorMessage'); // <- We'll add this too
+
+  if (volunteerForm) {
+    volunteerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(volunteerForm);
+
+      fetch('api/v1/post_volunteer.php', {
         method: 'POST',
-        body: formData
+        body: formData,
       })
-      .then(response => response.json())
-      .then(data => {
-        // Show success message
-        document.getElementById('successMessage').style.display = 'flex';
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('There was an error submitting your application. Please try again.');
-      });
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === 'success') {
+            document.getElementById('successMessage').style.display = 'flex';
+            successMessage.classList.remove('d-none'); // Show success box
+            volunteerForm.reset(); 
+             clearPreviewAndSkills();
+          } else {
+            showError(data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          showError('There was an error submitting your application. Please try again.');
+        });
     });
+  }
+});
+
     
     // Close success message
-    document.getElementById('closeSuccessBtn').addEventListener('click', function() {
+    document.getElementById('closeSuccessBtn').addEventListener('click', function () {
       document.getElementById('successMessage').style.display = 'none';
-      document.getElementById('volunteerForm').reset(); // Reset form after successful submission
+      document.getElementById('volunteerForm').reset();
+
       
-      // Reset preview elements
-      document.getElementById('imagePreview').style.display = 'none';
-      document.getElementById('resumeIcon').style.display = 'none';
-      document.getElementById('profile-file-name').style.display = 'none';
-      
-      // Clear skills
-      const skillTags = document.querySelectorAll('.skill-tag');
-      skillTags.forEach(tag => {
-        skillsContainer.removeChild(tag);
-      });
-      skills.length = 0;
-      updateHiddenField();
     });
   </script>
-  <script>
+  <!-- <script>
     $(document).ready(function () {
         $(".ajax-contact").off("submit").on("submit", function (e) {
             e.preventDefault(); // Prevent default form submission
@@ -1007,7 +1342,7 @@ $addons = array(
             }, 4000);
         }
     });
-    </script>
+    </script> -->
     <script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
     <!-- Swiper Js -->
     <script src="assets/js/swiper-bundle.min.js"></script>

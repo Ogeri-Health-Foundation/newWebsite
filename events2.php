@@ -20,7 +20,7 @@ $page_rel = '';
 $page_name = 'events2.php';
 
 $customs = array(
-  "stylesheets" => ["assets/css/demo.css"],
+  "stylesheets" => ["assets/css/events.css"],
   "scripts" => ["admin/assets/js/demo.js"]
 );
 
@@ -35,11 +35,11 @@ $addons = array(
 <html class="no-js" lang="zxx" dir="ltr">
 
 <head>
-  <?php include 'include/header2.php'; ?>
-  <title>Our Events</title>
+    <?php include 'include/head.php'; ?>
 </head>
 
 <body>
+     <?php include 'include/header2.php'; ?>
   <section class="hero-section">
     <img src="./assets/img/event-hero-banner.jpg" alt="" />
     <div class="overlay-text">

@@ -95,18 +95,22 @@
     <!-- Theme Custom CSS -->
    
     <link rel="stylesheet" href="<?php echo $page_rel; ?>assets/css/footer.css"> 
-    <link rel="stylesheet" href="./assets/css/header2.css">
+    <link rel="stylesheet" href="<?php echo $page_rel; ?>assets/css/header.css">
     <!-- <link rel="stylesheet" href="./assets/css/footer2.css"> -->
-    <!-- <link rel="stylesheet" href="<?php echo $page_rel; ?>assets/css/index2.css"> -->
+   <!-- <link rel="stylesheet" href="<?php echo $page_rel; ?>assets/css/index2.css">  -->
     <!-- <link rel="stylesheet" href="./assets/css/contactUs.css"> -->
     <!-- <link rel="stylesheet" href="./assets/css/events.css" /> -->
-    <link rel="stylesheet" href="<?php echo $page_rel; ?>assets/css/donations.css" />
+    <!-- <link rel="stylesheet" href="<?php echo $page_rel; ?>assets/css/donations.css" /> -->
     <!-- <link rel="stylesheet" href="./assets/css/volunteer-details.css"> -->
     <!-- <link rel="stylesheet" href="./assets/css/partnership.css"> -->
      <link rel="stylesheet" href="<?php echo $page_rel; ?>assets/css/style.css">
-     <script
+     <!-- Font Awesome 6 (CDN link) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+     <!-- <script
         src="https://kit.fontawesome.com/47c9f80a38.js"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <?php
