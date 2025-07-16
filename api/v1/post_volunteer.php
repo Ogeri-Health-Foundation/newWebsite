@@ -4,19 +4,19 @@ require_once '../Database/DatabaseConn.php';
 class VolunModel extends DatabaseConn {
     public function insertVolunteer($data) {
 
-        $RandId = bin2hex(random_bytes(10));
+       
         try {
             $stmt = $this->connect()->prepare("INSERT INTO volunteers (
-                    volunteer_id, name, email, phone, gender, home_address, profession, role,
+                     name, email, phone, gender, home_address, profession, role,
                     profile_picture, resume, bio, linkedin, twitter, facebook,
                     instagram, skills, motivation
                 ) VALUES (
-                    :volunteer_id, :name, :email, :phone, :gender, :home_address, :profession, :role,
+                     :name, :email, :phone, :gender, :home_address, :profession, :role,
                     :profile_picture, :resume, :bio, :linkedin, :twitter, :facebook,
                     :instagram, :skills, :motivation
                 )");
             
-            $stmt->bindParam(':volunteer_id', $RandId);
+        
             $stmt->bindParam(':name', $data['name']);
             $stmt->bindParam(':email', $data['email']);
             $stmt->bindParam(':phone', $data['phone']);

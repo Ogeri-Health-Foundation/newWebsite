@@ -1,0 +1,342 @@
+/* ========== GLOBAL STYLES ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgba(248, 244, 244, 1);
+  font-family: "Poppins", sans-serif;
+}
+
+/* ========== HEADER ========== */
+header {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  left: 50%;
+  top: 50px;
+  transform: translate(-50%, -50%);
+  z-index: 10 !important;
+  border-radius: 20px;
+  padding: 0 10px !important;
+  height: 80px;
+}
+
+/* ========== LOGOS ========== */
+#logo {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+}
+
+#logo2 {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: white;
+  display: none;
+}
+
+#menu-icon2 {
+  background: white;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  display: none;
+}
+
+/* ========== NAVIGATION ========== */
+#nav-ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.nav-list a {
+  color: white !important;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-list a:visited {
+  color: white !important;
+}
+
+.nav-list a:hover {
+  color: #f15a24 !important;
+}
+
+#nav-ul a.active {
+  border-bottom: 2px solid #f15a24;
+}
+
+/* ========== BUTTON ========== */
+header button,
+#getInvolvedBtn {
+  background-color: rgb(247, 162, 52);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif !important;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#getInvolvedBtn {
+  width: 100%;
+}
+
+/* ========== MENU ICONS ========== */
+#menu-icon {
+  width: 25px;
+  display: none;
+}
+
+#close-icon {
+  display: none;
+}
+
+/* ========== DROPDOWN ========== */
+.menu-item-has-children {
+  position: relative;
+}
+
+.sub-menu,
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  padding: 10px 0;
+  list-style: none;
+  top: 100%;
+  left: 0;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.sub-menu li a,
+.dropdown-content li a {
+  display: flex;
+  align-items: center !important;
+  padding: 10px 20px;
+  color: #333;
+  text-decoration: none;
+}
+
+/* .sub-menu li a:hover,
+.dropdown-content li a:hover {
+  background-color: #f15a24;
+  color: white;
+} */
+
+.menu-item-has-children:hover .sub-menu,
+.dropdown:hover .dropdown-content,
+.dropdown.open .dropdown-content {
+  display: flex;
+}
+
+/* ========== SCROLL HEADER ========== */
+.scrolled {
+  background-color: var(--theme-color) !important;
+  transition: background-color 0.3s ease;
+  padding: 10px 0;
+}
+
+/* ========== SCROLL TO TOP BUTTON ========== */
+#scrollToTopBtn {
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 99;
+  background-color: #f15a24;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 10px 14px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+#scrollToTopBtn:hover {
+  background-color: #d3471b;
+}
+
+/* ========== TOP MOBILE BAR ========== */
+
+
+/* ========== MODAL ========== */
+.modal-content {
+  padding: 20px;
+}
+
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+
+/* < 850px */
+@media (max-width: 850px) {
+  #top-mobile-bar {
+  background-color: rgba(255, 255, 255, 0.308);
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 90px;
+}
+  #logo {
+    display: none;
+  }
+
+  #menu-icon {
+    display: none;
+  }
+
+  #close-icon {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 40px;
+    font-size: 28px;
+    color: white;
+    z-index: 10100;
+  }
+
+  header {
+    top: 320px !important;
+    flex-direction: column !important;
+    gap: 25px;
+    background-color: #9c3d7d !important;
+    border-bottom-left-radius: 250px;
+    border-top-right-radius: 50px;
+    padding: 40px 0;
+    display: none;
+    justify-content: center;
+    height: 450px;
+  }
+
+  #logo2,
+  #menu-icon2 {
+    display: block;
+  }
+
+  #menu-icon2 {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 15px;
+    right: 25px;
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+  }
+
+  #nav-ul {
+    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .nav-list a {
+    color: white !important;
+  }
+
+  #btn-holder {
+    margin: auto;
+    width: 28%;
+  }
+
+  .dropdown-content {
+    position: relative;
+    background-color: white;
+    width: 100%;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .dropdown-content li a {
+    padding: 12px 20px;
+    border-top: 1px solid #ddd;
+  }
+}
+
+/* < 800px */
+@media (max-width: 800px) {
+  #logo {
+    width: 80px;
+  }
+
+  .nav-list a {
+    font-size: 13px;
+  }
+
+  header button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* < 650px */
+@media (max-width: 650px) {
+  #btn-holder {
+    width: 28%;
+  }
+}
+
+/* < 600px */
+@media (max-width: 600px) {
+  button {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}
+
+/* < 450px */
+@media (max-width: 450px) {
+  #btn-holder {
+    width: 30%;
+  }
+
+  #btn-holder button {
+    font-size: 12px;
+  }
+}
+
+/* < 350px */
+@media (max-width: 350px) {
+  header {
+    border-bottom-left-radius: 150px;
+  }
+
+  #btn-holder {
+    width: 40%;
+  }
+}
+
+/* < 250px */
+@media (max-width: 250px) {
+  #btn-holder {
+    width: 50%;
+  }
+}
+
