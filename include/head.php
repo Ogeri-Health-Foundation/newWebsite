@@ -112,6 +112,7 @@
         src="https://kit.fontawesome.com/47c9f80a38.js"
         crossorigin="anonymous"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <?php
 		if(isset($addons)) {

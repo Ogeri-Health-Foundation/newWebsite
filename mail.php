@@ -25,18 +25,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = str_replace(["\r", "\n"], [" ", " "], $name);
     $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
     $subject = trim($_POST["subject"]);
-    $number = trim($_POST["number"]);
+    // $number = trim($_POST["number"]);
     $message = trim($_POST["message"]);
 
-    if (empty($name) || empty($message) || empty($number) || empty($subject) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (empty($name) || empty($message)  || empty($subject) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         http_response_code(400);
         $response['message'] = "Please complete the form correctly.";
         echo json_encode($response);
         exit;
     }
 
-    $stmt = $dbh->prepare("INSERT INTO contact_messages (name, email, number, company, message) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $name, $email, $number, $subject, $message);
+    $stmt = $dbh->prepare("INSERT INTO contact_messages (name, email,  company, message) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $name, $email, $subject, $message);
 
     if ($stmt->execute()) {
         $mail = new PHPMailer(true);
@@ -58,11 +58,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <h2>New Contact Form Submission</h2>
                 <p><strong>Name:</strong> $name</p>
                 <p><strong>Email:</strong> $email</p>
-                <p><strong>Phone:</strong> $number</p>
+               
                 <p><strong>Company:</strong> $subject</p>
                 <p><strong>Message:</strong><br>$message</p>
             ";
-            $mail->AltBody = "Name: $name\nEmail: $email\nPhone: $number\nCompany: $subject\nMessage:\n$message";
+            $mail->AltBody = "Name: $name\nEmail: $email\nCompany: $subject\nMessage:\n$message";
 
             $mail->send();
             http_response_code(200);

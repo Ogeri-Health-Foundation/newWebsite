@@ -44,7 +44,7 @@ class MedicalReportController{
         if ($success) {
 
             return [
-                'message'=> 'Repost submitted successfully',
+                'message'=> 'Request submitted successfully',
                 'success'=> true
             ];
         } else {

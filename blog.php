@@ -230,7 +230,7 @@ $addons = array(
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title text-center ohf_font mt-3"><?= $blogNamev ?></h5>
+                    <h5 class="card-title text-center ohf_font mt-3"><?= $blogName ?></h5>
                     <p class="card-text text-center">
                       <?= $description ?>
                     </p>

@@ -164,7 +164,7 @@ body {
   font-weight: 500;
 }
 
-.right-arrow,
+/* .right-arrow,
 .left-arrow {
   width: 45;
   height: 45;
@@ -179,7 +179,7 @@ body {
   background-color: var(--secondary-color);
   margin-left: 10px;
 
-}
+} */
 
 .news-art-card {
   display: flex;
@@ -246,11 +246,11 @@ body {
 }
 
 .form-container {
-  max-width: 540px;
+  max-width: 540px !important;
 }
 
 input,
 textarea {
-  background: #fff;
+  background: #f8f8f8 !important;
   resize: none;
 }

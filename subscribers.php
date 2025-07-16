@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           
 
         // Sender & recipient
-        $mail->setFrom('praiseonojs@gmail.com', 'Ogeri Health Foundation');
+        $mail->setFrom('info@ogerihealth.org', 'Ogeri Health Foundation');
         $mail->addAddress('info@ogerihealth.org'); // Admin's email
         $mail->Subject = 'New Newsletter Subscriber';
         $mail->Body = "You have a new newsletter subscriber:\n\nEmail: $email";

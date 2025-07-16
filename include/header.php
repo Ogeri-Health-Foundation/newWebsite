@@ -35,7 +35,7 @@
                                 <li><a href="donation.php">Donations</a></li>
                                 <li><a href="community-member.php">Community Members</a></li>
                                 <li><a href="partnership.php">Partners</a></li>
-                                <li><a href="team.php">Volunteer</a></li>
+                                <li><a href="volunteer.php">Volunteer</a></li>
                             </ul>
                         </li>
                     </ul>
