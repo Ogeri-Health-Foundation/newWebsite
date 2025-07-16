@@ -2,8 +2,10 @@
 
 require_once "../Middleware/GlobalAuth.php";
 
-$authenticate = new Auth();
-$authenticate->authenticate();
+// $authenticate = new Auth();
+// $authenticate->authenticate();
+
+// delete_event.php
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

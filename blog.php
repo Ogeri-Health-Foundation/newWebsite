@@ -102,7 +102,7 @@ $addons = array(
 
 
   <!-- header section starts -->
-  <section class="header">
+  <section class="headers">
     <img src="./assets/img/bg/Frame 2147226443.png" class="header-img img-fluid img-responsive" alt="header-img">
 
     <div class="header-details" class="text-danger">
@@ -133,17 +133,15 @@ $addons = array(
           </div>
 
           <div class="recent-arrow-nav d-flex">
-            <!-- Right Arrow Button -->
-            <button type="button"
+            <!-- <button type="button"
               class="btn p-0 d-flex align-items-center justify-content-center me-2 rounded-circle btn-1">
               <i class="fa-solid fa-arrow-left fs-6"></i>
             </button>
 
-            <!-- Left Arrow Button -->
             <button type="button"
               class="btn p-0 d-flex align-items-center justify-content-center rounded-circle btn-2">
               <i class="fa-solid fa-arrow-right fs-6"></i>
-            </button>
+            </button> -->
           </div>
         </div>
 
@@ -156,7 +154,7 @@ $addons = array(
             }
 
             // Pagination settings
-            $eventsPerPage = 3; // Adjust the number of events per page
+            $eventsPerPage = 6; // Adjust the number of events per page
             $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
             $offset = ($page - 1) * $eventsPerPage;
 
@@ -220,7 +218,7 @@ $addons = array(
                 <div class="card h-100 pb-3">
                   <div class="img-section position-relative">
                     <img src="<?= $image ?>" class="card-img-top" alt="Blog Image"
-                      style="border-bottom: 4px solid sandybrown;height:225px">
+                      style="border-bottom: 4px solid sandybrown;height:225px;object-fit:cover">
 
                     <div class="remarks">
                       <div class="author">Admin</div>
@@ -230,13 +228,13 @@ $addons = array(
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title text-center ohf_font mt-3"><?= $blogNamev ?></h5>
+                    <h5 class="card-title text-center ohf_font mt-3"><?= $blogName ?></h5>
                     <p class="card-text text-center">
-                      <?= $description ?>
+                      <?php echo strlen($description) > 160 ? substr($description, 0, 70) . "..." : $description; ?>
                     </p>
                   </div>
 
-                  <a href="blog-details.php?id=<?= $blogid ?>" class="btn bg-green w-50 mx-auto btn-green mt-4">Read More
+                  <a href="blog-details.php?id=<?= $blogid ?>" class="btn w-50 mx-auto btn-green mt-4">Read More
 
                     <i class="fa-solid fa-arrow-right fs-12 ms-1"></i>
                   </a>
@@ -255,7 +253,7 @@ $addons = array(
 
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-start gap-2">
-              <li class="page-item disabled">
+              <li class="page-item">
                 <a class="page-link" href="blog.php?page=<?= max(1, $page - 1) ?>" aria-label="Previous">
                   <i class="fa-solid fa-angle-left"></i>
                 </a>
@@ -376,7 +374,7 @@ $addons = array(
 
         </div>
 
-        <div class="blog-search mt-4">
+        <div class="blog-search my-4">
           <h4 class="ohf_font text-orange">Popular Tags</h4>
 
           <div class="tags mt-3">

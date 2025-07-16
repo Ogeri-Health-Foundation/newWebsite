@@ -13,8 +13,8 @@ header("Content-Type: application/json");
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $authenticate = new Auth();
-    $authenticate->authenticate();
+    // $authenticate = new Auth();
+    // $authenticate->authenticate();
 
 
     $route = new updatePostRouteController();

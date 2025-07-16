@@ -127,13 +127,13 @@ $addons = array(
     Breadcumb
 ============================== -->
     <!-- header section starts -->
-    <section class="header">
-        <img src="<?= $image ?>" class="header-img img-fluid img-responsive" alt="header-img">
+    <section class="headers">
+        <img src="<?= $image ?>" class="header-img img-fluid img-responsive" alt="header-img" style="object-fit:cover;object-position:bottom">
 
         <div class="header-details" class="text-danger">
             <a href="./" class="text-white text-decoration-none">Home &gt;</a>
             <span>Blog</span>
-            <h1 class="ohf_font"><?= $blogName ?></h1>
+            <h1 class="ohf_font text-white"><?= $blogName ?></h1>
         </div>
     </section>
 
@@ -147,14 +147,33 @@ $addons = array(
 ==============================-->
     <section class="blog-container container my-5">
         <div class="row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-8 mt-5">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8 mt-5">
                 <!-- BLOG LIST starts -->
                 <div class="row">
                     <div class="col-12">
+                        <style>
+                            .img-section img {
+                                width: 100%;
+                                height: 300px !important;
+                                object-fit: cover;
+                            }
+
+                            @media (max-width: 768px) {
+                                .img-section img {
+                                    height: 250px !important;
+                                }
+                            }
+
+                            @media (max-width: 576px) {
+                                .img-section img {
+                                    height: 250px !important;
+                                }
+                            }
+                        </style>
                         <div class="card h-100" style="border: none;border-bottom: 1px solid #c7c7c7;">
-                            <div class="img-section position-relative ratio ratio-16x9">
-                                <img src="<?= $image ?>" class="card-img-top img-fluid" alt="..."
-                                    style="border-bottom: 4px solid sandybrown; object-fit: cover;">
+                            <div class="img-section">
+                                <img src="<?= $image ?>" class="img-fluid w-100" alt="..."
+                                    style="border-bottom: 4px solid sandybrown; object-fit: cover; height: 400px;">
                             </div>
                             <div class="card-body">
                                 <div class="single-date">
@@ -164,72 +183,8 @@ $addons = array(
                                     <span><?= $category ?></span>
                                 </div>
                                 <h5 class="card-title ohf_font mt-3"><?= $blogName ?></h5>
-                                <div class="card-text">
-                                    <?php
-                                    if (!empty($blog_images)) {
-                                        $paragraphs = preg_split('/\r\n\r\n|\n\n|\r\r/', $body);
-
-                                        if (count($paragraphs) < count($blog_images)) {
-                                            $temp_paragraphs = [];
-                                            foreach ($paragraphs as $p) {
-                                                $sentences = preg_split('/(?<=[.!?])\s+/', $p);
-                                                if (count($sentences) > 3) {
-                                                    $chunks = array_chunk($sentences, rand(3, 4));
-                                                    foreach ($chunks as $chunk) {
-                                                        $temp_paragraphs[] = implode(' ', $chunk);
-                                                    }
-                                                } else {
-                                                    $temp_paragraphs[] = $p;
-                                                }
-                                            }
-                                            $paragraphs = $temp_paragraphs;
-                                        }
-
-                                        $total_paragraphs = count($paragraphs);
-                                        $image_count = count($blog_images);
-                                        $insertion_points = range(0, $total_paragraphs - 1);
-
-                                        if ($total_paragraphs > 2) {
-                                            array_shift($insertion_points);
-                                            array_pop($insertion_points);
-                                        }
-
-                                        shuffle($insertion_points);
-                                        $insertion_points = array_slice($insertion_points, 0, $image_count);
-                                        sort($insertion_points);
-
-                                        foreach ($paragraphs as $index => $paragraph) {
-                                            echo "<p>" . nl2br($paragraph) . "</p>";
-
-                                            if (in_array($index, $insertion_points)) {
-                                                $img_pos = array_search($index, $insertion_points);
-                                                if (isset($blog_images[$img_pos])) {
-                                                    $img = $blog_images[$img_pos];
-                                                    echo '<img src="' . $img['img_path'] . '" class="d-block w-100 my-4" alt="Blog Image">';
-                                                    if (!empty($img['caption'])) {
-                                                        echo '<figcaption class="text-center mt-2 fst-italic">' . $img['caption'] . '</figcaption>';
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        $unused_count = $image_count - count($insertion_points);
-                                        if ($unused_count > 0) {
-                                            echo '<div class="row mt-4">';
-                                            for ($i = count($insertion_points); $i < $image_count; $i++) {
-                                                echo '<div class="col-md-6 mb-4">';
-                                                echo '<img src="' . $blog_images[$i]['img_path'] . '" alt="Blog Image" class="w-100">';
-                                                if (!empty($blog_images[$i]['caption'])) {
-                                                    echo '<figcaption class="text-center mt-2 fst-italic">' . $blog_images[$i]['caption'] . '</figcaption>';
-                                                }
-                                                echo '</div>';
-                                            }
-                                            echo '</div>';
-                                        }
-                                    } else {
-                                        echo "<p>" . nl2br($body) . "</p>";
-                                    }
-                                    ?>
+                                <div class="card-text mt-2">
+                                    <?= htmlspecialchars_decode($body); ?>
                                 </div>
                             </div>
                         </div>
@@ -248,6 +203,10 @@ $addons = array(
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
+                        <?php
+                        $eventUrl = "https://" . $_SERVER['HTTP_HOST'] . "/event-details.php?id=" . urlencode($blogid);
+                        $encodedEventUrl = urlencode($eventUrl);
+                        ?>
                         <div class="blog-tags d-flex flex-sm-row flex-column align-items-start">
                             <h4 class="me-2">Share:</h4>
                             <div class="tags d-flex">
@@ -279,7 +238,7 @@ $addons = array(
                 <!-- comments section -->
                 <div class="row mt-4 px-4">
                     <div class="col-12">
-                        <h4>Comments <span class="count" id="comment-count">0</span></h4>
+                        <h4>Comments (<span class="count" id="comment-count">0</span>)</h4>
 
                         <div class="comment-list" id="comment-list">
                             <!-- Comments will be loaded dynamically here -->
@@ -295,20 +254,20 @@ $addons = array(
                         <form id="comment-form" data-id="<?= $blogid ?>">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <input type="text" id="name" placeholder="Your Name" name="name" class="form-controls" required>
+                                    <input type="text" id="name" placeholder="Your Name" name="name" class="form-controls" required aria-label="Your Name">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <input type="email" id="email" placeholder="Your Email" name="email" class="form-controls" required>
+                                    <input type="email" id="email" placeholder="Your Email" name="email" class="form-controls" required aria-label="Your Email">
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <input type="url" id="website" placeholder="Your Website" name="website" class="form-controls">
+                                    <input type="url" id="website" placeholder="Your Website" name="website" class="form-controls" aria-label="Your Website (optional)">
                                 </div>
                                 <div class="col-12 mb-3">
                                     <textarea name="message" class="form-controls" id="message" rows="6"
-                                        placeholder="Type a message ..." required></textarea>
+                                        placeholder="Type a message ..." required aria-label="Your Comment"></textarea>
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <button type="submit" id="submit" class="form-controls btn-3">SUBMIT COMMENT</button>
+                                    <button type="submit" id="submit-comment" class="form-controls btn-3">SUBMIT COMMENT</button>
                                 </div>
                             </div>
                         </form>
@@ -316,11 +275,14 @@ $addons = array(
                 </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4 mt-5">
-                <div class="blog-search">
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+
+
+                <div class="blog-search" style=" margin-top: 62px;">
                     <form action="blog.php" method="GET" class="searchForm">
-                        <input type="search" name="keyword" id="search" placeholder="Enter Keyword..." class="searchInput">
-                        <button type="submit" id="blog-search-btn" class="btn" name="search">
+                        <input type="search" name="search" id="search" placeholder="Enter Keyword..."
+                            class="searchInput" value="">
+                        <button type="submit" id="blog-search-btn" class="btn" name="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </form>
@@ -328,19 +290,33 @@ $addons = array(
 
                 <div class="blog-search blog-categories mt-4">
                     <h4 class="ohf_font text-orange">Categories</h4>
-                    <div class="category-lists">
-                        <?php
-                        $query = "SELECT DISTINCT category FROM blog_posts WHERE status = 'published'";
-                        $stmt = $dbh->prepare($query);
-                        $stmt->execute();
+                    <?php
+                    $categories = [
+                        'Community Health Stories',
+                        'Hypertension & Heart Health',
+                        'Health Education & Lifestyle',
+                        'Digital Health & Innovation',
+                        'Outreach Highlights',
+                        'Research & Insights',
+                        'Volunteer & Partner Spotlights',
+                        'Events & Announcements',
+                        'Health Centre Strengthening',
+                        'Funding & Support'
+                    ];
+                    ?>
 
-                        while ($category_row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<a href="blog.php?category=' . urlencode($category_row['category']) . '" class="d-flex justify-content-between cat-link btn my-3">';
-                            echo '<div class="cat-title">' . htmlspecialchars($category_row['category']) . '</div>';
-                            echo '<div class="cat-icon"><i class="fa-solid fa-arrow-right"></i></div>';
-                            echo '</a>';
-                        }
-                        ?>
+                    <div class="category-lists">
+
+                        <?php foreach ($categories as $cat): ?>
+
+                            <a href="blog.php?category=<?= urlencode($cat) ?>" class=" d-flex justify-content-between cat-link btn my-3 <?= ($selectedCategory === $cat) ? 'active-cat' : '' ?>">
+                                <div class="cat-title"><?= $cat ?></div>
+                                <div class="cat-icon">
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+
                     </div>
                 </div>
 
@@ -348,49 +324,77 @@ $addons = array(
                     <h4 class="ohf_font text-orange">Recent Posts</h4>
 
                     <?php
-                    $query = "SELECT * FROM blog_posts WHERE status = 'published' ORDER BY published_at DESC LIMIT 3";
-                    $stmt = $dbh->prepare($query);
-                    $stmt->execute();
+                    try {
+                        if (!isset($dbh)) {
+                            throw new Exception("Database connection not found.");
+                        }
 
-                    while ($recent_post = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $recent_image = !empty($recent_post['image']) ? "uploads/" . htmlspecialchars($recent_post['image']) : "assets/img/default-image.jpg";
-                        $recent_date = date("F, Y", strtotime($recent_post['published_at']));
-
-                        echo '<div class="related-container-list my-3">';
-                        echo '<div class="related-img">';
-                        echo '<img src="' . $recent_image . '" alt="' . htmlspecialchars($recent_post['blog_title']) . '" class="img-fluid">';
-                        echo '</div>';
-                        echo '<div class="related-content">';
-                        echo '<div class="related-date">';
-                        echo '<i class="fa-solid fa-calendar-days text-orange"></i> &nbsp;';
-                        echo '<span class="date-text">' . $recent_date . '</span>';
-                        echo '</div>';
-                        echo '<h6 class="related-title">';
-                        echo '<a href="blog-details.php?id=' . $recent_post['blog_id'] . '">' . htmlspecialchars($recent_post['blog_title']) . '</a>';
-                        echo '</h6>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
-                    ?>
-                </div>
-
-                <div class="blog-search mt-4">
-                    <h4 class="ohf_font text-orange">Popular Tags</h4>
-                    <div class="tags mt-3">
-                        <?php
-                        $query = "SELECT category FROM blog_posts WHERE status = 'published' GROUP BY category LIMIT 6";
+                        // Fetch the three most recent events
+                        $query = "SELECT * FROM blog_posts WHERE status = 'published' ORDER BY published_at DESC LIMIT 3";
                         $stmt = $dbh->prepare($query);
                         $stmt->execute();
 
-                        while ($tag = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<a href="blog.php?category=' . urlencode($tag['category']) . '" class="tag btn text-muted">' . htmlspecialchars($tag['category']) . '</a>';
+                        if ($stmt->rowCount() > 0) {
+                            while ($event = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                $eventName = htmlspecialchars($event['blog_title']);
+                                $eventDate = date("F, Y", strtotime($event['published_at']));
+                                $image = !empty($event['image']) ? "uploads/" . htmlspecialchars($event['image']) : "assets/img/default-image.jpg";
+                                $eventid = htmlspecialchars($event['blog_id']);
+                    ?>
+
+                                <div class="related-container-list my-3">
+                                    <a href="blog-details.php?id=<?= $eventid ?>">
+                                        <div class="related-img">
+                                            <img src="<?= $image ?>" alt="" class="img-fluid">
+                                        </div>
+                                    </a>
+
+                                    <div class="related-content">
+                                        <div class="related-date">
+                                            <i class="fa-solid fa-calendar-days text-orange"></i> &nbsp;
+                                            <span class="date-text"><?= $eventDate ?></span>
+                                        </div>
+                                        <a href="blog-details.php?id=<?= $eventid ?>" class="text-decoration-none">
+                                            <h6 class="related-title text-dark text_hover"><?= $eventName ?></h6>
+                                        </a>
+                                    </div>
+                                </div>
+
+                    <?php
+                            }
+                        } else {
+                            echo "<p style='font-size: 1.2rem; font-weight: 600;'>No recent posts available.</p>";
                         }
-                        ?>
-                    </div>
+                    } catch (Exception $e) {
+                        echo "<p>Error fetching recent posts: " . $e->getMessage() . "</p>";
+                    }
+                    ?>
+
+
                 </div>
+
+                <div class="blog-search my-4">
+                    <h4 class="ohf_font text-orange">Popular Tags</h4>
+
+                    <div class="tags mt-3">
+                        <a href="" class="tag btn text-muted">Donations</a>
+                        <a href="" class="tag btn text-muted">Food</a>
+                        <a href="" class="tag btn text-muted">Help</a>
+                        <a href="" class="tag btn text-muted">Education</a>
+                        <a href="" class="tag btn text-muted">Fundraising</a>
+                        <a href="" class="tag btn text-muted">Tips</a>
+                    </div>
+
+
+
+                </div>
+
+
+
             </div>
         </div>
     </section>
+
 
 
 
@@ -432,17 +436,27 @@ $addons = array(
             const MAX_RECONNECT_ATTEMPTS = 5;
             const RECONNECT_DELAY = 3000; // 3 seconds
 
+            // Track last submit time for rate limiting
+            let lastSubmitTime = 0;
+
             // Initialize socket variable
             let socket;
 
             function initializeWebSocket() {
                 console.log("Initializing WebSocket connection...");
-                socket = connectWebSocket('wss://websocket-production-db61.up.railway.app');
-                return socket;
+                try {
+                    socket = connectWebSocket('wss://websocket-production-db61.up.railway.app');
+                    return socket;
+                } catch (error) {
+                    console.error("WebSocket initialization failed:", error);
+                    showNotification("Failed to initialize connection. Please refresh the page.", "error");
+                    return null;
+                }
             }
 
             function connectWebSocket(url) {
                 const ws = new WebSocket(url);
+                let heartbeatInterval;
 
                 ws.onopen = function() {
                     console.log("WebSocket connection established");
@@ -463,17 +477,27 @@ $addons = array(
                     messageQueue = [];
 
                     // Enable submit button once connection is established
-                    const submitBtn = document.getElementById('submit');
+                    const submitBtn = document.getElementById('submit-comment');
                     if (submitBtn) {
                         submitBtn.disabled = false;
                     }
+
+                    // Start heartbeat
+                    heartbeatInterval = setInterval(() => {
+                        if (ws.readyState === WebSocket.OPEN) {
+                            ws.send(JSON.stringify({
+                                type: 'heartbeat'
+                            }));
+                        }
+                    }, 30000); // 30 seconds
                 };
 
                 ws.onclose = function(event) {
                     console.log("WebSocket connection closed", event);
                     updateConnectionStatus(false);
+                    clearInterval(heartbeatInterval);
 
-                    const submitBtn = document.getElementById('submit');
+                    const submitBtn = document.getElementById('submit-comment');
                     if (submitBtn) {
                         submitBtn.disabled = true;
                     }
@@ -517,6 +541,7 @@ $addons = array(
                 indicator.style.backgroundColor = '#ccc';
                 indicator.style.transition = 'background-color 0.3s';
                 indicator.style.zIndex = '1000';
+                indicator.setAttribute('aria-live', 'polite');
                 return indicator;
             }
 
@@ -525,6 +550,7 @@ $addons = array(
                 if (indicator) {
                     indicator.style.backgroundColor = connected ? '#4CAF50' : '#F44336';
                     indicator.title = connected ? 'Connected' : 'Disconnected';
+                    indicator.setAttribute('aria-label', connected ? 'Connected to server' : 'Disconnected from server');
                 }
             }
 
@@ -536,11 +562,18 @@ $addons = array(
 
             // Function to handle main comment submission
             function submitComment() {
+                const now = Date.now();
+                if (lastSubmitTime && now - lastSubmitTime < 5000) { // 5 second cooldown
+                    showNotification("Please wait a moment before posting again", "warning");
+                    return;
+                }
+                lastSubmitTime = now;
+
                 const nameInput = document.getElementById('name');
                 const emailInput = document.getElementById('email');
                 const websiteInput = document.getElementById('website');
                 const messageInput = document.getElementById('message');
-                const submitBtn = document.getElementById('submit');
+                const submitBtn = document.getElementById('submit-comment');
 
                 if (!nameInput || !messageInput) {
                     console.error("Required form fields not found");
@@ -548,6 +581,7 @@ $addons = array(
                 }
 
                 const name = nameInput.value.trim();
+                const email = emailInput.value.trim();
                 const message = messageInput.value.trim();
 
                 // Validate required fields
@@ -556,18 +590,23 @@ $addons = array(
                     return;
                 }
 
+                if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    showNotification("Please enter a valid email address", "error");
+                    return;
+                }
+
                 const comment = {
                     type: 'comment',
                     blogId,
                     name,
-                    email: emailInput ? emailInput.value.trim() : '',
+                    email,
                     website: websiteInput ? websiteInput.value.trim() : '',
                     message
                 };
 
                 // Show loading state
                 submitBtn.disabled = true;
-                submitBtn.value = 'Posting...';
+                submitBtn.textContent = 'Posting...';
 
                 sendMessage(comment)
                     .then(() => {
@@ -580,12 +619,20 @@ $addons = array(
                     .catch(err => {
                         console.error("Error sending comment:", err);
                         showNotification("Error sending comment. Please try again.", "error");
+                        queueMessageForLater(comment);
                     })
                     .finally(() => {
                         // Reset button state
                         submitBtn.disabled = false;
-                        submitBtn.value = 'SUBMIT COMMENT';
+                        submitBtn.textContent = 'SUBMIT COMMENT';
                     });
+            }
+
+            function queueMessageForLater(message) {
+                const pending = JSON.parse(localStorage.getItem('pendingComments') || '[]');
+                pending.push(message);
+                localStorage.setItem('pendingComments', JSON.stringify(pending));
+                showNotification("Your comment will be posted when you're back online", "warning");
             }
 
             // Function to send message through WebSocket
@@ -593,7 +640,7 @@ $addons = array(
                 return new Promise((resolve, reject) => {
                     const messageJson = JSON.stringify(message);
 
-                    if (socket.readyState === WebSocket.OPEN) {
+                    if (socket && socket.readyState === WebSocket.OPEN) {
                         socket.send(messageJson);
                         console.log("Message sent:", message);
                         resolve();
@@ -601,8 +648,9 @@ $addons = array(
                         messageQueue.push(messageJson);
                         console.log("Message queued:", message);
 
-                        if (socket.readyState === WebSocket.CLOSED || socket.readyState === WebSocket.CLOSING) {
+                        if (!socket || socket.readyState === WebSocket.CLOSED || socket.readyState === WebSocket.CLOSING) {
                             showNotification("Connection lost. Your message will be submitted when connection is restored.", "warning");
+                            queueMessageForLater(message);
                             reject(new Error("WebSocket connection closed"));
                         } else {
                             resolve();
@@ -645,6 +693,10 @@ $addons = array(
                             showNotification("Error: " + (data.message || "Unknown error occurred"), "error");
                             break;
 
+                        case 'heartbeat':
+                            // Just acknowledge the heartbeat
+                            break;
+
                         default:
                             console.warn("Unknown message type:", data.type);
                     }
@@ -665,30 +717,50 @@ $addons = array(
                     return;
                 }
 
-                commentList.innerHTML = '';
+                // Show loading state
+                commentList.innerHTML = '<div class="loading-comments">Loading comments...</div>';
 
-                data.comments.forEach(comment => {
-                    authorMap['comment_' + comment.comment_id] = comment.name;
-                });
+                // Process after a small delay to allow UI to update
+                setTimeout(() => {
+                    commentList.innerHTML = '';
 
-                if (data.replies && Array.isArray(data.replies)) {
-                    data.replies.forEach(reply => {
-                        authorMap['reply_' + reply.reply_id] = reply.name;
+                    data.comments.forEach(comment => {
+                        authorMap['comment_' + comment.comment_id] = comment.name;
                     });
-                }
 
-                data.comments.forEach(comment => {
-                    appendComment(comment);
-                });
+                    if (data.replies && Array.isArray(data.replies)) {
+                        data.replies.forEach(reply => {
+                            authorMap['reply_' + reply.reply_id] = reply.name;
+                        });
+                    }
 
-                if (data.replies && Array.isArray(data.replies)) {
-                    const sortedReplies = sortRepliesByHierarchy(data.replies);
-                    sortedReplies.forEach(reply => {
-                        appendReply(reply);
+                    data.comments.forEach(comment => {
+                        appendComment(comment);
                     });
-                }
 
-                updateCommentCount(data.comments.length);
+                    if (data.replies && Array.isArray(data.replies)) {
+                        const sortedReplies = sortRepliesByHierarchy(data.replies);
+                        sortedReplies.forEach(reply => {
+                            appendReply(reply);
+                        });
+                    }
+
+                    updateCommentCount(data.comments.length);
+
+                    // Process any pending comments from local storage
+                    processPendingComments();
+                }, 100);
+            }
+
+            function processPendingComments() {
+                const pending = JSON.parse(localStorage.getItem('pendingComments') || '[]');
+                if (pending.length > 0 && socket && socket.readyState === WebSocket.OPEN) {
+                    pending.forEach(message => {
+                        socket.send(JSON.stringify(message));
+                    });
+                    localStorage.removeItem('pendingComments');
+                    showNotification("Pending comments have been submitted", "success");
+                }
             }
 
             function sortRepliesByHierarchy(replies) {
@@ -748,33 +820,40 @@ $addons = array(
                 const commentItem = document.createElement('div');
                 commentItem.classList.add('comment-section', 'mt-4');
                 commentItem.setAttribute('data-comment-id', comment.comment_id);
+                commentItem.setAttribute('aria-label', `Comment by ${sanitizeHTML(comment.name)}`);
 
                 commentItem.innerHTML = `
-            <div class="comment-img">
-                <img src="assets/img/blog/comment-icon-symbol-design-illustration-vector-removebg-preview.png" class="com-img img-responsive" alt="Comment Author">
-            </div>
-            <div class="comment-area">
-                <h5>${sanitizeHTML(comment.name)}</h5>
-                <span class="date">
-                    <i class="fa-solid fa-calendar-days text-orange"></i>
-                    ${commentDate}
-                </span>
-                <span class="time">
-                    <i class="fa-solid fa-clock text-orange"></i>
-                    ${commentTime}
-                </span>
-                <p class="comment-description mt-2">
-                    ${sanitizeHTML(comment.message)}
-                </p>
-                <div class="reply_and_edit">
-                    <a href="#" class="reply-btn" data-comment-id="${comment.comment_id}" data-author="${sanitizeHTML(comment.name)}">
-                        <i class="fa-solid fa-reply"></i> Reply
-                    </a>
+                <div class="comment-img">
+                    <img src="assets/img/blog/comment-icon-symbol-design-illustration-vector-removebg-preview.png" 
+                         class="com-img img-responsive" 
+                         alt="Comment Author"
+                         aria-hidden="true">
                 </div>
-            </div>
-            <div class="replies-container" id="replies-${comment.comment_id}"></div>
-            <div class="reply-form-container" id="reply-form-container-${comment.comment_id}"></div>
-        `;
+                <div class="comment-area">
+                    <h5>${sanitizeHTML(comment.name)}</h5>
+                    <span class="date">
+                        <i class="fa-solid fa-calendar-days text-orange" aria-hidden="true"></i>
+                        ${commentDate}
+                    </span>
+                    <span class="time">
+                        <i class="fa-solid fa-clock text-orange" aria-hidden="true"></i>
+                        ${commentTime}
+                    </span>
+                    <p class="comment-description mt-2">
+                        ${sanitizeHTML(comment.message)}
+                    </p>
+                    <div class="reply_and_edit">
+                        <a href="#" class="reply-btn" 
+                           data-comment-id="${comment.comment_id}" 
+                           data-author="${sanitizeHTML(comment.name)}"
+                           aria-label="Reply to ${sanitizeHTML(comment.name)}">
+                            <i class="fa-solid fa-reply" aria-hidden="true"></i> Reply
+                        </a>
+                    </div>
+                </div>
+                <div class="replies-container" id="replies-${comment.comment_id}"></div>
+                <div class="reply-form-container" id="reply-form-container-${comment.comment_id}"></div>
+            `;
 
                 commentList.appendChild(commentItem);
 
@@ -842,39 +921,47 @@ $addons = array(
                     }
                 }
 
+                const displayRepliedToName = reply.replied_to_name || repliedToName || "Unknown";
+
                 const replyItem = document.createElement('div');
                 replyItem.classList.add('comment-section', 'mt-4');
                 replyItem.setAttribute('data-reply-id', reply.reply_id);
-
-                const displayRepliedToName = reply.replied_to_name || repliedToName || "Unknown";
+                replyItem.setAttribute('aria-label', `Reply by ${sanitizeHTML(reply.name)} to ${sanitizeHTML(displayRepliedToName)}`);
 
                 replyItem.innerHTML = `
-            <div class="comment-img">
-                <img src="assets/img/blog/discussion-icon-symbol-design-illustration-vector-removebg-preview.png" class="com-img img-responsive" alt="Reply Author">
-            </div>
-            <div class="comment-area">
-                <h5>${sanitizeHTML(reply.name)}</h5>
-                <span class="replied-to">replied to ${sanitizeHTML(displayRepliedToName)}</span>
-                <span class="date">
-                    <i class="fa-solid fa-calendar-days text-orange"></i>
-                    ${replyDate}
-                </span>
-                <span class="time">
-                    <i class="fa-solid fa-clock text-orange"></i>
-                    ${replyTime}
-                </span>
-                <p class="comment-description mt-2">
-                    ${sanitizeHTML(reply.message)}
-                </p>
-                <div class="reply_and_edit">
-                    <a href="#" class="nested-reply-btn" data-reply-id="${reply.reply_id}" data-comment-id="${reply.parent_comment_id}" data-author="${sanitizeHTML(reply.name)}">
-                        <i class="fa-solid fa-reply"></i> Reply
-                    </a>
+                <div class="comment-img">
+                    <img src="assets/img/blog/discussion-icon-symbol-design-illustration-vector-removebg-preview.png" 
+                         class="com-img img-responsive" 
+                         alt="Reply Author"
+                         aria-hidden="true">
                 </div>
-            </div>
-            <div class="reply-form-container" id="reply-form-container-reply-${reply.reply_id}"></div>
-            <div class="nested-replies" id="nested-replies-${reply.reply_id}"></div>
-        `;
+                <div class="comment-area">
+                    <h5>${sanitizeHTML(reply.name)}</h5>
+                    <span class="replied-to">replied to ${sanitizeHTML(displayRepliedToName)}</span>
+                    <span class="date">
+                        <i class="fa-solid fa-calendar-days text-orange" aria-hidden="true"></i>
+                        ${replyDate}
+                    </span>
+                    <span class="time">
+                        <i class="fa-solid fa-clock text-orange" aria-hidden="true"></i>
+                        ${replyTime}
+                    </span>
+                    <p class="comment-description mt-2">
+                        ${sanitizeHTML(reply.message)}
+                    </p>
+                    <div class="reply_and_edit">
+                        <a href="#" class="nested-reply-btn" 
+                           data-reply-id="${reply.reply_id}" 
+                           data-comment-id="${reply.parent_comment_id}" 
+                           data-author="${sanitizeHTML(reply.name)}"
+                           aria-label="Reply to ${sanitizeHTML(reply.name)}">
+                            <i class="fa-solid fa-reply" aria-hidden="true"></i> Reply
+                        </a>
+                    </div>
+                </div>
+                <div class="reply-form-container" id="reply-form-container-reply-${reply.reply_id}"></div>
+                <div class="nested-replies" id="nested-replies-${reply.reply_id}"></div>
+            `;
 
                 parentContainer.appendChild(replyItem);
 
@@ -905,34 +992,35 @@ $addons = array(
 
                 if (replyFormContainer.innerHTML === '') {
                     replyFormContainer.innerHTML = `
-                <div class="reply-form" style="margin-top: 30px; background: #f9f9f9; padding: 15px; border-radius: 5px;">
-                    <span style="font-style: italic; font-weight: 600; font-size: 17px;">
-                        <i class="fa-solid fa-reply"></i> Replying to ${sanitizeHTML(authorName)}
-                    </span>
-                    <div class="row mt-3">
-                        <div class="col-md-6 mb-3">
-                            <input type="text" placeholder="Your Name*" class="form-controls reply-name" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <input type="email" placeholder="Your Email*" class="form-controls reply-email" required>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <textarea placeholder="Your Reply*" class="form-controls reply-message" required></textarea>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <button type="button" class="form-controls btn-3 submit-reply-btn" 
-                                data-comment-id="${commentId}" 
-                                data-replied-to="${sanitizeHTML(authorName)}"
-                                ${replyId ? `data-reply-id="${replyId}"` : ''}>
-                                Post Reply
-                            </button>
-                            <button type="button" class="form-controls btn-3 cancel-reply-btn" style="background: #f44336; margin-top: 10px;">
-                                Cancel
-                            </button>
+                    <div class="reply-form" style="margin-top: 30px; background: #f9f9f9; padding: 15px; border-radius: 5px;">
+                        <span style="font-style: italic; font-weight: 600; font-size: 17px;">
+                            <i class="fa-solid fa-reply" aria-hidden="true"></i> Replying to ${sanitizeHTML(authorName)}
+                        </span>
+                        <div class="row mt-3">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" placeholder="Your Name*" class="form-controls reply-name" required aria-label="Your Name">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input type="email" placeholder="Your Email*" class="form-controls reply-email" required aria-label="Your Email">
+                            </div>
+                            <div class="col-12 mb-3">
+                                <textarea placeholder="Your Reply*" class="form-controls reply-message" required aria-label="Your Reply"></textarea>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <button type="button" class="form-controls btn-3 submit-reply-btn" 
+                                    data-comment-id="${commentId}" 
+                                    data-replied-to="${sanitizeHTML(authorName)}"
+                                    ${replyId ? `data-reply-id="${replyId}"` : ''}
+                                    aria-label="Post reply">
+                                    Post Reply
+                                </button>
+                                <button type="button" class="form-controls btn-3 cancel-reply-btn" style="background: #f44336; margin-top: 10px;" aria-label="Cancel reply">
+                                    Cancel
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
+                `;
 
                     const submitReplyBtn = replyFormContainer.querySelector('.submit-reply-btn');
                     if (submitReplyBtn) {
@@ -991,6 +1079,11 @@ $addons = array(
                     return;
                 }
 
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    showNotification("Please enter a valid email address", "error");
+                    return;
+                }
+
                 if (submitButton) {
                     submitButton.disabled = true;
                     submitButton.textContent = 'Posting...';
@@ -1013,6 +1106,7 @@ $addons = array(
                     .catch(err => {
                         console.error("Error sending reply:", err);
                         showNotification("Error sending reply. Please try again.", "error");
+                        queueMessageForLater(reply);
                     })
                     .finally(() => {
                         if (submitButton) {
@@ -1055,12 +1149,14 @@ $addons = array(
 
                 const notification = document.createElement('div');
                 notification.className = `notification notification-${type}`;
+                notification.setAttribute('role', 'alert');
+                notification.setAttribute('aria-live', 'assertive');
                 notification.innerHTML = `
-            <div class="notification-content">
-                <span class="notification-message">${message}</span>
-                <button class="notification-close">&times;</button>
-            </div>
-        `;
+                <div class="notification-content">
+                    <span class="notification-message">${sanitizeHTML(message)}</span>
+                    <button class="notification-close" aria-label="Close notification">&times;</button>
+                </div>
+            `;
 
                 let bgColor, textColor;
                 switch (type) {
@@ -1128,105 +1224,125 @@ $addons = array(
                 if (!text) return '';
                 const temp = document.createElement('div');
                 temp.textContent = text;
-                return temp.innerHTML;
+                return temp.innerHTML
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
             }
 
             // Add CSS for the UI elements
             const style = document.createElement('style');
             style.textContent = `
-        .replied-to {
-            font-size: 0.85em;
-            color: #007bff;
-            display: block;
-            margin-top: -5px;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        
-        .comment-section {
-            display: flex;
-            gap: 15px;
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .comment-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-        
-        .comment-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .comment-area {
-            flex: 1;
-            position: relative;
-        }
-        
-        .comment-area h5 {
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-        }
-        
-        .date, .time {
-            font-size: 0.8rem;
-            color: #666;
-            margin-right: 10px;
-        }
-        
-        .comment-description {
-            margin-top: 10px;
-            line-height: 1.6;
-        }
-        
-        .reply_and_edit {
-            margin-top: 10px;
-        }
-        
-        .reply-btn, .nested-reply-btn {
-            color: #ff6b00;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        
-        .reply-btn:hover, .nested-reply-btn:hover {
-            text-decoration: underline;
-        }
-        
-        .nested-replies {
-            margin-left: 75px;
-            border-left: 2px solid #ff6b00;
-            padding-left: 15px;
-        }
-        
-        #connection-status {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #ccc;
-            transition: background-color 0.3s;
-            z-index: 1000;
-        }
-        
-        .notification {
-            background-color: #2196F3;
-            color: white;
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-    `;
+            .replied-to {
+                font-size: 0.85em;
+                color: #007bff;
+                display: block;
+                margin-top: -5px;
+                margin-bottom: 5px;
+                font-weight: 500;
+            }
+            
+            .comment-section {
+                display: flex;
+                gap: 15px;
+                padding: 15px;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .comment-img {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+            
+            .comment-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            
+            .comment-area {
+                flex: 1;
+                position: relative;
+            }
+            
+            .comment-area h5 {
+                margin-bottom: 5px;
+                font-size: 1.1rem;
+            }
+            
+            .date, .time {
+                font-size: 0.8rem;
+                color: #666;
+                margin-right: 10px;
+            }
+            
+            .comment-description {
+                margin-top: 10px;
+                line-height: 1.6;
+            }
+            
+            .reply_and_edit {
+                margin-top: 10px;
+            }
+            
+            .reply-btn, .nested-reply-btn {
+                color: #ff6b00;
+                text-decoration: none;
+                font-size: 0.9rem;
+            }
+            
+            .reply-btn:hover, .nested-reply-btn:hover {
+                text-decoration: underline;
+            }
+            
+            .nested-replies {
+                margin-left: 75px;
+                border-left: 2px solid #ff6b00;
+                padding-left: 15px;
+            }
+            
+            #connection-status {
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background-color: #ccc;
+                transition: background-color 0.3s;
+                z-index: 1000;
+            }
+            
+            .notification {
+                background-color: #2196F3;
+                color: white;
+                padding: 12px;
+                margin-bottom: 10px;
+                border-radius: 4px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .loading-comments {
+                text-align: center;
+                padding: 20px;
+                color: #666;
+            }
+
+            @media (max-width: 768px) {
+                .comment-section {
+                    flex-direction: column;
+                }
+                .nested-replies {
+                    margin-left: 30px;
+                }
+            }
+        `;
             document.head.appendChild(style);
         });
     </script>

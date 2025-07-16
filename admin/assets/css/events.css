@@ -274,23 +274,23 @@ body {
     border-color: var(--primary-color);
 }
 
-.modal {
+/* .modal {
   display: none;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Centering trick */
+  transform: translate(-50%, -50%); 
   width: 70%;
   height: 90%;
-  background-color: #fff; /* Only one background-color needed */
+  background-color: #fff; 
   z-index: 1000;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
   border-radius: 8px;
   padding: 20px;
-}
+} */
 
-.modal.active {
+/* .modal.active {
     display: flex;
     align-items: center;
 }
@@ -311,7 +311,7 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-}
+} */
 
 .form-group {
     margin-bottom: 1.5rem;

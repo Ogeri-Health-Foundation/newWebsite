@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $verifying = new verifyingUserContrl($code);
         $verifying->verifyingUser();
         header("Location: https://ogerihealth.org/admin/resources.php");
+        // header("Location:../../admin/resources.php");
     } catch (Exception $e) {
         echo json_encode(["message" => $e->getMessage()]);
         http_response_code(400);

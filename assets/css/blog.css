@@ -32,13 +32,13 @@ html {
 .btn-green:hover {
     background-color: #fff;
     border: 2px solid var(--text-green);
-    color: var(--text-green);
+    color: var(--text-green) !important;
 }
 
 
-/* ===========  HEADER SECTION STARTS =========== */
+/* ===========  headers SECTION STARTS =========== */
 
-.header {
+.headers {
     width: 100%;
     height: 50vh;
     max-height: 600px;
@@ -85,21 +85,21 @@ html {
 
 /* Media Queries */
 @media screen and (max-width: 768px) {
-    .header {
+    .headers {
         height: 30vh;
-        min-height: 330px;
+        min-height: 400px;
     }
 }
 
 @media screen and (max-width: 576px) {
-    .header {
-        height: 30vh;
-        min-height: 280px;
+    .headers {
+        height: 25vh;
+        min-height: 350px;
     }
 }
 
 
-/* ===========  HEADER SECTION ENDS =========== */
+/* ===========  headers SECTION ENDS =========== */
 
 
 /* ===========  BLOG SECTION STARTS =========== */
@@ -234,6 +234,7 @@ html {
     background-color: #000000c1;
     color: white;
 }
+
 
 .cat-link:hover {
     background-color: var(--text-green);
@@ -383,4 +384,87 @@ html {
 
 /* .comment-description{
     font-size: 1.2vw;
+} */
+
+
+
+
+
+/*  ADD TO OTHER CSS */
+.event-descrip {
+    font-size: 0.8rem;
+}
+
+@media screen and (max-width: 768px) {
+    .event-descrip {
+        font-size: 1rem;
+    }
+}
+
+.btn-4 {
+    background: linear-gradient(to bottom, #fff 50%, var(--text-green) 50%);
+    background-size: 100% 200%;
+    background-position: top;
+    color: var(--text-orange);
+    transition: background-position 0.2s ease-out;
+    border: none;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.btn-5 {
+    background: linear-gradient(to bottom, var(--text-orange) 50%, var(--text-green) 50%);
+    background-size: 100% 200%;
+    background-position: top;
+    color: #fff;
+    transition: background-position 0.2s ease-out;
+    border: none;
+    border-radius: 20px;
+}
+
+.btn-4:hover {
+    background-position: bottom;
+}
+
+.btn-5:hover {
+    background-position: bottom;
+}
+
+.daysleft {
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 8px;
+    padding: 10px 20px;
+    max-width: 1000px;
+    margin: -40px auto 30px auto;
+    /* pushes it up over the bottom of the header image */
+    z-index: 9999999999999999999999999;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+}
+
+.event-hover {
+    color: var(--text-green);
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+.event-hover:hover {
+    color: var(--text-orange);
+}
+
+/* @media (max-width: 576px) {
+    .daysleft {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .daysleft section {
+        width: 100%;
+    }
 } */

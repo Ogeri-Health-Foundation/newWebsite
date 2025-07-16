@@ -7,7 +7,11 @@ class deleteEvents {
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
             $data = json_decode(file_get_contents("php://input"), true);
-
+            // Check if JSON decoding was successful
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                // Fallback to regular POST data if JSON parsing fails
+                $data = $_POST;
+            }
 
             $edit_id = $data['eventId'];
 
