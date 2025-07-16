@@ -336,6 +336,8 @@ $addons = array(
   </head>
   <body>
     <!-- HERO SECTION -->
+    
+      <?php include 'include/header.php'; ?>  
     <section class="hero-section container-fluid">
       <div class="hero-text-container container-sm">
         <p class="page-title text-white fs-4">Volunteers</p>
@@ -1118,6 +1120,8 @@ $addons = array(
           </div>
         </div>
     </section>
+    <!-- FOOTER SECTION -->
+     <?php include "include/footer.php" ; ?>
     <!-- <script src="./assets/js/volunteer.js"></script> -->
     <script>
     // File upload handling with image preview

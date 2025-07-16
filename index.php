@@ -167,7 +167,8 @@ $addons = array(
             <div id="mission-vision">
                 <div class="mv">
                     <h3 class="left-heading2 m-h">Our Mission</h3>
-                    <img src="./assets/img/icon/vision-icon.svg" />
+                    <img src="./assets/img/icon/vision-icon.svg" data-aos="flip-right"
+     data-aos-delay="200"/>
                     <p class="left-para">
                         To improve health outcomes and empower communities across Africa, starting in Nigeria, by providing accessible healthcare solutions, advancing health education, and promoting preventive care to build healthier and self-reliant futures for all.
                     </p>
@@ -175,7 +176,8 @@ $addons = array(
 
                 <div class="mv">
                     <h3 class="left-heading2 m-h">Our Vision</h3>
-                    <img src="./assets/img/icon/mission-icon.svg" />
+                    <img src="./assets/img/icon/mission-icon.svg"  data-aos="flip-right"
+     data-aos-delay="200"/>
                     <p class="left-para">
                         A world where every individual has the knowledge, resources, and support to take control of their health, fostering empowered communities and healthier generations.
                     </p>
@@ -346,7 +348,8 @@ $addons = array(
 
     <section id="programs-section">
         <div id="programs">
-            <div class="programs">
+            <div class="programs" data-aos="fade-up"
+     data-aos-delay="400">
                 <img src="./assets/img/program.svg" alt="programs image" class="p-image" />
                 <div class="p-image-holder">
                     <img src="./assets/img/icon/program-icon1.svg" alt="program icon" class="p-icon" />
@@ -363,7 +366,8 @@ $addons = array(
             </div>
 
 
-            <div class="programs">
+            <div class="programs" data-aos="fade-up"
+     data-aos-delay="400">
                 <img src="./assets/img/program.svg" alt="programs image" class="p-image" />
                 <div class="p-image-holder">
                     <img src="./assets/img/icon/program-icon2.svg" alt="program icon" class="p-icon" />
@@ -377,7 +381,8 @@ $addons = array(
                     <a id="hero-button" class="p-anchor" href="about.php">Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
                 </p>
             </div>
-            <div class="programs">
+            <div class="programs" data-aos="fade-up"
+     data-aos-delay="400">
                 <img src="./assets/img/program.svg" alt="programs image" class="p-image" />
                 <div class="p-image-holder">
                     <img src="./assets/img/icon/program-icon3.svg" alt="program icon" class="p-icon" />
@@ -393,7 +398,8 @@ $addons = array(
                 </p>
             </div>
 
-            <div class="programs">
+            <div class="programs" data-aos="fade-up"
+     data-aos-delay="400">
                 <img src="./assets/img/program.svg" alt="programs image" class="p-image" />
                 <div class="p-image-holder">
                     <img src="./assets/img/icon/program-icon4.svg" alt="program icon" class="p-icon" />
@@ -456,7 +462,8 @@ $addons = array(
         $formattedTime = $datetime->format('h:i A'); // "h:i A" formats as 10:00 AM
         $formattedTime = htmlspecialchars($formattedTime); // sanitize the output
         ?>
-            <div class="event">
+            <div class="event" data-aos="fade-down"
+     data-aos-delay="200">
                 <img src="<?= $image ?>" class="event-image" />
                 <div class="event-text">
                     <span>Recent Event</span>
@@ -700,7 +707,8 @@ $addons = array(
                             $twitter = htmlspecialchars($volunteer['twitter']);
                ?>
                     <div class="col-md-4 mb-3" >
-                        <div class="leader-div">
+                        <div class="leader-div" data-aos="flip-left"
+     data-aos-delay="200">
                             <?php
                                 $primaryPath = "volunteer_uploads/profiles/" . $profilePicture;
                                 $fallbackPath = "admin/assets/images/volunteer-img-uploads/" . $profilePicture;
@@ -884,7 +892,8 @@ $addons = array(
                         $percentageRaised = ($event['goal_amount'] > 0) ? round(($event['amount_raised'] / $event['goal_amount']) * 100) : 0;
                         $image = !empty($event['banner_image']) ? $event['banner_image'] : "assets/img/donate/donation2-1.png";
             ?>
-        <div class="card">
+        <div class="card" data-aos="fade-up"
+     data-aos-delay="400">
             <img src="admin/<?= $image ?>" alt="Education cause" />
             <div class="card-tag">Education</div>
             <div class="card-content">
@@ -949,7 +958,8 @@ $addons = array(
                         $blogid = htmlspecialchars($blog['blog_id']);
                         $date = new DateTime($blog['published_at']);
                     ?>
-                    <div class="news-art-card">
+                    <div class="news-art-card" data-aos="fade-down"
+     data-aos-delay="400">
                     <img src="<?= $image ?>" alt="article" class="news-art-img" />
                     <div class="article-details" style="background-color: var(--theme-color2);">
                         <span class="art-author">Admin</span>

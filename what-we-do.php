@@ -29,15 +29,22 @@ $addons = array(
         <?php include 'include/head.php'; ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"> -->
+        <style>
+             a{
+                    text-decoration: none !important; 
+                    color: inherit;
+                }
+        </style>
     </head>
 
 
     <body>
         <main>
+            <?php include 'include/header.php'; ?>
             <div class="breadcumb-wrapper what-hero">
                 <div class="container">
                     <div class="breadcumb-content">
@@ -226,7 +233,8 @@ to take control of their health before complications arise.</li>
                 </div>
             </section>
         </main>
-
+        <?php include 'include/footer.php'; ?>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <!-- AOS JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script>
