@@ -11,7 +11,7 @@
     $page_name = 'comunity-member.php';
 
     $customs = array(
-                "stylesheets" => ["assets/css/community.css"],
+                "stylesheets" => ["assets/css/index.css", "assets/css/community-2.css"],
                 "scripts" => ["admin/assets/js/demo.js"]
                );
 
@@ -23,6 +23,10 @@
 ?>
 
 <style>
+   a{
+    text-decoration: none !important; 
+    color: inherit;
+  }
     #toast-success {
             position: fixed;
             bottom: -100px;
@@ -118,7 +122,7 @@
     <?php include 'include/head.php'; ?>
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
     
-    <link rel="stylesheet" href="./assets/css/community-2.css" />
+    <!-- <link rel="stylesheet" href="./assets/css/community-2.css" /> -->
    
 
 </head>
@@ -126,7 +130,7 @@
 
   <body>
     <!-- HERO SECTION -->
-     <?php include 'include/header2.php'; ?>
+     <?php include 'include/header.php'; ?>
      <div id="toast-success">
         <div class="icon">✔</div>
         <div id="toast-message">login success</div>
@@ -145,7 +149,7 @@
     >
       <p class="hero-0">Community Members</p>
       <h2 class="hero-1">Together for Health, Together for Hope</h2>
-      <button class="hero-btn">Get Medical Support</button>
+      <a href="#get-help" class="hero-btn">Get Medical Support</a>
     </section>
     <!-- PROVIDER SECTION -->
     <section class="providers-section container">
@@ -166,7 +170,7 @@
         </div>
       </div>
       <!-- provider-cards-container container d-flex flex-column justify-content-around align-content-center flex-lg-row  -->
-      <div class="container py-4 row g-0 gap-md-2 justify-content-around">
+      <div class="container py-4 row gap-4 justify-content-center">
         <?php
           require 'api/Database/DatabaseConn.php';
 
@@ -196,7 +200,7 @@
             </div>
         <?php else: ?>
           <?php foreach ($healthWorkers as $worker): ?>
-            <div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center">
+            <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
               <div class="provider-card shadow-sm d-flex flex-column">
                 <div class="provider-img-wrapper position-relative">
                   <img
@@ -232,76 +236,56 @@
       </div>
     </section>
     <!-- NEWS ARTCLE SECTION -->
-    <section class="container news-art-section pt-2">
-      <div
-        class="news-art-header-container d-flex flex-column flex-md-row justify-content-between px-4"
-      >
-        <div class="news-art-text">
-          <h2 class="news-art-head">News article</h2>
-          <p class="news-art-subhead d-block mt-4">
-            Our Latest News & Articles
-          </p>
-        </div>
-        <div class="news-art-nav mb-3">
-          <img
-            src="./assets/img/community/icons/left-arrow.png"
-            alt="left facing arrow"
-            class="left-arrow"
-          />
-          <img
-            src="./assets/img/community/icons/right-arrow.svg"
-            alt="right facing arrow"
-            class="right-arrow"
-          />
-        </div>
-      </div>
-      <!-- news-art-card-container container-fluid d-flex flex-column align-items-center justify-content-around flex-md-row -->
-      <div class="news-art-card-container container g-0 row gap-2 justify-content-around">
-        <?php
-          // require 'api/Database/DatabaseConn.php'; 
+     <section class="news-art-section pt-2" style="background-color: #F8F4F4;">
+        <div class="container">
+            <div class="news-art-header-container d-flex flex-column flex-md-row justify-content-between px-4">
+            <div class="news-art-text">
+                <h2 class="">News article</h2>
+                <p class="news-art-subhead d-block mt-4">Our Latest News & Articles</p>
+            </div>
+            <div class="news-art-nav mb-3 d-flex align-items-center gap-3">
+                <button class="arrow-btn left-arrow">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="arrow-btn right-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            </div>
 
-        
-          $dbh = $db->connect();
-          
-          $query = "SELECT * FROM blog_posts WHERE status = 'published' ORDER BY published_at ASC";
-          $stmt = $dbh->prepare($query);
-          $stmt->execute();
+            <div class="news-art-card-wrapper">
+                <div class="news-art-card-track">
+                    <?php
+                    $dbh = $db->connect();
+                    $query = "SELECT * FROM blog_posts WHERE status = 'published' ORDER BY published_at ASC";
+                    $stmt = $dbh->prepare($query);
+                    $stmt->execute();
 
-          while ($blog = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $image = !empty($blog['image']) ? "uploads/" . htmlspecialchars($blog['image']) : "assets/img/default-image.jpg";
-            $blogid = htmlspecialchars($blog['blog_id']);
-            
-            $date = new DateTime($blog['published_at']);
-        ?>
-        <div class="news-art-card col-3">
-          <img
-            src="<?= $image ?>"
-            alt="article image"
-            class="news-art-img"
-          />
-          <div class="article-details">
-            <span class="art-author">Admin</span>
-            <span class="art-date"><?= $date->format('F Y') ?></span>
-            <span class="art-comments-count"> </i><?= htmlspecialchars($blog['category']) ?></span>
-          </div>
-          <h5 class="art-title px-2"><?= htmlspecialchars($blog['blog_title']) ?></h5>
-          <p class="art-summary">
-            <?= htmlspecialchars($blog['blog_description']) ?>
-          </p>
-          <a class="th-btn style3 mt-4 text-decoration-none" href="blog-details.php?id=<?= $blogid ?>">
-            Read More
-            <img
-              src="./assets/img/community/icons/right-arrow.svg"
-              alt="right-facing-arrow" class="ms-2"
-            />
-          </a>
+                    while ($blog = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $image = !empty($blog['image']) ? "uploads/" . htmlspecialchars($blog['image']) : "assets/img/default-image.jpg";
+                        $blogid = htmlspecialchars($blog['blog_id']);
+                        $date = new DateTime($blog['published_at']);
+                    ?>
+                    <div class="news-art-card">
+                    <img src="<?= $image ?>" alt="article" class="news-art-img" />
+                    <div class="article-details" style="background-color: var(--theme-color2);">
+                        <span class="art-author">Admin</span>
+                        <span class="art-date"><?= $date->format('F Y') ?></span>
+                        <span class="art-comments-count"><?= htmlspecialchars($blog['category']) ?></span>
+                    </div>
+                    <h5 class="art-title px-2"><?= htmlspecialchars($blog['blog_title']) ?></h5>
+                    <p class="art-summary"><?= htmlspecialchars($blog['blog_description']) ?></p>
+                    <a class="th-btn mt-4 text-decoration-none" href="blog-details.php?id=<?= $blogid ?>">
+                        Read More <img src="./assets/img/community/icons/right-arrow.svg" alt="arrow" class="ms-2" />
+                    </a>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
         </div>
-        <?php } ?>
-        
-      </div>
     </section>
     <!-- SUPPORT SECTION -->
-    <section class="container support-section pt-3 pb-4">
+    <section class="container support-section pt-3 pb-4" id="get-help">
       <h2 class="support-title text-center">Get Medical Support</h2>
       <div class="container form-container mt-3">
         <form  class=" container-sm form" method="POST" id="postForm">
@@ -316,7 +300,11 @@
             
           ></textarea>
           <br />
-          <input type="button" value="Submit" id="Publish" class="hero-btn form-btn w-50 mx-auto d-block my-2" />
+          <button type="button" id="Publish" class="th-btn style3 w-50 mx-auto d-block my-2">
+           
+            Submit
+            </button>
+           
         </form>
       </div>
     </section>
@@ -396,6 +384,60 @@
                 });
             });
         </script>
+        <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector(".news-art-card-track");
+  const leftArrow = document.querySelector(".left-arrow");
+  const rightArrow = document.querySelector(".right-arrow");
+  const scrollAmount = 320;
+
+  const updateArrows = () => {
+    const scrollLeft = track.scrollLeft;
+    const maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+    // Toggle visibility of arrows based on scroll position
+    leftArrow.classList.toggle("hidden", scrollLeft <= 10);
+    rightArrow.classList.toggle("hidden", scrollLeft >= maxScrollLeft - 10);
+  };
+
+  // Scroll on arrow click
+  rightArrow.addEventListener("click", () => {
+    track.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  });
+
+  leftArrow.addEventListener("click", () => {
+    track.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+  });
+
+  // Update arrow visibility after scroll
+  track.addEventListener("scroll", updateArrows);
+
+  // Observe first and last cards to hide arrows at limits
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (entry.target.classList.contains("first-card")) {
+          leftArrow.classList.add("hidden");
+        } else if (entry.target.classList.contains("last-card")) {
+          rightArrow.classList.add("hidden");
+        }
+      }
+    });
+  }, { root: track, threshold: 1 });
+
+  // Observe edges
+  const cards = track.querySelectorAll(".news-art-card");
+  if (cards.length > 0) {
+    cards[0].classList.add("first-card");
+    cards[cards.length - 1].classList.add("last-card");
+    observer.observe(cards[0]);
+    observer.observe(cards[cards.length - 1]);
+  }
+
+  // Initial call
+  updateArrows();
+});
+</script>
         <script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
         <!-- Swiper Js -->
         <script src="assets/js/swiper-bundle.min.js"></script>
