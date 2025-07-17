@@ -385,14 +385,14 @@ $addons = array(
 </head>
 
 <body>
-    <!-- <script>
+    <script>
 
 
   
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  fetch("https://ogerihealth.org/api/v1/auth.php")
+  fetch("../api/v1/auth.php")
   .then(async response => {
     const data = await response.json(); 
 
@@ -415,7 +415,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       
 
-    </script> -->
+    </script>
     <?php $page = 'resources'; ?>
     <?php include $page_rel . 'admin/includes/topbar.php'; ?>
     <main class="">

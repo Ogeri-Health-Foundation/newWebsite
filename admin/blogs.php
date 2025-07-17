@@ -378,7 +378,7 @@
 
 window.onload = function () {
 
-  fetch("https://ogerihealth.org/api/v1/auth.php")
+  fetch("../api/v1/auth.php")
   .then(async response => {
     const data = await response.json(); 
 
@@ -723,20 +723,26 @@ window.onload = function () {
       <!-- Health workers section -->
       <section class="hc-provider-section">
     <h2 class="title">Health Workers</h2>
-    <nav class="resource-nav">
-      <div class="search-box">
-        <img src="./assets/images/resources/icons/search-glass.png" alt="search glass">
-        <input type="text" id="searchInput" class="filter-text-box" placeholder="Search any keyword">
-        <img src="./assets/images/resources/icons/mic.png" alt="microphone icon">
+    <nav class="resource-nav d-flex justify-content-end align-items-center gap-3 mb-4">
+      <!-- Optional: Search Box -->
+      <!--
+      <div class="search-box d-flex align-items-center border rounded px-2 py-1 bg-white shadow-sm">
+        <img src="./assets/images/resources/icons/search-glass.png" alt="Search" class="me-2" style="width: 18px;">
+        <input type="text" id="searchInput" class="form-control border-0 p-0" placeholder="Search any keyword">
+        <img src="./assets/images/resources/icons/mic.png" alt="Mic" class="ms-2" style="width: 18px;">
       </div>
-      <button class="btn-large">Export</button>
-      <select id="filterSelect">
+      -->
+
+      <button class="btn btn-primary btn-lg px-4">Export</button>
+
+      <select id="filterSelect" class="form-select w-auto px-3 py-2 shadow-sm" style="min-width: 200px;">
+        <option value="">Filter</option>
         <option value="">All Specializations</option>
         <option value="doctor">Doctor</option>
         <option value="nurse">Nurse</option>
-      
-        
       </select>
+    </nav>
+      
     </nav>
 
     <table>
@@ -838,7 +844,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let sn = 1;
 
   function fetchBlogs(page = 1) {
-    fetch(`https://ogerihealth.org/api/v1/fetch_all_blog.php?page=${page}&per_page=${perPage}`)
+    fetch(`../api/v1/fetch_all_blog.php?page=${page}&per_page=${perPage}`)
       .then((response) => response.json())
       .then((data) => {
         tableBody.innerHTML = data.data
@@ -922,7 +928,7 @@ document.querySelectorAll(".modal-box-blog .action").forEach(action => {
 
             async function fetchDataValuee(blogId) {
     try {
-        const response = await fetch(`https://ogerihealth.org/api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
+        const response = await fetch(`../api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
         const data = await response.json();
 
         console.log("Fetched Data:", data);
@@ -942,7 +948,7 @@ document.querySelectorAll(".modal-box-blog .action").forEach(action => {
         DetailDescription.textContent = data.blog_description;
         DetailCategory.textContent = data.category;
         DetailBody.textContent = data.body;
-        Image.src = `https://ogerihealth.org/uploads/${data.image}`; 
+        Image.src = `../uploads/${data.image}`; 
 
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -970,7 +976,7 @@ document.querySelectorAll(".modal-box-blog .action").forEach(action => {
 
   async function fetchDataValue(blogId) {
     try {
-        const response = await fetch(`https://ogerihealth.org/api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
+        const response = await fetch(`../api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
         const data = await response.json();
 
         console.log("Fetched Data:", data);
@@ -987,7 +993,7 @@ document.querySelectorAll(".modal-box-blog .action").forEach(action => {
         Description.value = data.blog_description;
         Category.value = data.category;
         Body.value = data.body;
-        Image.src = `https://ogerihealth.org/uploads/${data.image}`; // Set image preview
+        Image.src = `../uploads/${data.image}`; // Set image preview
 
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -1038,7 +1044,7 @@ document.getElementById("Publish").addEventListener("click", function () {
     }
 
     // Send form data to server
-    fetch("https://ogerihealth.org/api/v1/update_post_blog.php", {
+    fetch("../api/v1/update_post_blog.php", {
         method: "POST",
         body: formData
     })
@@ -1056,7 +1062,7 @@ document.getElementById("Publish").addEventListener("click", function () {
                 if (fileInput.files.length > 0) {
                     imageUrl = URL.createObjectURL(fileInput.files[0]); // Use newly uploaded image
                 } else if (data.image) {
-                    imageUrl = `https://ogerihealth.org/uploads/${data.image}`; // Use existing image
+                    imageUrl = `../uploads/${data.image}`; // Use existing image
                 }
 
                 if (imageUrl) {
@@ -1104,7 +1110,7 @@ document.getElementById("Publish").addEventListener("click", function () {
         } else if (this.textContent.includes("Save Draft")) {
     
     const type = "draft";
-    fetch("https://ogerihealth.org/api/v1/update_blog.php", {
+    fetch("../api/v1/update_blog.php", {
       method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -1152,7 +1158,7 @@ document.getElementById("Publish").addEventListener("click", function () {
 
           // this to save as published
     const type = "publish";
-    fetch("https://ogerihealth.org/api/v1/update_blog.php", {
+    fetch("../api/v1/update_blog.php", {
       method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -1335,7 +1341,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Fetch data from API
   async function fetchDoctors() {
     try {
-      const response = await fetch("https://ogerihealth.org/api/v1/no_limit_doc.php");
+      const response = await fetch("../api/v1/no_limit_doc.php");
       doctors = await response.json();
       totalPages = Math.ceil(doctors.length / rowsPerPage);
       renderTable(doctors, currentPage);
@@ -1385,7 +1391,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateAvailability(id, availability, role) {
-    fetch("https://ogerihealth.org/api/v1/no_limit_doc.php", {
+    fetch("../api/v1/no_limit_doc.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, availability, role }),

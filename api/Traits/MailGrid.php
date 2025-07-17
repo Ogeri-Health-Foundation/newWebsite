@@ -13,16 +13,17 @@ trait sendMail
     
                     try {
                         $mail->isSMTP();
-                        $mail->Host = 'mail.dreamlenxenterprise.com.ng'; 
-                        $mail->SMTPAuth = true;
-                        $mail->Username = 'info@dreamlenxenterprise.com.ng'; 
-                        $mail->Password = 'info@dreamlenxxx123456'; 
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
-                        $mail->Port = 465;
+                        $mail->Host       = 'mail.ogerihealth.org';
+                        $mail->SMTPAuth   = true;
+                        $mail->Username   = 'info@ogerihealth.org';
+                        $mail->Password   = '0s)lArHP7LxR';  // ❗ Make sure to store this securely
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                        $mail->Port       = 465;
                         
     
-                $mail->setFrom('info@dreamlenxenterprise.com.ng', 'OHF');
-                $mail->addAddress($email);
+                $mail->setFrom('info@ogerihealth.org', 'Ogeri Health Foundation');
+                $mail->addAddress($email, 'Admin');
+                
     
                 $mail->isHTML(true);
                 $mail->Subject = 'Verify Your Email - Action Required';

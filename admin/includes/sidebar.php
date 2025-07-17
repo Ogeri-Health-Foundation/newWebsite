@@ -13,6 +13,10 @@ function active($bar)
 
 
 <link rel="stylesheet" href="<?php echo $page_rel; ?>admin/assets/css/sidebar.css">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Bundle with Popper (must be after jQuery if used) 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
 <style>
     /* main {
     padding: 90px 0px;
@@ -83,12 +87,22 @@ function active($bar)
         <a href="<?php echo $page_rel; ?>admin/partnership/partnership.php"><i class="fa fa-users"></i>
             <span>Partnership</span></a>
         <a href="<?php echo $page_rel; ?>admin/events.php"><i class="fa fa-calendar"></i> <span>Events</span></a>
-        <a href="<?php echo $page_rel; ?>admin/contact.php"><i class="fa fa-calendar"></i> <span>Contacts</span></a>
+        <a href="<?php echo $page_rel; ?>admin/contacts.php"><i class="fa fa-calendar"></i> <span>Contacts</span></a>
         <hr class="my-2 hr" />
         <a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a>
-        <a href="#" class="text-danger"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+        <a href="#" class="text-danger" onclick="logoutUser(this)"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
     </div>
 </aside>
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
+  <div id="logout-toast" class="toast align-items-center text-bg-success border-0 shadow" style="max-width: 300px;" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="logout-toast-message">
+        Logged out successfully.
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -115,4 +129,47 @@ function active($bar)
             }
         });
     });
+</script>
+<script>
+  let logoutInProgress = false;
+
+  function logoutUser(el) {
+    if (logoutInProgress) return;
+
+    logoutInProgress = true;
+
+    // Show spinner on the button/link
+    const originalHTML = el.innerHTML;
+    el.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging out...`;
+
+    fetch("../api/v1/logout.php")
+      .then(response => response.json())
+      .then(data => {
+        // Show Bootstrap toast
+        const toastEl = document.getElementById('logout-toast');
+        const toastMsg = document.getElementById('logout-toast-message');
+        toastMsg.textContent = data.message || "Logout successful.";
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
+
+        setTimeout(() => {
+          window.location.href = "../admin/login.php";
+        }, 2000);
+      })
+      .catch(err => {
+        console.error("Logout failed:", err);
+        const toastEl = document.getElementById('logout-toast');
+        const toastMsg = document.getElementById('logout-toast-message');
+        toastMsg.textContent = "Logout failed. Please try again.";
+        toastEl.classList.replace("text-bg-success", "text-bg-danger");
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
+        setTimeout(() => {
+          window.location.href = "../admin/login.php";
+        }, 2500);
+      })
+      .finally(() => {
+        el.innerHTML = originalHTML;
+      });
+  }
 </script>

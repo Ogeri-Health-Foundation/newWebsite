@@ -202,20 +202,20 @@ $addons = array(
             </span>
           </div>
           <div class="d-flex justify-content-between">
-            <div class="mb-3 form-check">
+            <!-- <div class="mb-3 form-check">
               <input type="checkbox" class="form-check-input" id="remember" />
               <label class="form-check-label" for="remember">Remember me</label>
-            </div>
+            </div> -->
 
-            <a href="" class="forgot-link">Forgot Password ?</a>
+            <!-- <a href="" class="forgot-link">Forgot Password ?</a> -->
           </div>
           <button type="submit" class="submit btn btn-primary w-100">
             Log In <img src="assets/images/login/forward.svg" alt="" me-3 />
           </button>
         </form>
-        <p class="mt-3 sign-up">
+        <!-- <p class="mt-3 sign-up">
           Don't have an account? <a href="#">Sign Up</a>
-        </p>
+        </p> -->
       </div>
     </div>
   </div>
@@ -262,6 +262,9 @@ $addons = array(
     };
 
     Button.onclick = () => {
+      Button.disabled = true;
+      const originalHTML = Button.innerHTML;
+      Button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...`;
       let xhr = new XMLHttpRequest();
       xhr.open('POST', '../api/v1/loginRoute.php', true);
       xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // Ensure AJAX request
@@ -285,7 +288,7 @@ $addons = array(
 
               if (response.message === "Signed In Successfully") {
                 setTimeout(() => {
-                  window.location.href = "resources.php";
+                  window.location.href = "index.php";
                 }, 2000);
               }
             } else {

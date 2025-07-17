@@ -289,28 +289,28 @@ $addons = array(
 <body>
 
   <script>
-    // window.onload = function() {
+    window.onload = function() {
 
-    //   fetch("https://ogerihealth.org/api/v1/auth.php")
-    //     .then(async response => {
-    //       const data = await response.json();
+      fetch("../api/v1/auth.php")
+        .then(async response => {
+          const data = await response.json();
 
-    //       if (!response.ok) {
-    //         if (data.message === "Unauthorized") {
-    //           location.href = "../admin/login.php";
-    //         }
-    //         throw new Error(data.message || "Network response was not ok");
-    //       }
+          if (!response.ok) {
+            if (data.message === "Unauthorized") {
+              location.href = "../admin/login.php";
+            }
+            throw new Error(data.message || "Network response was not ok");
+          }
 
-    //       console.log("Auth Data:", data);
-    //       return data;
-    //     })
-    //     .catch(error => {
-    //       console.error("Fetch error:", error);
-    //     });
+          console.log("Auth Data:", data);
+          return data;
+        })
+        .catch(error => {
+          console.error("Fetch error:", error);
+        });
 
 
-    // };
+    };
   </script>
 
   <?php $page = 'Blog'; ?>

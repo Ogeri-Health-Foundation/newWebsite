@@ -44,7 +44,7 @@ $customs = array(
 
 window.onload = function () {
 
-  fetch("https://ogerihealth.org/api/v1/auth.php")
+  fetch("../../api/v1/auth.php")
   .then(async response => {
     const data = await response.json(); 
 

@@ -68,13 +68,9 @@ $result5 = $dbh->query($sql5);
 <body>
 
 <script>
-
-
-  
-
 window.onload = function () {
 
-  fetch("https://ogerihealth.org/api/v1/auth.php")
+  fetch("../api/v1/auth.php")
   .then(async response => {
     const data = await response.json(); 
 
@@ -83,6 +79,10 @@ window.onload = function () {
         location.href = "../admin/login.php";
       }
       throw new Error(data.message || "Network response was not ok");
+    }else if (data.status === "success") {
+      console.log("Authenticated successfully");
+    } else {
+      throw new Error("Unexpected response format");
     }
 
     console.log("Auth Data:", data);
@@ -101,7 +101,7 @@ window.onload = function () {
     <!-- Main Content -->
     <?php $page = 'home'; ?>
     <?php include $page_rel . 'admin/includes/topbar.php'; ?>
-    <main class="" style="">
+    <main >
         <!-- Cards -->
         <section class="cards2 container">
             <div class="row gy-5 gap-4 justify-content-center">

@@ -29,6 +29,30 @@
 <head>
     
     <?php include $page_rel.'admin/includes/admin-head.php'; ?>
+    <script>
+    window.onload = function() {
+
+      fetch("../api/v1/auth.php")
+        .then(async response => {
+          const data = await response.json();
+
+          if (!response.ok) {
+            if (data.message === "Unauthorized") {
+              location.href = "../admin/login.php";
+            }
+            throw new Error(data.message || "Network response was not ok");
+          }
+
+          console.log("Auth Data:", data);
+          return data;
+        })
+        .catch(error => {
+          console.error("Fetch error:", error);
+        });
+
+
+    };
+  </script>
 
 </head>
 <body>

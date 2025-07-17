@@ -36,9 +36,9 @@ $customs = array(
 
 <body>
 
-<!-- <script>
+<script>
       window.onload = function () {
-  fetch("http://localhost/ohfWebsite/api/v1/auth.php")
+  fetch("../../api/v1/auth.php")
     .then(response => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -49,7 +49,7 @@ $customs = array(
       console.log("Auth Data:", data); 
       if (data.status === "error") {
         
-        location.href = "http://localhost/ohfWebsite/admin/login.php";
+        location.href = "../../admin/login.php";
       }
     })
     .catch(error => {
@@ -57,7 +57,7 @@ $customs = array(
     });
 };
 
-    </script> -->
+    </script>
 
 
     <?php $page = 'Partnership'; ?>

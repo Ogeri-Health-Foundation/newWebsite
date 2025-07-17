@@ -2,11 +2,13 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Load Composer's autoloader
-require '../vendor/autoload.php'; // Adjust this path as needed
+require '../vendor/autoload.php';
+
+header('Content-Type: application/json');
+
+$response = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize form inputs
     $toEmail = filter_var($_POST['toEmail'], FILTER_SANITIZE_EMAIL);
     $toName = htmlspecialchars($_POST['contactName']);
     $replyMessage = nl2br(htmlspecialchars($_POST['replyMessage']));
@@ -14,20 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail = new PHPMailer(true);
 
     try {
-        // SMTP Server configuration for Gmail
-       $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com';
-            $mail->SMTPAuth   = true;
-            $mail->Username   = 'praiseonojs@gmail.com';
-            $mail->Password   = 'ktle eksd aybh fgsw';  // 
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = 587;
+        $mail->isSMTP();
+        $mail->Host       = 'mail.ogerihealth.org';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'info@ogerihealth.org';
+        $mail->Password   = '0s)lArHP7LxR';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $mail->Port       = 465;
 
-        // Sender & recipient
-        $mail->setFrom('praiseonojs@gmail.com', 'Ogeri Health Foundation');
+        $mail->setFrom('info@ogerihealth.org', 'Ogeri Health Foundation');
         $mail->addAddress($toEmail, $toName);
 
-        // Email content
         $mail->isHTML(true);
         $mail->Subject = 'Reply to your message';
         $mail->Body    = "
@@ -37,22 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ";
 
         $mail->send();
-        echo "<script>
-                window.onload = function() {
-                    showAlert('Reply sent successfully!', 'success');
-                    setTimeout(function() {
-                        window.history.back();
-                    }, 4000);
-                };
-            </script>";
+
+        $response = [
+            'status' => 'success',
+            'message' => 'Reply sent successfully!'
+        ];
+
     } catch (Exception $e) {
-        echo "<script>
-                window.onload = function() {
-                    showAlert('Mail Error: " . addslashes($mail->ErrorInfo) . "', 'error');
-                    setTimeout(function() {
-                        window.history.back();
-                    }, 4000);
-                };
-            </script>";
+        $response = [
+            'status' => 'error',
+            'message' => 'Mail Error: ' . $mail->ErrorInfo
+        ];
     }
+
+    echo json_encode($response);
 }

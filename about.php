@@ -82,7 +82,7 @@ $addons = array(
                     <div class="col-md-6 ">
                         <img src="assets/img/about/first-img.svg" alt="">
                     </div>
-                </div>
+                </div> 
             </div>
         </section>
         

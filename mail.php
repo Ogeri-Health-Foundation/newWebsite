@@ -42,14 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail = new PHPMailer(true);
         try {
             $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com';
+            $mail->Host       = 'mail.ogerihealth.org';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'praiseonojs@gmail.com';
-            $mail->Password   = 'ktle eksd aybh fgsw';  // ❗ Make sure to store this securely
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = 587;
+            $mail->Username   = 'info@ogerihealth.org';
+            $mail->Password   = '0s)lArHP7LxR';  // ❗ Make sure to store this securely
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $mail->Port       = 465;
 
-            $mail->setFrom('praiseonojs@gmail.com', 'OHF Website');
+            $mail->setFrom('info@ogerihealth.org', 'Ogeri Health Foundation');
             $mail->addAddress('info@ogerihealth.org', 'Admin');
 
             $mail->isHTML(true);

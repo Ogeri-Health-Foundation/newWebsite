@@ -92,6 +92,11 @@
     <!-- Theme Custom CSS -->
     <link rel="stylesheet" href="<?php echo $page_rel; ?>admin/assets/css/admin-style.css">
     <link rel="stylesheet" href="<?php echo $page_rel; ?>assets/css/footer.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Bundle with Popper (must be after jQuery if used) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
 
     <?php
 		if(isset($addons)) {
