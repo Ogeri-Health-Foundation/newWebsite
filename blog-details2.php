@@ -1112,11 +1112,11 @@ $addons = array(
                 const notification = document.createElement('div');
                 notification.className = `notification notification-${type}`;
                 notification.innerHTML = `
-            <div class="notification-content">
-                <span class="notification-message">${message}</span>
-                <button class="notification-close">&times;</button>
-            </div>
-        `;
+                    <div class="notification-content">
+                        <span class="notification-message">${message}</span>
+                        <button class="notification-close">&times;</button>
+                    </div>
+                `;
 
                 // Style based on type
                 let bgColor, textColor;

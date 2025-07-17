@@ -38,6 +38,7 @@ if (!isset($payment_response['data'])) {
     exit();
 }
 
+
 if ($payment_response['status'] === "success" && $payment_response['data']['status'] === "successful") {
     // Extract donor and payment details
     $donor_name = $payment_response['data']['customer']['name'] ?? 'Unknown';

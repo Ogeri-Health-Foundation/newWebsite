@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const customAmountInput = document.getElementById("donation_amount");
   const currencySelect = document.getElementById("currency");
 
+
   const currencySymbols = {
     NGN: "₦",
     USD: "$",
@@ -131,4 +132,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize default values
   updateAmounts();
+
 });

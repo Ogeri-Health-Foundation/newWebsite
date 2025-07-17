@@ -23,7 +23,11 @@ html {
     background-color: var(--text-green);
 }
 
-.btn-green {
+.bg-orange {
+    background-color: var(--text-orange);
+}
+
+.btn-green, .btn-green2 {
     background-color: var(--text-green);
     color: #fff;
     border: 2px solid var(--text-green);
@@ -34,6 +38,14 @@ html {
     border: 2px solid var(--text-green);
     color: var(--text-green) !important;
 }
+
+.btn-green2:hover {
+    background-color: transparent;
+    border: 2px solid var(--text-green);
+    color: var(--text-green) !important;
+}
+
+
 
 
 /* ===========  headers SECTION STARTS =========== */
@@ -368,23 +380,138 @@ html {
 
 
 /* ============= COMMENT SECTION ============= */
+
 .comment-section {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* Align items to the top */
     column-gap: 25px;
+    width: 100%;
+    /* Ensure full width */
+    margin-bottom: 30px;
+    /* Add spacing between comments */
+}
+
+.comment-img {
+    flex: 0 0 70px;
+    /* Don't grow, don't shrink, fixed width */
+    width: 70px;
+    height: 70px;
 }
 
 .comment-img .com-img {
-    width: 70px;
-    height: 70px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
 }
 
-/* .comment-description{
-    font-size: 1.2vw;
-} */
+.comment-area {
+    flex: 1;
+    /* Take remaining space */
+    min-width: 0;
+    /* Prevent flex item overflow */
+}
+
+.comment-area h5 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.comment-area .date,
+.comment-area .time {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 14px;
+    color: #666;
+}
+
+.comment-area .date i,
+.comment-area .time i {
+    margin-right: 5px;
+}
+
+.comment-description {
+    margin: 15px 0 0 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .comment-section {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .comment-img {
+        margin-bottom: 10px;
+    }
+
+    .comment-img.d-none.d-md-block {
+        display: block !important;
+        /* Force show image on mobile */
+    }
+}
+#comment-sections {
+    max-height: 500px;
+    /* Adjust this value to your preferred height */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    padding-right: 10px;
+    /* Add some padding so scrollbar doesn't overlap content */
+
+    /* Custom tiny scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+    &::-webkit-scrollbar {
+        width: 5px;
+        /* Makes the scrollbar very thin */
+        height: 5px;
+        /* For horizontal scrollbars if needed */
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        /* Light gray track */
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+        /* Darker scroll thumb */
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background:var(--text-orange);
+        /* Darker on hover */
+    }
+
+    /* For Firefox */
+    scrollbar-width: thin;
+    /* Makes scrollbar thinner */
+    scrollbar-color: #888 #f1f1f1;
+    /* thumb and track color */
+}
+
+/* Optional: Add some spacing between comments inside the container */
+#comment-sections .comment-section {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    /* subtle separator */
+}
+
+#comment-sections .comment-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
 
 
 
@@ -468,3 +595,8 @@ html {
         width: 100%;
     }
 } */
+
+.total-img{
+    width: 50px;
+    height: 50px !important;
+}
