@@ -100,6 +100,10 @@ $addons = array(
 <body>
 
     <style>
+         a{
+    text-decoration: none !important; 
+    color: inherit;
+  }
         img.global-stylee {
             height: 550px;
             width: 100%;

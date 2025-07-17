@@ -1,4 +1,8 @@
 /* styling sheet for dashboard page */
+a{
+    text-decoration: none !important;
+    /* color: #2D3F53; */
+}
 .navbar {
     background: #fff;
     padding: 10px 20px;
@@ -70,7 +74,7 @@
         display: none;
     }
 }
-/* Default Sidebar */
+
 .sidebar-left {
     width: 230px;
     transition: width 0.3s ease-in-out;
@@ -93,7 +97,7 @@
     color: #2D3F53;
     text-decoration: none;
     margin-bottom: 20px;
-    white-space: nowrap; /* Prevents text from wrapping */
+    white-space: nowrap; 
     overflow: hidden;
 }
 
@@ -101,7 +105,7 @@
     font-size: 20px;
 }
 
-/* Sidebar Hover Effect */
+
 .sidebar a:hover,
 .active {
     background: #2D3F53;
@@ -113,23 +117,23 @@
     color: #fff !important;
 }
 
-/* Responsive Sidebar for Smaller Screens */
+
 @media (max-width: 768px) {
     .sidebar-left {
-        width: 70px; /* Shrinks sidebar */
+        width: 70px; 
     }
 
     .sidebar {
-        padding: 10px; /* Reduce padding */
+        padding: 10px; 
     }
 
     .sidebar a {
-        gap: 0; /* Remove gap */
-        justify-content: center; /* Center the icon */
+        gap: 0;  
+        justify-content: center; 
     }
 
     .sidebar a span {
-        display: none; /* Hide text */
+        display: none; 
     }
 }
 

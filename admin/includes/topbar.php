@@ -62,7 +62,7 @@
 
       <!-- User Section -->
       <div class="user-info">
-        <span class="notification" style="position: relative; cursor: pointer;" onclick="redirectAdmin()">
+        <!-- <span class="notification" style="position: relative; cursor: pointer;" onclick="redirectAdmin()">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.5 19H8C4 19 2 18 2 13V8C2 4 4 2 8 2H16C20 2 22 4 22 8V13C22 17 20 19 16 19H15.5C15.19 19 14.89 19.15 14.7 19.4L13.2 21.4C12.54 22.28 11.46 22.28 10.8 21.4L9.3 19.4C9.14 19.18 8.77 19 8.5 19Z" stroke="#292D32" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M15.9965 11H16.0054" stroke="#292D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -71,16 +71,16 @@
 </svg>
 
 <span id="badge" class="badge"></span>
-        </span>
+        </span> -->
         <div class="dropdown">
           <button
             class="btn dropdown-toggle d-flex align-items-center"
             type="button"
             data-bs-toggle="dropdown"
           >
-            <div class="user-avatar">PO</div>
+            <div class="user-avatar">SA</div>
             <div class="ms-2 name-div">
-              <span class="d-block">Patricia Oko</span>
+              <span class="d-block">Admin</span>
               <small class="text-muted"
                 ><span class="mx-2"
                   ><img src="<?php echo $page_rel; ?>admin/assets/images/includes/dot.svg" alt="" /></span
@@ -90,9 +90,9 @@
             <i class="fas fa-chevron-down ms-2"></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+            <!-- <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li> -->
+            <li><a class="dropdown-item text-danger" href="#" onclick="logoutUser(this)">Logout</a></li>
           </ul>
         </div>
       </div>
@@ -130,7 +130,7 @@
 
     </script>
 
-<script>
+<!-- <script>
 
 window.onload = function () {
 
@@ -155,4 +155,47 @@ fetch("http://localhost/ohfWebsite/api/v1/getMessageCount.php")
 };
 
 
-</script>
+</script> -->
+<!-- <script>
+  let logoutInProgress = false;
+
+  function logoutUser(el) {
+    if (logoutInProgress) return;
+
+    logoutInProgress = true;
+
+    // Show spinner on the button/link
+    const originalHTML = el.innerHTML;
+    el.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging out...`;
+
+    fetch("../api/v1/logout.php")
+      .then(response => response.json())
+      .then(data => {
+        // Show Bootstrap toast
+        const toastEl = document.getElementById('logout-toast');
+        const toastMsg = document.getElementById('logout-toast-message');
+        toastMsg.textContent = data.message || "Logout successful.";
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
+
+        setTimeout(() => {
+          window.location.href = "../admin/login.php";
+        }, 2000);
+      })
+      .catch(err => {
+        console.error("Logout failed:", err);
+        const toastEl = document.getElementById('logout-toast');
+        const toastMsg = document.getElementById('logout-toast-message');
+        toastMsg.textContent = "Logout failed. Please try again.";
+        toastEl.classList.replace("text-bg-success", "text-bg-danger");
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
+        setTimeout(() => {
+          window.location.href = "../admin/login.php";
+        }, 2500);
+      })
+      .finally(() => {
+        el.innerHTML = originalHTML;
+      });
+  }
+</script> -->

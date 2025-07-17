@@ -21,7 +21,7 @@ $page_rel = '';
 $page_name = 'Blog';
 
 $customs = array(
-  "stylesheets" => ["assets/css/demo.css"],
+  "stylesheets" => ["assets/css/blog.css"],
   "scripts" => ["admin/assets/js/demo.js"]
 );
 
@@ -43,7 +43,7 @@ require 'events-data.php'; // Include the events array
 
   <script src="https://kit.fontawesome.com/706f90924a.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./assets/css/blog.css">
+ 
 </head>
 
 <body>
@@ -66,6 +66,10 @@ require 'events-data.php'; // Include the events array
 ============================== -->
 
   <style>
+     a{
+    text-decoration: none !important; 
+    color: inherit;
+  }
     img.global-stylee {
       height: 550px;
       width: 100%;
@@ -320,23 +324,23 @@ Blog Area
   </section>
   <!-- blog container title starts -->
 
-  <section class="headers position-relative text-white mb-5"
-    style="height: 30vh; background-image: url('./assets/img/bg/Frame 2147226443.png'); background-size: cover; background-position: center;">
+  <section class="headers position-relative text-white mb-5 text-center"
+    style="padding: 100px 0px; background-image: url('./assets/img/bg/Frame 2147226443.png'); background-size: cover; background-position: center;">
 
     <!-- Overlay -->
     <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); z-index: 1;">
     </div>
 
     <!-- Content -->
-    <div class="header-details container text-center d-flex flex-column justify-content-center align-items-center h-100"
+    <div class="text-center "
       style="z-index: 2; position: relative;">
       <p class="fs-6 fw-semibold mb-3 text-white">Ogeri Health Foundation</p>
-      <h3 class="mb-4 px-3 ohf_font text-white" style="max-width: 800px;">
+      <h3 class="mb-4  ohf_font text-white text-center" >
         It’s not the size of your intention that matters most, but the small, genuine acts of kindness you’re
         willing to do — those are what truly leave a mark.
       </h3>
 
-      <div class="donate_volunteer d-flex gap-3 flex-wrap justify-content-center">
+      <div class="donate_volunteer d-flex gap-3 flex-wrap justify-content-center mt-5">
         <a href="./donation.php" class="btn btn-4 btn-md">Donate Now</a>
         <a href="./volunteer.php" class="btn btn-5 btn-md">Become a Volunteer</a>
       </div>
@@ -435,7 +439,7 @@ Blog Area
   <script src="assets/js/jquery-ui.min.js"></script>
   <!-- Isotope Filter -->
   <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/js/isotope.pkgd.min.js"></script>
+  <!-- <script src="assets/js/isotope.pkgd.min.js"></script> -->
 
   <!-- Main Js File -->
   <script src="assets/js/main.js"></script>

@@ -84,6 +84,10 @@ $addons = array(
 <html class="no-js" lang="zxx" dir="ltr">
 
 <style>
+     a{
+    text-decoration: none !important; 
+    color: inherit;
+  }
     .nested-replies {
         margin-left: 5px;
     }

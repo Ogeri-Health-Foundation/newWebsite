@@ -36,6 +36,30 @@ $addons = array(
   <?php include $page_rel . 'include/head.php'; ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script>
+    window.onload = function() {
+
+      fetch("../api/v1/auth.php")
+        .then(async response => {
+          const data = await response.json();
+
+          if (!response.ok) {
+            if (data.message === "Unauthorized") {
+              location.href = "../admin/login.php";
+            }
+            throw new Error(data.message || "Network response was not ok");
+          }
+
+          console.log("Auth Data:", data);
+          return data;
+        })
+        .catch(error => {
+          console.error("Fetch error:", error);
+        });
+
+
+    };
+  </script>
 </head>
 <style>
   .upload-box {

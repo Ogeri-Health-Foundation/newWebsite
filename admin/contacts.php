@@ -31,7 +31,7 @@
     <script>
         window.onload = function () {
 
-        fetch("https://ogerihealth.org/api/v1/auth.php")
+        fetch("../api/v1/auth.php")
         .then(async response => {
             const data = await response.json(); 
 
@@ -323,6 +323,45 @@
                 });
             });
         });
+    </script>
+    <script>
+        const replyForm = document.getElementById('replyForm');
+
+        replyForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(replyForm);
+
+            try {
+                const response = await fetch('reply.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                showAlert(result.message, result.status);
+
+                if (result.status === 'success') {
+                    setTimeout(() => {
+                        location.reload(); // Refresh contacts.php
+                    }, 2000);
+                }
+
+            } catch (error) {
+                showAlert('Unexpected error occurred.', 'error');
+            }
+        });
+
+        function showAlert(message, status) {
+            const alertBox = document.createElement('div');
+            alertBox.className = `alert alert-${status === 'success' ? 'success' : 'danger'} mt-3`;
+            alertBox.textContent = message;
+
+            replyForm.parentElement.insertBefore(alertBox, replyForm);
+
+            setTimeout(() => alertBox.remove(), 4000);
+        }
     </script>
 
 </body>
