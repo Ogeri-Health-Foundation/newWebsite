@@ -392,7 +392,7 @@
       rgba(0, 0, 0, 0.5),
       rgba(0, 0, 0, 0.5)
     ),
-    url("../../assets/img/tech-stats-image.jpg");
+    url("../img/tech-stats-image-min.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -848,7 +848,7 @@
   width: 100%;
  padding: 100px 0px;
   background-image:
-    url("../img/use-index.svg");
+    url("../img/use-index.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -350,7 +350,7 @@ $addons = array(
         <div id="programs">
             <div class="programs" data-aos="fade-up"
      data-aos-delay="400">
-                <img src="./assets/img/program.svg" alt="programs image" class="p-image" />
+                <img src="./assets/img/outreach.jpg" alt="programs image" class="p-image" />
                 <div class="p-image-holder">
                     <img src="./assets/img/icon/program-icon1.svg" alt="program icon" class="p-icon" />
                 </div>
@@ -368,7 +368,7 @@ $addons = array(
 
             <div class="programs" data-aos="fade-up"
      data-aos-delay="400">
-                <img src="./assets/img/program.svg" alt="programs image" class="p-image" />
+                <img src="./assets/img/partnership.jpg" alt="programs image" class="p-image" />
                 <div class="p-image-holder">
                     <img src="./assets/img/icon/program-icon2.svg" alt="program icon" class="p-icon" />
                 </div>
@@ -383,7 +383,7 @@ $addons = array(
             </div>
             <div class="programs" data-aos="fade-up"
      data-aos-delay="400">
-                <img src="./assets/img/program.svg" alt="programs image" class="p-image" />
+                <img src="./assets/img/research.jpg" alt="programs image" class="p-image" />
                 <div class="p-image-holder">
                     <img src="./assets/img/icon/program-icon3.svg" alt="program icon" class="p-icon" />
                 </div>
@@ -400,7 +400,7 @@ $addons = array(
 
             <div class="programs" data-aos="fade-up"
      data-aos-delay="400">
-                <img src="./assets/img/program.svg" alt="programs image" class="p-image" />
+                <img src="./assets/img/heart.jpg" alt="programs image" class="p-image" />
                 <div class="p-image-holder">
                     <img src="./assets/img/icon/program-icon4.svg" alt="program icon" class="p-icon" />
                 </div>
@@ -492,8 +492,8 @@ $addons = array(
     <section class="testimonials-section2">
         <div class="background-image">
             <img
-                src="./assets/img/donation-testimonial-bg.jpg"
-                alt="Background image of people" />
+                src="./assets/img/donation-testimonial-bg-min.jpg"
+                alt="Background image of people" />  
         </div>
         <div class="content-overlay">
             <div class="section-header">

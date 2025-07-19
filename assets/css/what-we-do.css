@@ -1,5 +1,5 @@
 .what-hero{
-    background-image: url('../img/what-we-do/hero-2.svg') !important;
+    background-image: url('../img/what-we-do/hero-2.jpg') !important;
     background-size: cover;
     background-position: center !important;
     padding: 60px 0px !important;
@@ -56,7 +56,7 @@
 }
 
 .section-bg {
-     background-image: url('../img/what-we-do/tech-bg.svg');
+     background-image: url('../img/what-we-do/tech-bg.jpg');
     position: relative;
     overflow: hidden;
     padding: 200px 0px;

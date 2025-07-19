@@ -73,7 +73,7 @@ $addons = array(
                     <div class="container" data-aos="fade-up">
                         <div class="row align-items-center mb-4">
                             <div class="col-md-6 mb-3 mb-md-0">
-                                <img src="assets/img/what-we-do/hero-pic.svg" alt="Community Health Outreach" class="img-fluid shadow rounded w-100">
+                                <img src="assets/img/what-we-do/hero-pic.jpg" alt="Community Health Outreach" class="img-fluid shadow rounded w-100">
                             </div>
                             <div class="col-md-6">
                                 <h5 class="text-theme2 fw-bold">Community Health Outreach</h5>
@@ -95,7 +95,7 @@ to take control of their health before complications arise.</li>
                     <div class="container" data-aos="fade-up" data-aos-delay="100">
                         <div class="row align-items-center flex-md-row-reverse mb-4">
                             <div class="col-md-6 mb-3 mb-md-0">
-                                <img src="assets/img/what-we-do/second-pic.svg" alt="Heart Health Awareness" class="img-fluid shadow rounded w-100">
+                                <img src="assets/img/what-we-do/second-pic.jpg" alt="Heart Health Awareness" class="img-fluid shadow rounded w-100">
                             </div>
                             <div class="col-md-6">
                                 <h5 class="text-theme2 fw-bold">Heart Health Awareness</h5>
@@ -118,7 +118,7 @@ to take control of their health before complications arise.</li>
                     <div class="container" data-aos="fade-up" data-aos-delay="200">
                         <div class="row align-items-center mb-4">
                             <div class="col-md-6 mb-3 mb-md-0">
-                                <img src="assets/img/what-we-do/third-img.svg" alt="Digital Solutions" class="img-fluid shadow rounded w-100">
+                                <img src="assets/img/what-we-do/third-img.jpg" alt="Digital Solutions" class="img-fluid shadow rounded w-100">
                             </div>
                             <div class="col-md-6">
                                 <h5 class="text-theme2 fw-bold">Advancing Healthcare Through Digital Solutions</h5>
@@ -141,7 +141,7 @@ to take control of their health before complications arise.</li>
                     <div class="container" data-aos="fade-up" data-aos-delay="300">
                         <div class="row align-items-center flex-md-row-reverse mb-4">
                             <div class="col-md-6 mb-3 mb-md-0">
-                                <img src="assets/img/what-we-do/fourth-pic.svg" alt="Partnerships & Advocacy" class="img-fluid shadow rounded w-100">
+                                <img src="assets/img/what-we-do/fourth-pic.jpg" alt="Partnerships & Advocacy" class="img-fluid shadow rounded w-100">
                             </div>
                             <div class="col-md-6">
                                 <h5 class="text-theme2 fw-bold">Partnerships & Advocacy</h5>
@@ -161,7 +161,7 @@ to take control of their health before complications arise.</li>
                     <div class="container" data-aos="fade-up" data-aos-delay="400">
                         <div class="row align-items-center mb-4">
                             <div class="col-md-6 mb-3 mb-md-0">
-                                <img src="assets/img/what-we-do/fifth-img.svg" alt="Research & Innovation" class="img-fluid shadow rounded w-100">
+                                <img src="assets/img/what-we-do/fifth-img.jpg" alt="Research & Innovation" class="img-fluid shadow rounded w-100">
                             </div>
                             <div class="col-md-6">
                                 <h5 class="text-theme2 fw-bold">Research & Innovation</h5>
@@ -227,7 +227,7 @@ to take control of their health before complications arise.</li>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3 mb-md-0">
-                                <img src="assets/img/what-we-do/hero-pic.svg" alt="Research & Innovation" class="img-fluid shadow rounded w-100">
+                                <img src="assets/img/what-we-do/hero-pic.jpg" alt="Research & Innovation" class="img-fluid shadow rounded w-100">
                             </div>
                     </div>
                 </div>
