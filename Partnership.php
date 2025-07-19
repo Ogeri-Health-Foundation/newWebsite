@@ -17,7 +17,7 @@ $page_description = "";
 
 $page_rel = '';
 
-$page_name = 'partnership.php';
+$page_name = 'Partnership.php';
 
 $customs = array(
     "stylesheets" => ["assets/css/partnership.css", "volunteer/assets/css/volunteers.css"],
