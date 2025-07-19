@@ -95,7 +95,7 @@ $addons = array(
                             $fallbackPath = "admin/assets/images/volunteer-img-uploads/" . $profilePicture;
 
                             if (file_exists($primaryPath)) {
-                                $imgSrc = "https://ogerihealth.org/" . $primaryPath;
+                                $imgSrc =  $primaryPath;
                             } else {
                                 $imgSrc = $fallbackPath;
                             }
