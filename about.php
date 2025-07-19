@@ -21,7 +21,7 @@ $page_name = 'About';
 
 $customs = array(
     "stylesheets" => ["assets/css/about.css"],
-    "scripts" => ["admin/assets/js/demo.js"]
+    "scripts" => [""]
 );
 
 $addons = array(
@@ -80,7 +80,7 @@ $addons = array(
                         <a href="volunteer.php" class="th-btn style3 my-3">Be a Volunteer</a>
                     </div>
                     <div class="col-md-6 ">
-                        <img src="assets/img/about/first-img.svg" alt="">
+                        <img src="assets/img/about/first-img.jpg" alt="">
                     </div>
                 </div> 
             </div>
@@ -421,7 +421,7 @@ heroes who make it all happen!</p>
             </div>
         </section>
 
-        <section class="py-5" style="background:  url('assets/img/about/test-bg.svg') center/cover no-repeat;">
+        <section class="py-5" style="background:  url('assets/img/about/test-bg.jpg') center/cover no-repeat;">
             <div class="container">
                 <div class="text-center text-white mb-5">
                     <p class="text-white">Testimonials</p>
