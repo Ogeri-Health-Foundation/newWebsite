@@ -868,7 +868,7 @@ $addons = array(
       </div>
     </section>
     <!-- FORM SECTION -->
-    <section class="form-section container px-1 px-md-4  py-5 add-border-blue" id="volunteerFormSection">
+    <section class="form-section container px-1 px-md-4  py-5" id="volunteerFormSection">
       <div class="form-header">
         <h2 class="form-header-title">Volunteering Requirement</h2>
         <p class="section-header-description">
