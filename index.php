@@ -852,7 +852,7 @@ $addons = array(
                 <p class="text-white fs-4">It’s not the size of your intention that matters most, but the small, genuine acts of kindness you’re willing to do — those are what truly leave a mark.</p>
            
 
-                <div class="d-flex mt-5 gap-5">
+                <div class="d-flex flex-column flex-md-row mt-5 gap-5">
                     <a href="donation.php" class="th-btn style3 bg-white" style="color: var(--theme-color2);">Donate Now </a>
                     <a href="volunteer.php" class="th-btn style3">Become a Volunteer</a>
                 </div>

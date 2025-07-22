@@ -20,7 +20,7 @@ $page_rel = '';
 $page_name = 'donation2.php';
 
 $customs = array(
-  "stylesheets" => ["assets/css/donations.css", "assets/css/about.css"],
+  "stylesheets" => ["assets/css/donations.css"],
   "scripts" => ["admin/assets/js/demo.js"]
 );
 
@@ -69,7 +69,7 @@ $addons = array(
                     <p class="text-dark">Let's Start Donating</p>
                     <h4 class="text-theme2">See Your Impact: Transparent Donation Causes</h4>
                 </div>
-                <div class="container mt-5">
+                <div class="container my-5 ">
                     <div class="row justify-content-center gy-4">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle text-center">
@@ -518,6 +518,48 @@ $addons = array(
         }
     }
 </script>
+<script>
+        const counters = document.querySelectorAll('.counter');
+        let countersStarted = false;
+
+        function animateCounters() {
+            if (countersStarted) return;
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000;
+                const stepTime = 10;
+                const increment = target / (duration / stepTime);
+                let count = 0;
+
+                const update = () => {
+                    count += increment;
+                    if (count < target) {
+                        counter.innerText = Math.floor(count);
+                        setTimeout(update, stepTime);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+
+                update();
+            });
+            countersStarted = true;
+        }
+
+        const triggerElement = document.querySelector('.impact-circle');
+
+        if ('IntersectionObserver' in window && triggerElement) {
+            const observer = new IntersectionObserver(entries => {
+                if (entries[0].isIntersecting) {
+                    animateCounters();
+                    observer.disconnect();
+                }
+            }, { threshold: 0.4 });
+            observer.observe(triggerElement);
+        } else {
+            window.addEventListener('load', animateCounters);
+        }
+    </script>
 </body>
 
 </html>
