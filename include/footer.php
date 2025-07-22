@@ -16,7 +16,7 @@
                         <p class="subscribe-box_text">Regular inspections and feedback mechanisms</p>
                     </div>
                     <div class="col-xl-6 col-lg-8">
-                        <form class="newsletter-form" id="subscribeForm">
+                        <form class="newsletter-form d-flex flex-column flex-sm-row" id="subscribeForm">
                             <div class="form-group">
                                 <input class="form-control" type="email" name="email" placeholder="Enter Email Address" required>
                             </div>
