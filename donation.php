@@ -20,7 +20,7 @@ $page_rel = '';
 $page_name = 'donation2.php';
 
 $customs = array(
-  "stylesheets" => ["assets/css/donations.css"],
+  "stylesheets" => ["assets/css/donations.css", "assets/css/about.css"],
   "scripts" => ["admin/assets/js/demo.js"]
 );
 
@@ -63,50 +63,44 @@ $addons = array(
     }
   ?>
 
-  <section class="impact-section">
-    <h3 class="section-subtitle">Let's Start Donating</h3>
-    <h2 class="section-title">
-      See Your Impact: Transparent Donation Causes
-    </h2>
+        <section class="" style="background-color: #F8F4F4;">
+            <div class="pt-5 container">
+                <div class="text-center">
+                    <p class="text-dark">Let's Start Donating</p>
+                    <h4 class="text-theme2">See Your Impact: Transparent Donation Causes</h4>
+                </div>
+                <div class="container mt-5">
+                    <div class="row justify-content-center gy-4">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                            <div class="impact-circle text-center">
+                                <p class="text-dark fs-3"><b><span class="counter" data-target="10000">0</span>+</b></p>
+                                <p class="w-75 mx-auto">People Treated Through Medical Outreach Programs</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                            <div class="impact-circle bg-theme text-white text-center">
+                                <p class="text-white fs-3"><b><span class="counter" data-target="5000">0</span>+</b></p>
+                                <p class="text-white w-75 mx-auto">Children vaccinated and protected from preventable diseases</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                            <div class="impact-circle text-center">
+                                <p class="text-dark fs-3"><b><span class="counter" data-target="1200">0</span>+</b></p>
+                                <p class="w-75 mx-auto">Families received life-saving medications</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                            <div class="impact-circle bg-theme text-white text-center">
+                                <p class="text-white fs-3"><b><span class="counter" data-target="50">0</span>+</b></p>
+                                <p class="text-white w-75 mx-auto">Communities reached with health education initiatives</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="impact-container">
-      <div class="impact-item">
-        <div class="impact-circle impact-circle-outline">
-          <p class="impact-number">10,000+</p>
-          <p class="impact-description">
-            People Treated Through Medical Outreach Programs
-          </p>
-        </div>
-      </div>
 
-      <div class="impact-item">
-        <div class="impact-circle impact-circle-filled">
-          <p class="impact-number text-white">5,000+</p>
-          <p class="impact-description text-white">
-            Children Vaccinated And Protected From Preventable Diseases
-          </p>
-        </div>
-      </div>
-
-      <div class="impact-item">
-        <div class="impact-circle impact-circle-outline">
-          <p class="impact-number">1,200+</p>
-          <p class="impact-description">
-            Families Received Life-Saving Medications
-          </p>
-        </div>
-      </div>
-
-      <div class="impact-item">
-        <div class="impact-circle impact-circle-filled">
-          <p class="impact-number text-white">50+</p>
-          <p class="impact-description text-white">
-            Communities Reached With Health Education Initiatives.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+            </div>
+        </section>
 
   <section class="testimonials-section">
     <div class="background-image">

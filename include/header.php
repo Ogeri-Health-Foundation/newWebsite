@@ -50,9 +50,35 @@
     <div id="top-mobile-bar">
         <img id="logo2" src="./assets/img/name-logo.svg" alt="OHF logo" class="logo">
         <button type="button" id="menu-icon2" class="th-menu-toggle d-lg-none">
-            <i class="far fa-bars" style="color: var(--theme-color);"></i>
+            <i class="fas fa-bars" style="color: var(--theme-color);"></i>
         </button>
     </div>
+    <nav id="mobile-menu">
+        <img src="assets/img/logo 24b 1.png" alt="OHF Logo">
+
+        <ul id="mobile-nav-ul">
+            <li class="nav-list"><a href="./index.php">Home</a></li>
+            <li class="nav-list"><a href="./about.php">About Us</a></li>
+            <li class="nav-list"><a href="./what-we-do.php">What We Do</a></li>
+            <li class="nav-list"><a href="./events.php">Events</a></li>
+            <li class="nav-list"><a href="./blog.php">Blogs</a></li>
+            <li class="nav-list"><a href="./contact.php">Contact Us</a></li>
+
+            <li class="nav-list" id="getInvolvedItem">
+            <a href="javascript:void(0)" id="toggleGetInvolved">
+                Get Involved <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </a>
+            <ul class="dropdown-content" id="getInvolvedDropdownMobile">
+                <li><a href="donation.php">Donations</a></li>
+                <li><a href="community-member.php">Community Members</a></li>
+                <li><a href="partnership.php">Partners</a></li>
+                <li><a href="volunteer.php">Volunteer</a></li>
+            </ul>
+            </li>
+        </ul>
+
+        <i class="fa fa-times" id="mobile-menu-close"></i>
+    </nav>
 
     <!-- modal -->
     <div class="modal" id="modal">

@@ -57,6 +57,7 @@ html {
     min-height: 550px;
     overflow: hidden;
     position: relative;
+    
     /* Required for absolute positioning of child */
 }
 
@@ -101,6 +102,10 @@ html {
         height: 30vh;
         min-height: 400px;
     }
+    .header-img {
+        object-fit: cover;
+        object-position: center;
+    }
 }
 
 @media screen and (max-width: 576px) {
@@ -108,6 +113,11 @@ html {
         height: 25vh;
         min-height: 350px;
     }
+    .header-img {
+        object-fit: cover;
+        object-position: center;
+    }
+
 }
 
 

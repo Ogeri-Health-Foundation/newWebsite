@@ -370,6 +370,7 @@ body {
   padding: 30px;
 }
 
+
 textarea {
   resize: none;
 }
@@ -437,4 +438,12 @@ input, select, textarea {
 
 .form-btn:hover {
   background-color: var(--secondary-color) !important;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 20px;
+  }
 }

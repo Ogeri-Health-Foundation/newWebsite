@@ -133,7 +133,9 @@ $addons = array(
                         <div class="mission-card">
                             <div class="d-flex align-items-center">
                                 
-                                <h5 class="text-theme2"><i class="fa-solid fa-bullseye-arrow fa-fade fa-xl me-3 " style="color: #24ABA0"></i>Our mission</h5>
+                                <h5 class="text-theme2">
+                                    <span><i class="fa-solid fa-bullseye fa-fade fa-xl me-3 mx-auto" style="color: #24ABA0"></i></span>
+                                    Our mission</h5>
                             </div>
                             <p class="text-white">To improve health outcomes and empower communities across Africa, starting in Nigeria, by providing accessible healthcare solutions, advancing health education, and promoting preventive care to build healthier and self-reliant futures for all.</p>
 
@@ -215,13 +217,13 @@ $addons = array(
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                         <div class="leader-div"  data-aos="flip-left"
      data-aos-delay="200">
-                            <img src="assets/img/about/outreach-1.svg" alt="" class="leader-img"  >
+                            <img src="assets/img/about/man-new.jpg" alt="" class="leader-img"  >
                             <div class="text-center leader-card">
                                 <p class="text-theme2 leader-name" >Dr Joseph Ekuma Irem</p>
                                 <p class="text-dark mt-1">Chief Operating Officer</p>
 
                                 <div class="th-social style2 text-center">
-                                    <a target="_blank" href="https://www.linkedin.com/in/obyenwo/"><i class="fab fa-linkedin"></i></a>
+                                    <a target="_blank" href="https://www.linkedin.com/in/ekuma-joseph-irem-3a1665136/"><i class="fab fa-linkedin"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +237,7 @@ $addons = array(
                                 <p class="text-dark mt-1">Outreach Cordinator</p>
 
                                 <div class="th-social style2 text-center">
-                                    <a target="_blank" href="https://www.linkedin.com/in/obyenwo/"><i class="fab fa-linkedin"></i></a>
+                                    <a target="_blank" href="https://www.linkedin.com/in/otu-michael-irem-687273231/"><i class="fab fa-linkedin"></i></a>
                                 </div>
                             </div>
                         </div>

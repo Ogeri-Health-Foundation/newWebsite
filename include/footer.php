@@ -192,17 +192,6 @@ window.addEventListener('scroll', () => {
 });
 
 // Mobile menu toggle
-const menuIcon2 = document.getElementById('menu-icon2');
-const closeIcon = document.getElementById('close-icon');
-const header = document.getElementById('header');
-
-menuIcon2.addEventListener('click', () => {
-  header.style.display = 'flex';
-});
-
-closeIcon.addEventListener('click', () => {
-  header.style.display = 'none';
-});
 
 // Mobile dropdown toggle
 // const getInvolvedBtn = document.getElementById('getInvolvedBtn');
@@ -227,4 +216,24 @@ document.addEventListener('DOMContentLoaded', () => {
     dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
   });
 });
+</script>
+<script>
+  const mobileMenu = document.getElementById("mobile-menu");
+  const menuIcon2 = document.getElementById("menu-icon2");
+  const closeMobileMenu = document.getElementById("mobile-menu-close");
+
+  const toggleGetInvolved = document.getElementById("toggleGetInvolved");
+  const getInvolvedItem = document.getElementById("getInvolvedItem");
+
+  menuIcon2.addEventListener("click", () => {
+    mobileMenu.classList.add("open");
+  });
+
+  closeMobileMenu.addEventListener("click", () => {
+    mobileMenu.classList.remove("open");
+  });
+
+  toggleGetInvolved.addEventListener("click", () => {
+    getInvolvedItem.classList.toggle("open");
+  });
 </script>

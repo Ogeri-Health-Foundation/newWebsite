@@ -106,9 +106,9 @@ Blog Area
 
   <!-- blog container title starts -->
 
-  <section class="blog-container container">
+  <section class="blog-container container" >
     <!-- container title starts -->
-    <div class="container-title text-center my-5">
+    <div class="container-title text-center ">
       <h3 class="ohf_font text-orange">DISCOVER OUR IMPACT; PAST EVENTS & PRESENT OUTREACH</h3>
 
       <p>These events have not only improved health outcomes but also fostered a sense of community and social
@@ -173,7 +173,7 @@ Blog Area
             $stmt = null;
           }
           ?>
-          <?php if ($stmt && $stmt->rowCount() > 0): ?>
+          <?php if ($stmt && $stmt->rowCount() < 0): ?>
             <?php while ($event = $stmt->fetch(PDO::FETCH_ASSOC)):
               $eventName = htmlspecialchars($event['title']);
               $location = htmlspecialchars($event['location']);
@@ -214,7 +214,7 @@ Blog Area
 
             <?php endwhile; ?>
           <?php else: ?>
-            <p style='font-size: 2rem; font-weight: 800;'>No events available.</p>
+            <p style='font-size: 1.2rem; font-weight: 600;'>No event available at the moment.</p>
           <?php endif; ?>
 
         </div>
@@ -269,7 +269,7 @@ Blog Area
             $stmt = $dbh->prepare($query);
             $stmt->execute();
 
-            if ($stmt->rowCount() > 0) {
+            if ($stmt->rowCount() < 0) {
               while ($event = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $eventName = htmlspecialchars($event['title']);
                 $description = htmlspecialchars($event['description']);
@@ -309,7 +309,7 @@ Blog Area
           <?php
               }
             } else {
-              echo "<p style='font-size: 1.2rem; font-weight: 600;'>No recent posts available.</p>";
+              echo "<p style='font-size: 1.2rem; font-weight: 600;'>No recent event available.</p>";
             }
           } catch (Exception $e) {
             echo "<p>Error fetching recent posts: " . $e->getMessage() . "</p>";
@@ -324,7 +324,7 @@ Blog Area
   </section>
   <!-- blog container title starts -->
 
-  <section class="headers position-relative text-white mb-5 text-center"
+  <section class="donate-headers position-relative text-white mb-5 text-center"
     style="padding: 100px 0px; background-image: url('./assets/img/bg/Frame 2147226443.png'); background-size: cover; background-position: center;">
 
     <!-- Overlay -->
@@ -340,9 +340,9 @@ Blog Area
         willing to do — those are what truly leave a mark.
       </h3>
 
-      <div class="donate_volunteer d-flex gap-3 flex-wrap justify-content-center mt-5">
-        <a href="./donation.php" class="btn btn-4 btn-md">Donate Now</a>
-        <a href="./volunteer.php" class="btn btn-5 btn-md">Become a Volunteer</a>
+      <div class="donate_volunteer d-flex gap-3 flex-column flex-md-row justify-content-center mt-5">
+        <a href="./donation.php" class="th-btn bg-white text-dark">Donate Now</a>
+        <a href="./volunteer.php" class="th-btn style3">Become a Volunteer</a>
       </div>
     </div>
   </section>
