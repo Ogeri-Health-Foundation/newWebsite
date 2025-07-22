@@ -187,7 +187,7 @@ $addons = array(
                 <a id="hero-button" href="about.php">Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
             </p>
             <!-- get involved -->
-            <div id="get-involved" class="d-flex flex-column flex-md-row gap-5">
+            <div id="get-involved" class="d-flex flex-column flex-md-row gap-2">
                 <div class="get-involved ">
                     <div class="donate-icon2-holder">
                         <img src="./assets/img/icon/donate-icon.svg" class="donate-icon2" />
@@ -237,14 +237,14 @@ $addons = array(
                                 <input
                                 type="text"
                                 id="name"
-                                placeholder="Enter Your First Name" />
+                                placeholder="Enter Your First Name" class="text-white"/>
                             </div>
                             <div class="mb-3 ">
                                 <label for="last-name">Last Name</label>
                                 <input
                                 type="text"
                                 id="lastname"
-                                placeholder="Enter Your Last Name" />
+                                placeholder="Enter Your Last Name" class="text-white"/>
                             </div>
                         </div>
 
@@ -253,14 +253,14 @@ $addons = array(
                             <input
                                 type="text"
                                 id="email"
-                                placeholder="Enter Your Email Address" />
+                                placeholder="Enter Your Email Address" class="text-white" />
                             </div>
 
                             <div class="form-group">
                             <label for="message">Message</label>
                             <textarea
                                 id="message"
-                                placeholder="Enter Your Message"></textarea>
+                                placeholder="Enter Your Message" class="text-white"></textarea>
                         </div>
                     </div>
                     <div class="form-section">

@@ -319,7 +319,7 @@ $addons = array(
     
     @media (max-width: 768px) {
       .volunteer-container {
-        padding: 1.5rem;
+        /* padding: 1.5rem; */
         margin: 1rem;
       }
       
@@ -868,7 +868,7 @@ $addons = array(
       </div>
     </section>
     <!-- FORM SECTION -->
-    <section class="form-section container px-4 py-5" id="volunteerFormSection">
+    <section class="form-section container px-1 px-md-4  py-5 add-border-blue" id="volunteerFormSection">
       <div class="form-header">
         <h2 class="form-header-title">Volunteering Requirement</h2>
         <p class="section-header-description">
@@ -881,8 +881,8 @@ $addons = array(
       </div>
       
 
-      <div class="form-container container  ">
-        <form  method="POST" class="volunteer-form" enctype="multipart/form-data" id="volunteerForm">
+      <div class="form-container container w-100">
+        <form  method="POST" class="volunteer-form w-100 w-md-75 " enctype="multipart/form-data" id="volunteerForm" style="width: 100%;">
           <div class="mb-3">
             <label for="fullName" class="form-label">Full Name</label>
             <input
