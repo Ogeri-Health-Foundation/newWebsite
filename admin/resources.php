@@ -115,7 +115,7 @@ $addons = array(
         }
 
         .dot-btn {
-            border: 2px red solid !important;
+            /* border: 2px red solid !important; */
             cursor: pointer;
         }
 
@@ -381,6 +381,47 @@ $addons = array(
             justify-content: flex-end;
             gap: 1rem;
         }
+        .doctor-action-menu .action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    transition: background 0.3s;
+}
+.doctor-action-menu .action:hover {
+    background-color: #f1f1f1;
+} 
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
     </style>
 </head>
 
@@ -491,8 +532,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <!-- view details modal -->
 
-        <div class="modal add-border-blue" id="volunteerDetailsModal">
-            <div class="modal-dialog modal-dialog-centered modal-lg add-border-red" style="display:flex; justify-content:center; max-height: 95%; overflow-y: scroll;">
+        <div class="modal" id="volunteerDetailsModal">
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="display:flex; justify-content:center; max-height: 95%; overflow-y: scroll;">
                 <div class="modal-content" style='background-color: #fff;'>
                     <div class="modal-header">
                         <h5 class="modal-title">Blog Details</h5>
@@ -680,7 +721,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p class="no-blogs">No Blogs Available</p>
             </div>
         </section>
-
+        <div id="doctorDetailsModal" class="modal-overlay" style="display: none;">
+            <div class="modal-content">
+                <span class="close-btn" id="closeDoctorModal">&times;</span>
+                <h2>Doctor Details</h2>
+                <div id="doctorDetailsBody">
+                <!-- Content will be injected here -->
+                <p>Loading...</p>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -783,7 +833,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
 
 
-                <div class="modal-box-blog2">
+                <!-- <div class="modal-box-blog2">
                     <div class="action">
                         <img src="./assets/images/resources/icons/Icon (3).png" width="19" height="14px" />
                         <span>View details</span>
@@ -794,7 +844,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <span>Delete</span>
                     </div>
 
-                </div>
+                </div> -->
 
             </div>
         </section>
@@ -958,7 +1008,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 .catch(error => console.error("Error fetching blogs:", error));
         }
 
-
         function addDotBtnListeners() {
             document.querySelectorAll(".dot-btn").forEach((btn) => {
                 btn.addEventListener("click", function(event) {
@@ -1005,6 +1054,82 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
         }
+
+
+        function addDotDoctorBtnListeners() {
+                document.querySelectorAll(".dot-doc-btn").forEach((btn) => {
+                    btn.addEventListener("click", function (event) {
+                        // Remove existing menu if any
+                        const existingMenu = document.querySelector(".doctor-action-menu");
+                        if (existingMenu) existingMenu.remove();
+
+                        const doctorId = btn.getAttribute("data-id");
+
+                        // Create the action menu
+                        const actionMenu = document.createElement("div");
+                        actionMenu.className = "doctor-action-menu";
+                        actionMenu.innerHTML = `
+                            <div class="action" data-action="view" data-id="${doctorId}">
+                                <img src="./assets/images/resources/icons/Icon (3).png" width="19" height="14px" />
+                                <span>View details</span>
+                            </div>
+                            <div class="action" data-action="delete" data-id="${doctorId}">
+                                <img src="./assets/images/resources/icons/trash-can-10417.png" width="16px" height="18px" />
+                                <span>Delete</span>
+                            </div>
+                        `;
+
+                        // Position the menu
+                        const rect = btn.getBoundingClientRect();
+                        actionMenu.style.position = "absolute";
+                        actionMenu.style.top = `${window.scrollY + rect.bottom + 5}px`;
+                        actionMenu.style.left = `${window.scrollX + rect.left}px`;
+                        actionMenu.style.zIndex = 1000;
+                        actionMenu.style.background = "#fff";
+                        actionMenu.style.border = "1px solid #ccc";
+                        actionMenu.style.boxShadow = "0px 2px 6px rgba(0,0,0,0.2)";
+                        actionMenu.style.borderRadius = "8px";
+                        actionMenu.style.padding = "10px";
+                        actionMenu.style.cursor = "pointer";
+
+                        document.body.appendChild(actionMenu);
+
+                        // Close on outside click
+                        const closeOnClickOutside = function (e) {
+                            if (!actionMenu.contains(e.target) && e.target !== btn) {
+                                actionMenu.remove();
+                                document.removeEventListener("click", closeOnClickOutside);
+                            }
+                        };
+                        setTimeout(() => document.addEventListener("click", closeOnClickOutside), 10);
+
+                        // Handle action clicks
+                        actionMenu.querySelectorAll(".action").forEach((actionItem) => {
+                            actionItem.addEventListener("click", function () {
+                                const action = this.getAttribute("data-action");
+                                const id = this.getAttribute("data-id");
+
+                                if (action === "view") {
+                                    viewDoctorDetails(id);
+                                } else if (action === "delete") {
+                                    deleteDoctor(id);
+                                }
+
+                                actionMenu.remove(); // Close the menu after action
+                            });
+                        });
+                    });
+                });
+            }
+            
+
+            function deleteDoctor(id) {
+                if (confirm("Are you sure you want to delete this doctor?")) {
+                    // Call your API here to delete
+                    console.log("Deleting doctor with ID:", id);
+                    // Example: fetch(`/api/delete-doctor.php?id=${id}`, { method: "DELETE" }) ...
+                }
+            }
 
 
         // document.addEventListener("click", function (event) {
@@ -1423,42 +1548,107 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .catch(error => console.error("Error fetching doctors:", error));
         }
+            function addDotDoctorBtnListeners() {
+                document.querySelectorAll(".dot-doc-btn").forEach((btn) => {
+                    btn.addEventListener("click", function (event) {
+                        // Remove existing menu if any
+                        const existingMenu = document.querySelector(".doctor-action-menu");
+                        if (existingMenu) existingMenu.remove();
 
-        function addDotDoctorBtnListeners() {
-            document.querySelectorAll(".dot-doc-btn").forEach((btn) => {
-                btn.addEventListener("click", function(event) {
-                    const actionMenu = document.querySelector(".modal-box-blog2");
+                        const doctorId = btn.getAttribute("data-id");
 
-                    // const rect = event.target.getBoundingClientRect();
-                    // const viewportWidth = window.innerWidth;
-                    // const viewportHeight = window.innerHeight;
+                        // Create the action menu
+                        const actionMenu = document.createElement("div");
+                        actionMenu.className = "doctor-action-menu";
+                        actionMenu.innerHTML = `
+                            <div class="action" data-action="view" data-id="${doctorId}">
+                                <img src="./assets/images/resources/icons/Icon (3).png" width="19" height="14px" />
+                                <span>View details</span>
+                            </div>
+                            <div class="action" data-action="delete" data-id="${doctorId}">
+                                <img src="./assets/images/resources/icons/trash-can-10417.png" width="16px" height="18px" />
+                                <span>Delete</span>
+                            </div>
+                        `;
 
-                    // let x = rect.left + window.scrollX + -20; 
-                    // let y = rect.top + window.scrollY + 10;
+                        // Position the menu
+                        const rect = btn.getBoundingClientRect();
+                        actionMenu.style.position = "absolute";
+                        actionMenu.style.top = `${window.scrollY + rect.bottom + 5}px`;
+                        actionMenu.style.left = `${window.scrollX + rect.left}px`;
+                        actionMenu.style.zIndex = 1000;
+                        actionMenu.style.background = "#fff";
+                        actionMenu.style.border = "1px solid #ccc";
+                        actionMenu.style.boxShadow = "0px 2px 6px rgba(0,0,0,0.2)";
+                        actionMenu.style.borderRadius = "8px";
+                        actionMenu.style.padding = "10px";
+                        actionMenu.style.cursor = "pointer";
 
-                    // if (x + actionMenu.offsetWidth > viewportWidth) {
+                        document.body.appendChild(actionMenu);
 
-                    //     x = viewportWidth - actionMenu.offsetWidth - 15;
-                    // }
-                    // if (y + actionMenu.offsetHeight > viewportHeight) {
-                    //     y = viewportHeight - actionMenu.offsetHeight - -200;
-                    // }
+                        // Close on outside click
+                        const closeOnClickOutside = function (e) {
+                            if (!actionMenu.contains(e.target) && e.target !== btn) {
+                                actionMenu.remove();
+                                document.removeEventListener("click", closeOnClickOutside);
+                            }
+                        };
+                        setTimeout(() => document.addEventListener("click", closeOnClickOutside), 10);
 
-                    // actionMenu.style.left = `${x}px`;
-                    // actionMenu.style.top = `${y}px`;
-                    actionMenu.style.display = "block";
+                        // Handle action clicks
+                        actionMenu.querySelectorAll(".action").forEach((actionItem) => {
+                            actionItem.addEventListener("click", function () {
+                                const action = this.getAttribute("data-action");
+                                const id = this.getAttribute("data-id");
 
-                    actionMenu.setAttribute("data-blog-id", event.target.getAttribute("data-id"));
+                                if (action === "view") {
+                                    viewDoctorDetails(id);
+                                } else if (action === "delete") {
+                                    deleteDoctor(id);
+                                }
 
-                    document.addEventListener("click", function closeModal(event) {
-                        if (!actionMenu.contains(event.target) && !btn.contains(event.target)) {
-                            actionMenu.style.display = "none";
-                            document.removeEventListener("click", closeModal);
-                        }
+                                actionMenu.remove(); // Close the menu after action
+                            });
+                        });
                     });
                 });
-            });
-        }
+            }
+
+        // function addDotDoctorBtnListeners() {
+        //     document.querySelectorAll(".dot-doc-btn").forEach((btn) => {
+        //         btn.addEventListener("click", function(event) {
+        //             const actionMenu = document.querySelector(".modal-box-blog2");
+
+        //             // const rect = event.target.getBoundingClientRect();
+        //             // const viewportWidth = window.innerWidth;
+        //             // const viewportHeight = window.innerHeight;
+
+        //             // let x = rect.left + window.scrollX + -20; 
+        //             // let y = rect.top + window.scrollY + 10;
+
+        //             // if (x + actionMenu.offsetWidth > viewportWidth) {
+
+        //             //     x = viewportWidth - actionMenu.offsetWidth - 15;
+        //             // }
+        //             // if (y + actionMenu.offsetHeight > viewportHeight) {
+        //             //     y = viewportHeight - actionMenu.offsetHeight - -200;
+        //             // }
+
+        //             // actionMenu.style.left = `${x}px`;
+        //             // actionMenu.style.top = `${y}px`;
+        //             actionMenu.style.display = "block";
+
+        //             actionMenu.setAttribute("data-blog-id", event.target.getAttribute("data-id"));
+
+        //             document.addEventListener("click", function closeModal(event) {
+        //                 if (!actionMenu.contains(event.target) && !btn.contains(event.target)) {
+        //                     actionMenu.style.display = "none";
+        //                     document.removeEventListener("click", closeModal);
+        //                 }
+        //             });
+        //         });
+        //     });
+        // }
 
 
         function updateAvailability(id, availability, role) {
@@ -1481,63 +1671,141 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        const ModalBBox = document.querySelector(".modal-box-blog2");
+        function viewDoctorDetails(id) {
+                const modal = document.getElementById("doctorDetailsModal");
+                const modalBody = document.getElementById("doctorDetailsBody");
+                const closeBtn = document.getElementById("closeDoctorModal");
 
-        document.querySelectorAll(".modal-box-blog2 .action").forEach(action => {
-            action.addEventListener("click", function() {
-                const staff_Id = ModalBBox.getAttribute("data-blog-id");
+                // Show the modal
+                modal.style.display = "flex";
+                modalBody.innerHTML = "<p>Loading...</p>";
 
-                if (!staff_Id) {
-                    console.error("No blog ID found for this action.");
-                    return;
-                }
+                // Fetch doctor details from backend (adjust endpoint as needed)
+                fetch(`../api/v1/doctor_route.php?id=${encodeURIComponent(id)}`)
+                    .then(res => res.json())
+                    .then(doctor => {
+                        modalBody.innerHTML = `
+                            <p><strong>ID:</strong> ${doctor.id}</p>
+                            <p><strong>Name:</strong> ${doctor.name}</p>
+                            <p><strong>Role:</strong> ${doctor.role}</p>
+                            <p><strong>Status:</strong> ${doctor.status}</p>
+                            <p><strong>Available:</strong> ${doctor.is_available ? "Yes" : "No"}</p>
+                        `;
+                    })
+                    .catch(error => {
+                        console.error("Failed to fetch doctor details:", error);
+                        modalBody.innerHTML = "<p>Error loading details.</p>";
+                    });
 
-                if (this.textContent.includes("View details")) {
-                    console.log("It worked thank God");
-                } else if (this.textContent.includes("Delete")) {
+                // Close handler
+                closeBtn.onclick = () => {
+                    modal.style.display = "none";
+                };
 
-                    fetch("../api/v1/delete_staff.php", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                staff_Id
-                            }),
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success === true) {
-                                const toast = document.getElementById('toast-success');
-                                const toastMesaage = document.getElementById('toast-message');
-                                toast.classList.add('show');
-                                toastMesaage.textContent = data.message;
-                                setTimeout(hideToast, 5000);
-                                form.reset();
+                // Close when clicking outside
+                window.onclick = (e) => {
+                    if (e.target === modal) {
+                        modal.style.display = "none";
+                    }
+                };
+            }
 
-                                function hideToast() {
-                                    const toast = document.getElementById('toast-success');
-                                    toast.classList.remove('show');
-                                }
+        function deleteDoctor(id) {
+            if (confirm("Are you sure you want to delete this doctor?")) {
+                fetch("../api/v1/delete_staff.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ staff_Id: id }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success === true) {
+                        const toast = document.getElementById('toast-success');
+                        const toastMessage = document.getElementById('toast-message');
+                        toast.classList.add('show');
+                        toastMessage.textContent = data.message;
+                        setTimeout(() => toast.classList.remove('show'), 5000);
 
-                            } else {
-                                const BadToast = document.getElementById('bad-toast');
-                                const BadToastMesaage = document.getElementById('bad-toast-message');
-                                BadToast.classList.add('show');
-                                BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;;
-                                setTimeout(hideBadToast, 5000);
+                        // Optionally refresh the doctor list
+                        fetchDoctors();
+                    } else {
+                        const badToast = document.getElementById('bad-toast');
+                        const badToastMessage = document.getElementById('bad-toast-message');
+                        badToast.classList.add('show');
+                        badToastMessage.textContent = data.message || "An error occurred.";
+                        setTimeout(() => badToast.classList.remove('show'), 5000);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error deleting doctor:", error);
+                    const badToast = document.getElementById('bad-toast');
+                    const badToastMessage = document.getElementById('bad-toast-message');
+                    badToast.classList.add('show');
+                    badToastMessage.textContent = "Network or server error occurred.";
+                    setTimeout(() => badToast.classList.remove('show'), 5000);
+                });
+            }
+        }
 
-                                function hideBadToast() {
-                                    const BadToast = document.getElementById('bad-toast');
-                                    BadToast.classList.remove('show');
-                                }
-                            }
+        // const ModalBBox = document.querySelector(".modal-box-blog2");
 
-                        })
-                        .catch(error => console.error("Error updating availability:", error));
-                }
-            });
-        })
+        // document.querySelectorAll(".modal-box-blog2 .action").forEach(action => {
+        //     action.addEventListener("click", function() {
+        //         const staff_Id = ModalBBox.getAttribute("data-blog-id");
+
+        //         if (!staff_Id) {
+        //             console.error("No blog ID found for this action.");
+        //             return;
+        //         }
+
+        //         if (this.textContent.includes("View details")) {
+        //             console.log("It worked thank God");
+        //         } else if (this.textContent.includes("Delete")) {
+
+        //             fetch("../api/v1/delete_staff.php", {
+        //                     method: "POST",
+        //                     headers: {
+        //                         "Content-Type": "application/json",
+        //                     },
+        //                     body: JSON.stringify({
+        //                         staff_Id
+        //                     }),
+        //                 })
+        //                 .then(response => response.json())
+        //                 .then(data => {
+        //                     if (data.success === true) {
+        //                         const toast = document.getElementById('toast-success');
+        //                         const toastMesaage = document.getElementById('toast-message');
+        //                         toast.classList.add('show');
+        //                         toastMesaage.textContent = data.message;
+        //                         setTimeout(hideToast, 5000);
+        //                         form.reset();
+
+        //                         function hideToast() {
+        //                             const toast = document.getElementById('toast-success');
+        //                             toast.classList.remove('show');
+        //                         }
+
+        //                     } else {
+        //                         const BadToast = document.getElementById('bad-toast');
+        //                         const BadToastMesaage = document.getElementById('bad-toast-message');
+        //                         BadToast.classList.add('show');
+        //                         BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;;
+        //                         setTimeout(hideBadToast, 5000);
+
+        //                         function hideBadToast() {
+        //                             const BadToast = document.getElementById('bad-toast');
+        //                             BadToast.classList.remove('show');
+        //                         }
+        //                     }
+
+        //                 })
+        //                 .catch(error => console.error("Error updating availability:", error));
+        //         }
+        //     });
+        // })
 
         // document.addEventListener("click", function (event) {
         //     if (!event.target.closest(".dot-btn") && !event.target.closest(".modal-box-blog2")) {

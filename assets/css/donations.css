@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -12,7 +12,7 @@ body {
   font-family: "Patrick Hand", cursive;
   font-weight: 400;
   background-color: #f8f4f4;
-}
+} */
 
 .hero-section {
   position: relative;
@@ -338,18 +338,18 @@ body {
   overflow: hidden;
   overflow-x: hidden;
 }
-.header {
+.header2 {
   text-align: center;
   margin-bottom: 40px;
 }
 
-.header h2 {
+.header2 h2 {
   color: var(--button-bg-color);
   font-size: 40px;
   margin-bottom: 10px;
 }
 
-.header p {
+.header2 p {
   color: #000000;
   font-size: 20px;
   font-family: "Poppins", sans-serif;
@@ -494,30 +494,30 @@ body {
   max-width: 800px;
 }
 
-.header {
+.header2 {
   text-align: center;
   margin-bottom: 30px;
 }
 
-.header .title-row {
+.header2 .title-row {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
 
-.header img {
+.header2 img {
   width: 60px;
   margin-bottom: 15px;
 }
 
-.header h2 {
+.header2 h2 {
   color: var(--button-bg-color);
   font-size: 2em;
   margin-bottom: 5px;
 }
 
-.header p {
+.header2 p {
   color: #000000;
   font-size: 20px;
   font-family: "Poppins", sans-serif;
@@ -668,11 +668,11 @@ textarea {
     gap: 20px;
   } */
 
-  .header h2 {
+  .header2 h2 {
     font-size: 1.8em;
   }
 
-  .header p {
+  .header2 p {
     font-size: 18px;
   }
 
@@ -757,11 +757,11 @@ textarea {
     grid-template-columns: repeat(2, 1fr);
   } */
 
-  .header h2 {
+  .header2 h2 {
     font-size: 32px;
   }
 
-  .header p {
+  .header2 p {
     font-size: 16px;
   }
 
@@ -824,11 +824,11 @@ textarea {
     width: 100%;
   }
 
-  .header h2 {
+  .header2 h2 {
     font-size: 30px;
   }
 
-  .header p {
+  .header2 p {
     font-size: 16px;
   }
 
@@ -954,11 +954,11 @@ textarea {
     width: 100%;
   }
 
-  .header h2 {
+  .header2 h2 {
     font-size: 32px;
   }
 
-  .header p {
+  .header2 p {
     font-size: 16px;
   }
 
@@ -1155,3 +1155,4 @@ textarea {
     padding: 1rem;
     height: 100%;
 }
+

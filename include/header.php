@@ -2,8 +2,8 @@
 
 
     <header id="header" class="px-1">
-        <div class="p-0">
-            <img id="logo" src="./assets/img/name-logo.svg" alt="OHF logo" class="logo ">
+        <div class="p-2  bg-white rounded-pill">
+            <img id="logo" src="./assets/img/name-logo 2.png" alt="OHF logo" class="logo ">
         </div>
 
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center w-75">

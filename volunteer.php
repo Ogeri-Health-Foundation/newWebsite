@@ -831,7 +831,7 @@ $addons = array(
                           alt="<?= $title ?>"
                           class="volunteering-img img-fluid"
                         />
-                        <h3><?= $title ?></h3>
+                        <h3 class="px-1"><?= $title ?></h3>
                         <p class="px-1"><?= substr($description, 0, 180) ?>...</p>
                         <a class="th-btn" href="#volunteerForm">
                           Apply Now

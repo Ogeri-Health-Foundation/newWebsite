@@ -41,8 +41,8 @@ require 'events-data.php'; // Include the events array
 <head>
   <?php include 'include/head.php'; ?>
 
-  <script src="https://kit.fontawesome.com/706f90924a.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <!-- <script src="https://kit.fontawesome.com/706f90924a.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
  
 </head>
 
@@ -92,7 +92,7 @@ Blog Area
 
 
   <!-- header section starts -->
-  <section class="headers">
+  <!-- <section class="headers">
     <img src="./assets/img/bg/Frame 2147226443.png" class="header-img img-fluid img-responsive" alt="header-img">
 
     <div class="header-details" class="text-danger">
@@ -101,12 +101,24 @@ Blog Area
 
       <h1 class="ohf_font text-white">Our Event Page</h1>
     </div>
-  </section>
+  </section> -->
+  <div class="breadcumb-wrapper event-hero headers">
+    <div class="container">
+        <div class="breadcumb-content">
+            <ul class="breadcumb-menu">
+                <li><a href="index.php">Home</a></li>
+                <li>Events</li>
+            </ul>
+            <h1 class="breadcumb-title">Events</h1>
+            
+        </div>
+    </div>
+  </div>
   <!-- header section ends -->
 
   <!-- blog container title starts -->
 
-  <section class="blog-container container" >
+  <section class="blog-container container mt-5" >
     <!-- container title starts -->
     <div class="container-title text-center ">
       <h3 class="ohf_font text-orange">DISCOVER OUR IMPACT; PAST EVENTS & PRESENT OUTREACH</h3>
@@ -173,7 +185,7 @@ Blog Area
             $stmt = null;
           }
           ?>
-          <?php if ($stmt && $stmt->rowCount() < 0): ?>
+          <?php if ($stmt && $stmt->rowCount() > 0): ?>
             <?php while ($event = $stmt->fetch(PDO::FETCH_ASSOC)):
               $eventName = htmlspecialchars($event['title']);
               $location = htmlspecialchars($event['location']);
@@ -269,7 +281,7 @@ Blog Area
             $stmt = $dbh->prepare($query);
             $stmt->execute();
 
-            if ($stmt->rowCount() < 0) {
+            if ($stmt->rowCount() > 0) {
               while ($event = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $eventName = htmlspecialchars($event['title']);
                 $description = htmlspecialchars($event['description']);
@@ -324,8 +336,7 @@ Blog Area
   </section>
   <!-- blog container title starts -->
 
-  <section class="donate-headers position-relative text-white mb-5 text-center"
-    style="padding: 100px 0px; background-image: url('./assets/img/bg/Frame 2147226443.png'); background-size: cover; background-position: center;">
+  <section class="donate-headers position-relative text-white mb-5 text-center px-4" style="padding: 100px 0px; background-image: url('./assets/img/bg/Frame_2147226443.png'); background-size: cover; background-position: center;">
 
     <!-- Overlay -->
     <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); z-index: 1;">
@@ -340,9 +351,9 @@ Blog Area
         willing to do — those are what truly leave a mark.
       </h3>
 
-      <div class="donate_volunteer d-flex gap-3 flex-column flex-md-row justify-content-center mt-5">
-        <a href="./donation.php" class="th-btn bg-white text-dark">Donate Now</a>
-        <a href="./volunteer.php" class="th-btn style3">Become a Volunteer</a>
+      <div class="donate_volunteer d-flex gap-3 flex-column flex-sm-row justify-content-center mt-5">
+        <a href="./donation.php" class="th-btn bg-white text-dark" style="max-width: 100px;">Donate Now</a>
+        <a href="./volunteer.php" class="th-btn style3" style="max-width: 240px;">Become a Volunteer</a>
       </div>
     </div>
   </section>

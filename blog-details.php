@@ -35,22 +35,22 @@ try {
         throw new Exception("Blog not found.");
     }
 
-    $query = "SELECT * FROM blog_images WHERE blog_id = :blog_id";
-    $stmt = $dbh->prepare($query);
-    $stmt->bindParam(':blog_id', $eventId);
-    $stmt->execute();
+    // $query = "SELECT * FROM blog_images WHERE blog_id = :blog_id";
+    // $stmt = $dbh->prepare($query);
+    // $stmt->bindParam(':blog_id', $eventId);
+    // $stmt->execute();
 
-    $blog_images = [];
-    if ($stmt->rowCount() > 0) {
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $blog_images[] = [
-                'img_path' => "uploads/" . htmlspecialchars($row['img_path']),
-                'caption' => htmlspecialchars($row['caption'])
-            ];
-        }
-        // Shuffle the images for random placement
-        shuffle($blog_images);
-    }
+    // $blog_images = [];
+    // if ($stmt->rowCount() > 0) {
+    //     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    //         $blog_images[] = [
+    //             'img_path' => "uploads/" . htmlspecialchars($row['img_path']),
+    //             'caption' => htmlspecialchars($row['caption'])
+    //         ];
+    //     }
+        
+    //     shuffle($blog_images);
+    // }
 } catch (Exception $e) {
     die("<p>Error: " . $e->getMessage() . "</p>");
 }
@@ -108,7 +108,7 @@ $addons = array(
 <head>
     <?php include 'include/head.php'; ?>
     <script src="https://kit.fontawesome.com/706f90924a.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="./assets/css/blog.css">
 
 </head>
@@ -131,7 +131,7 @@ $addons = array(
     Breadcumb
 ============================== -->
     <!-- header section starts -->
-    <section class="headers">
+    <!-- <section class="headers">
         <img src="<?= $image ?>" class="header-img img-fluid img-responsive" alt="header-img" style="object-fit:cover;object-position:bottom">
 
         <div class="header-details" class="text-danger">
@@ -139,7 +139,19 @@ $addons = array(
             <span>Blog</span>
             <h1 class="ohf_font text-white"><?= $blogName ?></h1>
         </div>
-    </section>
+    </section> -->
+    <div class="breadcumb-wrapper blog-hero headers" style="background-image: url('<?= $image ?>');">
+        <div class="container">
+            <div class="breadcumb-content">
+                <ul class="breadcumb-menu">
+                    <li><a href="index.php">Home</a></li>
+                    <li>Blog Details</li>
+                </ul>
+                <h1 class="breadcumb-title mt-3"><?= $blogName ?></h1>
+                
+            </div>
+        </div>
+    </div>
 
 
 
@@ -208,7 +220,7 @@ $addons = array(
                     </div>
                     <div class="col-12 col-md-6">
                         <?php
-                        $eventUrl = "https://" . $_SERVER['HTTP_HOST'] . "/event-details.php?id=" . urlencode($blogid);
+                        $eventUrl = "https://" . $_SERVER['HTTP_HOST'] . "/blog-details.php?id=" . urlencode($blogid);
                         $encodedEventUrl = urlencode($eventUrl);
                         ?>
                         <div class="blog-tags d-flex flex-sm-row flex-column align-items-start">
@@ -380,7 +392,7 @@ $addons = array(
 
                 </div>
 
-                <div class="blog-search my-4">
+                <!-- <div class="blog-search my-4">
                     <h4 class="ohf_font text-orange">Popular Tags</h4>
 
                     <div class="tags mt-3">
@@ -394,7 +406,7 @@ $addons = array(
 
 
 
-                </div>
+                </div> -->
 
 
 

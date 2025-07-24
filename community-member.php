@@ -120,7 +120,7 @@
 
 <head>
     <?php include 'include/head.php'; ?>
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="./assets/css/bootstrap.min.css" /> -->
     
     <!-- <link rel="stylesheet" href="./assets/css/community-2.css" /> -->
    
@@ -200,8 +200,8 @@
             </div>
         <?php else: ?>
           <?php foreach ($healthWorkers as $worker): ?>
-            <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center">
-              <div class="provider-card shadow-sm d-flex flex-column">
+            <div class="col-12 col-sm-6 col-lg-3 d-flex justify-content-center" style="width: 100%; max-width: 350px; min-width: 200px;">
+              <div class="provider-card shadow-sm d-flex flex-column" style="width: 100%;">
                 <div class="provider-img-wrapper position-relative">
                   <img
                     src="<?= !empty($worker['image']) ? 'Staff_images/' . htmlspecialchars($worker['image']) : 'assets/img/default-image.jpg' ?>"
@@ -221,10 +221,10 @@
                     Far far away, behind the word mountains, far from the countries Voka
                   </p>
 
-                  <button class="provider-contact btn btn-outline-primary w-100 mt-3 d-flex justify-content-between align-items-center">
+                  <!-- <button class="provider-contact btn btn-outline-primary w-100 mt-3 d-flex justify-content-between align-items-center">
                     Get In Touch
                     <img src="./assets/img/community/icons/diagonal-arrow.svg" alt="" width="16" />
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>
@@ -439,17 +439,17 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
         <script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
-        <!-- Swiper Js -->
+       
         <script src="assets/js/swiper-bundle.min.js"></script>
-        <!-- Bootstrap -->
+        
         <script src="assets/js/bootstrap.min.js"></script>
-        <!-- Magnific Popup -->
+        
         <script src="assets/js/jquery.magnific-popup.min.js"></script>
-        <!-- Counter Up -->
+       
         <script src="assets/js/jquery.counterup.min.js"></script>
-        <!-- Range Slider -->
+        
         <script src="assets/js/jquery-ui.min.js"></script>
-        <!-- Isotope Filter -->
+      
         <script src="assets/js/imagesloaded.pkgd.min.js"></script>
         <script src="assets/js/isotope.pkgd.min.js"></script>
   </body>

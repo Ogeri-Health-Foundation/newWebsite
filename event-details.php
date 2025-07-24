@@ -91,8 +91,8 @@ $addons = array(
 <head>
     <?php include 'include/head.php'; ?>
 
-    <script src="https://kit.fontawesome.com/706f90924a.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <!-- <script src="https://kit.fontawesome.com/706f90924a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="./assets/css/blog.css">
 
 </head>
