@@ -63,38 +63,38 @@ $addons = array(
     }
   ?>
 
-        <section class="" style="background-color: #F8F4F4;">
-            <div class="pt-5 container">
+         <section class="" style="background-color: #F8F4F4;">
+            <div class="py-5 container">
                 <div class="text-center">
                     <p class="text-dark">Let's Start Donating</p>
                     <h4 class="text-theme2">See Your Impact: Transparent Donation Causes</h4>
                 </div>
-                <div class="container my-5 ">
+                <div class="container mt-5">
                     <div class="row justify-content-center gy-4">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle text-center">
-                                <p class="text-dark fs-3"><b><span class="counter" data-target="10000">0</span>+</b></p>
-                                <p class="w-75 mx-auto">People Treated Through Medical Outreach Programs</p>
+                                <p class="text-dark fs-3"><b><span class="counter" data-target="257">0</span>+</b></p>
+                                <p class="w-75 mx-auto">People Screened Through Medical Outreach Programs</p>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle bg-theme text-white text-center">
-                                <p class="text-white fs-3"><b><span class="counter" data-target="5000">0</span>+</b></p>
-                                <p class="text-white w-75 mx-auto">Children vaccinated and protected from preventable diseases</p>
+                                <p class="text-white fs-3"><b><span class="counter" data-target="11">0</span>+</b></p>
+                                <p class="text-white w-75 mx-auto">Health Outreach</p>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle text-center">
-                                <p class="text-dark fs-3"><b><span class="counter" data-target="1200">0</span>+</b></p>
-                                <p class="w-75 mx-auto">Families received life-saving medications</p>
+                                <p class="text-dark fs-3"><b><span class="counter" data-target="90">0</span>+</b></p>
+                                <p class="w-75 mx-auto">Patients Diagnosed With High Blood pressure</p>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                        <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle bg-theme text-white text-center">
                                 <p class="text-white fs-3"><b><span class="counter" data-target="50">0</span>+</b></p>
                                 <p class="text-white w-75 mx-auto">Communities reached with health education initiatives</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -279,7 +279,7 @@ $addons = array(
   </section>
 
   <section class="causes-section">
-    <div class="header">
+    <div class="header2">
       <h2 style="color: #F7A234;">Our Causes</h2>
       <p>Our Causes & Help Us</p>
     </div>
@@ -344,7 +344,7 @@ $addons = array(
 
   <section class="donate-section">
     <div class="donate-container">
-      <div class="header">
+      <div class="header2">
         <div class="title-row">
           <img src="./assets/img/icon/heart-icon.png" alt="Heart Icon" />
           <h2>Make A Donation</h2>

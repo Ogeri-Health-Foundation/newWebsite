@@ -86,12 +86,12 @@ trait sendMail
                         <h2>Email Verification Required</h2>
                         <p>Hello Admin,</p>
                         <p>Thank you for signing in. To complete your authentication, please verify your email address by clicking the button below:</p>
-                        <a href='https://ogerihealth.org/api/v1/verifyRoute.php?code=$otp_link_code' class='btn'>Verify Email</a>
+                        <a href='https://web.ogerihealth.org/api/v1/verifyRoute.php?code=$otp_link_code' class='btn'>Verify Email</a>
                         <p>If you did not request this, please ignore this email.</p>
                         <p class='footer'>If the button does not work, copy and paste this link into your browser:</p>
                         <p class='footer'>
-                            <a href='https://ogerihealth.org/api/v1/verifyRoute.php?code=$otp_link_code'>
-                                https://ogerihealth.org/api/v1/verifyRoute.php?code=$otp_link_code
+                            <a href='https://web.ogerihealth.org/api/v1/verifyRoute.php?code=$otp_link_code'>
+                                https://web.ogerihealth.org/api/v1/verifyRoute.php?code=$otp_link_code
                             </a>
                         </p>
                         <p class='footer'>&copy; " . date('Y') . " Your Company. All rights reserved.</p>

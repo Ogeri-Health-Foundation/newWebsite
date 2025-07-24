@@ -49,38 +49,37 @@ html {
 
 
 /* ===========  headers SECTION STARTS =========== */
-
+.event-hero{
+    background-image: url('../img/bg/Frame_2147226443.png') !important;
+    background-size: cover;
+    background-position: center !important;
+    padding: 60px 0px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+.blog-hero{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center !important;
+    padding: 60px 0px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
 .headers {
-    width: 100%;
-    height: 50vh;
-    max-height: 600px;
-    min-height: 550px;
-    overflow: hidden;
+   
     position: relative;
     
-    /* Required for absolute positioning of child */
+    
 }
 
-.header-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
 
-.header-details {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Centers perfectly */
-    color: white;
-    /* Ensures visibility on dark backgrounds */
-    text-align: center;
-    /* Centers text horizontally */
-    z-index: 10;
-    /* Ensures text stays above the image */
-}
+
 
 /* Optional: Add a semi-transparent overlay for better text readability */
 .header::before {
@@ -97,7 +96,7 @@ html {
 }
 
 /* Media Queries */
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
     .headers {
         height: 30vh;
         min-height: 400px;
@@ -118,7 +117,7 @@ html {
         object-position: center;
     }
 
-}
+} */
 
 
 /* ===========  headers SECTION ENDS =========== */
@@ -609,4 +608,10 @@ html {
 .total-img{
     width: 50px;
     height: 50px !important;
+}
+
+@media(max-width: 600px){
+    .donate_volunteer a{
+        margin: 0 auto;
+    }
 }

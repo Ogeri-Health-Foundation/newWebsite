@@ -92,7 +92,7 @@
                                
                             </div>
                             <div class="info-card">
-                                <div class="box-icon">
+                                <div class="box-icon d-flex justify-content-center align-items-center" >
                                     <i class="fal fa-envelope-open"></i>
                                     <div class="bg-shape1" data-mask-src="assets/img/shape/info_card_icon_bg_shape_1_1.png"></div>
                                     <div class="bg-shape2" data-mask-src="assets/img/shape/info_card_icon_bg_shape_1_1.png"></div>
@@ -103,9 +103,9 @@
                                 </div>
                             </div>
                             <div class="th-social style2">
-                                <a href="https://www.facebook.com/ogerihealth/"><i class="fab fa-facebook-f"></i></a>
-                                <a href="https://www.instagram.com/ogerihealth/"><i class="fab fa-instagram"></i></a>
-                                <a href="https://www.linkedin.com/company/ogerihealth"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://www.facebook.com/ogerihealth/" class="d-flex justify-content-center align-items-center" ><i class="fab fa-facebook-f" ></i></a>
+                                <a href="https://www.instagram.com/ogerihealth/" class="d-flex justify-content-center align-items-center" ><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.linkedin.com/company/ogerihealth" class="d-flex justify-content-center align-items-center" ><i class="fab fa-linkedin-in"></i></a>
                             </div>
                         </div>
                     </div>

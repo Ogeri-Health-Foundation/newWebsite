@@ -71,9 +71,9 @@ $addons = array(
                 <div class="row">
                     <div class="col-md-6 mt-5">
                         <h4 class="text-theme2 text-center text-sm-start">WELCOME TO OGERI HEALTH FOUNDATION</h4>
-                        <p class="sub-head my-3 text-dark text-center text-sm-start">We Believe We Can Save More Lives With You </p>
+                        <p class="sub-head my-3  text-center text-sm-start">We Believe We Can Save More Lives With You </p>
 
-                        <p class="about-text mb-5 px-2 px-sm-0 text-black">
+                        <p class="about-text mb-5 px-2 px-sm-0 text-muted">
                             The OGERI Health Foundation is committed to improving health and empowering communities across Africa, starting with our impactful initiatives in Nigeria. Through health education, disease prevention, and innovative healthcare programs as  we strive to address critical health challenges and create lasting change. Our journey began in Southeastern Nigeria, where we launched community outreach programs focused on blood pressure screenings, health education, and empowering individuals to take control of their health.
                         </p>
 
@@ -96,28 +96,28 @@ $addons = array(
                     <div class="row justify-content-center gy-4">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle text-center">
-                                <p class="text-dark fs-3"><b><span class="counter" data-target="10000">0</span>+</b></p>
-                                <p class="w-75 mx-auto">People Treated Through Medical Outreach Programs</p>
+                                <p class="text-dark fs-3"><b><span class="counter" data-target="257">0</span>+</b></p>
+                                <p class="w-75 mx-auto">People Screened Through Medical Outreach Programs</p>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle bg-theme text-white text-center">
-                                <p class="text-white fs-3"><b><span class="counter" data-target="5000">0</span>+</b></p>
-                                <p class="text-white w-75 mx-auto">Children vaccinated and protected from preventable diseases</p>
+                                <p class="text-white fs-3"><b><span class="counter" data-target="11">0</span>+</b></p>
+                                <p class="text-white w-75 mx-auto">Health Outreach</p>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle text-center">
-                                <p class="text-dark fs-3"><b><span class="counter" data-target="1200">0</span>+</b></p>
-                                <p class="w-75 mx-auto">Families received life-saving medications</p>
+                                <p class="text-dark fs-3"><b><span class="counter" data-target="90">0</span>+</b></p>
+                                <p class="w-75 mx-auto">Patients Diagnosed With High Blood pressure</p>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                        <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle bg-theme text-white text-center">
                                 <p class="text-white fs-3"><b><span class="counter" data-target="50">0</span>+</b></p>
                                 <p class="text-white w-75 mx-auto">Communities reached with health education initiatives</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
@@ -134,7 +134,7 @@ $addons = array(
                             <div class="d-flex align-items-center">
                                 
                                 <h5 class="text-theme2">
-                                    <span><i class="fa-solid fa-bullseye fa-fade fa-xl me-3 mx-auto" style="color: #24ABA0"></i></span>
+                                    <span><i class="fa-solid fa-bullseye fa-fade fa-xl me-3 mx-auto" style="color: white"></i></span>
                                     Our mission</h5>
                             </div>
                             <p class="text-white">To improve health outcomes and empower communities across Africa, starting in Nigeria, by providing accessible healthcare solutions, advancing health education, and promoting preventive care to build healthier and self-reliant futures for all.</p>
@@ -145,7 +145,7 @@ $addons = array(
                         <div class="mission-card bg-theme">
                             <div class="d-flex align-items-center">
 
-                                <h5 class="text-theme2"><i class="fa-solid fa-binoculars fa-fade fa-xl me-3 " style="color: #2d3f53bd"></i>Our vision</h5>
+                                <h5 class="text-theme2"><i class="fa-solid fa-binoculars fa-fade fa-xl me-3 " style="color: white"></i>Our vision</h5>
                             </div>
                             <p class="text-white">To improve health outcomes and empower communities across Africa, starting in Nigeria, by providing accessible healthcare solutions, advancing health education, and promoting preventive care to build healthier and self-reliant futures for all.</p>
 
@@ -217,7 +217,7 @@ $addons = array(
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                         <div class="leader-div"  data-aos="flip-left"
      data-aos-delay="200">
-                            <img src="assets/img/about/man-new.jpg" alt="" class="leader-img"  >
+                            <img src="assets/img/about/joseph.jpg" alt="" class="leader-img vol-img"  >
                             <div class="text-center leader-card">
                                 <p class="text-theme2 leader-name" >Dr Joseph Ekuma Irem</p>
                                 <p class="text-dark mt-1">Chief Operating Officer</p>
@@ -231,7 +231,7 @@ $addons = array(
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-3" >
                         <div class="leader-div"  data-aos="flip-left"
      data-aos-delay="200">
-                            <img src="assets/img/about/outreach-1.svg" alt="" class="leader-img" >
+                            <img src="assets/img/about/irem.jpg" alt="" class="leader-img vol-img" >
                             <div class="text-center leader-card">
                                 <p class="text-theme2 leader-name">Otu Irem</p>
                                 <p class="text-dark mt-1">Outreach Cordinator</p>

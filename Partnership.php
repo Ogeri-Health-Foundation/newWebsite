@@ -20,8 +20,8 @@ $page_rel = '';
 $page_name = 'Partnership.php';
 
 $customs = array(
-    "stylesheets" => ["assets/css/partnership.css", "volunteer/assets/css/volunteers.css"],
-    "scripts" => ["admin/assets/js/demo.js"]
+    "stylesheets" => ["assets/css/partnership.css"],
+    "scripts" => ["admin/assets/js/demo.js"] 
 );
 
 $addons = array(
@@ -71,6 +71,58 @@ $addons = array(
         font-size: 16px;
         cursor: pointer;
         }
+        .upload-container {
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+}
+
+.upload-placeholder i {
+    font-size: 1.5rem;
+}
+
+.upload-preview {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.upload-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.remove-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
     </style>
     
     
@@ -92,7 +144,7 @@ $addons = array(
             <h2>Our Core Programs</h2>
             <p>At The Heart Of Our Mission—Programs That Make A Lasting Difference. </p>
         </div>
-        <div class="container">
+        <div class="container-2">
             <div class="img-container">
                 <img src="./assets/img/Frame 2147226508.png" alt="" srcset="">
             </div>
@@ -136,7 +188,7 @@ $addons = array(
             </div>
         </div>
 
-        <div class="container">
+        <div class="container-2">
             <div class="img-container">
                 <img src="./assets/img/Frame 2147226508 (2).png" alt="" srcset="">
             </div>
@@ -169,7 +221,7 @@ $addons = array(
             </div>
         </div>
 
-        <div class="container">
+        <div class="container-2">
             <div class="img-container">
                 <img src="./assets/img/Frame 2147226508 (4).png" alt="" srcset="">
             </div>
@@ -186,24 +238,36 @@ $addons = array(
         </div>
     </section>
 
-    <div class="banner">
-        <h2>Technical Statistics</h2>
+    <section class="py-5 section-bg">
+        <div class="container content-wrapper">
+            <div class="text-center mb-5">
+                <h4 class="text-theme2 fw-bold mb-4">Technical Statistics</h4>
+            </div>
+            
+            <div class="row g-4 mb-5">
+                <div class="col-lg-4 col-md-6 mx-auto">
+                    <div class="stats-card text-center">
+                        <div class="stats-number"><span class="counter" data-target="257">0</span>+</div>
+                        <div class="stats-label">People Screened</div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mx-auto">
+                    <div class="stats-card text-center">
+                        <div class="stats-number"><span class="counter" data-target="11">0</span>+</div>
+                        <div class="stats-label">Health Outreaches</div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mx-auto">
+                    <div class="stats-card text-center">
+                        <div class="stats-number"><span class="counter" data-target="90">0</span>+</div>
+                        <div class="stats-label">Patients Diagnosed With High Blood Pressure</div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="box">
-            <div class="box-1">
-                <span>257+</span>
-                <p>People screened</p>
-            </div>
-            <div class="box-1">
-                <span>11+</span>
-                <p>Health Outreaches</p>
-            </div>
-            <div class="box-1">
-                <span>90+</span>
-                <p>Patients Diagnosed With <br>High Blood pressure</p>
-            </div>
+            
         </div>
-    </div>
+    </section>
 
     <div class="work_process">
         <div class="title-bar">
@@ -440,7 +504,50 @@ $addons = array(
             }, 4000);
         }
     </script>
+    <script>
+            const counters = document.querySelectorAll('.counter');
+            let hasCounted = false;
 
+            function animateCounters() {
+                if (hasCounted) return; // prevents multiple triggers
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // total animation time in ms
+                    const stepTime = 10; // how often to update in ms
+                    const increment = target / (duration / stepTime);
+                    let count = 0;
+
+                    const updateCounter = () => {
+                        count += increment;
+                        if (count < target) {
+                            counter.innerText = Math.floor(count);
+                            setTimeout(updateCounter, stepTime);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+
+                    updateCounter();
+                });
+                hasCounted = true;
+            }
+
+            // Optional: Trigger when in view using Intersection Observer
+            const statsSection = document.querySelector('.stats-card')?.parentElement;
+
+            if ('IntersectionObserver' in window && statsSection) {
+                const observer = new IntersectionObserver(entries => {
+                    if (entries[0].isIntersecting) {
+                        animateCounters();
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.5 });
+                observer.observe(statsSection);
+            } else {
+                // fallback
+                window.addEventListener('load', animateCounters);
+            }
+        </script>
   
     
 </body>

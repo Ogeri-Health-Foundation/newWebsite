@@ -78,7 +78,7 @@ $addons = array(
                             <div class="col-md-6">
                                 <h5 class="text-theme2 fw-bold">Community Health Outreach</h5>
                                 <p class="text-muted">We bring free health checks, education, and medical support directly to communities.</p>
-                                <ul class="text-muted">
+                                <ul class="text-muted text-ul">
                                     <li> <b>Blood Pressure Checks – </b>High blood pressure is a leading cause of heart disease and stroke, yet many people remain unaware of their risk. Our BP screenings help with early detection, allowing individuals 
 to take control of their health before complications arise.</li>
                                     <li><b>Health Education –</b>Simple, practical advice on staying healthy. Knowledge is key to preventing disease. Through interactive health talks, community workshops, and one-on-one discussions, we provide simple, practical guidance on healthy eating, physical activity, and managing conditions like hypertension.</li>
@@ -102,7 +102,7 @@ to take control of their health before complications arise.</li>
                                 <p class="text-muted">
                                     We teach people how to protect their hearts through engaging programs like:
                                 </p>
-                                <ul class="text-muted">
+                                <ul class="text-muted text-ul">
                                     <li> <b>School Science Quizzes –</b>Making heart health fun and educational for kids.</li>
                                     <li><b>Community Talks & Digital Resources –</b>Sharing easy-to-understand tips on diet, exercise, and lifestyle.</li>
                                     <li><b>Adult Health Literacy –</b>Simplifying complex health information so everyone can take control of their well-being.</li>
@@ -125,7 +125,7 @@ to take control of their health before complications arise.</li>
                                 <p class="text-muted">
                                     We are using technology to make healthcare more accessible and efficient.
                                 </p>
-                                <ul class="text-muted">
+                                <ul class="text-muted text-ul">
                                     <li> <b>Electronic Health Records (EHR) System –</b> A secure, easy-to-use platform that helps patients and health workers keep track of medical history, monitor progress, and ensure continuity of care.</li>
                                     <li><b>Streamlining Patient Care –</b>Reducing paperwork, improving follow-ups, and making healthcare more efficient for both patients and providers</li>
                                     
@@ -145,7 +145,7 @@ to take control of their health before complications arise.</li>
                             </div>
                             <div class="col-md-6">
                                 <h5 class="text-theme2 fw-bold">Partnerships & Advocacy</h5>
-                                <ul class="text-muted">
+                                <ul class="text-muted text-ul">
                                     <li> <b>Community-Driven Solutions –</b> We co-create programs with local communities, ensuring that our initiatives are relevant, practical, and sustainable.</li>
                                     <li><b>Collaborating for Impact –</b>We work alongside doctors, health providers, and policymakers to strengthen healthcare systems and improve access to quality care.</li>
                                     
@@ -165,7 +165,7 @@ to take control of their health before complications arise.</li>
                             </div>
                             <div class="col-md-6">
                                 <h5 class="text-theme2 fw-bold">Research & Innovation</h5>
-                                 <ul class="text-muted">
+                                 <ul class="text-muted text-ul">
                                     <li> <b>Improving Community Health –</b> We collaborate with experts to develop solutions tailored to the real health challenges faced by our communities.</li>
                                     <li><b>Evidence-Driven Approach –</b>Our programs are shaped by insights from our outreach efforts, ensuring we continuously improve and deliver the most effective care.</li>
                                     

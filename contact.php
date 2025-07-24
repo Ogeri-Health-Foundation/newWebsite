@@ -38,7 +38,7 @@ $addons = array(
 
     <body>
         <?php include "include/header.php"; ?>
-        <div id="contact-hero">
+        <!-- <div id="contact-hero">
             <div class="header-container">
                 <a href="#">Home</a>
                 <img src="./assets/img/icon/Chevron_Right.svg" alt="" srcset="">
@@ -46,6 +46,18 @@ $addons = array(
                 <img src="./assets/img/icon/Chevron_Right.svg" alt="" srcset="">
             </div>
             <p>Contact Us </p>
+        </div> -->
+        <div class="breadcumb-wrapper contact-hero">
+            <div class="container">
+                <div class="breadcumb-content">
+                    <ul class="breadcumb-menu">
+                        <li><a href="index.php">Home</a></li>
+                        <li>Contact Us</li>
+                    </ul>
+                    <h1 class="breadcumb-title">Contact Us</h1>
+                    
+                </div>
+            </div>
         </div>
 
         <section class="contact-container">
@@ -108,7 +120,9 @@ $addons = array(
         background-color: #28a745;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
         "></div>
-       <script></script></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const form = document.querySelector(".contact-form");

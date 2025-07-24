@@ -319,30 +319,34 @@ $addons = array(
     </section>
 
     <!-- Technical Statistics -->
-    <section id="technical-statistics">
-        <h2 class="heading">Technical Statistics</h2>
-
-        <div id="statistics">
-            <div class="statistics">
-
-                <h2 class="stat-heading">257+</h2>
-                <p class="stat-para">
-                    People Screened
-                </p>
+    <section class="py-5 section-bg px-3 px-md-0">
+        <div class="container content-wrapper">
+            <div class="text-center mb-5">
+                <h4 class="text-theme2 fw-bold mb-4">Technical Statistics</h4>
             </div>
-            <div class="statistics">
+            
+            <div class="row g-3 mb-5 mx-auto">
+                <div class="col-lg-3 col-md-4  mx-auto">
+                    <div class="stats-card text-center">
+                        <div class="stats-number"><span class="counter" data-target="257">0</span>+</div>
+                        <div class="stats-label">People Screened</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 mx-auto">
+                    <div class="stats-card text-center">
+                        <div class="stats-number"><span class="counter" data-target="11">0</span>+</div>
+                        <div class="stats-label">Health Outreaches</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 mx-auto">
+                    <div class="stats-card text-center">
+                        <div class="stats-number"><span class="counter" data-target="90">0</span>+</div>
+                        <div class="stats-label">Patients Diagnosed With High Blood Pressure</div>
+                    </div>
+                </div>
+            </div>
 
-                <h2 class="stat-heading">11+</h2>
-                <p class="stat-para">
-                    Health Outreaches
-                </p>
-            </div>
-            <div class="statistics">
-                <h2 class="stat-heading">90+</h2>
-                <p class="stat-para">
-                    Patients Diagnosed With High Blood pressure
-                </p>
-            </div>
+            
         </div>
     </section>
 
@@ -429,56 +433,58 @@ $addons = array(
             </p>
         </div>
 
-        <div id="events">
+        <div id="events" class="row">
             <?php
-            try {
-              $db = new DatabaseConn();
-              $pdo = $db->connect();
+                try {
+                $db = new DatabaseConn();
+                $pdo = $db->connect();
 
-              $sql = "SELECT * FROM events 
-                      
-                      ORDER BY date ASC 
-                      LIMIT 6";
-              $stmt = $pdo->prepare($sql);
-              $stmt->execute();
-            } catch (Exception $e) {
-              echo "<p style='color: red;'>Error: " . $e->getMessage() . "</p>";
-              $stmt = null;
-          }
-          ?>
-          <?php if ($stmt && $stmt->rowCount() > 0): ?>
-        <?php while ($event = $stmt->fetch(PDO::FETCH_ASSOC)):
-        $eventName = htmlspecialchars($event['title']);
+                $sql = "SELECT * FROM events 
+                        
+                        ORDER BY date ASC 
+                        LIMIT 6";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute();
+                } catch (Exception $e) {
+                echo "<p style='color: red;'>Error: " . $e->getMessage() . "</p>";
+                $stmt = null;
+                }
+            ?>
+            <?php if ($stmt && $stmt->rowCount() > 0): ?>
+            <?php while ($event = $stmt->fetch(PDO::FETCH_ASSOC)):
+            $eventName = htmlspecialchars($event['title']);
         
        
-        $status = htmlspecialchars($event['status']);
-        $date = date("M j, Y", strtotime($event['date']));
-        $image = !empty($event['banner_image']) ? "uploads/" . htmlspecialchars($event['banner_image']) : "assets/img/donate/donation2-1.png";
-        $eventid = htmlspecialchars($event['event_id']);
-        $location = htmlspecialchars($event['location']);
-        $description = htmlspecialchars($event['description']);
-        $time = $event['time']; // Assuming $events['time'] is "13:24:00.000000"
-        $datetime = new DateTime($time); 
-        $formattedTime = $datetime->format('h:i A'); // "h:i A" formats as 10:00 AM
-        $formattedTime = htmlspecialchars($formattedTime); // sanitize the output
-        ?>
-            <div class="event" data-aos="fade-down"
-     data-aos-delay="200">
-                <img src="<?= $image ?>" class="event-image" />
-                <div class="event-text">
-                    <span>Recent Event</span>
-                    <div class="texts">
-                        <h4 class="event-title"><?= $eventName ?></h4>
+            $status = htmlspecialchars($event['status']);
+            $date = date("M j, Y", strtotime($event['date']));
+            $image = !empty($event['banner_image']) ? "uploads/" . htmlspecialchars($event['banner_image']) : "assets/img/donate/donation2-1.png";
+            $eventid = htmlspecialchars($event['event_id']);
+            $location = htmlspecialchars($event['location']);
+            $description = htmlspecialchars($event['description']);
+            $time = $event['time']; // Assuming $events['time'] is "13:24:00.000000"
+            $datetime = new DateTime($time); 
+            $formattedTime = $datetime->format('h:i A'); // "h:i A" formats as 10:00 AM
+            $formattedTime = htmlspecialchars($formattedTime); // sanitize the output
+            ?>
+            <a href="event-details.php?id=<?= $eventid ?>" class="col-md-4 mx-auto" style="max-width: 400px; min-width: 300px; height: 400px;">
+                <div class="w-100" data-aos="fade-down"
+        data-aos-delay="200">
+                    <img src="<?= $image ?>" class="event-image" />
+                    <div class="event-text">
+                        <span>Recent Event</span>
+                        <div class="texts">
+                            <h4 class="event-title"><?= $eventName ?></h4>
 
-                        <p style="margin-top: 10px;">
-                            <i class="fas fa-calendar-alt e-icon"></i> <?= $date ?>
-                        </p>
-                        <p style="margin-top: 5px;">
-                            <i class="fas fa-map-marker-alt e-icon"></i> <?= $location ?>
-                        </p>
+                            <p style="margin-top: 10px;">
+                                <i class="fas fa-calendar-alt e-icon"></i> <?= $date ?>
+                            </p>
+                            <p style="margin-top: 5px;">
+                                <i class="fas fa-map-marker-alt e-icon"></i> <?= $location ?>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
             <?php endwhile; ?>
                 <?php else: ?>
                     <p style='font-size: 2rem; font-weight: 800;'>No Events available.</p>
@@ -1117,6 +1123,50 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 </script>
+ <script>
+            const counters = document.querySelectorAll('.counter');
+            let hasCounted = false;
+
+            function animateCounters() {
+                if (hasCounted) return; // prevents multiple triggers
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // total animation time in ms
+                    const stepTime = 10; // how often to update in ms
+                    const increment = target / (duration / stepTime);
+                    let count = 0;
+
+                    const updateCounter = () => {
+                        count += increment;
+                        if (count < target) {
+                            counter.innerText = Math.floor(count);
+                            setTimeout(updateCounter, stepTime);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+
+                    updateCounter();
+                });
+                hasCounted = true;
+            }
+
+            // Optional: Trigger when in view using Intersection Observer
+            const statsSection = document.querySelector('.stats-card')?.parentElement;
+
+            if ('IntersectionObserver' in window && statsSection) {
+                const observer = new IntersectionObserver(entries => {
+                    if (entries[0].isIntersecting) {
+                        animateCounters();
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.5 });
+                observer.observe(statsSection);
+            } else {
+                // fallback
+                window.addEventListener('load', animateCounters);
+            }
+        </script>
 <script src="./assets/js/donations.js"></script>
     
 </body>

@@ -39,7 +39,7 @@ $addons = array(
 
 
   <script src="https://kit.fontawesome.com/706f90924a.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="./assets/css/blog.css">
   <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -106,16 +106,18 @@ $addons = array(
 
 
   <!-- header section starts -->
-  <section class="headers">
-    <img src="./assets/img/bg/Frame 2147226443.png" class="header-img img-fluid img-responsive" alt="header-img">
-
-    <div class="header-details" class="text-danger">
-      <a href="./" class="text-white text-decoration-none ">Home &gt;</a>
-      <span>Blog</span>
-
-      <h1 class="ohf_font text-white">Our Blog Page</h1>
+  <div class="breadcumb-wrapper event-hero headers">
+    <div class="container">
+        <div class="breadcumb-content">
+            <ul class="breadcumb-menu">
+                <li><a href="index.php">Home</a></li>
+                <li>Blogs</li>
+            </ul>
+            <h1 class="breadcumb-title">Blogs</h1>
+            
+        </div>
     </div>
-  </section>
+  </div>
   <!-- header section ends -->
 
   <!-- blog container title starts -->
@@ -378,7 +380,7 @@ $addons = array(
 
         </div>
 
-        <div class="blog-search my-4">
+        <!-- <div class="blog-search my-4">
           <h4 class="ohf_font text-orange">Popular Tags</h4>
 
           <div class="tags mt-3">
@@ -392,7 +394,7 @@ $addons = array(
 
 
 
-        </div>
+        </div> -->
 
 
 

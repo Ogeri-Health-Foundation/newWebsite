@@ -10,12 +10,12 @@
 }
 
 /* general styles */
-body {
+/* body {
   background-color: var(--page-background);
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
-}
+} */
 
 
 /* Hero section */
@@ -70,7 +70,7 @@ body {
 
 .provider-card {
   width: 100%;
-  max-width: 260px;
+  /* max-width: 260px; */
   height: 100%;
   background-color: #fff;
   border-radius: 12px;

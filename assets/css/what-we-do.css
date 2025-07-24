@@ -69,3 +69,7 @@
     z-index: 1;
 }
 
+.text-ul li{
+    line-height: 2.0;
+    margin-bottom: 0.5rem;
+}
