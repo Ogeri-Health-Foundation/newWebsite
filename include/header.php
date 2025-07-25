@@ -32,10 +32,10 @@
                         <li class="menu-item-has-children th-btn style3 d-lg-block py-1 text-white">
                             <a href="#" id="getInvolvedToggle" class="text-white">Get involved</a>
                             <ul class="sub-menu" id="getInvolvedDropdown">
-                                <li><a href="donation.php" onclick="trackClick('donate')">Donations</a></li>
-                                <li><a href="community-member.php" onclick="trackClick('community-member')">Community Members</a></li>
-                                <li><a href="partnership.php" onclick="trackClick('partners')">Partners</a></li>
-                                <li><a href="volunteer.php" onclick="trackClick('volunteers')">Volunteer</a></li>
+                                <li><a href="donation.php" onclick="trackClick('donate' ,'donation.php')">Donations</a></li>
+                                <li><a href="community-member.php" onclick="trackClick('community-member', 'community-member.php')">Community Members</a></li>
+                                <li><a href="partnership.php" onclick="trackClick('partners', 'partnership.php')">Partners</a></li>
+                                <li><a href="volunteer.php" onclick="trackClick('volunteers', 'volunteer.php')">Volunteer</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -57,22 +57,22 @@
         <img src="assets/img/logo 24b 1.png" alt="OHF Logo">
 
         <ul id="mobile-nav-ul">
-            <li class="nav-list"><a href="./index.php" onclick="trackClick('home')">Home</a></li>
-            <li class="nav-list"><a href="./about.php" onclick="trackClick('about')">About Us</a></li>
-            <li class="nav-list"><a href="./what-we-do.php" onclick="trackClick('what-we-do')">What We Do</a></li>
-            <li class="nav-list"><a href="./events.php" onclick="trackClick('event')">Events</a></li>
-            <li class="nav-list"><a href="./blog.php" onclick="trackClick('blogs')">Blogs</a></li>
-            <li class="nav-list"><a href="./contact.php" onclick="trackClick('contact')">Contact Us</a></li>
+            <li class="nav-list"><a href="./index.php" >Home</a></li>
+            <li class="nav-list"><a href="./about.php" >About Us</a></li>
+            <li class="nav-list"><a href="./what-we-do.php">What We Do</a></li>
+            <li class="nav-list"><a href="./events.php" >Events</a></li>
+            <li class="nav-list"><a href="./blog.php" >Blogs</a></li>
+            <li class="nav-list"><a href="./contact.php" >Contact Us</a></li>
 
             <li class="nav-list" id="getInvolvedItem">
             <a href="javascript:void(0)" id="toggleGetInvolved">
                 Get Involved <i class="fa fa-caret-down" aria-hidden="true"></i>
             </a>
             <ul class="dropdown-content" id="getInvolvedDropdownMobile">
-                <li><a href="donation.php" onclick="trackClick('donate')">Donations</a></li>
-                <li><a href="community-member.php" onclick="trackClick('community-member')">Community Members</a></li>
-                <li><a href="partnership.php" onclick="trackClick('partners')">Partners</a></li>
-                <li><a href="volunteer.php" onclick="trackClick('volunteers')">Volunteer</a></li>
+                <li><a href="donation.php" >Donations</a></li>
+                <li><a href="community-member.php" >Community Members</a></li>
+                <li><a href="partnership.php" >Partners</a></li>
+                <li><a href="volunteer.php" >Volunteer</a></li>
             </ul>
             </li>
         </ul>
