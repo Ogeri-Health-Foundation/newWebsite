@@ -352,7 +352,7 @@ $addons = array(
           Every moment you give can change lives. Join our mission to create
           healthier communities.
         </h4>
-        <a href="#volunteerForm" onclick="trackClick('volunteer')">
+        <a href="#volunteerForm" >
           <button class="btn register-btn text-white">Register Now</button>
         </a>
         <a href="#volunteerOp">

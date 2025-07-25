@@ -140,7 +140,7 @@ $addons = array(
     <!-- ==========Header-section=========== -->
     <div id="partnership-hero">
         <p class="text-white">Partner With Us</p>
-        <a href="#partner-form" onclick="trackClick('partner')" class="th-btn style3">
+        <a href="#partner-form"  class="th-btn style3">
             Partner With Us
         </a>
     </div>

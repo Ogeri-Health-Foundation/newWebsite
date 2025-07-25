@@ -981,7 +981,7 @@ $addons = array(
                     </div>
                     <h5 class="art-title px-2"><?= htmlspecialchars($blog['blog_title']) ?></h5>
                     <p class="art-summary"><?= htmlspecialchars($blog['blog_description']) ?></p>
-                    <a class="th-btn mt-4 text-decoration-none" onclick="trackClick('blog-details')" href="blog-details.php?id=<?= $blogid ?>">
+                    <a class="th-btn mt-4 text-decoration-none" href="blog-details.php?id=<?= $blogid ?>">
                         Read More <img src="./assets/img/community/icons/right-arrow.svg" alt="arrow" class="ms-2" />
                     </a>
                     </div>
