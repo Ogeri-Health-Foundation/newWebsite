@@ -88,6 +88,7 @@ function active($bar)
             <span>Partnership</span></a>
         <a href="<?php echo $page_rel; ?>admin/events.php"><i class="fa fa-calendar"></i> <span>Events</span></a>
         <a href="<?php echo $page_rel; ?>admin/contacts.php"><i class="fa fa-calendar"></i> <span>Contacts</span></a>
+        <a href="<?php echo $page_rel; ?>admin/subcribers.php"><i class="fa fa-book"></i> <span>Subscribers</span></a>
         <hr class="my-2 hr" />
         <a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a>
         <a href="#" class="text-danger" onclick="logoutUser(this)"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>

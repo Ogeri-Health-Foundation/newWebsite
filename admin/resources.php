@@ -1,5 +1,43 @@
 <?php
 session_start();
+require '../api/Database/DatabaseConn.php';
+
+ // Create an instance of DatabaseConn and establish connection
+ $db = new DatabaseConn();
+ $dbh = $db->connect();
+
+        $filter = $_GET['filter'] ?? 'all';
+
+        switch ($filter) {
+            case 'week':
+                $sql = "SELECT bp.blog_id, bp.blog_title, COUNT(bv.id) AS views 
+                        FROM blog_views bv
+                        JOIN blog_posts bp ON bp.blog_id = bv.blog_id
+                        WHERE bv.viewed_at >= NOW() - INTERVAL 7 DAY
+                        GROUP BY bp.blog_id
+                        ORDER BY views DESC
+                        LIMIT 5";
+                break;
+
+            case 'month':
+                $sql = "SELECT bp.blog_id, bp.blog_title, COUNT(bv.id) AS views 
+                        FROM blog_views bv
+                        JOIN blog_posts bp ON bp.blog_id = bv.blog_id
+                        WHERE bv.viewed_at >= NOW() - INTERVAL 30 DAY
+                        GROUP BY bp.blog_id
+                        ORDER BY views DESC
+                        LIMIT 5";
+                break;
+
+            default:
+                $sql = "SELECT blog_id, blog_title, views FROM blog_posts ORDER BY views DESC LIMIT 5";
+        }
+
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        $topBlogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $labels = json_encode(array_column($topBlogs, 'blog_title'));
+        $values = json_encode(array_column($topBlogs, 'views'));
 
 ?>
 
@@ -681,6 +719,31 @@ document.addEventListener("DOMContentLoaded", function () {
                     <canvas id="bp-graph" style="height: 100%; width: 100%"></canvas>
                 </div>
             </div>
+        </section>
+        <section>
+            <div class="card mt-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Top Blog Posts</h5>
+                    <form method="get">
+                        <select class="form-select form-select-sm w-auto" name="filter" onchange="this.form.submit()">
+                            <option value="all" <?= $filter == 'all' ? 'selected' : '' ?>>All Time</option>
+                            <option value="week" <?= $filter == 'week' ? 'selected' : '' ?>>Last 7 Days</option>
+                            <option value="month" <?= $filter == 'month' ? 'selected' : '' ?>>Last 30 Days</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                    <?php foreach ($topBlogs as $blog): ?>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <?= htmlspecialchars($blog['blog_title']) ?>
+                        <span class="badge bg-primary rounded-pill"><?= $blog['views'] ?></span>
+                        </li>
+                    <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+            <canvas id="topBlogsChart" height="100" class="mt-5"></canvas>
         </section>
 
 
@@ -2121,6 +2184,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error(error);
             });
     </script>
+    <script>
+        const ctx = document.getElementById('topBlogsChart').getContext('2d');
+        new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?= $labels ?>,
+            datasets: [{
+            label: 'Views',
+            data: <?= $values ?>,
+            backgroundColor: '#24ABA0'
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+            legend: { display: false }
+            }
+        }
+        });
+    </script>
+
 </body>
 
 </html>

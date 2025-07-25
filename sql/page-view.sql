@@ -1,0 +1,6 @@
+CREATE TABLE page_views (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    page VARCHAR(100),
+    ip_address VARCHAR(45),
+    viewed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

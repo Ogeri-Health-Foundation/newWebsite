@@ -54,7 +54,7 @@ $page_name = 'donation-details.php';
 $customs = array(
     // "stylesheets" => [""],
     "stylesheets" => ["assets/css/donation.css"],
-    "scripts" => ["admin/assets/js/demo.js"]
+    "scripts" => ["assets/js/main2.js"]
 );
 
 $addons = array(

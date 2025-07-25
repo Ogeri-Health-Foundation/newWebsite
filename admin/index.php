@@ -52,6 +52,17 @@ $result4 = $dbh->query($sql4);
 $sql5 = "SELECT COUNT(*) AS total FROM donation_events";
 $result5 = $dbh->query($sql5);
 
+$stmt = $dbh->query("SELECT page, COUNT(*) AS views FROM page_views GROUP BY page ORDER BY views DESC LIMIT 10");
+$stats = $stmt->fetch_all(MYSQLI_ASSOC);
+
+// Prepare data for chart
+$pages = [];
+$views = [];
+
+foreach ($stats as $row) {
+    $pages[] = $row['page'];
+    $views[] = $row['views'];
+}
 
 ?>
 <!DOCTYPE html>
@@ -60,6 +71,7 @@ $result5 = $dbh->query($sql5);
 <head>
     <?php include $page_rel . 'admin/includes/admin-head.php'; ?>
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
     <style>
         
     </style>
@@ -196,6 +208,17 @@ window.onload = function () {
                 </div>
             </div>
         </section>
+        <section>
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <strong>Most Visited Pages Chart</strong>
+                </div>
+                <div class="card-body">
+                    <canvas id="pageViewsChart" height="120"></canvas>
+                </div>
+            </div>
+        </section>
+
 
         <section class="blog container">
             <div class="Blogchart-container">
@@ -327,7 +350,7 @@ window.onload = function () {
                     <span>
                         <h2>Health Worker</h2>
                     </span>
-                    <a href="#">View all</a>
+                    <a href="resources.php">View all</a>
                 </span>
                 <table>
                     <thead>
@@ -505,7 +528,7 @@ window.onload = function () {
     </main>
     <?php include $page_rel . 'admin/includes/sidebar.php'; ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
     <script>
         const ctx = document.getElementById('ticketChart').getContext('2d');
         let ticketChart = new Chart(ctx, {
@@ -620,6 +643,34 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => console.error("Error loading chart data:", error));
   }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const ctx = document.getElementById('pageViewsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?php echo json_encode($pages); ?>,
+            datasets: [{
+                label: 'Page Views',
+                data: <?php echo json_encode($views); ?>,
+                backgroundColor: '#24ABA0',
+                borderColor: '#F7A234',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
 });
 </script>
 

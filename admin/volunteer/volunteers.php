@@ -110,8 +110,8 @@ window.onload = function () {
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="action-buttons">
-                        <!-- Desktop Buttons -->
+                    <!-- <div class="action-buttons">
+                       
                         <div class="desktop-buttons">
                             <button class="btn btn-export" id="exportBtn">
                                 <i class="fas fa-file-export"></i> Export
@@ -121,7 +121,7 @@ window.onload = function () {
                             </button>
                         </div>
 
-                        <!-- Mobile Dropdown -->
+                       
                         <div class="mobile-dropdown dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-bars"></i> Actions
@@ -130,8 +130,8 @@ window.onload = function () {
                                 <li><a class="dropdown-item" href="#" id="exportBtnMobile"><i class="fas fa-file-export"></i> Export</a></li>
                                 <li><a class="dropdown-item" href="#" id="filterBtnMobile"><i class="fas fa-filter"></i> Filter</a></li>
                             </ul>
-                        </div>
-                    </div>
+                        </div> -->
+                    <!-- </div> -->
 
                     <div id="filterForm" style="display: none; margin-bottom: 20px;">
                         <form method="GET" action="">
@@ -152,7 +152,7 @@ window.onload = function () {
                     </div>
                     <!-- Volunteers Table -->
                     <div class="table-container">
-                        <table class="volunteers-table" id="">
+                        <table class="volunteers-table" id="volunteerTable">
                             <thead>
                                 <tr>
                                     <th>S/N</th>
@@ -269,7 +269,7 @@ window.onload = function () {
                     </div>
 
                     <!-- Pagination -->
-                                        <div class="pagination">
+                                        <!-- <div class="pagination">
                         <?php if ($page > 1): ?>
                             <a href="?page=<?php echo $page - 1; ?>" class="btn btn-prev">
                                 <i class="fas fa-chevron-left"></i> Previous
@@ -287,7 +287,7 @@ window.onload = function () {
                                 Next <i class="fas fa-chevron-right"></i>
                             </a>
                         <?php endif; ?>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -470,7 +470,73 @@ window.onload = function () {
 
 
     <?php include $page_rel . 'admin/includes/sidebar.php'; ?>
+    <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+  <script src="https://cdn.datatables.net/buttons/2.1.3/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.1.3/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.1.3/js/buttons.print.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Buttons JS -->
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+  <style>
+      div.dataTables_wrapper div.dataTables_length select {
+        padding: 5px 35px;
+      }
+    </style>
+  
     <script>
+        $(document).ready(function() {
+      // Call it on page load
+     
+
+      $('#volunteerTable').DataTable({
+        dom: '<"row mb-3"<"col-md-4"l>>' + // Show entries
+          '<"row mb-3"<"col-md-6"B><"col-md-6 text-end"f>>' + // Buttons and Search filter
+          'rt' +
+          '<"row mt-3"<"col-md-5"i><"col-md-7"p>>', // Info and Pagination
+        buttons: [{
+            extend: 'copy',
+            className: 'btn btn-primary btn-sm me-1 mb-2 '
+          },
+          {
+            extend: 'csv',
+            className: 'btn btn-secondary btn-sm me-1 mb-2'
+          },
+          {
+            extend: 'excel',
+            className: 'btn btn-success btn-sm me-1 mb-2'
+          },
+          {
+            extend: 'pdf',
+            className: 'btn btn-danger btn-sm me-1 mb-2'
+          },
+          {
+            extend: 'print',
+            className: 'btn btn-dark btn-sm mb-2'
+          }
+        ],
+        language: {
+          paginate: {
+            next: 'Next',
+            previous: 'Prev'
+          },
+          search: 'Search Filter',
+          lengthMenu: 'Show _MENU_ entries',
+          info: 'Showing _START_ to _END_ of _TOTAL_ entries'
+        }
+      });
+    });
       $(document).ready(function () {
     $("#approveBtn").click(function () {
         showConfirmModal("approve");

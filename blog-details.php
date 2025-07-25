@@ -23,6 +23,9 @@ try {
 
     if ($stmt->rowCount() > 0) {
         $blog = $stmt->fetch(PDO::FETCH_ASSOC);
+        $updateView = $dbh->prepare("UPDATE blog_posts SET views = views + 1 WHERE blog_id = :id");
+        $updateView->bindParam(':id', $eventId);
+        $updateView->execute();
 
         $blogName = htmlspecialchars($blog['blog_title']);
         $description = htmlspecialchars($blog['blog_description']);
@@ -34,6 +37,10 @@ try {
     } else {
         throw new Exception("Blog not found.");
     }
+
+    $logView = $dbh->prepare("INSERT INTO blog_views (blog_id) VALUES (:id)");
+    $logView->bindParam(':id', $eventId);
+    $logView->execute();
 
     // $query = "SELECT * FROM blog_images WHERE blog_id = :blog_id";
     // $stmt = $dbh->prepare($query);
@@ -51,6 +58,9 @@ try {
         
     //     shuffle($blog_images);
     // }
+
+    
+
 } catch (Exception $e) {
     die("<p>Error: " . $e->getMessage() . "</p>");
 }
@@ -70,7 +80,7 @@ $page_name = 'Blog Details';
 
 $customs = array(
     "stylesheets" => ["assets/css/demo.css"],
-    "scripts" => ["assets/js/demo.js"]
+    "scripts" => ["assets/js/main2.js"]
 );
 
 $addons = array(

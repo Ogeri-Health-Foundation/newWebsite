@@ -163,9 +163,7 @@ $addons = array(
     border-radius: 50%;
     margin-right: 10px;
   }
-</style>
 
-<style>
   .image-upload-container {
     display: flex;
     flex-wrap: wrap;
@@ -270,6 +268,84 @@ $addons = array(
   .has-image .upload-content {
     display: none;
   }
+  
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .filter-section {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-section label {
+      font-size: 14px;
+    }
+
+    input[type="date"] {
+      padding: 5px 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 6px 12px;
+      font-size: 14px;
+      background-color: var(--primary-color, #007bff);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .dashboard {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      width: 240px;
+      text-align: center;
+    }
+
+    .card h3 {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 24px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    .chart-container {
+      max-width: 400px;
+      margin: 40px auto;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
 </style>
 
 
@@ -297,6 +373,26 @@ $addons = array(
       <div class="content">
         <div class="page-content">
           <div class="toast-container" id="toastContainer"></div>
+          <div>
+            <h2>Community Outreach Statistics</h2>
+
+            <div class="filter-section">
+              <label>Start Date:
+                <input type="date" id="start_date">
+              </label>
+              <label>End Date:
+                <input type="date" id="end_date">
+              </label>
+              <button onclick="fetchStats()">Filter</button>
+              <button onclick="clearFilters()">Clear</button>
+            </div>
+
+            <div class="dashboard" id="stats-cards"></div>
+
+            <div class="chart-container">
+              <canvas id="genderChart"></canvas>
+            </div>
+          </div>
 
           <div class="content-header">
             <div>
@@ -1499,6 +1595,95 @@ $addons = array(
         });
     }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  let genderChart = null;
+
+  function buildURL() {
+    const url = new URL('../api/v1/stats.php', window.location.href);
+    const start = document.getElementById('start_date').value;
+    const end = document.getElementById('end_date').value;
+
+    if (start && end) {
+      url.searchParams.append('start_date', start);
+      url.searchParams.append('end_date', end);
+    }
+
+    return url;
+  }
+
+  async function fetchStats() {
+    const url = buildURL();
+    const res = await fetch(url);
+    const result = await res.json();
+
+    const container = document.getElementById('stats-cards');
+    container.innerHTML = '';
+
+    if (result.success) {
+      const d = result.data;
+      const stats = {
+        "Total Attendees": d.total_attendees,
+        "BP Screened": d.bp_screened,
+        "High BP Detected": d.high_bp_detected,
+        "Repeat Attendees": d.repeat_attendees,
+        "Counselled": d.counselled,
+        "Medications Dispensed": d.medications_dispensed,
+        "Referrals": d.referrals,
+        "Average Age": parseFloat(d.average_age).toFixed(1),
+        "Villages Served": d.villages_served
+      };
+
+      for (let label in stats) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<h3>${label}</h3><p>${stats[label]}</p>`;
+        container.appendChild(card);
+      }
+
+      // Gender Chart
+      const ctx = document.getElementById('genderChart').getContext('2d');
+      if (genderChart) genderChart.destroy();
+      genderChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Male', 'Female'],
+          datasets: [{
+            label: 'Gender Breakdown',
+            data: [d.gender_male, d.gender_female],
+            backgroundColor: ['#4e79a7', '#f28e2b']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Gender Breakdown of Attendees',
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+    } else {
+      alert("Failed to fetch stats: " + result.error);
+    }
+  }
+
+  function clearFilters() {
+    document.getElementById('start_date').value = '';
+    document.getElementById('end_date').value = '';
+    fetchStats();
+  }
+
+  // Initial fetch
+  fetchStats();
+</script>
 
 
 </body>
