@@ -191,7 +191,7 @@ $addons = array(
                 </div>
             </div>
             <p class="hero-button">
-                <a id="hero-button" href="about.php" onclick="trackClick('about')">Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
+                <a id="hero-button" href="about.php">Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
             </p>
             <!-- get involved -->
             <div id="get-involved" class="d-flex flex-column flex-md-row gap-2">
@@ -208,7 +208,7 @@ $addons = array(
                     <div class="donate-icon2-holder middle-holder">
                         <img src="./assets/img/icon/people-icon.svg" class="donate-icon2" />
                     </div>
-                    <h3 class="left-heading2 donate-heading">Become A Volunteer</h3>
+                    <h3 class="left-heading2 donate-heading text-white">Become A Volunteer</h3>
                     <p class="left-para donate-para">
                         Be part of our journey to build healthier communities. Share your time, skills, and passion to make a difference in the lives of those in need.
                     </p>
@@ -372,7 +372,7 @@ $addons = array(
                     </p>
                 </div>
                 <p class="hero-button">
-                    <a id="hero-button" class="p-anchor" href="about.php" onclick="trackClick('about')">Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
+                    <a id="hero-button" class="p-anchor" href="about.php" >Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
                 </p>
             </div>
 
@@ -389,7 +389,7 @@ $addons = array(
                         We co-create programs with local communities, ensuring that our initiatives are relevant, practical, and sustainable. </p>
                 </div>
                 <p class="hero-button">
-                    <a id="hero-button" class="p-anchor" href="about.php" onclick="trackClick('about')">Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
+                    <a id="hero-button" class="p-anchor" href="about.php" >Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
                 </p>
             </div>
             <div class="programs" data-aos="fade-up"
@@ -405,7 +405,7 @@ $addons = array(
                     </p>
                 </div>
                 <p class="hero-button">
-                    <a id="hero-button" class="p-anchor" href="about.php" onclick="trackClick('about')">Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
+                    <a id="hero-button" class="p-anchor" href="about.php" >Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
                 </p>
             </div>
 
@@ -422,7 +422,7 @@ $addons = array(
                     </p>
                 </div>
                 <p class="hero-button">
-                    <a id="hero-button" class="p-anchor" href="about.php" onclick="trackClick('about')">Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
+                    <a id="hero-button" class="p-anchor" href="about.php" >Learn More <img src="./assets/img/icon/arrow-icon.svg" /></a>
                 </p>
             </div>
         </div>
@@ -436,7 +436,7 @@ $addons = array(
                 <h3 class="left-heading2 event-heading2">Our Monthly Outreaches</h3>
             </div>
             <p class="hero-button event-button">
-                <a id="hero-button" class="p-anchor" onclick="trackClick('event')" href="events.php">See More <img src="./assets/img/icon/arrow-icon.svg" /></a>
+                <a id="hero-button" class="p-anchor"  href="events.php">See More <img src="./assets/img/icon/arrow-icon.svg" /></a>
             </p>
         </div>
 
@@ -766,7 +766,7 @@ $addons = array(
                                             }
                                     ?>
                                 </div>
-                                <a href="team-details.php?id=<?= $volunteer_id ?>" class="th-btn style3" onclick="trackClick('volunteer-details')">
+                                <a href="team-details.php?id=<?= $volunteer_id ?>" class="th-btn style3" >
                                     View Profile
                                 </a>
                             </div>
@@ -866,8 +866,8 @@ $addons = array(
            
 
                 <div class="d-flex flex-column flex-md-row mt-5 gap-5">
-                    <a href="donation.php" class="th-btn style3 bg-white" style="color: var(--theme-color2);" onclick="trackClick('donate')">Donate Now </a>
-                    <a href="volunteer.php" class="th-btn style3" onclick="trackClick('volunteer')">Become a Volunteer</a>
+                    <a href="donation.php" class="th-btn style3 bg-white" style="color: var(--theme-color2);" >Donate Now </a>
+                    <a href="volunteer.php" class="th-btn style3" >Become a Volunteer</a>
                 </div>
              </div>
 

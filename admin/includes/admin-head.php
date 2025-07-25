@@ -3,10 +3,10 @@
 	date_default_timezone_set('Africa/Lagos');
 
 	$company_name = "Ogeri Health Foundation"; // Your company name
-    $bare_domain = "ogerihealthfoundation.com";
+    $bare_domain = "web.ogerihealth.org";
 
     $domain = "https://$bare_domain/";
-	$banner_image = $domain . "assets/images/logo.png";
+	$banner_image = $domain . "admin/assets/images/login/name-logo.svg";
 
 	$page_url = $domain . $page_name;
 
@@ -96,7 +96,7 @@
 
 <!-- Bootstrap Bundle with Popper (must be after jQuery if used) -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
 
     <?php
 		if(isset($addons)) {

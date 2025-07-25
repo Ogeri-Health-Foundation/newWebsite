@@ -367,14 +367,41 @@ $addons = array(
 
               <!-- Category -->
               <div class="mb-3">
-                <label class="form-label">Category*</label>
-                <select class="form-select" name="Category" required>
-                  <option value="">Choose a Category...</option>
-                  <option value="tech" <?php echo (isset($post) && $post['category'] == 'tech') ? 'selected' : ''; ?>>Tech</option>
-                  <option value="business" <?php echo (isset($post) && $post['category'] == 'business') ? 'selected' : ''; ?>>Business</option>
-                  <option value="health" <?php echo (isset($post) && $post['category'] == 'health') ? 'selected' : ''; ?>>Health</option>
-                </select>
-              </div>
+                    <label class="form-label">Category*</label>
+                    <select class="form-select" name="Category" required>
+                        <option value="">Choose a Category...</option>
+                        <option value="community_health_stories" <?php echo (isset($post) && $post['category'] == 'community_health_stories') ? 'selected' : ''; ?>>
+                            Community Health Stories
+                        </option>
+                        <option value="hypertension_heart_health" <?php echo (isset($post) && $post['category'] == 'hypertension_heart_health') ? 'selected' : ''; ?>>
+                            Hypertension & Heart Health
+                        </option>
+                        <option value="health_education_lifestyle" <?php echo (isset($post) && $post['category'] == 'health_education_lifestyle') ? 'selected' : ''; ?>>
+                            Health Education & Lifestyle
+                        </option>
+                        <option value="digital_health_innovation" <?php echo (isset($post) && $post['category'] == 'digital_health_innovation') ? 'selected' : ''; ?>>
+                            Digital Health & Innovation
+                        </option>
+                        <option value="outreach_highlights" <?php echo (isset($post) && $post['category'] == 'outreach_highlights') ? 'selected' : ''; ?>>
+                            Outreach Highlights
+                        </option>
+                        <option value="research_insights" <?php echo (isset($post) && $post['category'] == 'research_insights') ? 'selected' : ''; ?>>
+                            Research & Insights
+                        </option>
+                        <option value="volunteer_partner_spotlights" <?php echo (isset($post) && $post['category'] == 'volunteer_partner_spotlights') ? 'selected' : ''; ?>>
+                            Volunteer & Partner Spotlights
+                        </option>
+                        <option value="events_announcements" <?php echo (isset($post) && $post['category'] == 'events_announcements') ? 'selected' : ''; ?>>
+                            Events & Announcements
+                        </option>
+                        <option value="health_centre_strengthening" <?php echo (isset($post) && $post['category'] == 'health_centre_strengthening') ? 'selected' : ''; ?>>
+                            Health Centre Strengthening
+                        </option>
+                        <option value="funding_support" <?php echo (isset($post) && $post['category'] == 'funding_support') ? 'selected' : ''; ?>>
+                            Funding & Support
+                        </option>
+                    </select>
+                </div>
 
               <!-- Body -->
               <div class="mb-3">

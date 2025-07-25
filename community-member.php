@@ -188,10 +188,10 @@ $dbh->prepare("INSERT INTO page_views (page, ip_address) VALUES (?, ?)")
       <!-- provider-cards-container container d-flex flex-column justify-content-around align-content-center flex-lg-row  -->
       <div class="container py-4 row gap-4 justify-content-center">
         <?php
-          require 'api/Database/DatabaseConn.php';
+        //   require 'api/Database/DatabaseConn.php';
 
-          $db = new DatabaseConn();
-          $dbh = $db->connect();
+        //   $db = new DatabaseConn();
+        //   $dbh = $db->connect();
 
           // Query to get health workers from different tables
           $query = "
@@ -272,7 +272,7 @@ $dbh->prepare("INSERT INTO page_views (page, ip_address) VALUES (?, ?)")
             <div class="news-art-card-wrapper">
                 <div class="news-art-card-track">
                     <?php
-                    $dbh = $db->connect();
+                    
                     $query = "SELECT * FROM blog_posts WHERE status = 'published' ORDER BY published_at ASC";
                     $stmt = $dbh->prepare($query);
                     $stmt->execute();
