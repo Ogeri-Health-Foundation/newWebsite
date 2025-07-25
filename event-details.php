@@ -75,7 +75,7 @@ $page_name = 'Blog Details';
 
 $customs = array(
     "stylesheets" => ["assets/css/event-details.css"],
-    "scripts" => ["admin/assets/js/demo.js"]
+    "scripts" => ["assets/js/main2.js"]
 );
 
 $addons = array(

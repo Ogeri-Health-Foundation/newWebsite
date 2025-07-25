@@ -1,0 +1,5 @@
+CREATE TABLE click_events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    action VARCHAR(100),
+    clicked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

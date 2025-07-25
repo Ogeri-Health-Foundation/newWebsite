@@ -2,9 +2,16 @@
 session_start();
 require 'api/Database/DatabaseConn.php';
 
-// Create an instance of DatabaseConn and establish connection
-$db = new DatabaseConn();
-$dbh = $db->connect();
+ // Create an instance of DatabaseConn and establish connection
+ $db = new DatabaseConn();
+ $dbh = $db->connect();
+ 
+$page = basename($_SERVER['PHP_SELF']);
+$ip = $_SERVER['REMOTE_ADDR'];
+
+
+$dbh->prepare("INSERT INTO page_views (page, ip_address) VALUES (?, ?)")
+     ->execute([$page, $ip]);
 ?>
 
 <?php
@@ -21,7 +28,7 @@ $page_name = 'Blog';
 
 $customs = array(
   "stylesheets" => ["assets/css/demo.css"],
-  "scripts" => ["admin/assets/js/demo.js"]
+  "scripts" => ["assets/js/main2.js"]
 );
 
 $addons = array(

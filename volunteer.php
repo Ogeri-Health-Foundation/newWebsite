@@ -2,9 +2,16 @@
 session_start();
 require 'api/Database/DatabaseConn.php';
 
- //Create an instance of DatabaseConn and establish connection
+ // Create an instance of DatabaseConn and establish connection
  $db = new DatabaseConn();
  $dbh = $db->connect();
+ 
+$page = basename($_SERVER['PHP_SELF']);
+$ip = $_SERVER['REMOTE_ADDR'];
+
+
+$dbh->prepare("INSERT INTO page_views (page, ip_address) VALUES (?, ?)")
+     ->execute([$page, $ip]);
 ?>
 
 <?php
@@ -21,7 +28,7 @@ $page_name = 'Volunteers';
 
 $customs = array(
     "stylesheets" => ["assets/css/about.css"],
-    "scripts" => ["admin/assets/js/demo.js"]
+    "scripts" => ["assets/js/main2.js"]
 );
 
 $addons = array(
@@ -345,7 +352,7 @@ $addons = array(
           Every moment you give can change lives. Join our mission to create
           healthier communities.
         </h4>
-        <a href="#volunteerForm">
+        <a href="#volunteerForm" onclick="trackClick('volunteer')">
           <button class="btn register-btn text-white">Register Now</button>
         </a>
         <a href="#volunteerOp">

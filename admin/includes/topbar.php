@@ -46,7 +46,7 @@
       </div>
 
       <!-- Search Bar -->
-      <div class="input-group search-bar">
+      <!-- <div class="input-group search-bar">
         <span class="input-group-text">
           <img src="<?php echo $page_rel; ?>admin/assets/images/includes/Left Icon.svg" alt="" />
         </span>
@@ -58,7 +58,7 @@
         <span class="input-group-text">
           <img src="<?php echo $page_rel; ?>admin/assets/images/includes/Right Icon.svg" alt="" />
         </span>
-      </div>
+      </div> -->
 
       <!-- User Section -->
       <div class="user-info">

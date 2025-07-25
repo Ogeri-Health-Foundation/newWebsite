@@ -1,4 +1,20 @@
 <?php
+session_start();
+require 'api/Database/DatabaseConn.php';
+
+ // Create an instance of DatabaseConn and establish connection
+ $db = new DatabaseConn();
+ $dbh = $db->connect();
+ 
+$page = basename($_SERVER['PHP_SELF']);
+$ip = $_SERVER['REMOTE_ADDR'];
+
+
+$dbh->prepare("INSERT INTO page_views (page, ip_address) VALUES (?, ?)")
+     ->execute([$page, $ip]);
+?>
+
+<?php
 
     $page_title = "Ogeri Health Foundation - Community Members";
 
@@ -12,7 +28,7 @@
 
     $customs = array(
                 "stylesheets" => ["assets/css/index.css", "assets/css/community-2.css"],
-                "scripts" => ["admin/assets/js/demo.js"]
+                "scripts" => ["assets/js/main2.js"]
                );
 
     $addons = array(
@@ -149,7 +165,7 @@
     >
       <p class="hero-0">Community Members</p>
       <h2 class="hero-1">Together for Health, Together for Hope</h2>
-      <a href="#get-help" class="hero-btn">Get Medical Support</a>
+      <a href="#get-help" class="hero-btn" onclick="trackClick('medical-support')">Get Medical Support</a>
     </section>
     <!-- PROVIDER SECTION -->
     <section class="providers-section container">

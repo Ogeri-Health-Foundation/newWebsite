@@ -60,7 +60,7 @@ $page_name = 'team-details2.php';
 
 $customs = array(
     "stylesheets" => ["assets/css/volunteer-details.css"],
-    "scripts" => ["admin/assets/js/demo.js"]
+    "scripts" => ["assets/js/main2.js"]
 );
 
 $addons = array(

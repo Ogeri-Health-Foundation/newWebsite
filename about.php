@@ -5,7 +5,15 @@ require 'api/Database/DatabaseConn.php';
  // Create an instance of DatabaseConn and establish connection
  $db = new DatabaseConn();
  $dbh = $db->connect();
+ 
+$page = basename($_SERVER['PHP_SELF']);
+$ip = $_SERVER['REMOTE_ADDR'];
+
+
+$dbh->prepare("INSERT INTO page_views (page, ip_address) VALUES (?, ?)")
+     ->execute([$page, $ip]);
 ?>
+
 
 <?php
 
@@ -21,7 +29,7 @@ $page_name = 'About';
 
 $customs = array(
     "stylesheets" => ["assets/css/about.css"],
-    "scripts" => [""]
+    "scripts" => ["assets/js/main2.js"]
 );
 
 $addons = array(
@@ -77,7 +85,7 @@ $addons = array(
                             The OGERI Health Foundation is committed to improving health and empowering communities across Africa, starting with our impactful initiatives in Nigeria. Through health education, disease prevention, and innovative healthcare programs as  we strive to address critical health challenges and create lasting change. Our journey began in Southeastern Nigeria, where we launched community outreach programs focused on blood pressure screenings, health education, and empowering individuals to take control of their health.
                         </p>
 
-                        <a href="volunteer.php" class="th-btn style3 my-3">Be a Volunteer</a>
+                        <a href="volunteer.php" onclick="trackClick('volunteer')" class="th-btn style3 my-3">Be a Volunteer</a>
                     </div>
                     <div class="col-md-6 ">
                         <img src="assets/img/about/first-img.jpg" alt="">
