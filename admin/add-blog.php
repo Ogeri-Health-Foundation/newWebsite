@@ -511,357 +511,359 @@ $addons = array(
 
   <?php include $page_rel . 'admin/includes/sidebar.php'; ?>
 
-  <script>
-    function previewImage(event) {
-      const reader = new FileReader();
-      reader.onload = function() {
-        document.getElementById('preview').src = reader.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
+    <script>
+        // Store the editor instance globally
+        let editorInstance = null;
 
-    document.getElementById("Publish").addEventListener("click", function() {
-      const form = document.getElementById("postForm");
-
-      form.onsubmit = (e) => {
-        e.preventDefault();
-      };
-      let formData = new FormData(form);
-      let isValid = true;
-
-
-      for (let [key, value] of formData.entries()) {
-        if (typeof value === "string") {
-          let trimmedValue = value.trim();
-          formData.set(key, trimmedValue);
-
-          if (trimmedValue === "") {
-            isValid = false;
-
-            const BadToast = document.getElementById('bad-toast');
-            const BadToastMesaage = document.getElementById('bad-toast-message');
-            BadToast.classList.add('show');
-            BadToastMesaage.textContent = `${key} cannot be empty or only spaces.`;
-            setTimeout(hideBadToast, 5000);
-
-            function hideBadToast() {
-              const BadToast = document.getElementById('bad-toast');
-              BadToast.classList.remove('show');
-            }
-            return;
-          }
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById('preview').src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
         }
-      }
 
-      if (!isValid) return;
-
-      fetch("../api/v1/post_blog.php", {
-          // fetch("https://ogerihealth.org/api/v1/post_blog.php", {
-          method: "POST",
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success === true) {
+        function hideToast() {
             const toast = document.getElementById('toast-success');
-            const toastMesaage = document.getElementById('toast-message');
-            toast.classList.add('show');
-            toastMesaage.textContent = data.message;
-            setTimeout(hideToast, 5000);
-            form.reset();
-            document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
+            toast.classList.remove('show');
+        }
 
-            function hideToast() {
-              const toast = document.getElementById('toast-success');
-              toast.classList.remove('show');
+        function hideBadToast() {
+            const badToast = document.getElementById('bad-toast');
+            badToast.classList.remove('show');
+        }
+
+        // Function to validate CKEditor content
+        function validateEditorContent() {
+            if (!editorInstance) return false;
+            
+            const editorData = editorInstance.getData();
+            // Remove HTML tags and decode HTML entities
+            const textContent = editorData
+                .replace(/<[^>]*>/g, '') // Remove HTML tags
+                .replace(/&nbsp;/g, ' ') // Replace &nbsp; with space
+                .replace(/&amp;/g, '&') // Replace &amp; with &
+                .replace(/&lt;/g, '<') // Replace &lt; with <
+                .replace(/&gt;/g, '>') // Replace &gt; with >
+                .trim(); // Trim whitespace
+            
+            return textContent.length > 0;
+        }
+
+        // Enhanced validation function
+        function validateFormData(formData) {
+            let isValid = true;
+            let errorMessage = '';
+
+            // First, handle the CKEditor content properly
+            if (editorInstance) {
+                const editorData = editorInstance.getData();
+                // Update the FormData with the editor content
+                formData.set('Body', editorData);
+                
+                // Validate the editor content
+                if (!validateEditorContent()) {
+                    isValid = false;
+                    errorMessage = 'Body cannot be empty or only spaces.';
+                }
             }
 
-          } else {
-            const BadToast = document.getElementById('bad-toast');
-            const BadToastMesaage = document.getElementById('bad-toast-message');
-            BadToast.classList.add('show');
-            BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;;
-            setTimeout(hideBadToast, 5000);
-
-            function hideBadToast() {
-              const BadToast = document.getElementById('bad-toast');
-              BadToast.classList.remove('show');
+            // Validate other fields
+            if (isValid) {
+                for (let [key, value] of formData.entries()) {
+                    if (key !== 'Body' && typeof value === "string") {
+                        let trimmedValue = value.trim();
+                        if (trimmedValue === "") {
+                            isValid = false;
+                            errorMessage = `${key} cannot be empty or only spaces.`;
+                            break;
+                        }
+                    }
+                }
             }
-          }
 
-        })
-        .catch(error => {
-          console.error("Error:", error);
-          // alert("An error occurred.");
+            if (!isValid) {
+                const badToast = document.getElementById('bad-toast');
+                const badToastMessage = document.getElementById('bad-toast-message');
+                badToast.classList.add('show');
+                badToastMessage.textContent = errorMessage;
+                setTimeout(hideBadToast, 5000);
+            }
+
+            return isValid;
+        }
+
+        document.getElementById("Publish").addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            const form = document.getElementById("postForm");
+            let formData = new FormData(form);
+            
+            // Ensure CKEditor content is included in FormData
+            if (editorInstance) {
+                const editorData = editorInstance.getData();
+                formData.set('Body', editorData);
+            }
+
+            if (!validateFormData(formData)) {
+                return;
+            }
+
+            fetch("../api/v1/post_blog.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === true) {
+                    const toast = document.getElementById('toast-success');
+                    const toastMessage = document.getElementById('toast-message');
+                    toast.classList.add('show');
+                    toastMessage.textContent = data.message;
+                    setTimeout(hideToast, 5000);
+                    form.reset();
+                    document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
+                    // Clear the editor content
+                    if (editorInstance) {
+                        editorInstance.setData('');
+                    }
+                } else {
+                    const badToast = document.getElementById('bad-toast');
+                    const badToastMessage = document.getElementById('bad-toast-message');
+                    badToast.classList.add('show');
+                    badToastMessage.textContent = data.message || 'An error occurred';
+                    setTimeout(hideBadToast, 5000);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                const badToast = document.getElementById('bad-toast');
+                const badToastMessage = document.getElementById('bad-toast-message');
+                badToast.classList.add('show');
+                badToastMessage.textContent = 'An error occurred while submitting the form';
+                setTimeout(hideBadToast, 5000);
+            });
         });
-    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // for draft submission
-
-    document.getElementById("Draft").addEventListener("click", function() {
-      const form = document.getElementById("postForm");
-
-      form.onsubmit = (e) => {
-        e.preventDefault();
-      };
-      let formData = new FormData(form);
-      let isValid = true;
-
-
-      for (let [key, value] of formData.entries()) {
-        if (typeof value === "string") {
-          let trimmedValue = value.trim();
-          formData.set(key, trimmedValue);
-
-          if (trimmedValue === "") {
-            isValid = false;
-
-            const BadToast = document.getElementById('bad-toast');
-            const BadToastMesaage = document.getElementById('bad-toast-message');
-            BadToast.classList.add('show');
-            BadToastMesaage.textContent = `${key} cannot be empty or only spaces.`;
-            setTimeout(hideBadToast, 3000);
-
-            function hideBadToast() {
-              const BadToast = document.getElementById('bad-toast');
-              BadToast.classList.remove('show');
-            }
-            return;
-          }
-        }
-      }
-
-      if (!isValid) return;
-
-      fetch("https://ogerihealth.org/api/v1/draft_blog.php", {
-          method: "POST",
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success === true) {
-            const toast = document.getElementById('toast-success');
-            const toastMesaage = document.getElementById('toast-message');
-            toast.classList.add('show');
-            toastMesaage.textContent = data.message;
-            setTimeout(hideToast, 5000);
-            form.reset();
-            document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
-
-            function hideToast() {
-              const toast = document.getElementById('toast-success');
-              toast.classList.remove('show');
+        // Draft submission
+        document.getElementById("Draft").addEventListener("click", function(e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            const form = document.getElementById("postForm");
+            let formData = new FormData(form);
+            
+            // Ensure CKEditor content is included in FormData
+            if (editorInstance) {
+                const editorData = editorInstance.getData();
+                formData.set('Body', editorData);
             }
 
-
-          } else {
-            const BadToast = document.getElementById('bad-toast');
-            const BadToastMesaage = document.getElementById('bad-toast-message');
-            BadToast.classList.add('show');
-            BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;;
-            setTimeout(hideBadToast, 5000);
-
-            function hideBadToast() {
-              const BadToast = document.getElementById('bad-toast');
-              BadToast.classList.remove('show');
+            if (!validateFormData(formData)) {
+                return;
             }
-          }
 
-        })
-        .catch(error => {
-          console.error("Error:", error);
-          // alert("An error occurred.");
+            fetch("https://ogerihealth.org/api/v1/draft_blog.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success === true) {
+                    const toast = document.getElementById('toast-success');
+                    const toastMessage = document.getElementById('toast-message');
+                    toast.classList.add('show');
+                    toastMessage.textContent = data.message;
+                    setTimeout(hideToast, 5000);
+                    form.reset();
+                    document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
+                    // Clear the editor content
+                    if (editorInstance) {
+                        editorInstance.setData('');
+                    }
+                } else {
+                    const badToast = document.getElementById('bad-toast');
+                    const badToastMessage = document.getElementById('bad-toast-message');
+                    badToast.classList.add('show');
+                    badToastMessage.textContent = data.message || 'An error occurred';
+                    setTimeout(hideBadToast, 5000);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                const badToast = document.getElementById('bad-toast');
+                const badToastMessage = document.getElementById('bad-toast-message');
+                badToast.classList.add('show');
+                badToastMessage.textContent = 'An error occurred while saving the draft';
+                setTimeout(hideBadToast, 5000);
+            });
         });
-    });
-  </script>
+    </script>
 
-  <!-- CKEditor Script -->
-  <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/super-build/ckeditor.js"></script>
-  <script>
-    CKEDITOR.ClassicEditor.create(document.getElementById("body"), {
-      toolbar: {
-        items: [
-          'exportPDF', 'exportWord', '|',
-          'findAndReplace', 'selectAll', '|',
-          'heading', '|',
-          'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript',
-          'removeFormat', '|',
-          'bulletedList', 'numberedList', 'todoList', '|',
-          'outdent', 'indent', '|',
-          'undo', 'redo',
-          '-',
-          'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
-          'alignment', '|',
-          'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed',
-          '|',
-          'specialCharacters', 'horizontalLine', 'pageBreak', '|',
-          'textPartLanguage', '|',
-          'sourceEditing'
-        ],
-        shouldNotGroupWhenFull: true
-      },
-      list: {
-        properties: {
-          styles: true,
-          startIndex: true,
-          reversed: true
-        }
-      },
-      heading: {
-        options: [{
-            model: 'paragraph',
-            title: 'Paragraph',
-            class: 'ck-heading_paragraph'
-          },
-          {
-            model: 'heading1',
-            view: 'h1',
-            title: 'Heading 1',
-            class: 'ck-heading_heading1'
-          },
-          {
-            model: 'heading2',
-            view: 'h2',
-            title: 'Heading 2',
-            class: 'ck-heading_heading2'
-          },
-          {
-            model: 'heading3',
-            view: 'h3',
-            title: 'Heading 3',
-            class: 'ck-heading_heading3'
-          },
-          {
-            model: 'heading4',
-            view: 'h4',
-            title: 'Heading 4',
-            class: 'ck-heading_heading4'
-          },
-          {
-            model: 'heading5',
-            view: 'h5',
-            title: 'Heading 5',
-            class: 'ck-heading_heading5'
-          },
-          {
-            model: 'heading6',
-            view: 'h6',
-            title: 'Heading 6',
-            class: 'ck-heading_heading6'
-          }
-        ]
-      },
-      placeholder: 'Enter a detailed description',
-      fontFamily: {
-        options: [
-          'default',
-          'Arial, Helvetica, sans-serif',
-          'Courier New, Courier, monospace',
-          'Georgia, serif',
-          'Lucida Sans Unicode, Lucida Grande, sans-serif',
-          'Tahoma, Geneva, sans-serif',
-          'Times New Roman, Times, serif',
-          'Trebuchet MS, Helvetica, sans-serif',
-          'Verdana, Geneva, sans-serif'
-        ],
-        supportAllValues: true
-      },
-      fontSize: {
-        options: [10, 12, 14, 'default', 18, 20, 22],
-        supportAllValues: true
-      },
-      htmlSupport: {
-        allow: [{
-          name: /.*/,
-          attributes: true,
-          classes: true,
-          styles: true
-        }]
-      },
-      htmlEmbed: {
-        showPreviews: true
-      },
-      link: {
-        decorators: {
-          addTargetToExternalLinks: true,
-          defaultProtocol: 'https://',
-          toggleDownloadable: {
-            mode: 'manual',
-            label: 'Downloadable',
-            attributes: {
-              download: 'file'
-            }
-          }
-        }
-      },
-      mention: {
-        feeds: [{
-          marker: '@',
-          feed: [
-            '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes',
-            '@chocolate', '@cookie', '@cotton', '@cream',
-            '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread',
-            '@gummi', '@ice', '@jelly-o',
-            '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding',
-            '@sesame', '@snaps', '@soufflé',
-            '@sugar', '@sweet', '@topping', '@wafer'
-          ],
-          minimumCharacters: 1
-        }]
-      },
-      removePlugins: [
-        'CKBox',
-        'CKFinder',
-        'EasyImage',
-        'RealTimeCollaborativeComments',
-        'RealTimeCollaborativeTrackChanges',
-        'RealTimeCollaborativeRevisionHistory',
-        'PresenceList',
-        'Comments',
-        'TrackChanges',
-        'TrackChangesData',
-        'RevisionHistory',
-        'Pagination',
-        'WProofreader',
-        'MathType',
-        'SlashCommand',
-        'Template',
-        'DocumentOutline',
-        'FormatPainter',
-        'TableOfContents'
-      ]
-    });
-  </script>
+    <!-- CKEditor Script -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/super-build/ckeditor.js"></script>
+    <script>
+        CKEDITOR.ClassicEditor.create(document.getElementById("body"), {
+            toolbar: {
+                items: [
+                    'exportPDF', 'exportWord', '|',
+                    'findAndReplace', 'selectAll', '|',
+                    'heading', '|',
+                    'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript',
+                    'removeFormat', '|',
+                    'bulletedList', 'numberedList', 'todoList', '|',
+                    'outdent', 'indent', '|',
+                    'undo', 'redo',
+                    '-',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                    'alignment', '|',
+                    'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed',
+                    '|',
+                    'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                    'textPartLanguage', '|',
+                    'sourceEditing'
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            list: {
+                properties: {
+                    styles: true,
+                    startIndex: true,
+                    reversed: true
+                }
+            },
+            heading: {
+                options: [
+                    {
+                        model: 'paragraph',
+                        title: 'Paragraph',
+                        class: 'ck-heading_paragraph'
+                    },
+                    {
+                        model: 'heading1',
+                        view: 'h1',
+                        title: 'Heading 1',
+                        class: 'ck-heading_heading1'
+                    },
+                    {
+                        model: 'heading2',
+                        view: 'h2',
+                        title: 'Heading 2',
+                        class: 'ck-heading_heading2'
+                    },
+                    {
+                        model: 'heading3',
+                        view: 'h3',
+                        title: 'Heading 3',
+                        class: 'ck-heading_heading3'
+                    },
+                    {
+                        model: 'heading4',
+                        view: 'h4',
+                        title: 'Heading 4',
+                        class: 'ck-heading_heading4'
+                    },
+                    {
+                        model: 'heading5',
+                        view: 'h5',
+                        title: 'Heading 5',
+                        class: 'ck-heading_heading5'
+                    },
+                    {
+                        model: 'heading6',
+                        view: 'h6',
+                        title: 'Heading 6',
+                        class: 'ck-heading_heading6'
+                    }
+                ]
+            },
+            placeholder: 'Enter a detailed description',
+            fontFamily: {
+                options: [
+                    'default',
+                    'Arial, Helvetica, sans-serif',
+                    'Courier New, Courier, monospace',
+                    'Georgia, serif',
+                    'Lucida Sans Unicode, Lucida Grande, sans-serif',
+                    'Tahoma, Geneva, sans-serif',
+                    'Times New Roman, Times, serif',
+                    'Trebuchet MS, Helvetica, sans-serif',
+                    'Verdana, Geneva, sans-serif'
+                ],
+                supportAllValues: true
+            },
+            fontSize: {
+                options: [10, 12, 14, 'default', 18, 20, 22],
+                supportAllValues: true
+            },
+            htmlSupport: {
+                allow: [{
+                    name: /.*/,
+                    attributes: true,
+                    classes: true,
+                    styles: true
+                }]
+            },
+            htmlEmbed: {
+                showPreviews: true
+            },
+            link: {
+                decorators: {
+                    addTargetToExternalLinks: true,
+                    defaultProtocol: 'https://',
+                    toggleDownloadable: {
+                        mode: 'manual',
+                        label: 'Downloadable',
+                        attributes: {
+                            download: 'file'
+                        }
+                    }
+                }
+            },
+            mention: {
+                feeds: [{
+                    marker: '@',
+                    feed: [
+                        '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes',
+                        '@chocolate', '@cookie', '@cotton', '@cream',
+                        '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread',
+                        '@gummi', '@ice', '@jelly-o',
+                        '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding',
+                        '@sesame', '@snaps', '@soufflé',
+                        '@sugar', '@sweet', '@topping', '@wafer'
+                    ],
+                    minimumCharacters: 1
+                }]
+            },
+            removePlugins: [
+                'CKBox',
+                'CKFinder',
+                'EasyImage',
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
+                'Comments',
+                'TrackChanges',
+                'TrackChangesData',
+                'RevisionHistory',
+                'Pagination',
+                'WProofreader',
+                'MathType',
+                'SlashCommand',
+                'Template',
+                'DocumentOutline',
+                'FormatPainter',
+                'TableOfContents'
+            ]
+        }).then(editor => {
+            // Store the editor instance globally for validation
+            editorInstance = editor;
+            console.log('CKEditor initialized successfully');
+        }).catch(error => {
+            console.error('Error initializing CKEditor:', error);
+        });
+    </script>
+
 
 </body>
 

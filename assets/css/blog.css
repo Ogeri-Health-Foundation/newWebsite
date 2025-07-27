@@ -577,7 +577,7 @@ html {
     max-width: 1000px;
     margin: -40px auto 30px auto;
     /* pushes it up over the bottom of the header image */
-    z-index: 9999999999999999999999999;
+    z-index: 2;
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     flex-wrap: wrap;

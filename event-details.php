@@ -135,7 +135,7 @@ $addons = array(
 
     <!-- header section starts -->
     <section class="headers position-relative text-white">
-        <img src="uploads/<?= $image ?>" class="header-img img-fluid" alt="header-img">
+        <img src="uploads/<?= $image ?>" class="header-img img-fluid h-100 w-100" alt="header-img">
 
         <div class="header-details">
             <a href="./" class="text-white text-decoration-none">Home &gt;</a>
