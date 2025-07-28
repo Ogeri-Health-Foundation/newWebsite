@@ -3,7 +3,7 @@
 	date_default_timezone_set('Africa/Lagos');
 
 	$company_name = "Ogeri Health Foundation"; // Your company name
-    $bare_domain = "ogerihealthfoundation.com";
+    $bare_domain = "web.ogerihealth.org";
 
     $domain = "https://$bare_domain/";
 	$banner_image = $domain . "assets/images/logo.png";

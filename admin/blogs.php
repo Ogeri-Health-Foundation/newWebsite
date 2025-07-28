@@ -408,7 +408,7 @@ window.onload = function () {
     <main>
 
     <div class="modal"  tabindex="-1" id="edit-modal">
-    <div class="justify-content-center modal-bodyy mt-5" >
+        <div class="justify-content-center modal-bodyy mt-5" >
             
                 <div class="row justify-content-center ">
                     <div class="col-md-8">
@@ -490,14 +490,14 @@ window.onload = function () {
 
 
 
-    <div class="modal" id="volunteerDetailsModal" >
-            <div class="modal-dialog modal-dialog-centered modal-lg" style="display:flex; justify-content:center;">
-                <div class="modal-content" style='background-color: #fff;'>
+    <div class="modal add-border-blue" id="volunteerDetailsModal" >
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="display:flex; justify-content:center; border: 2px red solid; width: 100%; height: 90vh;">
+                <div class="modal-content" style='background-color: #fff; width: 100%; height: 100%; overflow: scroll;'>
                     <div class="modal-header">
                         <h5 class="modal-title">Blog Details</h5>
                        <svg xmlns="http://www.w3.org/2000/svg"class="btn-close" style="cursor: pointer;" data-bs-dismiss="modal" aria-label="Close" id="close-modal" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="13" height="13">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-    </svg>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
                     </div>
                     <div class="modal-body">
                         <div class="status-badge-container">
@@ -551,7 +551,7 @@ window.onload = function () {
           </div>
           <h2 class="title">Blogs</h2>
         </div>
-        <nav class="resource-nav">
+        <!-- <nav class="resource-nav">
           <div class="search-box">
             <img
               src="./assets/images/resources/icons/search-glass.png"
@@ -586,25 +586,25 @@ window.onload = function () {
               <div class="action">Draft</div>
             </div>
           </button>
-        </nav>
+        </nav> -->
       </section>
-      <section class="blog-table-sect">
-      <table>
-  <thead>
-    <tr>
-      <th>S/N</th>
-      <th>Title</th>
-      <th>Category</th>
-      <th>Date Created</th>
-      <th>Date Published</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody class="table-body">
-    <!-- Blog rows will be inserted here dynamically -->
-  </tbody>
-</table>
+      <section class="blog-table-sect mt-5">
+      <table id="blogTable">
+        <thead>
+          <tr>
+            <th>S/N</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Date Created</th>
+            <th>Date Published</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <!-- Blog rows will be inserted here dynamically -->
+        </tbody>
+      </table>
 
 <!-- Modal Box (Moved outside the table) -->
 <div class="modal-box-blog">
@@ -655,7 +655,7 @@ window.onload = function () {
 
 
       <!-- this is the pagination -->
-      <section class="pagination-section">
+      <!-- <section class="pagination-section">
         <button class="btn-previous">
           <img
             src="./assets/images/resources/icons/left-arrow.png"
@@ -683,7 +683,7 @@ window.onload = function () {
             alt="right facing arrow"
           />
         </button>
-      </section>
+      </section> -->
 
 
 
@@ -721,17 +721,17 @@ window.onload = function () {
 
 
       <!-- Health workers section -->
-      <section class="hc-provider-section">
+      <section class="hc-provider-section mt-5">
     <h2 class="title">Health Workers</h2>
-    <nav class="resource-nav d-flex justify-content-end align-items-center gap-3 mb-4">
-      <!-- Optional: Search Box -->
+   <!-- <nav class="resource-nav d-flex justify-content-end align-items-center gap-3 mb-4">
+       Optional: Search Box -->
       <!--
       <div class="search-box d-flex align-items-center border rounded px-2 py-1 bg-white shadow-sm">
         <img src="./assets/images/resources/icons/search-glass.png" alt="Search" class="me-2" style="width: 18px;">
         <input type="text" id="searchInput" class="form-control border-0 p-0" placeholder="Search any keyword">
         <img src="./assets/images/resources/icons/mic.png" alt="Mic" class="ms-2" style="width: 18px;">
       </div>
-      -->
+     
 
       <button class="btn btn-primary btn-lg px-4">Export</button>
 
@@ -741,11 +741,11 @@ window.onload = function () {
         <option value="doctor">Doctor</option>
         <option value="nurse">Nurse</option>
       </select>
-    </nav>
+    </nav> -->
       
-    </nav>
+    
 
-    <table>
+    <table id="doctorTable" class="mt-4" >
       <thead>
         <tr>
           <th>Doctor ID</th>
@@ -760,7 +760,7 @@ window.onload = function () {
       </tbody>
     </table>
   </section>
-      <section  class="pagination-section">
+      <!-- <section  class="pagination-section">
         <button class="btn-previous" id="btn-previous">
           <img
             src="./assets/images/resources/icons/left-arrow.png"
@@ -788,11 +788,38 @@ window.onload = function () {
             alt="right facing arrow"
           />
         </button>
-      </section>
+      </section> -->
     </main>
       <?php include $page_rel.'admin/includes/sidebar.php'; ?>
     <script src="./assets/js/blogs.js"></script>
 
+<!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+  <script src="https://cdn.datatables.net/buttons/2.1.3/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.1.3/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.1.3/js/buttons.print.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Buttons JS -->
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+<style>
+      div.dataTables_wrapper div.dataTables_length select {
+        padding: 5px 35px;
+      }
+    </style>
+<script>
+    // Global variables
+   
 
 
 
@@ -801,9 +828,7 @@ window.onload = function () {
 
 
 
-
-
-    <script>
+   
        function previewImage(event) {
         const reader = new FileReader();
         reader.onload = function () {
@@ -828,48 +853,41 @@ function hideBadToast() {
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-  // setInterval(() => {
-    // fetchBlogs(); 
-// }, 8000); 
-  const tableBody = document.querySelector(".table-body");
-  const paginationContainer = document.querySelector(".pages");
-  const prevBtn = document.querySelector(".btn-previous");
-  const nextBtn = document.querySelector(".btn-next");
-  const modalBox = document.querySelector(".modal-box-blog");
+$(document).ready(function () {
+  fetch('../api/v1/fetch_all_blog.php')  // You may remove pagination here for DataTables
+    .then(response => response.json())
+    .then(data => {
+      let rows = data.data.map((blog, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${blog.blog_title}</td>
+          <td>${blog.category}</td>
+          <td>${blog.created_at}</td>
+          <td>${blog.published_at || "Not Published"}</td>
+          <td><span class="${blog.status.toLowerCase()}">${blog.status}</span></td>
+          <td><img src="./assets/images/resources/img/Icon.png" data-id="${blog.blog_id}" alt="More actions" class="dot-btn"/></td>
+        </tr>
+      `).join("");
 
-  let currentPage = 1;
-  const perPage = 5;
-  let totalPages = 1;
-  let sn = 1;
+      $('.table-body').html(rows);
 
-  function fetchBlogs(page = 1) {
-    fetch(`../api/v1/fetch_all_blog.php?page=${page}&per_page=${perPage}`)
-      .then((response) => response.json())
-      .then((data) => {
-        tableBody.innerHTML = data.data
-          .map((blog) => `
-            <tr>
-             <td>${sn++}</td>
-              <td class="blog-title">${blog.blog_title}</td>
-              <td>${blog.category}</td>
-              <td>${blog.created_at}</td>
-              <td>${blog.published_at || "Not Published"}</td>
-              <td><span class="${blog.status.toLowerCase()}">${blog.status}</span></td>
-              <td>
-                <img src="./assets/images/resources/img/Icon.png" data-id="${blog.blog_id}" alt="More actions" class="dot-btn"/>
-              </td>
-            </tr>
-          `)
-          .join("");
+      $('#blogTable').DataTable({
+        dom: '<"row mb-3"<"col-md-4"l>>' +
+          '<"row mb-3"<"col-md-6"B><"col-md-6 text-end"f>>' +
+          'rt' +
+          '<"row mt-3"<"col-md-5"i><"col-md-7"p>>',
+        buttons: [
+          { extend: 'copy', className: 'btn btn-primary btn-sm me-1' },
+          { extend: 'csv', className: 'btn btn-secondary btn-sm me-1' },
+          { extend: 'excel', className: 'btn btn-success btn-sm me-1' },
+          { extend: 'pdf', className: 'btn btn-danger btn-sm me-1' },
+          { extend: 'print', className: 'btn btn-dark btn-sm' }
+        ]
+      });
 
-        addDotBtnListeners(); // Attach click event to new buttons
-        totalPages = data.last_page;
-        updatePagination();
-      })
-      .catch((error) => console.error("Error fetching blogs:", error));
-  }
-
+      addDotBtnListeners(); // Optional if you're keeping the dot-btn modal
+    });
+});
   function addDotBtnListeners() {
   document.querySelectorAll(".dot-btn").forEach((btn) => {
     btn.addEventListener("click", function (event) {
@@ -913,6 +931,8 @@ document.addEventListener("click", function (event) {
 
 document.querySelectorAll(".modal-box-blog .action").forEach(action => {
     action.addEventListener("click", function () {
+        const modalBox = document.querySelector(".modal-box-blog");
+        const actionName = this.textContent.trim();
         const blogId = modalBox.getAttribute("data-blog-id");
     
         if (!blogId) {
@@ -1248,118 +1268,63 @@ document.getElementById("Publish").addEventListener("click", function () {
 
 
 
-  function updatePagination() {
-    paginationContainer.innerHTML = "";
-    let startPage = Math.max(1, currentPage - 2);
-    let endPage = Math.min(totalPages, startPage + 4);
-    startPage = Math.max(1, endPage - 4);
+//   function updatePagination() {
+//     paginationContainer.innerHTML = "";
+//     let startPage = Math.max(1, currentPage - 2);
+//     let endPage = Math.min(totalPages, startPage + 4);
+//     startPage = Math.max(1, endPage - 4);
 
-    for (let i = startPage; i <= endPage; i++) {
-      let btn = document.createElement("button");
-      btn.classList.add("btn-small");
-      btn.innerText = i;
-      btn.classList.toggle("active", i === currentPage);
-      btn.addEventListener("click", function () {
-        currentPage = i;
-        fetchBlogs(currentPage);
-      });
-      paginationContainer.appendChild(btn);
-    }
+//     for (let i = startPage; i <= endPage; i++) {
+//       let btn = document.createElement("button");
+//       btn.classList.add("btn-small");
+//       btn.innerText = i;
+//       btn.classList.toggle("active", i === currentPage);
+//       btn.addEventListener("click", function () {
+//         currentPage = i;
+//         fetchBlogs(currentPage);
+//       });
+//       paginationContainer.appendChild(btn);
+//     }
 
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
-  }
+//     prevBtn.disabled = currentPage === 1;
+//     nextBtn.disabled = currentPage === totalPages;
+//   }
 
-  prevBtn.addEventListener("click", () => currentPage > 1 && fetchBlogs(--currentPage));
-  nextBtn.addEventListener("click", () => currentPage < totalPages && fetchBlogs(++currentPage));
+//   prevBtn.addEventListener("click", () => currentPage > 1 && fetchBlogs(--currentPage));
+//   nextBtn.addEventListener("click", () => currentPage < totalPages && fetchBlogs(++currentPage));
 
-  // Hide modal if clicked outside
-  document.addEventListener("click", function (event) {
-    if (!event.target.closest(".dot-btn") && !event.target.closest(".modal-box-blog")) {
-      modalBox.style.display = "none";
-    }
-  });
+//   // Hide modal if clicked outside
+//   document.addEventListener("click", function (event) {
+//     if (!event.target.closest(".dot-btn") && !event.target.closest(".modal-box-blog")) {
+//       modalBox.style.display = "none";
+//     }
+//   });
 
-  fetchBlogs(currentPage);
-});
+//   fetchBlogs(currentPage);
+// });
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-
-
 document.addEventListener("DOMContentLoaded", function () {
-
-//   setInterval(() => {
-//   fetchDoctors();
-// }, 8000); 
-
-  const searchInput = document.getElementById("searchInput");
-  const filterSelect = document.getElementById("filterSelect");
   const tableBody = document.getElementById("doctorTableBody");
-  const paginationContainer = document.getElementById("pages");
-  const prevBtn = document.getElementById("btn-previous");
-  const nextBtn = document.getElementById("btn-next");
 
-  let doctors = []; // Store fetched data
-  let currentPage = 1;
-  const rowsPerPage = 5;
-  let totalPages = 1;
+  let doctors = [];
+  let dataTableInstance = null;
 
-  // Fetch data from API
   async function fetchDoctors() {
     try {
       const response = await fetch("../api/v1/no_limit_doc.php");
       doctors = await response.json();
-      totalPages = Math.ceil(doctors.length / rowsPerPage);
-      renderTable(doctors, currentPage);
-      setupPagination(doctors);
+      renderTable(doctors);
     } catch (error) {
       console.error("Error fetching doctors:", error);
     }
   }
 
-  // Render paginated table
-  function renderTable(data, page) {
-    tableBody.innerHTML = "";
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    const paginatedData = data.slice(start, end);
+  function renderTable(data) {
+    let tableRows = "";
 
-    paginatedData.forEach((doctor) => {
-      const row = `
+    data.forEach((doctor) => {
+      tableRows += `
         <tr>
           <td>${doctor.id}</td>
           <td>${doctor.name}</td>
@@ -1372,15 +1337,42 @@ document.addEventListener("DOMContentLoaded", function () {
             </label>
           </td>
         </tr>`;
-      tableBody.innerHTML += row;
     });
 
+    tableBody.innerHTML = tableRows;
     attachToggleListeners();
+
+    // Initialize or reload DataTable
+    if (!dataTableInstance) {
+     dataTableInstance = $('#doctorTable').DataTable({
+        destroy: true,
+        dom: '<"row mb-3"<"col-md-4"l><"col-md-4 text-center"B><"col-md-4"f>>' +
+             'rt' +
+             '<"row mt-3"<"col-md-5"i><"col-md-7"p>>',
+        buttons: [
+          { extend: 'copy', className: 'btn btn-primary btn-sm me-1' },
+          { extend: 'csv', className: 'btn btn-secondary btn-sm me-1' },
+          { extend: 'excel', className: 'btn btn-success btn-sm me-1' },
+          { extend: 'pdf', className: 'btn btn-danger btn-sm me-1' },
+          { extend: 'print', className: 'btn btn-dark btn-sm' }
+        ],
+        language: {
+          paginate: {
+            next: 'Next',
+            previous: 'Prev'
+          },
+          search: 'Search:',
+          lengthMenu: 'Show _MENU_ entries',
+          info: 'Showing _START_ to _END_ of _TOTAL_ entries'
+        }
+      });
+    } else {
+      dataTableInstance.clear().rows.add($(tableBody).find("tr")).draw();
+    }
   }
 
-  
   function attachToggleListeners() {
-    document.querySelectorAll(".toggle-switch input").forEach(input => {
+    document.querySelectorAll(".availability-toggle").forEach(input => {
       input.addEventListener("change", function () {
         const doctorId = this.getAttribute("data-id");
         const availability = this.checked ? 1 : 0;
@@ -1396,107 +1388,16 @@ document.addEventListener("DOMContentLoaded", function () {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, availability, role }),
     })
-      .then((response) => response.json())
-      .then((data) => console.log(data.message))
-      .catch((error) => console.error("Error updating availability:", error));
+    .then((response) => response.json())
+    .then((data) => console.log(data.message))
+    .catch((error) => console.error("Error updating availability:", error));
   }
 
-  // Search function
-  function searchDoctors() {
-    const query = searchInput.value.toLowerCase();
-    const filteredDoctors = doctors.filter((doctor) =>
-      doctor.name.toLowerCase().includes(query) ||
-      doctor.specialization.toLowerCase().includes(query) ||
-      doctor.role.toLowerCase().includes(query)
-    );
-    totalPages = Math.ceil(filteredDoctors.length / rowsPerPage);
-    renderTable(filteredDoctors, 1);
-    setupPagination(filteredDoctors);
-  }
-
-  // Filter function
-  function filterDoctors() {
-    const selectedSpecialization = filterSelect.value;
-    let filteredDoctors = doctors;
-
-    if (selectedSpecialization) {
-      filteredDoctors = doctors.filter(
-        (doctor) => doctor.role === selectedSpecialization
-      );
-    }
-    totalPages = Math.ceil(filteredDoctors.length / rowsPerPage);
-    renderTable(filteredDoctors, 1);
-    setupPagination(filteredDoctors);
-  }
-
- 
-function setupPagination(data) {
-    paginationContainer.innerHTML = "";
-    const totalPages = Math.ceil(data.length / rowsPerPage);
-
-    let startPage = Math.max(1, currentPage - 2);
-    let endPage = Math.min(totalPages, startPage + 4);
-
-    if (endPage - startPage < 4) {
-        startPage = Math.max(1, endPage - 4);
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-        let btn = document.createElement("button");
-        btn.classList.add("btn-small");
-        btn.innerText = i;
-        btn.dataset.page = i; // Store page number for easy selection later
-        
-        if (i === currentPage) {
-            btn.classList.add("active");
-        }
-
-        btn.addEventListener("click", function () {
-            currentPage = i;
-            renderTable(data, currentPage);
-            setupPagination(data); // Re-render pagination to update active state
-        });
-
-        paginationContainer.appendChild(btn);
-    }
-
-    // Disable prev/next buttons if needed
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
-
-    prevBtn.onclick = function () {
-        if (currentPage > 1) {
-            currentPage--;
-            renderTable(data, currentPage);
-            setupPagination(data);
-        }
-    };
-
-    nextBtn.onclick = function () {
-        if (currentPage < totalPages) {
-            currentPage++;
-            renderTable(data, currentPage);
-            setupPagination(data);
-        }
-    };
-}
-
-
-  // Event Listeners
-  searchInput.addEventListener("input", searchDoctors);
-  filterSelect.addEventListener("change", filterDoctors);
-
-  
   fetchDoctors();
-  
+  setInterval(fetchDoctors, 5000); // Optional auto-refresh every 5s
 });
-
-// setInterval(() => {
-//   fetchDoctors();
-// }, 5000); 
-
-
 </script>
+
 
   </body>
 </html>

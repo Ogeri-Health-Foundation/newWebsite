@@ -977,7 +977,7 @@ $addons = array(
                     <div class="article-details" style="background-color: var(--theme-color2);">
                         <span class="art-author">Admin</span>
                         <span class="art-date"><?= $date->format('F Y') ?></span>
-                        <span class="art-comments-count"><?= htmlspecialchars($blog['category']) ?></span>
+                        <span class="art-comments-count"><?= ucwords(str_replace('_', ' ', htmlspecialchars($blog['category']))) ?></span>
                     </div>
                     <h5 class="art-title px-2"><?= htmlspecialchars($blog['blog_title']) ?></h5>
                     <p class="art-summary"><?= htmlspecialchars($blog['blog_description']) ?></p>

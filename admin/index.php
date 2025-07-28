@@ -70,7 +70,7 @@ foreach ($stats as $row) {
 
 <head>
     <?php include $page_rel . 'admin/includes/admin-head.php'; ?>
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
     <style>
         
@@ -258,10 +258,10 @@ window.onload = function () {
 
                 <?php foreach ($blogs as $blog): ?>
                     <div>
-                        <a href="resources.php" class="blog-link">
-                            <img src="../uploads/<?= htmlspecialchars($blog['image']) ?>" alt="Blog image"style="border: 2px red solid;"/>
+                        <a href="resources.php" class="blog-link" style="text-decoration: none;">
+                            <img src="../uploads/<?= htmlspecialchars($blog['image']) ?>" alt="Blog image"/>
                             <span>
-                                <h3 ><?= htmlspecialchars($blog['blog_title']) ?></h3>
+                                <h3 style="text-decoration: none; text-transform: capitalize;"><?= htmlspecialchars($blog['blog_title']) ?></h3>
                                 <p class="" style=" margin-top: -10px;">Date: <?= date("j/n/y", strtotime($blog['published_at'])) ?></p>
                             </span>
                         </a>
@@ -269,7 +269,7 @@ window.onload = function () {
                     </div>
                 <?php endforeach; ?>
 
-                    <a href="blogs.php">
+                    <a href="blogs.php" style="text-decoration: none;">
                         View all blog
                         <img class="icon" src="./assets/images/arrow_right.svg" alt="arrow-right icon" />
                     </a>

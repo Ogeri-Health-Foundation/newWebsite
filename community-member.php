@@ -233,9 +233,9 @@ $dbh->prepare("INSERT INTO page_views (page, ip_address) VALUES (?, ?)")
                 <div class="p-3 d-flex flex-column flex-grow-1">
                   <p class="provider-name"><?= htmlspecialchars($worker['name']) ?></p>
                   <p class="provider-title text-muted small mb-1"><?= htmlspecialchars($worker['area_of_specialization']) ?></p>
-                  <p class="provider-details text-muted flex-grow-1">
+                  <!-- <p class="provider-details text-muted flex-grow-1">
                     Far far away, behind the word mountains, far from the countries Voka
-                  </p>
+                  </p> -->
 
                   <!-- <button class="provider-contact btn btn-outline-primary w-100 mt-3 d-flex justify-content-between align-items-center">
                     Get In Touch
@@ -287,7 +287,7 @@ $dbh->prepare("INSERT INTO page_views (page, ip_address) VALUES (?, ?)")
                     <div class="article-details" style="background-color: var(--theme-color2);">
                         <span class="art-author">Admin</span>
                         <span class="art-date"><?= $date->format('F Y') ?></span>
-                        <span class="art-comments-count"><?= htmlspecialchars($blog['category']) ?></span>
+                        <span class="art-comments-count"><?= ucwords(str_replace('_', ' ', htmlspecialchars($blog['category']))) ?></span>
                     </div>
                     <h5 class="art-title px-2"><?= htmlspecialchars($blog['blog_title']) ?></h5>
                     <p class="art-summary"><?= htmlspecialchars($blog['blog_description']) ?></p>
