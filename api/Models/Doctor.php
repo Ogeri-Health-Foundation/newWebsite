@@ -8,12 +8,12 @@ class DoctorModel extends DatabaseConn {
         $second_limit = 2;
         $third_limit = 1;
         $stmt = $this->connect()->prepare("
-        (SELECT doctor_id AS id, 'doctor' AS role, doctor_name AS name, status, is_available FROM doctors LIMIT ?)
-        UNION
-        (SELECT nurse_id AS id, 'nurse' AS role, nurse_name AS name, status, is_available FROM nurses LIMIT ?)
-        UNION
-        (SELECT physiologist_id AS id, 'physiologist' AS role, physiologist_name AS name, status, is_available FROM physiologist LIMIT ?)
-    ");
+            (SELECT doctor_id AS id, 'doctor' AS role, doctor_name AS name, status, is_available, image FROM doctors LIMIT ?)
+            UNION
+            (SELECT nurse_id AS id, 'nurse' AS role, nurse_name AS name, status, is_available, image FROM nurses LIMIT ?)
+            UNION
+            (SELECT physiologist_id AS id, 'physiologist' AS role, physiologist_name AS name, status, is_available, image FROM physiologist LIMIT ?)
+        ");
     $stmt->bindParam(1,  $first_limit, PDO::PARAM_INT);
     $stmt->bindParam(2, $second_limit, PDO::PARAM_INT);
     $stmt->bindParam(3, $third_limit, PDO::PARAM_INT);

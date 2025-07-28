@@ -236,7 +236,7 @@ $addons = array(
                     <div class="remarks">
                       <div class="author">Admin</div>
                       <div class="date ms-2"><?= $date ?></div>
-                      <div class="comments ms-2">Comments 22</div>
+                      <div class="comments ms-2"><?= ucwords(str_replace('_', ' ', htmlspecialchars($blog['category']))) ?></div>
                     </div>
                   </div>
 

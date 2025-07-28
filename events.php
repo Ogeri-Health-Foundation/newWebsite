@@ -200,6 +200,7 @@ Blog Area
               $time = DateTime::createFromFormat("H:i:s.u", $event['time']);
               $image = !empty($event['banner_image']) ? "uploads/" . htmlspecialchars($event['banner_image']) : "assets/img/donate/donation2-1.png";
               $eventid = htmlspecialchars($event['event_id']);
+              $location = htmlspecialchars($event['location']);
             ?>
               <div class="col-12 col-md-4">
                 <div class="card h-100 text-white position-relative overflow-hidden">
@@ -222,7 +223,7 @@ Blog Area
                       <?php echo strlen($description) > 160 ? substr($description, 0, 140) . "..." : $description; ?>
                     </p>
                     <p class="card-text event-descrip text-white">
-                      <small>St John’s catholic church lekki lagos, nigeria.</small>
+                      <small><?= $location ?></small>
                       <br>
                       <small><?= $date ?> | <?= $time->format("g:i A"); ?> Prompt </small>
                     </p>
@@ -295,6 +296,7 @@ Blog Area
                 $time = DateTime::createFromFormat("H:i:s.u", $event['time']);
                 $image = !empty($event['banner_image']) ? "uploads/" . htmlspecialchars($event['banner_image']) : "assets/img/default-image.jpg";
                 $eventid = htmlspecialchars($event['event_id']);
+                $location = htmlspecialchars($event['location']);
           ?>
                 <div class="col-12 col-md-4">
                   <div class="card h-100 text-white position-relative overflow-hidden">
@@ -317,7 +319,7 @@ Blog Area
                         <?php echo strlen($description) > 160 ? substr($description, 0, 140) . "..." : $description; ?>
                       </p>
                       <p class="card-text event-descrip text-white">
-                        <small>St John’s catholic church lekki lagos, nigeria.</small>
+                        <small><?= $location ?></small>
                         <br>
                         <small><?= $eventDate ?> | <?= $time->format("g:i A"); ?></small>
                       </p>

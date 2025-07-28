@@ -10,7 +10,7 @@ class HealthWorkerController {
     public function fetchHealthWorkers() {
         $AvailableHealthWorker = $this->HealthWorkerModel->HealthWorkerModel();
         header("Content-Type: application/json");
-        echo file_get_contents("https://ogerihealth.org/api/v1/health_workers.php");
+        echo file_get_contents("../v1/health_workers.php");
         echo json_encode($AvailableHealthWorker);
     
 

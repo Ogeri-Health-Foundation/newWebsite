@@ -273,27 +273,28 @@ for (let [key, value] of formData.entries()) {
 
 if (!isValid) return; // Stop if validation fails
 
-    fetch("https://ogerihealth.org/api/v1/add_staff.php", {
+    fetch("../api/v1/add_staff.php", {
         method: "POST",
         body: formData
     })
     .then(response => response.json()) 
     .then(data => {
         // alert(data.message);
-        if (data.success === true){
-        const toast = document.getElementById('toast-success');
-                    const toastMesaage = document.getElementById('toast-message');
-                    toast.classList.add('show');
-                    toastMesaage.textContent = data.message;
-                    setTimeout(hideToast, 5000);
-                    form.reset();
-                    document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
+        if (data.success === true) {
+    const toast = document.getElementById('toast-success');
+    const toastMesaage = document.getElementById('toast-message');
+    toast.classList.add('show');
+    toastMesaage.textContent = data.message;
+    form.reset();
+    document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
 
-                function hideToast() {
-                const toast = document.getElementById('toast-success');
-                toast.classList.remove('show');
-        }
-    }
+    setTimeout(() => {
+        toast.classList.remove('show');
+        // Redirect after toast disappears
+        window.location.href = "resource.php";
+    }, 3000); // 3 seconds delay before redirect
+}
+
     else{
         const BadToast = document.getElementById('bad-toast');
                     const BadToastMesaage = document.getElementById('bad-toast-message');
@@ -310,7 +311,7 @@ if (!isValid) return; // Stop if validation fails
    
     .catch(error => {
         console.error("Error:", error);
-        // alert("An error occurred.");
+        alert("An error occurred.");
     });
 });
 </script>

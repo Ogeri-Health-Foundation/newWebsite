@@ -32,8 +32,14 @@ try {
         $category = htmlspecialchars($blog['category']);
         $body = htmlspecialchars($blog['body']);
         $date = date("M j, Y", strtotime($blog['published_at']));
-        $image = !empty($blog['image']) ? "uploads/" . htmlspecialchars($blog['image']) : "assets/img/donate/donation2-1.png";
+        $imagePath = !empty($blog['image']) 
+            ? "uploads/" . htmlspecialchars($blog['image']) 
+            : "assets/img/donate/donation2-1.png";
+
+        $imageUrl = "https://" . $_SERVER['HTTP_HOST'] . "/" . $imagePath;
         $blogid = htmlspecialchars($blog['blog_id']);
+       
+        
     } else {
         throw new Exception("Blog not found.");
     }
@@ -92,6 +98,8 @@ $addons = array(
 
 <!doctype html>
 <html class="no-js" lang="zxx" dir="ltr">
+    <!-- Open Graph / Facebook / LinkedIn -->
+
 
 <style>
      a{
@@ -120,6 +128,59 @@ $addons = array(
     <script src="https://kit.fontawesome.com/706f90924a.js" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="./assets/css/blog.css">
+    <?php
+    $pageUrl = "https://" . $_SERVER['HTTP_HOST'] . "/blog-details.php?id=" . urlencode($blogid);
+    $page_title = "Ogeri Health Foundation - " . $blogName;
+    $page_description = htmlspecialchars($description);
+
+    ?>
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="<?= $blogName ?>">
+    <meta property="og:description" content="<?= $description ?>">
+    <meta property="og:image" content="<?= $imageUrl ?>">
+    <meta property="og:url" content="<?= $pageUrl ?>">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= $blogName  ?>">
+    <meta name="twitter:description" content="<?= $description ?>">
+    <meta name="twitter:image" content="<?= $imageUrl ?>">
+    <style>
+
+        .breadcumb-wrapper {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .breadcumb-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Black overlay */
+            z-index: 0;
+        }
+
+        .breadcumb-wrapper .breadcumb-content {
+            position: relative;
+            z-index: 1; /* Ensure it sits above the overlay */
+        }
+       
+        /* .breadcumb-content a {
+            color: #ffd700; /
+            text-decoration: underline;
+        } */
+
+        .breadcumb-title {
+            color: #fff;
+            font-weight: 700;
+}
+    </style>
 
 </head>
 
@@ -150,7 +211,7 @@ $addons = array(
             <h1 class="ohf_font text-white"><?= $blogName ?></h1>
         </div>
     </section> -->
-    <div class="breadcumb-wrapper blog-hero headers" style="background-image: url('<?= $image ?>');">
+    <div class="breadcumb-wrapper blog-hero headers" style="background-image: url('<?= $imagePath ?>'); padding: 100px 20px !important;">
         <div class="container">
             <div class="breadcumb-content">
                 <ul class="breadcumb-menu">
@@ -198,7 +259,7 @@ $addons = array(
                         </style>
                         <div class="card h-100" style="border: none;border-bottom: 1px solid #c7c7c7;">
                             <div class="img-section">
-                                <img src="<?= $image ?>" class="img-fluid w-100" alt="..."
+                                <img src="<?= $imagePath ?>" class="img-fluid w-100" alt="..."
                                     style="border-bottom: 4px solid sandybrown; object-fit: cover; height: 400px;">
                             </div>
                             <div class="card-body">
@@ -224,36 +285,50 @@ $addons = array(
                         <div class="blog-tags d-flex flex-sm-row flex-column align-items-start">
                             <h4 class="me-2">Tags:</h4>
                             <div class="tags">
-                                <a href="blog.php?category=<?= urlencode($category) ?>" class="tag btn text-muted"><?= $category ?></a>
+                                <a href="blog.php?category=<?= urlencode($category) ?>" class="tag btn text-muted">
+                                    <?= ucwords(str_replace('_', ' ', htmlspecialchars($category))) ?>
+                                </a>
+
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <?php
-                        $eventUrl = "https://" . $_SERVER['HTTP_HOST'] . "/blog-details.php?id=" . urlencode($blogid);
+                        // Build current blog URL securely
+                        $scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+                        $host = $_SERVER['HTTP_HOST'];
+                        $path = "/blog-details.php?id=" . urlencode($blogid);
+                        $eventUrl = "$scheme://$host$path";
                         $encodedEventUrl = urlencode($eventUrl);
                         ?>
                         <div class="blog-tags d-flex flex-sm-row flex-column align-items-start">
                             <h4 class="me-2">Share:</h4>
                             <div class="tags d-flex">
+                                <!-- Facebook -->
                                 <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $encodedEventUrl ?>"
                                     class="tag btn btn p-0 d-flex align-items-center justify-content-center me-2 rounded-circle btn-1 btn-brands"
-                                    target="_blank">
+                                    target="_blank" rel="noopener noreferrer">
                                     <i class="fa-brands fa-facebook-f fs-6"></i>
                                 </a>
-                                <a href="https://twitter.com/intent/tweet?url=<?= $encodedEventUrl ?>"
+
+                                <!-- X (Twitter) -->
+                                <a href="https://twitter.com/intent/tweet?url=<?= $encodedEventUrl ?>&text=<?= urlencode($blogName) ?>"
                                     class="tag btn btn p-0 d-flex align-items-center justify-content-center me-2 rounded-circle btn-1 btn-brands"
-                                    target="_blank">
+                                    target="_blank" rel="noopener noreferrer">
                                     <i class="fa-brands fa-x-twitter fs-6"></i>
                                 </a>
-                                <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?= $encodedEventUrl ?>"
+
+                                <!-- LinkedIn -->
+                                <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?= $encodedEventUrl ?>&title=<?= urlencode($blogName) ?>"
                                     class="tag btn btn p-0 d-flex align-items-center justify-content-center me-2 rounded-circle btn-1 btn-brands"
-                                    target="_blank">
+                                    target="_blank" rel="noopener noreferrer">
                                     <i class="fa-brands fa-linkedin fs-6"></i>
                                 </a>
-                                <a href="https://api.whatsapp.com/send?text=<?= $encodedEventUrl ?>"
+
+                                <!-- WhatsApp -->
+                                <a href="https://api.whatsapp.com/send?text=<?= urlencode($blogName . ' - ' . $eventUrl) ?>"
                                     class="tag btn btn p-0 d-flex align-items-center justify-content-center me-2 rounded-circle btn-1 btn-brands"
-                                    target="_blank">
+                                    target="_blank" rel="noopener noreferrer">
                                     <i class="fa-brands fa-whatsapp fs-6"></i>
                                 </a>
                             </div>

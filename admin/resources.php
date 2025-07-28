@@ -308,16 +308,18 @@ $addons = array(
         .volunteer-photo {
             display: grid;
 
-            /* border: 2px red solid; */
-            width: 30%;
+           
+            width: 30% !important;
         }
 
         .volunteer-photo img {
-            width: 100%;
+            width: 100% !important;
             border-radius: 0.5rem;
             /* border: 2px blue solid; */
         }
-
+.volunteer-details{
+    width: 70% !important;
+}
         .volunteer-info {
             display: flex;
             /* flex-direction: column; */
@@ -460,6 +462,17 @@ $addons = array(
   font-size: 24px;
   cursor: pointer;
 }
+.custom-wide-modal {
+    width: 90% !important; /* Wider than modal-lg */
+    max-width: 1200px;      /* Optional: limit for huge screens */
+    margin: auto;
+}
+
+.custom-wide-modal .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+    /* Optional: keep your border */
+}
     </style>
 </head>
 
@@ -570,9 +583,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         <!-- view details modal -->
 
-        <div class="modal" id="volunteerDetailsModal">
-            <div class="modal-dialog modal-dialog-centered modal-lg" style="display:flex; justify-content:center; max-height: 95%; overflow-y: scroll;">
-                <div class="modal-content" style='background-color: #fff;'>
+        <div class="modal" id="volunteerDetailsModal" >
+            <div class="modal-dialog modal-dialog-centered custom-wide-modal" style="display:flex; justify-content:center; max-height: 95%; overflow-y: scroll; width: 80%;">
+                <div class="modal-content" style='background-color: #fff; width: 100%;'>
                     <div class="modal-header">
                         <h5 class="modal-title">Blog Details</h5>
                         <svg xmlns="http://www.w3.org/2000/svg" class="btn-close" style="cursor: pointer;" data-bs-dismiss="modal" aria-label="Close" id="close-modal" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="13" height="13">
@@ -1572,33 +1585,33 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     table.style.display = "table";
 
-                    doctors.forEach(doctor => {
-                        let prefix = "#Dr-";
-                        if (doctor.status === "nurse") {
-                            prefix = "#Nr-";
-                        } else if (doctor.status === "physiologist") {
-                            prefix = "#Phy-";
-                        }
+                   doctors.forEach((doctor, index) => {
+                            let prefix = "#Dr-";
+                            if (doctor.status === "nurse") {
+                                prefix = "#Nr-";
+                            } else if (doctor.status === "physiologist") {
+                                prefix = "#Phy-";
+                            }
 
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                    <td>${prefix}${doctor.id}</td>
-                    <td>${doctor.name}</td>
-                    <td>${doctor.role}</td>
-                    <td>
-                        <label class="toggle-switch">
-                            <input type="checkbox" data-id="${doctor.id}" name="${doctor.role}" ${doctor.is_available ? "checked" : ""} />
-                            <span class="slider"></span>
-                        </label>
-                    </td>
-                    <td>
-                        <img src="./assets/images/resources/img/Icon.png" data-id="${doctor.id}" alt="More actions"  class="dot-doc-btn"/>
-                    </td>
-                `;
-                        tbody.appendChild(row);
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                                <td>${index + 1}</td> <!-- This is the Serial Number -->
+                                <td>${doctor.name}</td>
+                                <td>${doctor.role}</td>
+                                <td>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" data-id="${doctor.id}" name="${doctor.role}" ${doctor.is_available ? "checked" : ""} />
+                                        <span class="slider"></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <img src="./assets/images/resources/img/Icon.png" data-id="${doctor.id}" alt="More actions" class="dot-doc-btn" />
+                                </td>
+                            `;
+                            tbody.appendChild(row);
 
-                        addDotDoctorBtnListeners();
-                    });
+                            addDotDoctorBtnListeners();
+                        });
 
                     document.querySelectorAll(".toggle-switch input").forEach(input => {
                         input.addEventListener("change", function() {
@@ -1735,6 +1748,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         function viewDoctorDetails(id) {
+            console.log("Viewing doctor with ID:", id);
                 const modal = document.getElementById("doctorDetailsModal");
                 const modalBody = document.getElementById("doctorDetailsBody");
                 const closeBtn = document.getElementById("closeDoctorModal");
@@ -1744,20 +1758,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 modalBody.innerHTML = "<p>Loading...</p>";
 
                 // Fetch doctor details from backend (adjust endpoint as needed)
-                fetch(`../api/v1/doctor_route.php?id=${encodeURIComponent(id)}`)
-                    .then(res => res.json())
-                    .then(doctor => {
+             fetch(`../api/v1/doctor_route.php?id=${id}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        const doctor = data.find((d) => d.id === id);
+
+                        if (!doctor) {
+                        modalBody.innerHTML = "<p>Doctor not found.</p>";
+                        return;
+                        }
+                        // console.log("Doctor object:", doctor);
+                        // console.log("Doctor image:", doctor.image);
+
                         modalBody.innerHTML = `
-                            <p><strong>ID:</strong> ${doctor.id}</p>
-                            <p><strong>Name:</strong> ${doctor.name}</p>
-                            <p><strong>Role:</strong> ${doctor.role}</p>
-                            <p><strong>Status:</strong> ${doctor.status}</p>
-                            <p><strong>Available:</strong> ${doctor.is_available ? "Yes" : "No"}</p>
-                        `;
-                    })
-                    .catch(error => {
-                        console.error("Failed to fetch doctor details:", error);
-                        modalBody.innerHTML = "<p>Error loading details.</p>";
+                                <img 
+                                    src="${doctor.image ? '../Staff_images/' + doctor.image : '../assets/img/default-image.jpg'}" 
+                                    alt="${doctor.name}" 
+                                    style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px;"
+                                />
+                                <p><strong>ID:</strong> ${doctor.id}</p>
+                                <p><strong>Name:</strong> ${doctor.name}</p>
+                                <p><strong>Role:</strong> ${doctor.role}</p>
+                                <p><strong>Status:</strong> ${doctor.status}</p>
+                                <p><strong>Available:</strong> ${doctor.is_available == 1 ? "Yes" : "No"}</p>
+                            `;
                     });
 
                 // Close handler
