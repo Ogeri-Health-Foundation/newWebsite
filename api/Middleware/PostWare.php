@@ -82,7 +82,7 @@ class PostRoute
                         $eventImageType = strtolower(pathinfo($eventImagePath, PATHINFO_EXTENSION));
 
                         if (!in_array($eventImageType, $allowedTypes)) {
-                            echo json_encode(["success" => false, "message" => "Invalid file type for event images."]);
+                            echo json_encode(["success" => false, "message" => "Invalid file type for blog images."]);
                             exit;
                         }
 
@@ -96,9 +96,13 @@ class PostRoute
                     }
                 }
 
-                echo json_encode(["success" => true, "message" => "Event created successfully!"]);
+                echo json_encode(["success" => true, "message" => "Blog created successfully!"]);
             } else {
-                echo json_encode(["success" => false, "message" => "Failed to create event."]);
+                error_log("Create post failed: " . $result['message']);
+                echo json_encode([
+                    "success" => false,
+                    "message" => "Failed to create Blog. Error: " . $result['message']
+                ]);
             }
         }
     }

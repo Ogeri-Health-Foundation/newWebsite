@@ -588,7 +588,7 @@ $addons = array(
           </div>
           <div class="modal-body">
             <form id="editEventForm" method="POST" enctype="multipart/form-data">
-              <input type="text" name="edit_id" id="editEventId">
+              <input type="hidden" name="edit_id" id="editEventId">
               <div class="mb-3">
                 <label for="editEventTitle" class="form-label">Title*</label>
                 <input type="text" name="volunteer-title" class="form-control" id="editEventTitle" required>
