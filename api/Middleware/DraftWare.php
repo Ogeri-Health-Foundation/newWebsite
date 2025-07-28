@@ -72,9 +72,9 @@ if ($result['success']) {
         }
     }
 
-    echo json_encode(["success" => true, "message" => "Event drafted successfully!"]);
+    echo json_encode(["success" => true, "message" => "Blog drafted successfully!"]);
 } else {
-    echo json_encode(["success" => false, "message" => "Failed to draft event."]);
+    echo json_encode(["success" => false, "message" => "Failed to draft blog."]);
 }
 }
 }
@@ -98,7 +98,7 @@ private function storeBlogImage($blog_id, $imageName) {
 
         $stmt->execute();
     } catch (Exception $e) {
-        echo json_encode(["success" => false, "message" => "Error storing event image: " . $e->getMessage()]);
+        echo json_encode(["success" => false, "message" => "Error storing blog image: " . $e->getMessage()]);
         exit;
     }
 }

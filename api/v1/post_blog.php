@@ -11,18 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $authenticate = new Auth();
     // $authenticate->authenticate();
 
-$route = new PostRoute();
-$route->store();
+    $route = new PostRoute();
+    $route->store();
+} else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-}
-else if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-
-$route = new PostRoute();
-$route->fetchBlogbyId();
-
-}
-
-
-else{
+    $route = new PostRoute();
+    $route->fetchBlogbyId();
+} else {
     echo json_encode(["success" => false, "message" => "Invalid request method."]);
 }
