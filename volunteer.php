@@ -921,7 +921,7 @@ $addons = array(
             />
           </div>
           <div class="mb-3">
-            <label for="profession" class="form-label">Select Your Gender</label>
+            <label for="gender" class="form-label">Select Your Gender</label>
             <select
               class="form-select"
               aria-label="Default select example"
@@ -1112,7 +1112,10 @@ $addons = array(
             type="submit"
             
             class="th-btn style3 d-block mx-auto w-75"
-          >Submit Application</button>
+          >
+          <span id="submitBtnText">Submit Application</span>
+           <span id="submitSpinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+        </button>
         </form>
       </div>
       <div id="errorMessage"></div>
@@ -1255,11 +1258,16 @@ $addons = array(
   const volunteerForm = document.getElementById('volunteerForm');
   const successMessage = document.getElementById('successMessage');
   const errorMessageBox = document.getElementById('errorMessage'); // <- We'll add this too
+  const submitBtn = document.getElementById('submitBtn');
+const submitSpinner = document.getElementById('submitSpinner');
+const submitBtnText = document.getElementById('submitBtnText');
 
   if (volunteerForm) {
     volunteerForm.addEventListener('submit', function (e) {
       e.preventDefault();
-
+    submitBtn.disabled = true;
+    submitSpinner.classList.remove('d-none');
+    submitBtnText.textContent = 'Submitting...';
       const formData = new FormData(volunteerForm);
 
       fetch('api/v1/post_volunteer.php', {
@@ -1268,6 +1276,9 @@ $addons = array(
       })
         .then(response => response.json())
         .then(data => {
+          submitBtn.disabled = false;
+          submitSpinner.classList.add('d-none');
+          submitBtnText.textContent = 'Submit';
           if (data.status === 'success') {
             document.getElementById('successMessage').style.display = 'flex';
             successMessage.classList.remove('d-none'); // Show success box
@@ -1280,6 +1291,9 @@ $addons = array(
         .catch(error => {
           console.error('Error:', error);
           showError('There was an error submitting your application. Please try again.');
+           submitBtn.disabled = false;
+            submitSpinner.classList.add('d-none');
+            submitBtnText.textContent = 'Submit';
         });
     });
   }
