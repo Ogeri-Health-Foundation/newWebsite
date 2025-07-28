@@ -64,7 +64,7 @@ $customs = array(
     <?php include $page_rel . 'admin/includes/topbar.php'; ?>
 
     <main class="">
-    <div id="alertBox" class="alert-box"></div>
+    <div id="alertBox" class="alert-box" style="z-index: 100000;"></div>
         <div class="container-fluid main-container ">
             <!-- Main Content -->
             <div class="content">
@@ -88,14 +88,14 @@ $customs = array(
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="action-buttons">
+                    <!-- <div class="action-buttons">
                         <button class="btn btn-export" id="exportBtn">
                             <i class="fas fa-file-export"></i> Export
                         </button>
                         <button class="btn btn-filter" id="filterBtn">
                             <i class="fas fa-filter"></i> Filter
                         </button>
-                    </div>
+                    </div> -->
 
                     <!-- Volunteers Table -->
                     <div class="table-container">
@@ -118,13 +118,13 @@ $customs = array(
                     
 
                     <!-- Pagination -->
-                    <div class="pagination"></div>
+                    <!-- <div class="pagination"></div> -->
                 </div>
             </div>
         </div>
 
         <!-- Filter Modal -->
-        <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
             <form id="filterForm">
@@ -138,7 +138,7 @@ $customs = array(
                     <option value="Corporate">Corporate</option>
                     <option value="Individual">Individual</option>
                     <option value="NGO">NGO</option>
-                    <!-- Add more types as needed -->
+                   
                 </select>
                 </div>
                 <div class="modal-footer">
@@ -147,7 +147,7 @@ $customs = array(
             </form>
             </div>
         </div>
-        </div>
+        </div> -->
 
 
         <!-- Add Volunteer Modal -->
@@ -306,10 +306,10 @@ $customs = array(
                                 </div>
                             </div>
                         </div>
-                        <div class="reason-section">
+                        <!-- <div class="reason-section">
                             <h5>Reason for Partnering</h5>
                             <p id="detailsReason"></p>
-                        </div>
+                        </div> -->
                     </div>
                     <!-- <div class="modal-footer">
                         <button type="button" class="btn btn-reject btn-danger" id="rejectBtn">Reject</button>
@@ -343,6 +343,119 @@ $customs = array(
 
 
     <?php include $page_rel . 'admin/includes/sidebar.php'; ?>
+    
+        <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+  <script src="https://cdn.datatables.net/buttons/2.1.3/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.1.3/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.1.3/js/buttons.print.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Buttons JS -->
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+
+  <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/super-build/ckeditor.js"></script>
+  <script>
+     // Global variables
+    let currentEventId = null;
+    let currentEventName = null;
+    let editEventEditor = null;
+    let eventEditor; // Global variable to hold the editor instance
+
+
+   $(document).ready(function () {
+  let selectedFilter = "";
+
+  $("#filterBtn").on("click", function () {
+    $("#filterModal").modal("show");
+  });
+
+  $("#filterForm").on("submit", function (e) {
+    e.preventDefault();
+    selectedFilter = $("#partnershipTypeFilter").val();
+    $('#partnersTable').DataTable().ajax.reload(); // Reload with new filter
+    $("#filterModal").modal("hide");
+  });
+
+  $('#partnersTable').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: 'partner_handler.php?action=fetch',
+      type: 'GET',
+      data: function (d) {
+        // Inject filter into AJAX request
+        d.partnership_type = selectedFilter;
+      }
+    },
+    columns: [
+      { data: 'serial' },
+      { data: 'partner_name' },
+      { data: 'partner_email' },
+      { data: 'partner_phone' },
+      { data: 'partnership_type' },
+      {
+        data: 'id',
+        orderable: false,
+        searchable: false,
+        render: function (data, type, row, meta) {
+          return `
+            <div class='dropdown text-center'>
+              <button class='action-button dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                <i class='fas fa-ellipsis-v'></i>
+              </button>
+              <ul class='dropdown-menu'>
+                <li>
+                  <a class='dropdown-item view-details-btn' href='#' data-bs-toggle='modal' data-bs-target='#volunteerDetailsModal' data-id='${data}'>View Details</a>
+                </li>
+                <li>
+                  <a class='dropdown-item edit-partner' href='#' data-bs-toggle='modal' data-bs-target='#addVolunteerModal' data-id='${data}'>Edit Details</a>
+                </li>
+                <li>
+                  <a class='dropdown-item text-danger delete-btn' href='#' data-id='${data}'>Delete Partner</a>
+                </li>
+              </ul>
+            </div>
+          `;
+        }
+      }
+    ],
+    dom: '<"row mb-3"<"col-md-4"l>>' +
+      '<"row mb-3"<"col-md-6"B><"col-md-6 text-end"f>>' +
+      'rt' +
+      '<"row mt-3"<"col-md-5"i><"col-md-7"p>>',
+    buttons: [
+      { extend: 'copy', className: 'btn btn-primary btn-sm me-1' },
+      { extend: 'csv', className: 'btn btn-secondary btn-sm me-1' },
+      { extend: 'excel', className: 'btn btn-success btn-sm me-1' },
+      { extend: 'pdf', className: 'btn btn-danger btn-sm me-1' },
+      { extend: 'print', className: 'btn btn-dark btn-sm' }
+    ],
+    language: {
+      paginate: {
+        next: 'Next',
+        previous: 'Prev'
+      },
+      search: 'Search Filter',
+      lengthMenu: 'Show _MENU_ entries',
+      info: 'Showing _START_ to _END_ of _TOTAL_ entries'
+    }
+  });
+});
+
+
+  </script>
+  
 <script>
     $(document).ready(function () {
     $("#addPartnerForm").submit(function (e) {
@@ -403,8 +516,10 @@ $customs = array(
                     $("#logo-preview").attr("src", data.company_logo).show();
                     $(".upload-placeholder").hide();
                     $(".upload-preview").show();
+                     $("#existing_logo").val(data.company_logo);
                 } else {
                     $("#logo-preview").attr("src", "/placeholder.svg").show();
+                     $("#existing_logo").val(""); // Clear it just in case
                 }
 
                 // Remove any existing hidden input before appending
@@ -448,164 +563,9 @@ function showAlert(message, type = "success") {
     }, 4000);
 }
 
-$(document).ready(function () {
-    let selectedFilter = "";
-
-$("#filterBtn").on("click", function () {
-  $("#filterModal").modal("show");
-});
-
-// Handle filter form submission
-$("#filterForm").on("submit", function (e) {
-  e.preventDefault();
-  selectedFilter = $("#partnershipTypeFilter").val();
-  $("#filterModal").modal("hide");
-  fetchPartners(); // Reload data with filter
-});
-    let currentPage = 1;
-    let limit = 10; // Adjust items per page
-    function fetchPartners(page = 1) {
-        $.ajax({
-            url: `partner_handler.php?action=fetch&page=${page}&limit=${limit}&partnership_type=${selectedFilter}`,
-            type: "GET",
-            dataType: "json",
-            success: function (response) {
-                if (response.status === "error") {
-                console.error("Error from server:", response.message);
-                return;
-            }
-            if (!response.data || response.data.length === 0) {
-                $("#partners-table-body").html("<tr><td colspan='12' style='text-aligh: center;'>No Partners found.</td></tr>");
-                return;
-            }
-                if (response.status === "success") {
-                    let tableBody = $("#partners-table-body");
-                    tableBody.empty(); // Clear existing table rows
-                    updatePagination(response.totalPages, response.currentPage);
-
-                    $.each(response.data, function (index, partner) {
-                        let row = `
-                            <tr>
-                                <td>${index + 1}</td>
-                                <td>${partner.partner_name}</td>
-                                <td>${partner.partner_email}</td>
-                                <td>${partner.partner_phone}</td>
-                                <td>${partner.partnership_type}</td>
-                                <td class='text-center' style='text-align: center;'>
-                                    <div class='dropdown'>
-                                        <button class='action-button dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                                            <i class='fas fa-ellipsis-v'></i>
-                                        </button>
-                                        <ul class='dropdown-menu'>
-                                            <li>
-                                                <a class='dropdown-item view-details-btn' href='#' 
-                                                data-bs-toggle='modal' data-bs-target='#volunteerDetailsModal'
-                                                data-id='${partner.id}'>
-                                                View Details
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class='dropdown-item edit-partner' href='#' 
-                                                data-bs-toggle='modal' data-bs-target='#addVolunteerModal'
-                                                data-id='${partner.id}'>
-                                                Edit Details
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class='dropdown-item text-danger delete-btn' href='#' 
-                                                data-id='${partner.id}'>
-                                                Delete Partner
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        `;
-                        tableBody.append(row);
-                    });
-                } else {
-                    showAlert("Failed to fetch partners.", "error");
-                }
-            },
-            error: function () {
-                showAlert("An error occurred while fetching partners.", "error");
-            }
-        });
-    }
 
     
     
-    function updatePagination(totalPages, currentPage) {
-        let paginationHtml = `
-            <button class="btn btn-prev" ${currentPage === 1 ? 'disabled' : ''} id="prevPageBtn">
-                <i class="fas fa-chevron-left"></i> Previous
-            </button>`;
-
-        for (let i = 1; i <= totalPages; i++) {
-            paginationHtml += `<button class="btn btn-page ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
-        }
-
-        paginationHtml += `
-            <button class="btn btn-next" ${currentPage === totalPages ? 'disabled' : ''} id="nextPageBtn">
-                Next <i class="fas fa-chevron-right"></i>
-            </button>`;
-
-        $(".pagination").html(paginationHtml);
-    }
-
-    $(document).on("click", ".btn-page", function () {
-    currentPage = $(this).data("page");
-    fetchPartners(currentPage); // 
-});
-
-$(document).on("click", "#prevPageBtn", function () {
-    if (currentPage > 1) {
-        fetchPartners(--currentPage); // 
-    }
-});
-
-$(document).on("click", "#nextPageBtn", function () {
-    fetchPartners(++currentPage); // 
-});
-
-
-    // Call function to load data on page load
-    fetchPartners();
-    $("#exportBtn").on("click", function () {
-  let csv = [];
-  let rows = document.querySelectorAll("#partners-table-body tr");
-
-  if (rows.length === 0) {
-    alert("No data to export.");
-    return;
-  }
-
-  csv.push("S/N,Name,Email,Phone,Type");
-
-  rows.forEach(row => {
-    let cols = row.querySelectorAll("td");
-    if (cols.length >= 5) {
-      let rowData = [
-        cols[0].innerText,
-        cols[1].innerText,
-        cols[2].innerText,
-        cols[3].innerText,
-        cols[4].innerText
-      ];
-      csv.push(rowData.join(","));
-    }
-  });
-
-  // Download
-  let csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
-  let link = document.createElement("a");
-  link.setAttribute("href", encodeURI(csvContent));
-  link.setAttribute("download", "partners_export.csv");
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-});
 
     // Delete partner
     $(document).on("click", ".delete-partner", function () {
@@ -630,7 +590,7 @@ $(document).on("click", "#nextPageBtn", function () {
             });
         }
     });
-});
+
 
 $(document).on('click', '.view-details-btn', function () {
     let partnerId = $(this).data('id');

@@ -79,7 +79,7 @@ window.onload = function () {
             </div>
             <?php unset($_SESSION['message']); // Clear the message after displaying ?>
         <?php endif; ?>
-        <div id="alertBox" class="alert-box"></div>
+        <div id="alertBox" class="alert-box" style="z-index: 10000;"></div>
 
         <div class="container-fluid main-container">
             <!-- Main Content -->
@@ -342,18 +342,30 @@ window.onload = function () {
                                     placeholder="Enter Email Address" name="email" required>
                             </div>
                             <div class="mb-3">
-                                <label for="volunteerEmail" class="form-label">Home Address*</label>
+                                <label for="telephone" class="form-label">Phone Number</label>
+                                <input
+                                type="tel"
+                                class="form-control"
+                                id="phone"
+                                name="phone"
+                                placeholder="+234802542365"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="Home Address" class="form-label">Home Address*</label>
                                 <input type="text" class="form-control" id="homeAddress"
                                     placeholder="Enter Home Address" name="home_address" required>
                             </div>
                             <div class="mb-3">
                                 <label for="volunteerRole" class="form-label">Role</label>
                                 <select class="form-select" id="volunteerRole" name="role">
-                                    <option value="" selected>Select Volunteers role</option>
+                                    <option value="" disabled selected>Select volunteer role</option>
                                     <option value="Patient Clinic">Patient Clinic</option>
                                     <option value="Fundraising">Fundraising</option>
                                     <option value="Administration">Administration</option>
                                     <option value="Marketing">Marketing</option>
+                                    <option value="Events">Events</option>
+                                    <option value="Community Outreach">Community Outreach</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -364,10 +376,124 @@ window.onload = function () {
                                     <option value="Female">Female</option>
                                 </select>
                             </div>
+                           <div class="form-group full-width mb-3">
+                                <label class="form-label">Resume/CV</label>
+                                <div class="file-upload bg-white" id="resume-upload">
+                                    <input type="file" name="resume" id="resume" accept=".pdf,.doc,.docx">
+                                    <div class="file-upload-icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <p class="file-upload-text">Upload your resume<br>PDF, DOC or DOCX (max. 5MB)</p>
+                                </div>
+
+                                <div class="resume-icon mt-2 resume-placeholder" style="display:none;">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <p class="resume-file-name" id="resume-file-name"></p>
+                                    <a href="#" id="resume-preview" class="btn btn-sm btn-outline-primary mt-1" target="_blank">View Resume</a>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="bio" class="form-label">Short Bio</label>
+                                <textarea
+                                class="form-control"
+                                id="bio"
+                                name="bio"
+                                rows="10"
+                                placeholder="Tell us about the volunteer"
+                                ></textarea>
+                            </div>
                             <div class="mb-3">
                                 <label for="volunteerProfession" class="form-label">Profession</label>
                                 <input type="text" class="form-control" id="volunteerProfession"
                                     placeholder="Enter Profession" name="profession">
+                            </div>
+                            <div class="social-link-container mb-3">
+                                <div class="row">
+                                    <div class="input-group mb-3 col-12">
+                                        <span class="input-group-text" id="basic-addon1"
+                                        ><img
+                                            src="../../assets/img/volunteer/icons/facebook-icon-form.png"
+                                            class="img-"
+                                            alt=""
+                                        /></span>
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Username"
+                                        aria-label="Username"
+                                        aria-describedby="basic-addon1"
+                                        id="facebookUsername"
+                                        name="facebook"
+                                        />
+                                    </div>
+                                    <div class="input-group mb-3 col-12">
+                                        <span class="input-group-text" id="basic-addon2"
+                                        ><img
+                                            src="../../assets/img/volunteer/icons/linkedin-icon-form.png"
+                                            alt=""
+                                        /></span>
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Username"
+                                        aria-label="Username"
+                                        aria-describedby="basic-addon2"
+                                        id="linkedUsername"
+                                        name="linkedin"
+                                        />
+                                    </div>
+                                    </div>
+                                    <div class="row">
+                                    <div class="input-group mb-3 col-12">
+                                        <span class="input-group-text" id="basic-addon3"
+                                        ><img src="../../assets/img/volunteer/icons/x-icon-form.png" alt="x icon"
+                                        /></span>
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Username"
+                                        aria-label="Username"
+                                        aria-describedby="basic-addon3"
+                                        id="xUsername"
+                                        name="twitter"
+                                        />
+                                    </div>
+                                    <div class="input-group mb-3 col-12">
+                                        <span class="input-group-text" id="basic-addon4"
+                                        ><img
+                                            src="../../assets/img/volunteer/icons/instagram-icon-form.png"
+                                            alt="instagram icon"
+                                        /></span>
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Username"
+                                        aria-label="Username"
+                                        aria-describedby="basic-addon4"
+                                        id="instagramUsername"
+                                        name="instagram"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group full-width mb-3">
+                                <label for="skills" class="form-label">Skills (press Enter to add)</label>
+                                <div class="skills-container" id="skills-container">
+                                <input type="text" id="skills-input" class="skill-input" placeholder="Add skills...">
+                                </div>
+                                <input type="hidden" name="skills" id="skills-hidden">
+                            </div>
+                            <div class="mb-3">
+                                <label for="reason" class="form-label"
+                                >Why Do You Want To Volunteer</label
+                                >
+                                <textarea
+                                class="form-control"
+                                id="motivation"
+                                name="motivation"
+                                rows="10"
+                                placeholder="Share you motivation for volunteering with us."
+                                ></textarea>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-cancel btn-outline" data-bs-dismiss="modal">Cancel</button>
@@ -437,10 +563,57 @@ window.onload = function () {
                             <h5>Reason for Vountering</h5>
                             <p id="detailsReason">I just love the intiative</p>
                         </div>
+                        <!-- Contact Info -->
+                        <div class="additional-info">
+                            <div class="detail-item">
+                                <h6 class="detail-label">Email:</h6>
+                                <p class="detail-value" id="detailsEmail"></p>
+                            </div>
+                            <div class="detail-item">
+                                <h6 class="detail-label">Phone:</h6>
+                                <p class="detail-value" id="detailsPhone"></p>
+                            </div>
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="bio-section mt-3">
+                            <h5>Bio</h5>
+                            <p id="detailsBio"></p>
+                        </div>
+
+                      <div class="skills-section mt-3">
+                            <h5>Skills</h5>
+                            <div id="detailsSkills" class="d-flex flex-wrap gap-2" style="min-height: 2rem;"></div>
+                        </div>
+
+                        <!-- Social Media -->
+                        <div class="social-section mt-3">
+                            <h5>Social Media</h5>
+                            <ul class="list-unstyled">
+                                <li><strong>Facebook:</strong> <span id="detailsFacebook"></span></li>
+                                <li><strong>LinkedIn:</strong> <span id="detailsLinkedin"></span></li>
+                                <li><strong>X:</strong> <span id="detailsTwitter"></span></li>
+                                <li><strong>Instagram:</strong> <span id="detailsInstagram"></span></li>
+                            </ul>
+                        </div>
+
+                        <!-- Resume -->
+                        <div class="resume-section mt-3">
+                            <h5>Resume</h5>
+                            <a href="#" id="resumeDownloadLink" target="_blank" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-file-download"></i> Download Resume
+                            </a>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-reject btn-danger" id="rejectBtn">Reject</button>
-                        <button type="button" class="btn btn-approve btn-primary" id="approveBtn">Approve</button>
+                        <button type="button" class="btn btn-reject btn-danger" id="rejectBtn">
+                            <span class="btn-text">Reject</span>
+                            <span class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-approve btn-primary" id="approveBtn">
+                            <span class="btn-text">Approve</span>
+                            <span class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -537,6 +710,7 @@ window.onload = function () {
         }
       });
     });
+
       $(document).ready(function () {
     $("#approveBtn").click(function () {
         showConfirmModal("approve");
@@ -546,6 +720,67 @@ window.onload = function () {
         showConfirmModal("reject");
     });
 
+
+    
+    
+   $(document).ready(function () {
+  // Declare necessary variables
+  const skills = [];
+  const skillsContainer = document.getElementById('skills-container');
+  const skillsInput = document.getElementById('skills-input');
+  const skillsHidden = document.getElementById('skills-hidden');
+  skillsInput.addEventListener('keydown', function (e) {
+if (e.key === 'Enter') {
+    e.preventDefault(); // prevent form submission or other default behavior
+    const newSkill = skillsInput.value.trim();
+    if (newSkill && !skills.includes(newSkill)) {
+    addSkill(newSkill);
+    updateHiddenField();
+    skillsInput.value = '';
+    }
+}
+});
+
+  function addSkill(skill) {
+    skills.push(skill);
+
+    const skillTag = document.createElement('div');
+    skillTag.className = 'skill-tag';
+    skillTag.innerHTML = `${skill} <span class="remove-skill">&times;</span>`;
+
+    skillTag.querySelector('.remove-skill').addEventListener('click', function () {
+      skillsContainer.removeChild(skillTag);
+      const index = skills.indexOf(skill);
+      if (index > -1) {
+        skills.splice(index, 1);
+        updateHiddenField();
+      }
+    });
+
+    skillsContainer.insertBefore(skillTag, skillsInput);
+  }
+
+  function updateHiddenField() {
+    skillsHidden.value = JSON.stringify(skills);
+  }
+
+  function clearPreviewAndSkills() {
+    const skillTags = document.querySelectorAll('.skill-tag');
+    skillTags.forEach(tag => {
+      skillsContainer.removeChild(tag);
+    });
+
+    skills.length = 0;
+    updateHiddenField();
+  }
+
+  // Expose functions globally so they're accessible in success handlers or inline scripts
+  window.clearPreviewAndSkills = clearPreviewAndSkills;
+  window.addSkill = addSkill;
+  window.skills = skills; // Now globally accessible
+});
+
+
     function showConfirmModal(action) {
         const confirmation = confirm(`Are you sure you want to ${action} this volunteer?`);
         if (confirmation) {
@@ -553,37 +788,55 @@ window.onload = function () {
         }
     }
 
-    function updateVolunteerStatus(status) {
-        let volunteerId = $("#volunteerId").val();
+        function updateVolunteerStatus(status) {
+            let volunteerId = $("#volunteerId").val();
 
-        if (!volunteerId) {
-            showAlert("Volunteer ID is missing!", "error");
-            return;
-        }
-
-        $.ajax({
-            url: "volunteer_backend.php",
-            type: "POST",
-            data: {
-                id: volunteerId,
-                status: status
-            },
-            success: function (response) {
-                let data = JSON.parse(response);
-                if (data.success) {
-                    showAlert("Status updated to: " + status, "success");
-                    $("#detailsStatusBadge").text(status);
-                    $("#volunteerDetailsModal").modal("hide");
-                } else {
-                    showAlert("Error: " + data.message, "error");
-                }
-            },
-            error: function () {
-                showAlert("Failed to update status.", "error");
+            if (!volunteerId) {
+                showAlert("Volunteer ID is missing!", "error");
+                return;
             }
-        });
-    }
-});
+            // Detect the clicked button
+            const btn = status === "Approved" ? $("#approveBtn") : $("#rejectBtn");
+            const spinner = btn.find(".spinner-border");
+            const btnText = btn.find(".btn-text");
+            btn.prop("disabled", true);
+            spinner.removeClass("d-none");
+            btnText.text("Processing...");
+
+            $.ajax({
+                url: "volunteer_backend.php",
+                type: "POST",
+                data: {
+                    id: volunteerId,
+                    status: status
+                },
+                success: function (response) {
+                    let data = JSON.parse(response);
+                      btn.prop("disabled", false);
+                        spinner.addClass("d-none");
+                        btnText.text(status === "Approved" ? "Approve" : "Reject");
+                    if (data.success) {
+                        showAlert(data.message, "success");  // Show the message from PHP (e.g., "Status updated and email sent")
+                        $("#detailsStatusBadge").text(status);
+                        $('#volunteerDetailsModal').modal('hide');
+
+                        // In case the backdrop remains, remove it manually
+                        $('.modal-backdrop').remove();
+                        $('body').removeClass('modal-open');
+                        $('body').css('padding-right', '');
+                    } else {
+                        showAlert("Error: " + data.message, "error"); // Show specific mail or DB error
+                    }
+                },      
+                error: function () {
+                    btn.prop("disabled", false);
+            spinner.addClass("d-none");
+            btnText.text(status === "Approved" ? "Approve" : "Reject");
+                    showAlert("Failed to update status.", "error");
+                }
+            });
+        }
+    });
 
     $(document).ready(function () {
         // Function to handle file input
@@ -614,7 +867,6 @@ window.onload = function () {
             $("#remove-profile-image").hide(); // Hide trash icon again
         });
 
-        // Handle "Edit" button click
         $(".edit-btn").click(function () {
             let id = $(this).data("id");
 
@@ -624,8 +876,8 @@ window.onload = function () {
                 data: { id: id },
                 success: function (response) {
                     let data = JSON.parse(response);
-                    
-                    // Populate form fields
+
+                    // Basic Fields
                     $("#volunteerId").val(data.id);
                     $("#volunteerName").val(data.name);
                     $("#volunteerEmail").val(data.email);
@@ -633,43 +885,104 @@ window.onload = function () {
                     $("#volunteerRole").val(data.role);
                     $("#volunteerGender").val(data.gender);
                     $("#volunteerProfession").val(data.profession);
+                    $("#phone").val(data.phone);
+                    $("#bio").val(data.bio);
+                    $("#motivation").val(data.motivation);
 
-                    // Set image preview
+                    // Social Links
+                    $("#facebookUsername").val(data.facebook);
+                    $("#linkedUsername").val(data.linkedin);
+                    $("#xUsername").val(data.twitter);
+                    $("#instagramUsername").val(data.instagram);
+
+                    // Resume Preview
+                    if (data.resume) {
+                        
+                         let resumePath = "../../volunteer_upload/resumes/" + data.resume;
+
+                        $("#resume-preview")
+                            .attr("href", resumePath)
+                            .text("View Resume")
+                            .show();
+
+                        $("#resume-file-name")
+                            .text(data.resume);
+
+                        $(".resume-placeholder").show();
+                    } else {
+                        $("#resume-preview").hide();
+                        $(".resume-placeholder").hide();
+                    }
+
+                    // Profile Picture
                     if (data.profile_picture) {
-    let profilePicture = data.profile_picture;
-    let primaryPath = "volunteer-img-uploads/" + profilePicture;
-    let fallbackPath = "../../admin/assets/images/volunteer-img-uploads/" + profilePicture;
-   
+                        // let profilePicture = data.profile_picture;
+                         let primaryPath = "../../volunteer_upload/profiles/" + data.profile_picture;
+                        let fallbackPath = "../../admin/assets/images/volunteer-img-uploads/" + data.profile_picture;
 
-                    fetch(primaryPath, { method: 'HEAD' })
-                        .then(response => {
-                            let finalPath = response.ok ? primaryPath : fallbackPath;
-                            $("#profile-preview").attr("src", finalPath).show();
-                            $(".upload-placeholder").hide();
-                            $(".upload-preview").show();
-                        })
-                        .catch(() => {
-                            $("#profile-preview").attr("src", fallbackPath).show();
-                            $(".upload-placeholder").hide();
-                            $(".upload-preview").show();
+                        fetch(primaryPath, { method: 'HEAD' })
+                            .then(response => {
+                                let finalPath = response.ok ? primaryPath : fallbackPath;
+                                $("#profile-preview").attr("src", finalPath).show();
+                                $(".upload-placeholder").hide();
+                                $(".upload-preview").show();
+                            })
+                            .catch(() => {
+                                $("#profile-preview").attr("src", fallbackPath).show();
+                                $(".upload-placeholder").hide();
+                                $(".upload-preview").show();
+                            });
+                    } else {
+                        $("#profile-preview").attr("src", "/placeholder.svg").hide();
+                        $(".upload-placeholder").show();
+                        $(".upload-preview").hide();
+
+                        
+                    }
+                        
+                       if (data.skills) {
+                        let skillList = [];
+
+                        try {
+                            // If already an array (e.g. ["JavaScript", "PHP"])
+                            if (Array.isArray(data.skills)) {
+                            skillList = data.skills;
+                            }
+                            // If it's a JSON string: '["JavaScript", "PHP"]'
+                            else if (typeof data.skills === 'string') {
+                            skillList = JSON.parse(data.skills);
+                            }
+                            // If it's a comma-separated string: 'JavaScript, PHP'
+                            else {
+                            skillList = data.skills.split(',').map(s => s.trim());
+                            }
+                        } catch (err) {
+                            console.error("Skill parse failed:", err);
+                        }
+
+                        // Clear any previous tags
+                        clearPreviewAndSkills();
+
+                        // Load each skill into the tag system
+                        skillList.forEach(skill => {
+                            if (!skills.includes(skill)) {
+                            addSkill(skill);
+                            // Don't call updateHiddenField here because it's called inside addSkill
+                            }
                         });
-                } else {
-                    $("#profile-preview").attr("src", "/placeholder.svg").hide();
-                    $(".upload-placeholder").show();
-                    $(".upload-preview").hide();
-                }
+                        }
 
-                    // Change modal title & button text
+                    // Change modal title & button
                     $(".modal-title").text("View Volunteer");
                     $("#onboardBtn").text("Update Details");
                 },
                 error: function () {
-                    alert("Error fetching data.");
+                    alert("Error fetching volunteer data.");
                 }
             });
         });
-
-        $(".view-btn").click(function () {
+        
+       $(".view-btn").click(function () {
             let id = $(this).data("id");
 
             $.ajax({
@@ -678,23 +991,74 @@ window.onload = function () {
                 data: { id: id },
                 success: function (response) {
                     let data = JSON.parse(response);
+
+                    // Basic Details
                     $("#volunteerId").val(data.id);
-                    // Populate form fields
                     $("#detailsName").text(data.name);
-                    $("#volunteerEmail").text(data.email);
                     $("#detailsLocation").text(data.home_address);
                     $("#detailsField").text(data.role);
                     $("#detailsReason").text(data.motivation);
-
                     $("#detailsGender").text(data.gender);
                     $("#detailsProfession").text(data.profession);
+
+                    // Additional Info
+                    $("#detailsEmail").text(data.email);
+                    $("#detailsPhone").text(data.phone || "-");
+                    $("#detailsBio").text(data.bio || "-");
+
+                    // Skills (render as comma-separated or tags)
+                    
+                  try {
+                    let skills = [];
+                    console.log("Raw data.skills:", data.skills);
+                    console.log("Type of data.skills:", typeof data.skills);
+                    
+                    if (Array.isArray(data.skills)) {
+                        skills = data.skills;
+                        console.log("Used as array");
+                    } else if (typeof data.skills === 'string') {
+                        try {
+                            skills = JSON.parse(data.skills);
+                            console.log("Parsed as JSON:", skills);
+                        } catch {
+                            skills = data.skills.split(',').map(s => s.trim());
+                            console.log("Split as CSV:", skills);
+                        }
+                    }
+                    
+                    console.log("Final skills array:", skills);
+                    
+                const skillTags = (skills || [])
+                    .filter(skill => skill && skill.trim())
+                    .map(skill => `<span style="background: #6c757d; color: white; padding: 4px 8px; margin: 2px; border-radius: 4px; display: inline-block;">${skill.trim()}</span>`)
+                    .join("");
+                    
+                    console.log("Generated HTML:", skillTags);
+                    $("#detailsSkills").html(skillTags || "<span class='text-muted'>-</span>");
+                } catch (err) {
+                    console.error("Skill display error:", err);
+                    $("#detailsSkills").html("<span class='text-muted'>-</span>");
+                }
+
+                    // Social Links
+                    $("#detailsFacebook").text(data.facebook || "-");
+                    $("#detailsLinkedin").text(data.linkedin || "-");
+                    $("#detailsTwitter").text(data.twitter || "-");
+                    $("#detailsInstagram").text(data.instagram || "-");
+
+                    // Resume Link
+                   if (data.resume) {
+                        let primaryResumePath = "../../volunteer_upload/resumes/" + data.resume;
+                        $("#resumeDownloadLink").attr("href", primaryResumePath).show();
+                    } else {
+                        $("#resumeDownloadLink").hide();
+                    }               
+
+                    // Status Badge
                     let statusBadge = $("#detailsStatusBadge");
                     statusBadge.text(data.status);
-                    
-                    // Remove previous status classes
                     statusBadge.removeClass("status-pending status-approved status-rejected");
 
-                    // Add the appropriate class based on status
                     if (data.status === "Pending") {
                         statusBadge.addClass("status-pending");
                     } else if (data.status === "Approved") {
@@ -703,35 +1067,31 @@ window.onload = function () {
                         statusBadge.addClass("status-rejected");
                     }
 
-
-                    // Set image preview
+                    // Profile Picture
                     if (data.profile_picture) {
-    let primaryPath = "https://ogerihealth.org/assets/images/volunteer_uploads/profiles/" + data.profile_picture;
-    let fallbackPath = "../../admin/assets/images/volunteer-img-uploads/" + data.profile_picture;
+                        let primaryPath = "../../volunteer_upload/profiles/" + data.profile_picture;
+                        let fallbackPath = "../../admin/assets/images/volunteer-img-uploads/" + data.profile_picture;
 
-    let img = new Image();
-    img.onload = function () {
-        // If primary image loads successfully
-        $("#detailsImage").attr("src", primaryPath).show();
-    };
-    img.onerror = function () {
-        // If primary image fails, use fallback
-        $("#detailsImage").attr("src", fallbackPath).show();
-    };
-    img.src = primaryPath;
+                        let img = new Image();
+                        img.onload = function () {
+                            $("#detailsImage").attr("src", primaryPath).show();
+                        };
+                        img.onerror = function () {
+                            $("#detailsImage").attr("src", fallbackPath).show();
+                        };
+                        img.src = primaryPath;
 
-    $(".upload-placeholder").hide();
-    $(".volunteer-photo").show();
-}
- else {
-                        $("#profile-preview").attr("src", "/placeholder.svg").hide();
+                        $(".upload-placeholder").hide();
+                        $(".volunteer-photo").show();
+                    } else {
+                        $("#detailsImage").attr("src", "/placeholder.svg").hide();
                         $(".upload-placeholder").show();
                         $(".upload-preview").hide();
                     }
 
-                    // Change modal title & button text
-                    $(".modal-title").text("Edit Volunteer");
-                    $("#onboardBtn").text("Update Details");
+                    // Modal title
+                    $(".modal-title").text("Volunteer Details");
+                    $("#volunteerDetailsModal").modal("show");
                 },
                 error: function () {
                     showAlert("Error fetching data.", "error");
@@ -742,7 +1102,13 @@ window.onload = function () {
         // Handle form submission
         $("#volunteerForm").submit(function (e) {
             e.preventDefault();
+
+            // Collect form data
             let formData = new FormData(this);
+
+            // Manually append skills if needed
+            const skills = $("#skills-hidden").val();
+            formData.append("skills", skills);
 
             $.ajax({
                 url: "volunteer_backend.php",
@@ -754,6 +1120,7 @@ window.onload = function () {
                 success: function (response) {
                     showAlert(response.message, response.success ? "success" : "error");
                     if (response.success) {
+                        clearPreviewAndSkills();
                         setTimeout(() => location.reload(), 2000);
                     }
                 },
@@ -791,7 +1158,7 @@ window.onload = function () {
 }
 </script>
 
-<script>
+<!-- <script>
 document.getElementById("exportBtn").addEventListener("click", function () {
     const table = document.querySelector(".volunteers-table");
     let csvContent = "";
@@ -826,7 +1193,7 @@ document.getElementById("filterBtn").addEventListener("click", function () {
         e.preventDefault();
         document.getElementById('filterBtn').click();
     });
-</script>
+</script> -->
 
 
 </body>

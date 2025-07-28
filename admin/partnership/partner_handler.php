@@ -61,87 +61,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 
 // Fetch All Partners for Table
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'fetch') {
-    $limit = isset($_GET['limit']) ? max(1, intval($_GET['limit'])) : 10;
-    $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
-    $offset = ($page - 1) * $limit;
-    try {
-
-        $stmt = $conn->prepare("SELECT * FROM partners LIMIT ? OFFSET ?");
-        $stmt->bindValue(1, $limit, PDO::PARAM_INT);
-        $stmt->bindValue(2, $offset, PDO::PARAM_INT);
-        $stmt->execute();
-        $partners = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-        $countStmt = $conn->query("SELECT COUNT(*) AS total FROM partners");
-        $totalCount = $countStmt->fetch(PDO::FETCH_ASSOC)['total'];
-        $totalPages = ($limit > 0) ? ceil($totalCount / $limit) : 1;
-        
-
-        // Encode JSON safely
-        $json = json_encode(
-        [
-            "status" => "success",
-            "data" => $partners,
-            "totalPages" => $totalPages,
-            "currentPage" => $page]);
-        if ($json === false) {
-            echo json_encode(["error" => "JSON encoding error", "details" => json_last_error_msg()]);
-        } else {
-            echo $json;
-        }
-    } catch (PDOException $e) {
-        echo json_encode(["status" => "error",
-            "message" => $e->getMessage(),
-            "data" => []]);
-    }
-    exit; // Ensure no extra output
-    
-}
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'fetchFiltered') {
+    $draw = isset($_GET['draw']) ? intval($_GET['draw']) : 1;
+    $start = isset($_GET['start']) ? intval($_GET['start']) : 0;
+    $length = isset($_GET['length']) ? intval($_GET['length']) : 10;
+    $search = isset($_GET['search']['value']) ? trim($_GET['search']['value']) : '';
     $typeFilter = isset($_GET['partnership_type']) ? trim($_GET['partnership_type']) : '';
-    $limit = isset($_GET['limit']) ? max(1, (int) $_GET['limit']) : 10;
-    $page = isset($_GET['page']) ? max(1, (int) $_GET['page']) : 1;
-    $offset = ($page - 1) * $limit;
 
     $where = "WHERE 1=1";
     $params = [];
 
+    // Search filtering
+    if (!empty($search)) {
+        $where .= " AND (partner_name LIKE ? OR partner_email LIKE ? OR partner_phone LIKE ?)";
+        $searchTerm = "%$search%";
+        $params = array_merge($params, [$searchTerm, $searchTerm, $searchTerm]);
+    }
+
+    // Type filtering
     if (!empty($typeFilter)) {
         $where .= " AND partnership_type = ?";
         $params[] = $typeFilter;
     }
 
     try {
-        $totalSql = "SELECT COUNT(*) AS total FROM partners $where";
-        $totalStmt = $conn->prepare($totalSql);
-        $totalStmt->execute($params);
-        $total = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
-        $totalPages = ceil($total / $limit);
+        // Get total records (no filtering)
+        $totalStmt = $conn->query("SELECT COUNT(*) AS total FROM partners");
+        $recordsTotal = $totalStmt->fetch(PDO::FETCH_ASSOC)['total'];
 
+        // Get total filtered
+        $countSql = "SELECT COUNT(*) AS filtered FROM partners $where";
+        $countStmt = $conn->prepare($countSql);
+        $countStmt->execute($params);
+        $recordsFiltered = $countStmt->fetch(PDO::FETCH_ASSOC)['filtered'];
+
+        // Fetch filtered records
         $dataSql = "SELECT * FROM partners $where ORDER BY id DESC LIMIT ? OFFSET ?";
-        $dataStmt = $conn->prepare($dataSql);
-        $params[] = (int)$limit;
-        $params[] = (int)$offset;
+        $params[] = (int)$length;
+        $params[] = (int)$start;
 
+        $dataStmt = $conn->prepare($dataSql);
         foreach ($params as $i => $param) {
             $dataStmt->bindValue($i + 1, $param, is_int($param) ? PDO::PARAM_INT : PDO::PARAM_STR);
         }
-
         $dataStmt->execute();
-        $rows = $dataStmt->fetchAll(PDO::FETCH_ASSOC);
+        $partners = $dataStmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Add serial numbers
+        foreach ($partners as $index => &$partner) {
+            $partner['serial'] = $start + $index + 1;
+        }
 
         echo json_encode([
-            'status' => 'success',
-            'data' => $rows,
-            'totalPages' => $totalPages,
-            'currentPage' => $page,
+            "draw" => $draw,
+            "recordsTotal" => $recordsTotal,
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $partners
         ]);
     } catch (PDOException $e) {
         echo json_encode([
-            'status' => 'error',
-            'message' => $e->getMessage(),
-            'data' => [],
+            "draw" => $draw,
+            "recordsTotal" => 0,
+            "recordsFiltered" => 0,
+            "data" => [],
+            "error" => $e->getMessage()
         ]);
     }
     exit;
