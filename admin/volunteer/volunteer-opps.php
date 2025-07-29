@@ -39,7 +39,7 @@ $customs = array(
         <?php $page = 'Blog'; ?>
         <?php include $page_rel . 'admin/includes/topbar.php'; ?>
         <main>
-            <div id="alertBox" class="alert-box"></div>
+            <div id="alertBox" class="alert-box" style="z-index: 10000;"></div>
             <section class="container">
                 <div class="content-header">
                     <div>

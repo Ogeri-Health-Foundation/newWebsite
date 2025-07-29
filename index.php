@@ -152,12 +152,12 @@ $addons = array(
     <section id="hero-section">
 
         <div id="hero-words">
-            <p class="text-white"><span>-</span> Bringing Hope through Health</p>
+            <p class="text-white"><span>-</span> Preventing Disease. Promoting Awareness. Supporting Management.</p>
             <h1 class="text-white">
                 Building Healthier-Communities, <br> OneStep At A Time
             </h1>
             <p class="text-white">
-                Take Action for Better Health: Explore, Support, and Join Us in Making a Difference Today!
+                Partner With Us to Deliver Education, Early Detection, and Ongoing Support Where It’s Needed Most.
             </p>
 
             <p class="hero-button"><a id="hero-button" href="#">Get Invloved <img src="./assets/img/icon/arrow-icon.svg" /></a></p>
@@ -719,11 +719,11 @@ $addons = array(
                             $linkedin = htmlspecialchars($volunteer['linkedin']);
                             $twitter = htmlspecialchars($volunteer['twitter']);
                ?>
-                    <div class="col-md-4 mb-3" >
+                    <div class="col-md-4 mb-3 mx-auto" >
                         <div class="leader-div" data-aos="flip-left"
      data-aos-delay="200">
                             <?php
-                                $primaryPath = "volunteer_uploads/profiles/" . $profilePicture;
+                                $primaryPath = "volunteer_upload/profiles/" . $profilePicture;
                                 $fallbackPath = "admin/assets/images/volunteer-img-uploads/" . $profilePicture;
 
                                 if (file_exists($primaryPath)) {
@@ -766,7 +766,7 @@ $addons = array(
                                             }
                                     ?>
                                 </div>
-                                <a href="team-details.php?id=<?= $volunteer_id ?>" class="th-btn style3" >
+                                <a href="team-details.php?id=<?= $volunteer_id ?>" class="th-btn style3 mt-3" >
                                     View Profile
                                 </a>
                             </div>

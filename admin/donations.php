@@ -69,7 +69,7 @@ window.onload = function () {
     <?php include $page_rel . 'admin/includes/topbar.php'; ?>
 
     <main>
-      <div id="alertBox" class="alert-box"></div>
+      <div id="alertBox" class="alert-box" style="display:none; position:fixed; top:20px; right:20px; z-index:99999;"></div>
         <section
           class="container d-flex justify-content-between align-items-center"
         >
@@ -301,34 +301,40 @@ window.onload = function () {
         // Hide remove button initially
         removeButton.hide();
     });
-      $(document).ready(function () {
-    $("#donationForm").submit(function (e) {
-        e.preventDefault(); // Prevent form from reloading page
+     $("#donationForm").submit(function (e) {
+    e.preventDefault();
 
-        let formData = new FormData(this); // Collect form data, including files
+    let formData = new FormData(this);
 
-        $.ajax({
-            url: "donation-backend.php", // Single backend script
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: "json", 
-            success: function (response) {
-                showAlert(response.message, response.success ? "success" : "error");
-                    if (response.success) {
-                        setTimeout(() => location.reload(), 2000);
-                    } else {
-                    showAlert("Error: " + response.message, "error");
-                }
-            },
-            error: function (xhr, status, error) {
-              console.error("AJAX Error:", status, error);
-              showAlert("Error fetching donation details: " + error, "error");
-          }
-        });
+    $.ajax({
+        url: "donation-backend.php",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: "json",
+        success: function (response) {
+            const isSuccess = response.status === "success";
+
+            showAlert(response.message, isSuccess ? "success" : "error");
+
+            if (isSuccess) {
+                $("#donationForm")[0].reset();
+
+                setTimeout(() => {
+                    let modal = bootstrap.Modal.getInstance(document.getElementById('donationModal'));
+                    if (modal) modal.hide();
+                    location.reload();
+                }, 2000);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error, "\nResponse:", xhr.responseText);
+            showAlert("An error occurred while processing your request.", "error");
+        }
     });
-  });
+});
+
 
     // Populate form when editing
    
@@ -571,26 +577,48 @@ $(document).on("click", ".edit-btn", function () {
 
 
     // Delete Opportunity
+    $(document).ready(function () {
+    function loadDonations(page = 1) {
+        // your full loadDonations code here
+    }
+
     $(document).on('click', '.delete-btn', function () {
         let id = $(this).data('id');
         if (confirm("Are you sure?")) {
             $.ajax({
                 url: `donation-backend.php?action=delete&id=${id}`,
-                type: "GET", // Changed from DELETE to GET
-                success: function () {
-                    showAlert("Deleted");
-                    loadOpportunities();
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    console.log("Delete response:", response);
+                    if (response.status === "success") {
+                        showAlert("Deleted successfully", "success");
+                        loadDonations(); // should work now
+                    } else {
+                        showAlert("Failed to delete", "danger");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    showAlert("Server error while deleting", "danger");
+                    console.error("Delete error:", xhr.responseText);
                 }
             });
         }
     });
 
+    // call it once on page load
+    loadDonations();
+});
+
+    
+
 
 function showAlert(message, type = "success") {
     let alertBox = $("#alertBox");
     
-    // Create alert element
-    let alertDiv = $("<div>").addClass("alert").addClass(type === "success" ? "alert-success" : "alert-error");
+    let alertDiv = $("<div>").addClass("alert")
+        .addClass(type === "success" ? "alert-success" : "alert-danger"); // Use Bootstrap classes if available
+
     let closeButton = $("<span>").addClass("alert-close").html("&times;").click(function () {
         $(this).parent().fadeOut(300, function () {
             $(this).remove();
@@ -601,7 +629,6 @@ function showAlert(message, type = "success") {
     alertBox.append(alertDiv);
     alertBox.fadeIn();
 
-    // Auto-remove after 4 seconds
     setTimeout(function () {
         alertDiv.fadeOut(300, function () {
             $(this).remove();
