@@ -27,8 +27,7 @@ try {
         $updateView->bindParam(':id', $eventId);
         $updateView->execute();
 
-        $blogName = htmlspecialchars($blog['blog_title']);
-        $description = htmlspecialchars($blog['blog_description']);
+        
         $category = htmlspecialchars($blog['category']);
         $body = htmlspecialchars($blog['body']);
         $date = date("M j, Y", strtotime($blog['published_at']));
@@ -125,32 +124,34 @@ $addons = array(
     <!-- <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="./assets/css/blog.css">
     <?php
-        $imagePath = !empty($blog['image']) 
-                ? "uploads/" . htmlspecialchars($blog['image']) 
-                : "assets/img/donate/donation2-1.png";
-
+        // Blog data
+        $blogName = $blog['blog_title'] ?? '';
+        $description = $blog['blog_description'] ?? '';
+        $imageFile = $blog['image'] ?? '';
+        
+        // Base URL stuff
         $scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
         $host = $_SERVER['HTTP_HOST'];
-
+        $blogid = $_GET['id'] ?? ''; // if not already defined
+        
+        // Image path
+        $imagePath = !empty($imageFile) ? "uploads/" . $imageFile : "assets/img/donate/donation2-1.png";
+        $imageUrl = "$scheme://$host/$imagePath";
+        
+        // Page URL
         $pageUrl = "$scheme://$host/blog-details.php?id=" . urlencode($blogid);
-        $imageUrl = "$scheme://$host/" . (!empty($blog['image']) 
-            ? "uploads/" . htmlspecialchars($blog['image']) 
-            : "assets/img/donate/donation2-1.png");
-        $page_title = "Ogeri Health Foundation - " . $blogName;
-        $page_description = htmlspecialchars($description);
-
-    ?>
+        ?>
     <meta property="og:type" content="article">
-    <meta property="og:title" content="<?= $blogName ?>">
-    <meta property="og:description" content="<?= $description ?>">
-    <meta property="og:image" content="<?= $imageUrl ?>">
-    <meta property="og:url" content="<?= $pageUrl ?>">
-
+    <meta property="og:title" content="<?= htmlspecialchars($blogName, ENT_QUOTES) ?>">
+    <meta property="og:description" content="<?= htmlspecialchars($description, ENT_QUOTES) ?>">
+    <meta property="og:image" content="<?= htmlspecialchars($imageUrl, ENT_QUOTES) ?>">
+    <meta property="og:url" content="<?= htmlspecialchars($pageUrl, ENT_QUOTES) ?>">
+    
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="<?= $blogName  ?>">
-    <meta name="twitter:description" content="<?= $description ?>">
-    <meta name="twitter:image" content="<?= $imageUrl ?>">
+    <meta name="twitter:title" content="<?= htmlspecialchars($blogName, ENT_QUOTES) ?>">
+    <meta name="twitter:description" content="<?= htmlspecialchars($description, ENT_QUOTES) ?>">
+    <meta name="twitter:image" content="<?= htmlspecialchars($imageUrl, ENT_QUOTES) ?>">
     <style>
 
         .breadcumb-wrapper {
@@ -224,7 +225,8 @@ $addons = array(
                     <li><a href="index.php">Home</a></li>
                     <li>Blog Details</li>
                 </ul>
-                <h1 class="breadcumb-title mt-3"><?= $blogName ?></h1>
+                <h1 class="breadcumb-title mt-3"><?= htmlspecialchars($blogName) ?></h1>
+              
                 
             </div>
         </div>
@@ -273,9 +275,9 @@ $addons = array(
                                     <i class="fa-solid fa-calendar-days text-orange"></i>
                                     <span class="me-3"><?= $date ?></span>
                                     <i class="fa-solid fa-square-plus text-orange"></i>
-                                    <span><?= $category ?></span>
+                                    <span><?= ucwords(str_replace('_', ' ', htmlspecialchars($category))) ?></span>
                                 </div>
-                                <h5 class="card-title ohf_font mt-3"><?= $blogName ?></h5>
+                                <h5 class="card-title ohf_font mt-3"><?= htmlspecialchars($blogName) ?></h5>
                                 <div class="card-text mt-2">
                                     <?= htmlspecialchars_decode($body); ?>
                                 </div>
@@ -300,19 +302,16 @@ $addons = array(
                     </div>
                     <div class="col-12 col-md-6">
                         <?php
-                        // Build current blog URL securely
-                        $scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-                        $host = $_SERVER['HTTP_HOST'];
-                        $imageUrl = "$scheme://" . $_SERVER['HTTP_HOST'] . "/" . $imagePath;
-                        $path = "/blog-details.php?id=" . urlencode($blogid);
-                        $eventUrl = "$scheme://$host$path";
-                        $encodedEventUrl = urlencode($eventUrl);
+                            $quote = htmlspecialchars( $description);
+                            $eventUrl = $pageUrl;
+                            $encodedEventUrl = urlencode($eventUrl);
+                            $encodedQuote = urlencode($quote);
                         ?>
                         <div class="blog-tags d-flex flex-sm-row flex-column align-items-start">
                             <h4 class="me-2">Share:</h4>
                             <div class="tags d-flex">
                                 <!-- Facebook -->
-                                <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $encodedEventUrl ?>"
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $encodedEventUrl ?>&quote=<?= $encodedQuote ?>"
                                     class="tag btn btn p-0 d-flex align-items-center justify-content-center me-2 rounded-circle btn-1 btn-brands"
                                     target="_blank" rel="noopener noreferrer">
                                     <i class="fa-brands fa-facebook-f fs-6"></i>
