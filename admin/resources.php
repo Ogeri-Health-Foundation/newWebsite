@@ -2,42 +2,42 @@
 session_start();
 require '../api/Database/DatabaseConn.php';
 
- // Create an instance of DatabaseConn and establish connection
- $db = new DatabaseConn();
- $dbh = $db->connect();
+// Create an instance of DatabaseConn and establish connection
+$db = new DatabaseConn();
+$dbh = $db->connect();
 
-        $filter = $_GET['filter'] ?? 'all';
+$filter = $_GET['filter'] ?? 'all';
 
-        switch ($filter) {
-            case 'week':
-                $sql = "SELECT bp.blog_id, bp.blog_title, COUNT(bv.id) AS views 
+switch ($filter) {
+    case 'week':
+        $sql = "SELECT bp.blog_id, bp.blog_title, COUNT(bv.id) AS views 
                         FROM blog_views bv
                         JOIN blog_posts bp ON bp.blog_id = bv.blog_id
                         WHERE bv.viewed_at >= NOW() - INTERVAL 7 DAY
                         GROUP BY bp.blog_id
                         ORDER BY views DESC
                         LIMIT 5";
-                break;
+        break;
 
-            case 'month':
-                $sql = "SELECT bp.blog_id, bp.blog_title, COUNT(bv.id) AS views 
+    case 'month':
+        $sql = "SELECT bp.blog_id, bp.blog_title, COUNT(bv.id) AS views 
                         FROM blog_views bv
                         JOIN blog_posts bp ON bp.blog_id = bv.blog_id
                         WHERE bv.viewed_at >= NOW() - INTERVAL 30 DAY
                         GROUP BY bp.blog_id
                         ORDER BY views DESC
                         LIMIT 5";
-                break;
+        break;
 
-            default:
-                $sql = "SELECT blog_id, blog_title, views FROM blog_posts ORDER BY views DESC LIMIT 5";
-        }
+    default:
+        $sql = "SELECT blog_id, blog_title, views FROM blog_posts ORDER BY views DESC LIMIT 5";
+}
 
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute();
-        $topBlogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $labels = json_encode(array_column($topBlogs, 'blog_title'));
-        $values = json_encode(array_column($topBlogs, 'views'));
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+$topBlogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$labels = json_encode(array_column($topBlogs, 'blog_title'));
+$values = json_encode(array_column($topBlogs, 'views'));
 
 ?>
 
@@ -308,7 +308,7 @@ $addons = array(
         .volunteer-photo {
             display: grid;
 
-           
+
             width: 30% !important;
         }
 
@@ -317,9 +317,11 @@ $addons = array(
             border-radius: 0.5rem;
             /* border: 2px blue solid; */
         }
-.volunteer-details{
-    width: 70% !important;
-}
+
+        .volunteer-details {
+            width: 70% !important;
+        }
+
         .volunteer-info {
             display: flex;
             /* flex-direction: column; */
@@ -421,117 +423,294 @@ $addons = array(
             justify-content: flex-end;
             gap: 1rem;
         }
+
         .doctor-action-menu .action {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    transition: background 0.3s;
-}
-.doctor-action-menu .action:hover {
-    background-color: #f1f1f1;
-} 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            transition: background 0.3s;
+        }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
+        .doctor-action-menu .action:hover {
+            background-color: #f1f1f1;
+        }
 
-.modal-content {
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  width: 400px;
-  max-width: 90%;
-  position: relative;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
-}
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
 
-.close-btn {
-  position: absolute;
-  right: 15px;
-  top: 10px;
-  font-size: 24px;
-  cursor: pointer;
-}
-.custom-wide-modal {
-    width: 90% !important; /* Wider than modal-lg */
-    max-width: 1200px;      /* Optional: limit for huge screens */
-    margin: auto;
-}
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            width: 400px;
+            max-width: 90%;
+            position: relative;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+        }
 
-.custom-wide-modal .modal-content {
-    max-height: 90vh;
-    overflow-y: auto;
-    /* Optional: keep your border */
-}
+        .close-btn {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .custom-wide-modal {
+            width: 90% !important;
+            /* Wider than modal-lg */
+            max-width: 1200px;
+            /* Optional: limit for huge screens */
+            margin: auto;
+        }
+
+        .custom-wide-modal .modal-content {
+            max-height: 90vh;
+            overflow-y: auto;
+            /* Optional: keep your border */
+        }
     </style>
 </head>
 
 <body>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            fetch("../api/v1/auth.php")
+                .then(async response => {
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        if (data.message === "Unauthorized") {
+                            location.href = "../admin/login.php";
+                        }
+                        throw new Error(data.message || "Network response was not ok");
+                    }
+
+                    console.log("Auth Data:", data);
+                    return data;
+                })
+                .catch(error => {
+                    console.error("Fetch error:", error);
+                });
 
 
-  
-
-document.addEventListener("DOMContentLoaded", function () {
-
-  fetch("../api/v1/auth.php")
-  .then(async response => {
-    const data = await response.json(); 
-
-    if (!response.ok) {
-      if (data.message === "Unauthorized") {
-        location.href = "../admin/login.php";
-      }
-      throw new Error(data.message || "Network response was not ok");
-    }
-
-    console.log("Auth Data:", data);
-    return data;
-  })
-  .catch(error => {
-    console.error("Fetch error:", error);
-  });
-
-
-});
-
-      
-
+        });
     </script>
     <?php $page = 'resources'; ?>
     <?php include $page_rel . 'admin/includes/topbar.php'; ?>
     <main class="">
 
 
+        <style>
+            /* Edit Modal Styles */
+            #edit-modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+                align-items: center;
+                justify-content: center;
+                overflow-y: auto;
+                padding: 20px;
+                box-sizing: border-box;
+            }
 
-        <div class="modal" tabindex="-1" id="edit-modal">
-            <div class="justify-content-center modal-bodyy mt-5">
+            #edit-modal .modal-dialog {
+                display: flex;
+                justify-content: center;
+                max-height: 95%;
+                overflow-y: auto;
+                width: 80%;
+                max-width: 1200px;
+                margin: 0;
+            }
 
-                <div class="row justify-content-center ">
-                    <div class="col-md-8">
-                        <h2 class="mb-4 fw-bold">Edit Blog Post</h2>
+            #edit-modal .modal-content {
+                background-color: #fff;
+                width: 100%;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                position: relative;
+                max-height: 90vh;
+                overflow-y: auto;
+                padding: 0;
+            }
 
+            #edit-modal .modal-header {
+                padding: 20px 30px;
+                border-bottom: 1px solid #dee2e6;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #f8f9fa;
+                border-radius: 8px 8px 0 0;
+            }
 
+            #edit-modal .modal-title {
+                margin: 0;
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: #333;
+            }
 
+            #edit-modal .close-edit-btn {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.2s ease;
+                border-radius: 4px;
+            }
+
+            #edit-modal .close-edit-btn:hover {
+                background-color: #e9ecef;
+                transform: scale(1.1);
+            }
+
+            #edit-modal .modal-body {
+                padding: 30px;
+            }
+
+            #edit-modal .form-label {
+                font-weight: 500;
+                margin-bottom: 8px;
+                color: #333;
+            }
+
+            #edit-modal .form-control {
+                border: 1px solid #ced4da;
+                border-radius: 4px;
+                padding: 10px 12px;
+                font-size: 14px;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+
+            #edit-modal .form-control:focus {
+                border-color: #80bdff;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+
+            #edit-modal .upload-box {
+                border: 2px dashed #ccc;
+                padding: 20px;
+                cursor: pointer;
+                width: 100%;
+                height: 150px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f8f9fa;
+                border-radius: 4px;
+                transition: border-color 0.2s ease;
+            }
+
+            #edit-modal .upload-box:hover {
+                border-color: #007bff;
+            }
+
+            #edit-modal .upload-box img {
+                max-height: 100%;
+                max-width: 100%;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+
+            #edit-modal .btn {
+                padding: 10px 20px;
+                border-radius: 4px;
+                font-weight: 500;
+                text-decoration: none;
+                display: inline-block;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                border: 1px solid transparent;
+            }
+
+            #edit-modal .btn-primary {
+                background-color: #007bff;
+                border-color: #007bff;
+                color: #fff;
+            }
+
+            #edit-modal .btn-primary:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+            #edit-modal .btn-secondary {
+                background-color: #6c757d;
+                border-color: #6c757d;
+                color: #fff;
+            }
+
+            #edit-modal .btn-secondary:hover {
+                background-color: #545b62;
+                border-color: #545b62;
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                #edit-modal {
+                    padding: 10px;
+                }
+
+                #edit-modal .modal-dialog {
+                    width: 95%;
+                }
+
+                #edit-modal .modal-body {
+                    padding: 20px;
+                }
+
+                #edit-modal .modal-header {
+                    padding: 15px 20px;
+                }
+            }
+
+            /* Show modal when active */
+            #edit-modal.active {
+                display: flex !important;
+            }
+        </style>
+
+        <div class="modal" id="edit-modal">
+            <div class="modal-dialog modal-dialog-centered custom-wide-modal" style="display:flex; justify-content:center; max-height: 95%; overflow-y: scroll; width: 80%;">
+                <div class="modal-content" style='background-color: #fff; width: 100%;'>
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Blog</h5>
+                        <!-- Changed: Removed data-bs-dismiss, added unique ID -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="btn-close close-edit-btn" style="cursor: pointer;" aria-label="Close" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="13" height="13">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </div>
+                    <div class="modal-body">
                         <form method="POST" id="postForm" enctype="multipart/form-data">
 
-                            <!-- Blog Title -->
                             <div class="mb-3">
                                 <label class="form-label">Blog Title*</label>
                                 <input type="text" id="Title" class="form-control" name="Title" placeholder="Enter Blog Title" value="<?php echo isset($post) ? $post['title'] : ''; ?>" required>
                             </div>
 
-                            <!-- Cover Image -->
                             <div class="mb-3">
                                 <label class="form-label">Cover Image</label>
                                 <div class="upload-box text-center" onclick="document.getElementById('cover_image').click();">
@@ -540,25 +719,49 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </div>
                             </div>
 
-                            <!-- Blog Description -->
                             <div class="mb-3">
                                 <label class="form-label">Blog Description*</label>
                                 <input type="text" id="Description" class="form-control" name="Description" placeholder="Enter Description" value="<?php echo isset($post) ? $post['description'] : ''; ?>" required>
                             </div>
 
 
-                            <!-- Category -->
                             <div class="mb-3">
                                 <label class="form-label">Category*</label>
                                 <select class="form-select" name="Category" id="Category" required>
                                     <option value="">Choose a Category...</option>
-                                    <option value="tech" <?php echo (isset($post) && $post['category'] == 'tech') ? 'selected' : ''; ?>>Tech</option>
-                                    <option value="business" <?php echo (isset($post) && $post['category'] == 'business') ? 'selected' : ''; ?>>Business</option>
-                                    <option value="health" <?php echo (isset($post) && $post['category'] == 'health') ? 'selected' : ''; ?>>Health</option>
+                                    <option value="community_health_stories" <?php echo (isset($post) && $post['category'] == 'community_health_stories') ? 'selected' : ''; ?>>
+                                        Community Health Stories
+                                    </option>
+                                    <option value="hypertension_heart_health" <?php echo (isset($post) && $post['category'] == 'hypertension_heart_health') ? 'selected' : ''; ?>>
+                                        Hypertension & Heart Health
+                                    </option>
+                                    <option value="health_education_lifestyle" <?php echo (isset($post) && $post['category'] == 'health_education_lifestyle') ? 'selected' : ''; ?>>
+                                        Health Education & Lifestyle
+                                    </option>
+                                    <option value="digital_health_innovation" <?php echo (isset($post) && $post['category'] == 'digital_health_innovation') ? 'selected' : ''; ?>>
+                                        Digital Health & Innovation
+                                    </option>
+                                    <option value="outreach_highlights" <?php echo (isset($post) && $post['category'] == 'outreach_highlights') ? 'selected' : ''; ?>>
+                                        Outreach Highlights
+                                    </option>
+                                    <option value="research_insights" <?php echo (isset($post) && $post['category'] == 'research_insights') ? 'selected' : ''; ?>>
+                                        Research & Insights
+                                    </option>
+                                    <option value="volunteer_partner_spotlights" <?php echo (isset($post) && $post['category'] == 'volunteer_partner_spotlights') ? 'selected' : ''; ?>>
+                                        Volunteer & Partner Spotlights
+                                    </option>
+                                    <option value="events_announcements" <?php echo (isset($post) && $post['category'] == 'events_announcements') ? 'selected' : ''; ?>>
+                                        Events & Announcements
+                                    </option>
+                                    <option value="health_centre_strengthening" <?php echo (isset($post) && $post['category'] == 'health_centre_strengthening') ? 'selected' : ''; ?>>
+                                        Health Centre Strengthening
+                                    </option>
+                                    <option value="funding_support" <?php echo (isset($post) && $post['category'] == 'funding_support') ? 'selected' : ''; ?>>
+                                        Funding & Support
+                                    </option>
                                 </select>
                             </div>
 
-                            <!-- Body -->
                             <div class="mb-3">
                                 <label class="form-label">Body*</label>
                                 <textarea class="form-control text-areaa" id="Body" name="Body" row="30">
@@ -566,7 +769,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </textarea>
                             </div>
 
-                            <!-- Buttons -->
                             <div class="d-flex justify-content-between">
                                 <button type="submit" name="save_publish" class="btn btn-primary" id="Publish">Update And Publish</button>
                                 <button type="submit" name="save_draft" class="btn btn-secondary" id="Draft">Cancel</button>
@@ -574,16 +776,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>
 
-
-
-
         <!-- view details modal -->
 
-        <div class="modal" id="volunteerDetailsModal" >
+        <div class="modal" id="volunteerDetailsModal">
             <div class="modal-dialog modal-dialog-centered custom-wide-modal" style="display:flex; justify-content:center; max-height: 95%; overflow-y: scroll; width: 80%;">
                 <div class="modal-content" style='background-color: #fff; width: 100%;'>
                     <div class="modal-header">
@@ -653,7 +853,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <h2>Hi Admin</h2>
                 <p class="greeting-text">Good afternoon</p>
             </div>
-            <a href="add-blog.php" class="create-blog">
+            <a href="add-blog.php" class="create-blog text-decoration-none">
                 <span>Add Blog</span>
                 <img
                     src="./assets/images/resources/icons/Vector.png"
@@ -662,20 +862,20 @@ document.addEventListener("DOMContentLoaded", function () {
         </section>
 
         <script>
-            const greetingEl = document.querySelector('.greeting-text');
+            // const greetingEl = document.querySelector('.greeting-text');
 
-            const hour = new Date().getHours();
-            let greeting = '';
+            // const hour = new Date().getHours();
+            // let greeting = '';
 
-            if (hour >= 5 && hour < 12) {
-                greeting = 'Good morning';
-            } else if (hour >= 12 && hour < 17) {
-                greeting = 'Good afternoon';
-            } else {
-                greeting = 'Good evening';
-            }
+            // if (hour >= 5 && hour < 12) {
+            //     greeting = 'Good morning';
+            // } else if (hour >= 12 && hour < 17) {
+            //     greeting = 'Good afternoon';
+            // } else {
+            //     greeting = 'Good evening';
+            // }
 
-            greetingEl.textContent = greeting;
+            // greetingEl.textContent = greeting;
         </script>
 
         <section class="blog-engagement container">
@@ -697,37 +897,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             width="25px" />
                     </div>
                 </div>
-                <!-- <div class="drafts">
-                    <div class="blog-stats">
-                        <p>Blog Post</p>
-                        <p id="blog-total2">0</p>
-                        <small>
-                            <span class="change-amt">+0% </span>since last month
-                        </small>
-                        </div>
-                    <div class="person-icon">
-                        <img
-                            src="./assets/images/resources/icons/Icon-person.png"
-                            alt="person icon"
-                            class="person-ic-2"
-                            height="20px"
-                            width="16px"
-                        />
-                    </div>
-                </div> -->
             </div>
             <div class="graph-container">
-                <!-- blog engagement-title and graph filter goes here -->
-                <!-- <div class="blog-engagement-header">
-                <h2>Blog Engagement</h2>
-                <button class="filter-btn">
-                Filter
-                <img
-                    src="./assets/images/resources/icons/filter-icon.png"
-                    alt="filter-icon"
-                />
-                </button>
-            </div> -->
                 <div class="bp-graph" style="height: 100%; width: 90%">
                     <canvas id="bp-graph" style="height: 100%; width: 100%"></canvas>
                 </div>
@@ -747,12 +918,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
-                    <?php foreach ($topBlogs as $blog): ?>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <?= htmlspecialchars($blog['blog_title']) ?>
-                        <span class="badge bg-primary rounded-pill"><?= $blog['views'] ?></span>
-                        </li>
-                    <?php endforeach; ?>
+                        <?php foreach ($topBlogs as $blog): ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <?= htmlspecialchars($blog['blog_title']) ?>
+                                <span class="badge bg-primary rounded-pill"><?= $blog['views'] ?></span>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -767,7 +938,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <section class="blog-section filled-blog-table container">
             <div class="blog-section-header">
                 <h2 class="title-text">Recent Blogs</h2>
-                <a href="blogs.php" class="view-all">View All</a>
+                <a href="blogs.php" class="view-all text-muted">View All</a>
             </div>
             <div class="table-container">
                 <table class="volunteers-table">
@@ -802,8 +973,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <span class="close-btn" id="closeDoctorModal">&times;</span>
                 <h2>Doctor Details</h2>
                 <div id="doctorDetailsBody">
-                <!-- Content will be injected here -->
-                <p>Loading...</p>
+                    <!-- Content will be injected here -->
+                    <p>Loading...</p>
                 </div>
             </div>
         </div>
@@ -818,15 +989,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     <h2>Health workers</h2>
                     <p class="greeting-text">Details and availability</p>
                 </div>
-                <a href="add-members.php" class="create-blog">
+                <a href="add-members.php" class="create-blog text-decoration-none">
                     Add New
                     <img
                         src="./assets/images/resources/icons/Vector.png"
                         alt="downward-arrow" />
                 </a>
             </section>
-
-
 
 
 
@@ -867,23 +1036,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <div class="blog-section-header">
                 <h2 class="title-text">Recent Health workers</h2>
-                <a href="blogs.php" class="view-all">View All</a>
+                <a href="blogs.php" class="view-all text-muted">View All</a>
             </div>
 
-
-
-
-
-
-
-
-
-
-
-
             <div style="position: relative;">
-
-
                 <table class="filled-doctors-table">
                     <thead>
                         <tr>
@@ -908,36 +1064,56 @@ document.addEventListener("DOMContentLoaded", function () {
                     <p>No Health workers yet</p>
                 </div>
 
-
-                <!-- <div class="modal-box-blog2">
-                    <div class="action">
-                        <img src="./assets/images/resources/icons/Icon (3).png" width="19" height="14px" />
-                        <span>View details</span>
-                    </div>
-
-                    <div class="action">
-                        <img src="./assets/images/resources/icons/trash-can-10417.png" width="16px" height="18px" />
-                        <span>Delete</span>
-                    </div>
-
-                </div> -->
-
             </div>
         </section>
-
-
-
-
         <!-- doctors and nurses section filled table -->
+        <style>
+            .no-blogs {
+                text-align: center;
+                font-weight: bold;
+                font-size: 18px;
+                margin-top: 20px;
+                display: none;
+            }
+        </style>
     </main>
     <?php include $page_rel . 'admin/includes/sidebar.php'; ?>
     <script src="./assets/js/resources.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
+
+
+
+
+
+    <!-- After the HTML content, before closing </body> tag -->
+
+    <!-- Main Scripts -->
+    <script src="./assets/js/resources.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Utility Functions -->
     <script>
-        function hideBadToast() {
-            const BadToast = document.getElementById('bad-toast');
-            BadToast.classList.remove('show');
+        // Toast message functions
+        function showToast(message) {
+            const toast = document.getElementById('toast-success');
+            const toastMessage = document.getElementById('toast-message');
+            if (toast && toastMessage) {
+                toast.classList.add('show');
+                toastMessage.textContent = message;
+                setTimeout(() => toast.classList.remove('show'), 5000);
+            }
+        }
+
+        function showBadToast(message) {
+            const badToast = document.getElementById('bad-toast');
+            const badToastMessage = document.getElementById('bad-toast-message');
+            if (badToast && badToastMessage) {
+                badToast.classList.add('show');
+                badToastMessage.textContent = message;
+                setTimeout(() => badToast.classList.remove('show'), 5000);
+            }
         }
 
         function hideToast() {
@@ -945,81 +1121,43 @@ document.addEventListener("DOMContentLoaded", function () {
             Toast.classList.remove('show');
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            fetchAvailableDoctors();
-            // fetchAvailableNurses();
-            fetchTotalHealthWorkers(); // This is All health workers function
-
-            // setInterval(() => {
-            //     fetchAvailableDoctors();
-            //     // // fetchAvailableNurses();
-            //     fetchTotalHealthWorkers();      // This is All health workers function
-            // }, 5000);
-        });
-
-        function fetchAvailableDoctors() {
-            fetch("../api/v1/available_doctors.php")
-                .then(response => response.json())
-                .then(data => {
-                    document.querySelector(".doctor-count").textContent = data.doctor_count + data.nurse_count + data.physiologists_count || 0;
-                    console.log(data.count);
-                    // document.querySelector(".blog-post .change-amt").textContent = `+${data.percentage_change || 0}% since last month`;
-                })
-                .catch(error => console.error("Error fetching doctors:", error));
+        function hideBadToast() {
+            const BadToast = document.getElementById('bad-toast');
+            BadToast.classList.remove('show');
         }
 
-        // function fetchAvailableNurses() {
-        //     fetch("https://ogerihealth.org/api/v1/available_nurses.php")
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             document.querySelector(".nurse-count").textContent = data.count || 0;
-        //             // document.querySelector(".drafts:nth-of-type(1) .change-amt").textContent = `+${data.percentage_change || 0}% since last month`;
-        //         })
-        //         .catch(error => console.error("Error fetching nurses:", error));
-        // }
-
-        function fetchTotalHealthWorkers() {
-            fetch("../api/v1/total_physicians.php")
-                .then(response => response.json())
-                .then(data => {
-                    document.querySelector(".physiologist-count").textContent = data.doctor_count + data.nurse_count + data.physiologists_count || 0;
-                    // document.querySelector(".drafts:nth-of-type(2) .change-amt").textContent = `+${data.percentage_change || 0}% since last month`;
-                })
-                .catch(error => console.error("Error fetching physicians:", error));
+        // Date formatting
+        function formatDate(dateString) {
+            if (!dateString || dateString === "0000-00-00 00:00:00") return "N/A";
+            const date = new Date(dateString);
+            return date.toLocaleDateString("en-GB");
         }
 
+        // Greeting based on time of day
+        function setGreeting() {
+            const greetingEl = document.querySelector('.greeting-text');
+            const hour = new Date().getHours();
+            let greeting = '';
 
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                document.getElementById('preview').src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-
-        document.addEventListener("DOMContentLoaded", function() {
-            fetchBlogs();
-            getBlogTotal()
-        });
-
-
-        async function getBlogTotal() {
-            try {
-                const response = await fetch("../api/v1/blog_total.php");
-                const data = await response.json();
-
-                let DisplayNum = document.getElementById("blog-total");
-                let DisplayNum2 = document.getElementById("blog-total2");
-                DisplayNum.textContent = data.total
-                DisplayNum2.textContent = data.total
-            } catch (error) {
-                console.error("Error fetching data:", error);
+            if (hour >= 5 && hour < 12) {
+                greeting = 'Good morning';
+            } else if (hour >= 12 && hour < 17) {
+                greeting = 'Good afternoon';
+            } else {
+                greeting = 'Good evening';
             }
+
+            greetingEl.textContent = greeting;
         }
+    </script>
 
-        const modalBox = document.querySelector(".modal-box-blog");
+    <!-- Blog Related Functions -->
+    <script>
+        // Global variables
+        let currentBlogId = null;
+        let isEditModalOpen = false;
 
+        // Main blog fetching function
         function fetchBlogs() {
             fetch("../api/v1/blogs_route.php")
                 .then(response => response.json())
@@ -1045,45 +1183,63 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     blogs.forEach(blog => {
                         const row = document.createElement("tr");
-
                         row.innerHTML = `
-                <td>${sn++}</td>
-                    <td class="blog-title">${blog.blog_title}</td>
-                    <td>${blog.category}</td>
-                    <td>${formatDate(blog.created_at)}</td>
-                    <td>${formatDate(blog.published_at)}</td>
-                    <td><span class="${blog.status.toLowerCase()}">${blog.status}</span></td>
-                    <td>
-                        <img src="./assets/images/resources/img/Icon.png" data-id="${blog.blog_id}" alt="More actions" class="dot-btn"/>
-                        <div class="modal-box-blog">
-                            <div class="action">
-                                <i class="fas fa-eye"></i>
-                                <span>View details</span>
+                        <td>${sn++}</td>
+                        <td class="blog-title">${blog.blog_title}</td>
+                        <td>${blog.category.replace(/_/g, ' ')}</td>
+                        <td>${formatDate(blog.created_at)}</td>
+                        <td>${formatDate(blog.published_at)}</td>
+                        <td><span class="${blog.status.toLowerCase()}">${blog.status}</span></td>
+                        <td>
+                            <img src="./assets/images/resources/img/Icon.png" data-id="${blog.blog_id}" alt="More actions" class="dot-btn"/>
+                            <div class="modal-box-blog">
+                                <div class="action">
+                                    <i class="fas fa-eye"></i>
+                                    <span>View details</span>
+                                </div>
+                                <div class="action">
+                                    <i class="fas fa-edit"></i>
+                                    <span>Edit Blog</span>
+                                </div>
+                                <div class="action">
+                                    <i class="fas fa-save"></i>
+                                    <span>Save Draft</span>
+                                </div>
+                                <div class="action">
+                                    <i class="fas fa-upload"></i>
+                                    <span>Publish Blog</span>
+                                </div>
                             </div>
-                            <div class="action">
-                                <i class="fas fa-edit"></i>
-                                <span>Edit Blog</span>
-                            </div>
-                            <div class="action">
-                                <i class="fas fa-save"></i>
-                                <span>Save Draft</span>
-                            </div>
-                            <div class="action">
-                                <i class="fas fa-upload"></i>
-                                <span>Publish Blog</span>
-                            </div>
-                        </div>
-                    </td>
-                `;
-
+                        </td>
+                    `;
                         tbody.appendChild(row);
                     });
 
                     addDotBtnListeners();
                 })
-                .catch(error => console.error("Error fetching blogs:", error));
+                .catch(error => {
+                    console.error("Error fetching blogs:", error);
+                    showBadToast("Error loading blogs");
+                });
         }
 
+        // Blog statistics
+        async function getBlogTotal() {
+            try {
+                const response = await fetch("../api/v1/blog_total.php");
+                const data = await response.json();
+
+                let DisplayNum = document.getElementById("blog-total");
+                let DisplayNum2 = document.getElementById("blog-total2");
+                DisplayNum.textContent = data.total;
+                DisplayNum2.textContent = data.total;
+            } catch (error) {
+                console.error("Error fetching blog total:", error);
+                showBadToast("Error loading blog statistics");
+            }
+        }
+
+        // Blog action dropdown handlers
         function addDotBtnListeners() {
             document.querySelectorAll(".dot-btn").forEach((btn) => {
                 btn.addEventListener("click", function(event) {
@@ -1095,24 +1251,19 @@ document.addEventListener("DOMContentLoaded", function () {
                         menu.style.display = "none";
                     });
 
-                    // Get the position of the button
+                    // Position the modal
                     const rect = btn.getBoundingClientRect();
                     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
                     const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
 
-                    // Position the modal just BELOW the button
                     let x = rect.left + scrollLeft;
-                    let y = rect.bottom + scrollTop + 5; // below the button
+                    let y = rect.bottom + scrollTop + 5;
 
                     const modalWidth = actionMenu.offsetWidth;
-
-                    // If modal would go off-screen to the right
                     if (x + modalWidth > window.innerWidth - 10) {
-                        // Show to the LEFT of the button instead
                         x = rect.right + scrollLeft - modalWidth;
                     }
 
-                    // Apply styles
                     actionMenu.style.position = "absolute";
                     actionMenu.style.right = "70px";
                     actionMenu.style.top = `${y}px`;
@@ -1121,7 +1272,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
 
-            // Hide the menu when clicking outside
+            // Hide menu when clicking outside
             document.addEventListener("click", function(e) {
                 if (!e.target.closest(".dot-btn") && !e.target.closest(".modal-box-blog")) {
                     document.querySelectorAll(".modal-box-blog").forEach(menu => {
@@ -1131,422 +1282,205 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
+        // Blog detail view
+        async function fetchBlogDetails(blogId) {
+            try {
+                const response = await fetch(`../api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
+                const data = await response.json();
 
-        function addDotDoctorBtnListeners() {
-                document.querySelectorAll(".dot-doc-btn").forEach((btn) => {
-                    btn.addEventListener("click", function (event) {
-                        // Remove existing menu if any
-                        const existingMenu = document.querySelector(".doctor-action-menu");
-                        if (existingMenu) existingMenu.remove();
+                document.getElementById("detailsTitle").textContent = data.blog_title;
+                document.getElementById("detailsStatusBlog").textContent = data.status;
+                document.getElementById("detailsDate").textContent = data.created_at;
+                document.getElementById("detailsCategory").textContent = data.category;
+                document.getElementById("detailsDescription").textContent = data.blog_description;
+                document.getElementById("detailsBody").innerHTML = data.body;
+                document.getElementById("detailsImage").src = `../uploads/${data.image}`;
 
-                        const doctorId = btn.getAttribute("data-id");
-
-                        // Create the action menu
-                        const actionMenu = document.createElement("div");
-                        actionMenu.className = "doctor-action-menu";
-                        actionMenu.innerHTML = `
-                            <div class="action" data-action="view" data-id="${doctorId}">
-                                <img src="./assets/images/resources/icons/Icon (3).png" width="19" height="14px" />
-                                <span>View details</span>
-                            </div>
-                            <div class="action" data-action="delete" data-id="${doctorId}">
-                                <img src="./assets/images/resources/icons/trash-can-10417.png" width="16px" height="18px" />
-                                <span>Delete</span>
-                            </div>
-                        `;
-
-                        // Position the menu
-                        const rect = btn.getBoundingClientRect();
-                        actionMenu.style.position = "absolute";
-                        actionMenu.style.top = `${window.scrollY + rect.bottom + 5}px`;
-                        actionMenu.style.left = `${window.scrollX + rect.left}px`;
-                        actionMenu.style.zIndex = 1000;
-                        actionMenu.style.background = "#fff";
-                        actionMenu.style.border = "1px solid #ccc";
-                        actionMenu.style.boxShadow = "0px 2px 6px rgba(0,0,0,0.2)";
-                        actionMenu.style.borderRadius = "8px";
-                        actionMenu.style.padding = "10px";
-                        actionMenu.style.cursor = "pointer";
-
-                        document.body.appendChild(actionMenu);
-
-                        // Close on outside click
-                        const closeOnClickOutside = function (e) {
-                            if (!actionMenu.contains(e.target) && e.target !== btn) {
-                                actionMenu.remove();
-                                document.removeEventListener("click", closeOnClickOutside);
-                            }
-                        };
-                        setTimeout(() => document.addEventListener("click", closeOnClickOutside), 10);
-
-                        // Handle action clicks
-                        actionMenu.querySelectorAll(".action").forEach((actionItem) => {
-                            actionItem.addEventListener("click", function () {
-                                const action = this.getAttribute("data-action");
-                                const id = this.getAttribute("data-id");
-
-                                if (action === "view") {
-                                    viewDoctorDetails(id);
-                                } else if (action === "delete") {
-                                    deleteDoctor(id);
-                                }
-
-                                actionMenu.remove(); // Close the menu after action
-                            });
-                        });
-                    });
-                });
+                const ViewModal = document.getElementById("volunteerDetailsModal");
+                ViewModal.classList.add('active');
+            } catch (error) {
+                console.error("Error fetching blog details:", error);
+                showBadToast("Error loading blog details");
             }
-            
+        }
 
-            function deleteDoctor(id) {
-                if (confirm("Are you sure you want to delete this doctor?")) {
-                    // Call your API here to delete
-                    console.log("Deleting doctor with ID:", id);
-                    // Example: fetch(`/api/delete-doctor.php?id=${id}`, { method: "DELETE" }) ...
+        // Blog edit functionality
+        function openEditModal(blogId) {
+            currentBlogId = blogId;
+            const editModal = document.getElementById("edit-modal");
+            editModal.style.display = "flex";
+            isEditModalOpen = true;
+            fetchDataValue(blogId);
+        }
+
+        function closeEditModal() {
+            const editModal = document.getElementById("edit-modal");
+            editModal.style.display = "none";
+            isEditModalOpen = false;
+            currentBlogId = null;
+
+            const form = document.getElementById("postForm");
+            if (form) {
+                form.reset();
+                document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
+            }
+        }
+
+        async function fetchDataValue(blogId) {
+            try {
+                const response = await fetch(`../api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
+                const data = await response.json();
+
+                document.getElementById("Title").value = data.blog_title || '';
+                document.getElementById("Description").value = data.blog_description || '';
+                document.getElementById("Category").value = data.category || '';
+                document.getElementById("Body").value = data.body || '';
+                document.getElementById("preview").src = data.image ? `../uploads/${data.image}` : "assets/images/upload-placeholder.svg";
+
+                if (window.BodyEditor) {
+                    window.BodyEditor.setData(data.body || '');
                 }
+            } catch (error) {
+                console.error("Error fetching blog data:", error);
+                showBadToast("Error loading blog data");
             }
+        }
 
+        function initializePublishHandler() {
+            const publishBtn = document.getElementById("Publish");
+            if (publishBtn) {
+                publishBtn.addEventListener("click", handlePublishClick);
+            }
+        }
 
-        // document.addEventListener("click", function (event) {
-        //     if (!event.target.closest(".dot-btn") && !event.target.closest(".modal-box-blog")) {
-        //         modalBox.style.display = "none";
+        // function handlePublishClick(e) {
+        //     e.preventDefault();
+
+        //     if (!currentBlogId) {
+        //         showBadToast("No blog selected for editing");
+        //         return;
         //     }
-        // });
-        document.addEventListener("DOMContentLoaded", function() {
-            document.addEventListener("click", function(e) {
-                const action = e.target.closest(".modal-box-blog .action");
 
-                if (!action) return; // Clicked something else
+        //     const form = document.getElementById("postForm");
+        //     let formData = new FormData(form);
+        //     let isValid = true;
 
-                console.log("Action clicked:", action.textContent.trim());
+        //     // Validate form
+        //     for (let [key, value] of formData.entries()) {
+        //         if (typeof value === "string") {
+        //             let trimmedValue = value.trim();
+        //             formData.set(key, trimmedValue);
 
-                const modalBox2 = action.closest(".modal-box-blog");
-                const td = modalBox2.closest("td");
-                const dotBtn = td.querySelector(".dot-btn");
+        //             if (trimmedValue === "" && key !== "cover_image") {
+        //                 isValid = false;
+        //                 showBadToast(`${key} cannot be empty`);
+        //                 return;
+        //             }
+        //         }
+        //     }
 
-                if (!dotBtn) {
-                    console.error("No dot button found.");
-                    return;
-                }
+        //     formData.append("blogId", currentBlogId);
 
-                const blogId = dotBtn.getAttribute("data-id");
+        //     const fileInput = document.getElementById("cover_image");
+        //     if (fileInput.files.length > 0) {
+        //         formData.append("cover_image", fileInput.files[0]);
+        //     }
 
-                if (!blogId) {
-                    console.error("No blog ID found for this action.");
-                    return;
-                }
+        //     // Submit form
+        //     fetch("../api/v1/update_post_blog.php", {
+        //             method: "POST",
+        //             body: formData
+        //         })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             if (data.success) {
+        //                 showToast(data.message);
+        //                 setTimeout(() => {
+        //                     closeEditModal();
+        //                     fetchBlogs();
+        //                 }, 1500);
+        //             } else {
+        //                 showBadToast(data.message || "Update failed");
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("Error:", error);
+        //             showBadToast("Network error occurred");
+        //         });
+        // }
+        function handlePublishClick(e) {
+            e.preventDefault();
 
-                const text = action.textContent.trim();
+            if (!currentBlogId) {
+                showBadToast("No blog selected for editing");
+                return;
+            }
 
-                if (text.includes("View details")) {
-                    const ViewModal = document.getElementById("volunteerDetailsModal");
-                    ViewModal.classList.add('active');
-                    fetchBlogDetails(blogId);
+            // Sync CKEditor content with textarea before creating FormData
+            if (window.BodyEditor) {
+                document.getElementById("Body").value = window.BodyEditor.getData();
+            }
 
-                    async function fetchBlogDetails(blogId) {
-                        try {
-                            const response = await fetch(`../api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
-                            const data = await response.json();
-                            console.log("Fetched Data:", data);
+            const form = document.getElementById("postForm");
+            let formData = new FormData(form);
+            let isValid = true;
 
-                            document.getElementById("detailsTitle").textContent = data.blog_title;
-                            document.getElementById("detailsStatusBlog").textContent = data.status;
-                            document.getElementById("detailsDate").textContent = data.created_at;
-                            document.getElementById("detailsCategory").textContent = data.category;
-                            document.getElementById("detailsDescription").textContent = data.blog_description;
-                            document.getElementById("detailsBody").textContent = data.body;
-                            document.getElementById("detailsImage").src = `../uploads/${data.image}`;
-                        } catch (error) {
-                            console.error("Error fetching blog details:", error);
-                        }
+            // Validate form
+            for (let [key, value] of formData.entries()) {
+                if (typeof value === "string") {
+                    let trimmedValue = value.trim();
+                    formData.set(key, trimmedValue);
+
+                    if (trimmedValue === "" && key !== "cover_image") {
+                        isValid = false;
+                        showBadToast(`${key} cannot be empty`);
+                        return;
                     }
-
-                    document.getElementById("close-modal").addEventListener("click", function() {
-                        ViewModal.classList.remove("active");
-                    });
-
-                } else if (text.includes("Edit Blog")) {
-                    // Continue with your edit logic...
-                    const EditModal = document.getElementById("edit-modal");
-                    EditModal.classList.add('active');
-                    fetchDataValue(blogId);
-
-                    // this is to fetch the data dynamically and insert it in each fields value
-
-
-                    async function fetchDataValue(blogId) {
-                        try {
-                            const response = await fetch(`../api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
-                            const data = await response.json();
-
-                            console.log("Fetched Data:", data);
-
-                            let Title = document.getElementById("Title");
-                            let Description = document.getElementById("Description");
-                            let Category = document.getElementById("Category");
-                            let BodyEditor = window.BodyEditor; // Refe
-                            let Body = document.getElementById("Body");
-                            let Image = document.getElementById("preview");
-
-                            Title.value = data.blog_title;
-                            Description.value = data.blog_description;
-                            Category.value = data.category;
-                            Body.value = data.body;
-                            Image.src = `../uploads/${data.image}`;
-
-                            // Set CKEditor content
-                            if (BodyEditor) {
-                                BodyEditor.setData(data.body);
-                            }
-
-                        } catch (error) {
-                            console.error("Error fetching data:", error);
-                        }
-                    }
-
-                    document.getElementById("Publish").addEventListener("click", function() {
-                        const form = document.getElementById("postForm");
-
-                        form.onsubmit = (e) => {
-                            e.preventDefault();
-                        };
-
-                        let formData = new FormData(form);
-                        let isValid = true;
-
-                        // Validate form inputs
-                        for (let [key, value] of formData.entries()) {
-                            if (typeof value === "string") {
-                                let trimmedValue = value.trim();
-                                formData.set(key, trimmedValue); // Set trimmed value
-
-                                if (trimmedValue === "") {
-                                    isValid = false;
-
-                                    const BadToast = document.getElementById('bad-toast');
-                                    const BadToastMesaage = document.getElementById('bad-toast-message');
-                                    BadToast.classList.add('show');
-                                    BadToastMesaage.textContent = `${key} cannot be empty or only spaces.`;
-                                    setTimeout(hideBadToast, 5000);
-
-
-
-                                    return;
-                                }
-                            }
-                        }
-
-                        formData.append("blogId", blogId);
-
-                        if (!isValid) return;
-
-                        // Check if an image is uploaded
-                        const fileInput = document.getElementById("cover_image");
-                        if (fileInput.files.length > 0) {
-                            formData.append("cover_image", fileInput.files[0]); // Append new image
-                        }
-
-                        // Send form data to server
-                        fetch("../api/v1/update_post_blog.php", {
-                                method: "POST",
-                                body: formData
-                            })
-                            .then(response => response.json()) // Fixed incorrect `.json()` call
-                            .then(data => {
-                                if (data.success === true) {
-                                    const toast = document.getElementById('toast-success');
-                                    const toastMesaage = document.getElementById('toast-message');
-                                    toast.classList.add('show');
-                                    toastMesaage.textContent = data.message;
-                                    setTimeout(hideToast, 5000);
-
-                                    // Update preview image dynamically
-                                    let imageUrl;
-                                    if (fileInput.files.length > 0) {
-                                        imageUrl = URL.createObjectURL(fileInput.files[0]); // Use newly uploaded image
-                                    } else if (data.image) {
-                                        imageUrl = `../uploads/${data.image}`; // Use existing image
-                                    }
-
-                                    if (imageUrl) {
-                                        document.getElementById("preview").src = imageUrl;
-                                    }
-
-                                    // Reset form (except image preview)
-                                    form.reset();
-                                    document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
-
-                                } else {
-                                    const BadToast = document.getElementById('bad-toast');
-                                    const BadToastMesaage = document.getElementById('bad-toast-message');
-                                    BadToast.classList.add('show');
-                                    BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;
-                                    setTimeout(hideBadToast, 5000);
-
-
-                                }
-                            })
-                            .catch(error => {
-                                console.error("Error:", error);
-                                const BadToast = document.getElementById('bad-toast');
-                                const BadToastMesaage = document.getElementById('bad-toast-message');
-                                BadToast.classList.add('show');
-                                BadToastMesaage.textContent = "Something went wrong.";
-                                setTimeout(hideBadToast, 5000);
-
-
-                            });
-                    });
-
-
-                    function hideBadToast() {
-                        const BadToast = document.getElementById('bad-toast');
-                        BadToast.classList.remove('show');
-                    }
-
-
-                } else if (text.includes("Save Draft")) {
-                    // Paste your Save Draft logic here
-                    console.log(`Saving draft for blog ID: ${blogId}`);
-                    const type = "draft";
-                    fetch("../api/v1/update_blog.php", {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                blogId,
-                                type
-                            }),
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success === true) {
-                                const toast = document.getElementById('toast-success');
-                                const toastMesaage = document.getElementById('toast-message');
-                                toast.classList.add('show');
-                                toastMesaage.textContent = data.message;
-                                setTimeout(hideToast, 5000);
-                                form.reset();
-                                document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
-
-                                function hideToast() {
-                                    const toast = document.getElementById('toast-success');
-                                    toast.classList.remove('show');
-                                }
-
-
-                            } else {
-                                const BadToast = document.getElementById('bad-toast');
-                                const BadToastMesaage = document.getElementById('bad-toast-message');
-                                BadToast.classList.add('show');
-                                BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;;
-                                setTimeout(hideBadToast, 5000);
-
-                                function hideBadToast() {
-                                    const BadToast = document.getElementById('bad-toast');
-                                    BadToast.classList.remove('show');
-                                }
-                            }
-
-                        })
-                        .catch(error => {
-                            console.error("Error:", error);
-                            // alert("An error occurred.");
-                        });
-
-                } else if (text.includes("Publish Blog")) {
-                    // Paste your Publish logic here
-                    console.log(`Publishing blog ID: ${blogId}`);
-                    const type = "publish";
-                    fetch("../api/v1/update_blog.php", {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                blogId,
-                                type
-                            }),
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success === true) {
-                                const toast = document.getElementById('toast-success');
-                                const toastMesaage = document.getElementById('toast-message');
-                                toast.classList.add('show');
-                                toastMesaage.textContent = data.message;
-                                setTimeout(hideToast, 5000);
-                                form.reset();
-                                document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
-
-                                function hideToast() {
-                                    const toast = document.getElementById('toast-success');
-                                    toast.classList.remove('show');
-                                }
-
-                            } else {
-                                const BadToast = document.getElementById('bad-toast');
-                                const BadToastMesaage = document.getElementById('bad-toast-message');
-                                BadToast.classList.add('show');
-                                BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;;
-                                setTimeout(hideBadToast, 5000);
-
-                                function hideBadToast() {
-                                    const BadToast = document.getElementById('bad-toast');
-                                    BadToast.classList.remove('show');
-                                }
-                            }
-
-                        })
-                        .catch(error => {
-                            console.error("Error:", error);
-                            // alert("An error occurred.");
-                        });
                 }
+            }
 
-                // Optional: hide the modal dropdown after action
-                modalBox2.style.display = "none";
-            });
-        });
+            formData.append("blogId", currentBlogId);
+
+            const fileInput = document.getElementById("cover_image");
+            if (fileInput.files.length > 0) {
+                formData.append("cover_image", fileInput.files[0]);
+            }
+
+            fetch("../api/v1/update_post_blog.php", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast(data.message);
+                        setTimeout(() => {
+                            closeEditModal();
+                            fetchBlogs();
+                        }, 1500);
+                    } else {
+                        showBadToast(data.message || "Update failed");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    showBadToast("Network error occurred");
+                });
+        }
 
 
-
-        function formatDate(dateString) {
-            if (!dateString || dateString === "0000-00-00 00:00:00") return "N/A";
-            const date = new Date(dateString);
-            return date.toLocaleDateString("en-GB");
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                document.getElementById('preview').src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
         }
     </script>
 
-    <style>
-        .no-blogs {
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-            margin-top: 20px;
-            display: none;
-        }
-    </style>
-
-
-
-
-
-
-
+    <!-- Health Workers Functions -->
     <script>
-        // setInterval(() => {
-        //     fetchBlogs(); 
-        //     fetchDoctors();
-        // }, 50000); 
-
-
-        document.addEventListener("DOMContentLoaded", function() {
-            fetchDoctors();
-        });
-
+        // Doctor/nurse related functions
         function fetchDoctors() {
             fetch("../api/v1/doctor_route.php")
                 .then(response => response.json())
@@ -1556,23 +1490,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     const tbody = table ? table.querySelector("tbody") : null;
                     let emptyMessage = document.querySelector(".empty-doctors-table");
 
-                    if (!tableContainer || !table || !tbody) {
-                        console.error("Table or table container not found!");
-                        return;
-                    }
+                    if (!tableContainer || !table || !tbody) return;
 
                     tbody.innerHTML = "";
 
                     if (doctors.length === 0) {
                         table.style.display = "none";
-
                         if (!emptyMessage) {
                             emptyMessage = document.createElement("div");
                             emptyMessage.classList.add("computer-img-box", "empty-doctors-table");
                             emptyMessage.innerHTML = `
-                        <img src="./assets/images/resources/img/doctor-image.png" alt="computer-image" class="computer-img" />
-                        <p>No Health workers Yet</p>
-                    `;
+                            <img src="./assets/images/resources/img/doctor-image.png" alt="computer-image" class="computer-img" />
+                            <p>No Health workers Yet</p>
+                        `;
                             tableContainer.appendChild(emptyMessage);
                         } else {
                             emptyMessage.style.display = "block";
@@ -1580,38 +1510,29 @@ document.addEventListener("DOMContentLoaded", function () {
                         return;
                     }
 
-                    if (emptyMessage) {
-                        emptyMessage.style.display = "none";
-                    }
+                    if (emptyMessage) emptyMessage.style.display = "none";
                     table.style.display = "table";
 
-                   doctors.forEach((doctor, index) => {
-                            let prefix = "#Dr-";
-                            if (doctor.status === "nurse") {
-                                prefix = "#Nr-";
-                            } else if (doctor.status === "physiologist") {
-                                prefix = "#Phy-";
-                            }
+                    doctors.forEach((doctor, index) => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${doctor.name}</td>
+                        <td>${doctor.role}</td>
+                        <td>
+                            <label class="toggle-switch">
+                                <input type="checkbox" data-id="${doctor.id}" name="${doctor.role}" ${doctor.is_available ? "checked" : ""} />
+                                <span class="slider"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <img src="./assets/images/resources/img/Icon.png" data-id="${doctor.id}" alt="More actions" class="dot-doc-btn" />
+                        </td>
+                    `;
+                        tbody.appendChild(row);
+                    });
 
-                            const row = document.createElement("tr");
-                            row.innerHTML = `
-                                <td>${index + 1}</td> <!-- This is the Serial Number -->
-                                <td>${doctor.name}</td>
-                                <td>${doctor.role}</td>
-                                <td>
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" data-id="${doctor.id}" name="${doctor.role}" ${doctor.is_available ? "checked" : ""} />
-                                        <span class="slider"></span>
-                                    </label>
-                                </td>
-                                <td>
-                                    <img src="./assets/images/resources/img/Icon.png" data-id="${doctor.id}" alt="More actions" class="dot-doc-btn" />
-                                </td>
-                            `;
-                            tbody.appendChild(row);
-
-                            addDotDoctorBtnListeners();
-                        });
+                    addDotDoctorBtnListeners();
 
                     document.querySelectorAll(".toggle-switch input").forEach(input => {
                         input.addEventListener("change", function() {
@@ -1624,108 +1545,68 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .catch(error => console.error("Error fetching doctors:", error));
         }
-            function addDotDoctorBtnListeners() {
-                document.querySelectorAll(".dot-doc-btn").forEach((btn) => {
-                    btn.addEventListener("click", function (event) {
-                        // Remove existing menu if any
-                        const existingMenu = document.querySelector(".doctor-action-menu");
-                        if (existingMenu) existingMenu.remove();
 
-                        const doctorId = btn.getAttribute("data-id");
+        function addDotDoctorBtnListeners() {
+            document.querySelectorAll(".dot-doc-btn").forEach((btn) => {
+                btn.addEventListener("click", function(event) {
+                    const existingMenu = document.querySelector(".doctor-action-menu");
+                    if (existingMenu) existingMenu.remove();
 
-                        // Create the action menu
-                        const actionMenu = document.createElement("div");
-                        actionMenu.className = "doctor-action-menu";
-                        actionMenu.innerHTML = `
-                            <div class="action" data-action="view" data-id="${doctorId}">
-                                <img src="./assets/images/resources/icons/Icon (3).png" width="19" height="14px" />
-                                <span>View details</span>
-                            </div>
-                            <div class="action" data-action="delete" data-id="${doctorId}">
-                                <img src="./assets/images/resources/icons/trash-can-10417.png" width="16px" height="18px" />
-                                <span>Delete</span>
-                            </div>
-                        `;
+                    const doctorId = btn.getAttribute("data-id");
 
-                        // Position the menu
-                        const rect = btn.getBoundingClientRect();
-                        actionMenu.style.position = "absolute";
-                        actionMenu.style.top = `${window.scrollY + rect.bottom + 5}px`;
-                        actionMenu.style.left = `${window.scrollX + rect.left}px`;
-                        actionMenu.style.zIndex = 1000;
-                        actionMenu.style.background = "#fff";
-                        actionMenu.style.border = "1px solid #ccc";
-                        actionMenu.style.boxShadow = "0px 2px 6px rgba(0,0,0,0.2)";
-                        actionMenu.style.borderRadius = "8px";
-                        actionMenu.style.padding = "10px";
-                        actionMenu.style.cursor = "pointer";
+                    const actionMenu = document.createElement("div");
+                    actionMenu.className = "doctor-action-menu";
+                    actionMenu.innerHTML = `
+                    <div class="action" data-action="view" data-id="${doctorId}">
+                        <img src="./assets/images/resources/icons/Icon (3).png" width="19" height="14px" />
+                        <span>View details</span>
+                    </div>
+                    <div class="action" data-action="delete" data-id="${doctorId}">
+                        <img src="./assets/images/resources/icons/trash-can-10417.png" width="16px" height="18px" />
+                        <span>Delete</span>
+                    </div>
+                `;
 
-                        document.body.appendChild(actionMenu);
+                    const rect = btn.getBoundingClientRect();
+                    actionMenu.style.position = "absolute";
+                    actionMenu.style.top = `${window.scrollY + rect.bottom + 5}px`;
+                    actionMenu.style.left = `${window.scrollX + rect.left}px`;
+                    actionMenu.style.zIndex = 1000;
+                    actionMenu.style.background = "#fff";
+                    actionMenu.style.border = "1px solid #ccc";
+                    actionMenu.style.boxShadow = "0px 2px 6px rgba(0,0,0,0.2)";
+                    actionMenu.style.borderRadius = "8px";
+                    actionMenu.style.padding = "10px";
+                    actionMenu.style.cursor = "pointer";
 
-                        // Close on outside click
-                        const closeOnClickOutside = function (e) {
-                            if (!actionMenu.contains(e.target) && e.target !== btn) {
-                                actionMenu.remove();
-                                document.removeEventListener("click", closeOnClickOutside);
+                    document.body.appendChild(actionMenu);
+
+                    const closeOnClickOutside = function(e) {
+                        if (!actionMenu.contains(e.target)) {
+                            actionMenu.remove();
+                            document.removeEventListener("click", closeOnClickOutside);
+                        }
+                    };
+
+                    setTimeout(() => document.addEventListener("click", closeOnClickOutside), 10);
+
+                    actionMenu.querySelectorAll(".action").forEach((actionItem) => {
+                        actionItem.addEventListener("click", function() {
+                            const action = this.getAttribute("data-action");
+                            const id = this.getAttribute("data-id");
+
+                            if (action === "view") {
+                                viewDoctorDetails(id);
+                            } else if (action === "delete") {
+                                deleteDoctor(id);
                             }
-                        };
-                        setTimeout(() => document.addEventListener("click", closeOnClickOutside), 10);
 
-                        // Handle action clicks
-                        actionMenu.querySelectorAll(".action").forEach((actionItem) => {
-                            actionItem.addEventListener("click", function () {
-                                const action = this.getAttribute("data-action");
-                                const id = this.getAttribute("data-id");
-
-                                if (action === "view") {
-                                    viewDoctorDetails(id);
-                                } else if (action === "delete") {
-                                    deleteDoctor(id);
-                                }
-
-                                actionMenu.remove(); // Close the menu after action
-                            });
+                            actionMenu.remove();
                         });
                     });
                 });
-            }
-
-        // function addDotDoctorBtnListeners() {
-        //     document.querySelectorAll(".dot-doc-btn").forEach((btn) => {
-        //         btn.addEventListener("click", function(event) {
-        //             const actionMenu = document.querySelector(".modal-box-blog2");
-
-        //             // const rect = event.target.getBoundingClientRect();
-        //             // const viewportWidth = window.innerWidth;
-        //             // const viewportHeight = window.innerHeight;
-
-        //             // let x = rect.left + window.scrollX + -20; 
-        //             // let y = rect.top + window.scrollY + 10;
-
-        //             // if (x + actionMenu.offsetWidth > viewportWidth) {
-
-        //             //     x = viewportWidth - actionMenu.offsetWidth - 15;
-        //             // }
-        //             // if (y + actionMenu.offsetHeight > viewportHeight) {
-        //             //     y = viewportHeight - actionMenu.offsetHeight - -200;
-        //             // }
-
-        //             // actionMenu.style.left = `${x}px`;
-        //             // actionMenu.style.top = `${y}px`;
-        //             actionMenu.style.display = "block";
-
-        //             actionMenu.setAttribute("data-blog-id", event.target.getAttribute("data-id"));
-
-        //             document.addEventListener("click", function closeModal(event) {
-        //                 if (!actionMenu.contains(event.target) && !btn.contains(event.target)) {
-        //                     actionMenu.style.display = "none";
-        //                     document.removeEventListener("click", closeModal);
-        //                 }
-        //             });
-        //         });
-        //     });
-        // }
-
+            });
+        }
 
         function updateAvailability(id, availability, role) {
             fetch("../api/v1/doctor_route.php", {
@@ -1742,302 +1623,325 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(response => response.json())
                 .then(data => console.log(data.message))
                 .catch(error => console.error("Error updating availability:", error));
-
-
         }
 
-
         function viewDoctorDetails(id) {
-            console.log("Viewing doctor with ID:", id);
-                const modal = document.getElementById("doctorDetailsModal");
-                const modalBody = document.getElementById("doctorDetailsBody");
-                const closeBtn = document.getElementById("closeDoctorModal");
+            const modal = document.getElementById("doctorDetailsModal");
+            const modalBody = document.getElementById("doctorDetailsBody");
+            const closeBtn = document.getElementById("closeDoctorModal");
 
-                // Show the modal
-                modal.style.display = "flex";
-                modalBody.innerHTML = "<p>Loading...</p>";
+            modal.style.display = "flex";
+            modalBody.innerHTML = "<p>Loading...</p>";
 
-                // Fetch doctor details from backend (adjust endpoint as needed)
-             fetch(`../api/v1/doctor_route.php?id=${id}`)
-                    .then((res) => res.json())
-                    .then((data) => {
-                        const doctor = data.find((d) => d.id === id);
-
-                        if (!doctor) {
+            fetch(`../api/v1/doctor_route.php?id=${id}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    const doctor = data.find((d) => d.id === id);
+                    if (!doctor) {
                         modalBody.innerHTML = "<p>Doctor not found.</p>";
                         return;
-                        }
-                        // console.log("Doctor object:", doctor);
-                        // console.log("Doctor image:", doctor.image);
-
-                        modalBody.innerHTML = `
-                                <img 
-                                    src="${doctor.image ? '../Staff_images/' + doctor.image : '../assets/img/default-image.jpg'}" 
-                                    alt="${doctor.name}" 
-                                    style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px;"
-                                />
-                                <p><strong>ID:</strong> ${doctor.id}</p>
-                                <p><strong>Name:</strong> ${doctor.name}</p>
-                                <p><strong>Role:</strong> ${doctor.role}</p>
-                                <p><strong>Status:</strong> ${doctor.status}</p>
-                                <p><strong>Available:</strong> ${doctor.is_available == 1 ? "Yes" : "No"}</p>
-                            `;
-                    });
-
-                // Close handler
-                closeBtn.onclick = () => {
-                    modal.style.display = "none";
-                };
-
-                // Close when clicking outside
-                window.onclick = (e) => {
-                    if (e.target === modal) {
-                        modal.style.display = "none";
                     }
-                };
-            }
+
+                    modalBody.innerHTML = `
+                    <img 
+                        src="${doctor.image ? '../Staff_images/' + doctor.image : '../assets/img/default-image.jpg'}" 
+                        alt="${doctor.name}" 
+                        style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; margin-bottom: 10px;"
+                    />
+                    <p><strong>ID:</strong> ${doctor.id}</p>
+                    <p><strong>Name:</strong> ${doctor.name}</p>
+                    <p><strong>Role:</strong> ${doctor.role}</p>
+                    <p><strong>Status:</strong> ${doctor.status}</p>
+                    <p><strong>Available:</strong> ${doctor.is_available == 1 ? "Yes" : "No"}</p>
+                `;
+                });
+
+            closeBtn.onclick = () => modal.style.display = "none";
+            window.onclick = (e) => {
+                if (e.target === modal) modal.style.display = "none";
+            };
+        }
 
         function deleteDoctor(id) {
             if (confirm("Are you sure you want to delete this doctor?")) {
                 fetch("../api/v1/delete_staff.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ staff_Id: id }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success === true) {
-                        const toast = document.getElementById('toast-success');
-                        const toastMessage = document.getElementById('toast-message');
-                        toast.classList.add('show');
-                        toastMessage.textContent = data.message;
-                        setTimeout(() => toast.classList.remove('show'), 5000);
-
-                        // Optionally refresh the doctor list
-                        fetchDoctors();
-                    } else {
-                        const badToast = document.getElementById('bad-toast');
-                        const badToastMessage = document.getElementById('bad-toast-message');
-                        badToast.classList.add('show');
-                        badToastMessage.textContent = data.message || "An error occurred.";
-                        setTimeout(() => badToast.classList.remove('show'), 5000);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error deleting doctor:", error);
-                    const badToast = document.getElementById('bad-toast');
-                    const badToastMessage = document.getElementById('bad-toast-message');
-                    badToast.classList.add('show');
-                    badToastMessage.textContent = "Network or server error occurred.";
-                    setTimeout(() => badToast.classList.remove('show'), 5000);
-                });
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            staff_Id: id
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast(data.message);
+                            fetchDoctors();
+                        } else {
+                            showBadToast(data.message || "Deletion failed");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error deleting doctor:", error);
+                        showBadToast("Network error occurred");
+                    });
             }
         }
 
-        // const ModalBBox = document.querySelector(".modal-box-blog2");
+        function fetchAvailableDoctors() {
+            fetch("../api/v1/available_doctors.php")
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector(".doctor-count").textContent = data.doctor_count + data.nurse_count + data.physiologists_count || 0;
+                })
+                .catch(error => console.error("Error fetching doctors:", error));
+        }
 
-        // document.querySelectorAll(".modal-box-blog2 .action").forEach(action => {
-        //     action.addEventListener("click", function() {
-        //         const staff_Id = ModalBBox.getAttribute("data-blog-id");
-
-        //         if (!staff_Id) {
-        //             console.error("No blog ID found for this action.");
-        //             return;
-        //         }
-
-        //         if (this.textContent.includes("View details")) {
-        //             console.log("It worked thank God");
-        //         } else if (this.textContent.includes("Delete")) {
-
-        //             fetch("../api/v1/delete_staff.php", {
-        //                     method: "POST",
-        //                     headers: {
-        //                         "Content-Type": "application/json",
-        //                     },
-        //                     body: JSON.stringify({
-        //                         staff_Id
-        //                     }),
-        //                 })
-        //                 .then(response => response.json())
-        //                 .then(data => {
-        //                     if (data.success === true) {
-        //                         const toast = document.getElementById('toast-success');
-        //                         const toastMesaage = document.getElementById('toast-message');
-        //                         toast.classList.add('show');
-        //                         toastMesaage.textContent = data.message;
-        //                         setTimeout(hideToast, 5000);
-        //                         form.reset();
-
-        //                         function hideToast() {
-        //                             const toast = document.getElementById('toast-success');
-        //                             toast.classList.remove('show');
-        //                         }
-
-        //                     } else {
-        //                         const BadToast = document.getElementById('bad-toast');
-        //                         const BadToastMesaage = document.getElementById('bad-toast-message');
-        //                         BadToast.classList.add('show');
-        //                         BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;;
-        //                         setTimeout(hideBadToast, 5000);
-
-        //                         function hideBadToast() {
-        //                             const BadToast = document.getElementById('bad-toast');
-        //                             BadToast.classList.remove('show');
-        //                         }
-        //                     }
-
-        //                 })
-        //                 .catch(error => console.error("Error updating availability:", error));
-        //         }
-        //     });
-        // })
-
-        // document.addEventListener("click", function (event) {
-        //     if (!event.target.closest(".dot-btn") && !event.target.closest(".modal-box-blog2")) {
-        //         modalBBox.style.display = "none";
-        //     }
-        // });
+        function fetchTotalHealthWorkers() {
+            fetch("../api/v1/total_physicians.php")
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector(".physiologist-count").textContent = data.doctor_count + data.nurse_count + data.physiologists_count || 0;
+                })
+                .catch(error => console.error("Error fetching physicians:", error));
+        }
     </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- Chart Functions -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let chartInstance = null; // Store chart instance
+        // Blog engagement chart
+        const CurvedLinePlugin = {
+            id: "curvedLine",
+            afterDatasetsDraw(chart) {
+                const ctx = chart.ctx;
+                chart.data.datasets.forEach((dataset, i) => {
+                    const meta = chart.getDatasetMeta(i);
+                    const points = meta.data;
+                    if (meta.hidden) return;
 
-            const CurvedLinePlugin = {
-                id: "curvedLine",
-                afterDatasetsDraw(chart) {
-                    const ctx = chart.ctx;
-                    chart.data.datasets.forEach((dataset, i) => {
-                        const meta = chart.getDatasetMeta(i);
-                        const points = meta.data;
-                        if (meta.hidden) return;
+                    ctx.save();
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = dataset.borderColor;
+                    ctx.beginPath();
 
-                        ctx.save();
-                        ctx.lineWidth = 2;
-                        ctx.strokeStyle = dataset.borderColor;
-                        ctx.beginPath();
+                    if (points.length > 1) {
+                        ctx.moveTo(points[0].x, points[0].y);
+                        for (let j = 0; j < points.length - 1; j++) {
+                            const currentPoint = points[j];
+                            const nextPoint = points[j + 1];
+                            const controlPointX = (currentPoint.x + nextPoint.x) / 2;
 
-                        if (points.length > 1) {
-                            ctx.moveTo(points[0].x, points[0].y);
-                            for (let j = 0; j < points.length - 1; j++) {
-                                const currentPoint = points[j];
-                                const nextPoint = points[j + 1];
-                                const controlPointX = (currentPoint.x + nextPoint.x) / 2;
-
-                                ctx.bezierCurveTo(
-                                    controlPointX, currentPoint.y,
-                                    controlPointX, nextPoint.y,
-                                    nextPoint.x, nextPoint.y
-                                );
-                            }
+                            ctx.bezierCurveTo(
+                                controlPointX, currentPoint.y,
+                                controlPointX, nextPoint.y,
+                                nextPoint.x, nextPoint.y
+                            );
                         }
+                    }
 
-                        ctx.stroke();
-
-                        // Draw points on top of the custom curved line
-                        ctx.fillStyle = dataset.pointBackgroundColor || dataset.borderColor;
-                        points.forEach(point => {
-                            ctx.beginPath();
-                            ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
-                            ctx.fill();
-                        });
-
-                        ctx.restore();
+                    ctx.stroke();
+                    ctx.fillStyle = dataset.pointBackgroundColor || dataset.borderColor;
+                    points.forEach(point => {
+                        ctx.beginPath();
+                        ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
+                        ctx.fill();
                     });
-                },
-            };
 
-            // Function to fetch engagement data from PHP API
+                    ctx.restore();
+                });
+            },
+        };
 
-            async function fetchEngagementData() {
-                try {
-                    const response = await fetch("../api/v2/update_engagement.php");
-                    const data = await response.json();
-                    updateChart(data);
-                } catch (error) {
-                    console.error("Error fetching engagement data:", error);
-                }
+        async function fetchEngagementData() {
+            try {
+                const response = await fetch("../api/v2/update_engagement.php");
+                const data = await response.json();
+                updateChart(data);
+            } catch (error) {
+                console.error("Error fetching engagement data:", error);
             }
+        }
 
-            // Function to initialize or update Chart.js graph
-            function updateChart(engagementData) {
-                const ctx = document.querySelector("#bp-graph").getContext("2d");
+        function updateChart(engagementData) {
+            const ctx = document.querySelector("#bp-graph").getContext("2d");
 
-                if (!chartInstance) {
-                    // Create chart if it doesn't exist
-                    chartInstance = new Chart(ctx, {
-                        type: "line",
-                        data: {
-                            labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-                            datasets: [{
-                                label: "Blog Engagement",
-                                data: [
-                                    engagementData.sun,
-                                    engagementData.mon,
-                                    engagementData.tue,
-                                    engagementData.wed,
-                                    engagementData.thu,
-                                    engagementData.fri,
-                                    engagementData.sat,
-                                ],
-                                fill: false,
-                                borderColor: "rgba(75, 192, 192, 1)",
-                                borderWidth: 0, // Hide default line
-                                pointRadius: 4,
-                                pointBackgroundColor: "rgba(75, 192, 192, 1)",
-                                pointBorderColor: "rgba(75, 192, 192, 1)",
-                            }, ],
-                        },
-                        options: {
-                            responsive: true,
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    ticks: {
-                                        stepSize: 10
-                                    },
+            if (!window.chartInstance) {
+                window.chartInstance = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                        datasets: [{
+                            label: "Blog Engagement",
+                            data: [
+                                engagementData.sun,
+                                engagementData.mon,
+                                engagementData.tue,
+                                engagementData.wed,
+                                engagementData.thu,
+                                engagementData.fri,
+                                engagementData.sat,
+                            ],
+                            fill: false,
+                            borderColor: "rgba(75, 192, 192, 1)",
+                            borderWidth: 0,
+                            pointRadius: 4,
+                            pointBackgroundColor: "rgba(75, 192, 192, 1)",
+                            pointBorderColor: "rgba(75, 192, 192, 1)",
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 10
                                 },
                             },
                         },
-                        plugins: [CurvedLinePlugin], // Registering the custom plugin
-                    });
-                } else {
-                    // Update chart if it already exists
-                    chartInstance.data.datasets[0].data = [
-                        engagementData.sun,
-                        engagementData.mon,
-                        engagementData.tue,
-                        engagementData.wed,
-                        engagementData.thu,
-                        engagementData.fri,
-                        engagementData.sat,
-                    ];
-                    chartInstance.update(); // Refresh chart
-                }
+                    },
+                    plugins: [CurvedLinePlugin],
+                });
+            } else {
+                window.chartInstance.data.datasets[0].data = [
+                    engagementData.sun,
+                    engagementData.mon,
+                    engagementData.tue,
+                    engagementData.wed,
+                    engagementData.thu,
+                    engagementData.fri,
+                    engagementData.sat,
+                ];
+                window.chartInstance.update();
             }
+        }
 
-            // Fetch data and draw chart on page load
+        // Top blogs chart
+        function initTopBlogsChart() {
+            const ctx = document.getElementById('topBlogsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: <?= $labels ?>,
+                    datasets: [{
+                        label: 'Views',
+                        data: <?= $values ?>,
+                        backgroundColor: '#24ABA0'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+
+    <!-- Initialization -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Authentication check
+            fetch("../api/v1/auth.php")
+                .then(async response => {
+                    const data = await response.json();
+                    if (!response.ok) {
+                        if (data.message === "Unauthorized") {
+                            location.href = "../admin/login.php";
+                        }
+                        throw new Error(data.message || "Network response was not ok");
+                    }
+                })
+                .catch(error => {
+                    console.error("Fetch error:", error);
+                });
+
+            // Initialize components
+            setGreeting();
+            fetchBlogs();
+            getBlogTotal();
+            fetchDoctors();
+            fetchAvailableDoctors();
+            fetchTotalHealthWorkers();
             fetchEngagementData();
+            initTopBlogsChart();
 
-            // Auto-update every 5 seconds
-            // setInterval(fetchEngagementData, 15000);
+            // Modal close handlers
+            document.querySelector('.close-edit-btn')?.addEventListener('click', closeEditModal);
+            document.getElementById('close-modal')?.addEventListener('click', function() {
+                document.getElementById('volunteerDetailsModal').classList.remove('active');
+            });
+            document.getElementById('closeDoctorModal')?.addEventListener('click', function() {
+                document.getElementById('doctorDetailsModal').style.display = 'none';
+            });
+
+            // Initialize publish handler
+            initializePublishHandler();
+
+            // Blog action handlers
+            document.addEventListener("click", function(e) {
+                const action = e.target.closest(".modal-box-blog .action");
+                if (!action) return;
+
+                const modalBox2 = action.closest(".modal-box-blog");
+                const td = modalBox2.closest("td");
+                const dotBtn = td.querySelector(".dot-btn");
+                const blogId = dotBtn.getAttribute("data-id");
+
+                const text = action.textContent.trim();
+                if (text.includes("View details")) {
+                    fetchBlogDetails(blogId);
+                } else if (text.includes("Edit Blog")) {
+                    openEditModal(blogId);
+                } else if (text.includes("Save Draft")) {
+                    updateBlogStatus(blogId, "draft");
+                } else if (text.includes("Publish Blog")) {
+                    updateBlogStatus(blogId, "publish");
+                }
+
+                modalBox2.style.display = "none";
+            });
+
+            function updateBlogStatus(blogId, type) {
+                fetch("../api/v1/update_blog.php", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            blogId,
+                            type
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast(data.message);
+                            fetchBlogs();
+                        } else {
+                            showBadToast(data.message || "Update failed");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        showBadToast("Network error occurred");
+                    });
+            }
         });
     </script>
+
+
+
+
+
+
+
+
+
 
     <!-- CKEditor Script -->
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/super-build/ckeditor.js"></script>
@@ -2198,7 +2102,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(editor => {
                 window.BodyEditor = editor; // Store the editor instance
                 console.log('Editor was initialized', editor);
-
                 // If you want to set initial content from PHP here:
                 <?php if (isset($post)): ?>
                     editor.setData(`<?= addslashes($post['body']) ?>`);
@@ -2208,26 +2111,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error(error);
             });
     </script>
-    <script>
-        const ctx = document.getElementById('topBlogsChart').getContext('2d');
-        new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: <?= $labels ?>,
-            datasets: [{
-            label: 'Views',
-            data: <?= $values ?>,
-            backgroundColor: '#24ABA0'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-            legend: { display: false }
-            }
-        }
-        });
-    </script>
+
 
 </body>
 
