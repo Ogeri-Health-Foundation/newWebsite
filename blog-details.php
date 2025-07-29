@@ -32,11 +32,7 @@ try {
         $category = htmlspecialchars($blog['category']);
         $body = htmlspecialchars($blog['body']);
         $date = date("M j, Y", strtotime($blog['published_at']));
-        $imagePath = !empty($blog['image']) 
-            ? "uploads/" . htmlspecialchars($blog['image']) 
-            : "assets/img/donate/donation2-1.png";
-
-        $imageUrl = "https://" . $_SERVER['HTTP_HOST'] . "/" . $imagePath;
+        
         $blogid = htmlspecialchars($blog['blog_id']);
        
         
@@ -129,9 +125,19 @@ $addons = array(
     <!-- <link rel="stylesheet" href="./assets/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="./assets/css/blog.css">
     <?php
-    $pageUrl = "https://" . $_SERVER['HTTP_HOST'] . "/blog-details.php?id=" . urlencode($blogid);
-    $page_title = "Ogeri Health Foundation - " . $blogName;
-    $page_description = htmlspecialchars($description);
+        $imagePath = !empty($blog['image']) 
+                ? "uploads/" . htmlspecialchars($blog['image']) 
+                : "assets/img/donate/donation2-1.png";
+
+        $scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+        $host = $_SERVER['HTTP_HOST'];
+
+        $pageUrl = "$scheme://$host/blog-details.php?id=" . urlencode($blogid);
+        $imageUrl = "$scheme://$host/" . (!empty($blog['image']) 
+            ? "uploads/" . htmlspecialchars($blog['image']) 
+            : "assets/img/donate/donation2-1.png");
+        $page_title = "Ogeri Health Foundation - " . $blogName;
+        $page_description = htmlspecialchars($description);
 
     ?>
     <meta property="og:type" content="article">
@@ -297,6 +303,7 @@ $addons = array(
                         // Build current blog URL securely
                         $scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
                         $host = $_SERVER['HTTP_HOST'];
+                        $imageUrl = "$scheme://" . $_SERVER['HTTP_HOST'] . "/" . $imagePath;
                         $path = "/blog-details.php?id=" . urlencode($blogid);
                         $eventUrl = "$scheme://$host$path";
                         $encodedEventUrl = urlencode($eventUrl);
