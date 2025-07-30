@@ -268,84 +268,84 @@ $addons = array(
   .has-image .upload-content {
     display: none;
   }
-  
 
-    h2 {
-      text-align: center;
-      margin-bottom: 30px;
-    }
 
-    .filter-section {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
 
-    .filter-section label {
-      font-size: 14px;
-    }
+  .filter-section {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 
-    input[type="date"] {
-      padding: 5px 8px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-    }
+  .filter-section label {
+    font-size: 14px;
+  }
 
-    button {
-      padding: 6px 12px;
-      font-size: 14px;
-      background-color: var(--primary-color, #007bff);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+  input[type="date"] {
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
 
-    button:hover {
-      background-color: #0056b3;
-    }
+  button {
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: var(--primary-color, #007bff);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
 
-    .dashboard {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
+  button:hover {
+    background-color: #0056b3;
+  }
 
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      width: 240px;
-      text-align: center;
-    }
+  .dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
 
-    .card h3 {
-      font-size: 16px;
-      color: #555;
-      margin-bottom: 10px;
-    }
+  .card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 240px;
+    text-align: center;
+  }
 
-    .card p {
-      font-size: 24px;
-      font-weight: bold;
-      color: #222;
-    }
+  .card h3 {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+  }
 
-    .chart-container {
-      max-width: 400px;
-      margin: 40px auto;
-    }
+  .card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #222;
+  }
 
-    canvas {
-      max-width: 100%;
-      height: auto;
-    }
+  .chart-container {
+    max-width: 400px;
+    margin: 40px auto;
+  }
+
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
 </style>
 
 
@@ -462,6 +462,9 @@ $addons = array(
                       </td>
                     </tr>
 
+
+
+
                     <!-- View Modal -->
                     <div class="modal fade" id="viewEventModal<?= $eventid ?>" tabindex="-1" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -470,41 +473,64 @@ $addons = array(
                             <h5 class="modal-title">Event Details - <?= $eventid ?></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
-                          <div class="modal-body">
-                            <div class="status-badge-container">
+                          <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
+                            <div class="status-badge-container mb-3">
                               <span class="status-badge"><?= $status ?></span>
                             </div>
-                            <div class="volunteer-info">
-                              <div class="volunteer-photo">
-                                <img src="<?= $image ?>" alt="Event Image">
+
+                            <!-- Top Image -->
+                            <div class="text-center mb-4">
+                              <img src="<?= $image ?>" alt="Event Image" class="img-fluid rounded" style="max-width: 200px;">
+                            </div>
+
+                            <!-- Event Details -->
+                            <div class="volunteer-details">
+                              <div class="row mb-2">
+                                <div class="col-md-12 d-flex align-items-start">
+                                  <h6 class="me-2" style="min-width: 100px;">Event title:</h6>
+                                  <h6 class="mb-0 text-muted"><?= $eventName ?></h6>
+                                </div>
+                                <div class="col-md-12 d-flex">
+                                  <h6 class="me-2" style="min-width: 100px;">Date:</h6>
+                                  <h6 class="mb-0 text-muted"><?= $date ?></h6>
+                                </div>
                               </div>
-                              <div class="volunteer-details">
-                                <div class="detail-item">
-                                  <h6 class="detail-label">Event title:</h6>
-                                  <p class="detail-value"><?= $eventName ?></p>
+
+                              <div class="row mb-2">
+                                <div class="col-md-12 d-flex">
+                                  <h6 class="me-2" style="min-width: 100px;">Time:</h6>
+                                  <h6 class="mb-0 text-muted"><?= $time->format("g:i A"); ?></h6>
                                 </div>
-                                <div class="detail-item">
-                                  <h6 class="detail-label">Date:</h6>
-                                  <p class="detail-value"><?= $date ?></p>
+                                <div class="col-md-12 d-flex">
+                                  <h6 class="me-2" style="min-width: 100px;">Location:</h6>
+                                  <h6 class="mb-0 text-muted"><?= $location ?></h6>
                                 </div>
-                                <div class="detail-item">
-                                  <h6 class="detail-label">Time:</h6>
-                                  <p class="detail-value"><?= $time->format("g:i A"); ?></p>
+                              </div>
+
+                              <!-- Description (Full Width) -->
+                              <div class="row mb-3">
+                                <div class="col-12">
+                                  <h6>Description:</h6>
+                                  <p><?= trim($description) ?></p>
                                 </div>
-                                <div class="detail-item">
-                                  <h6 class="detail-label">Location:</h6>
-                                  <p class="detail-value"><?= $location ?></p>
-                                </div>
-                                <div class="detail-item">
-                                  <h6 class="detail-label">Description:</h6>
-                                  <p class="detail-value"><?= $description ?></p>
+                              </div>
+
+                              <!-- Body Content (Full Width) -->
+                              <div class="row">
+                                <div class="col-12">
+                                  <h6>Body:</h6>
+                                  <div class="ck-content p-3 border rounded">
+                                    <?= htmlspecialchars_decode($event['body']) ?>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
+
                         </div>
                       </div>
                     </div>
+
                   <?php
                     $i++;
                   endwhile;
@@ -1007,7 +1033,7 @@ $addons = array(
     });
   </script>
 
-  <script>
+  <!-- <script>
     // Global variables
     let currentEventId = null;
     let currentEventName = null;
@@ -1594,96 +1620,910 @@ $addons = array(
           console.error('CKEditor initialization error:', error);
         });
     }
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  let genderChart = null;
+  </script> -->
 
-  function buildURL() {
-    const url = new URL('../api/v1/stats.php', window.location.href);
-    const start = document.getElementById('start_date').value;
-    const end = document.getElementById('end_date').value;
 
-    if (start && end) {
-      url.searchParams.append('start_date', start);
-      url.searchParams.append('end_date', end);
-    }
+  <script>
+    // Complete Update Modal JavaScript Code
 
-    return url;
-  }
+    // Global variables
+    let currentEventId = null;
+    let currentEventName = null;
+    let editEventEditor = null;
+    let eventEditor; // Global variable to hold the editor instance
 
-  async function fetchStats() {
-    const url = buildURL();
-    const res = await fetch(url);
-    const result = await res.json();
+    // Enhanced Update Event Function with existing data loading
+    function updateEvent(eventId) {
+      $('#event_id').val(eventId);
+      currentEventId = eventId;
 
-    const container = document.getElementById('stats-cards');
-    container.innerHTML = '';
+      // Show loading state
+      showLoadingInModal();
 
-    if (result.success) {
-      const d = result.data;
-      const stats = {
-        "Total Attendees": d.total_attendees,
-        "BP Screened": d.bp_screened,
-        "High BP Detected": d.high_bp_detected,
-        "Repeat Attendees": d.repeat_attendees,
-        "Counselled": d.counselled,
-        "Medications Dispensed": d.medications_dispensed,
-        "Referrals": d.referrals,
-        "Average Age": parseFloat(d.average_age).toFixed(1),
-        "Villages Served": d.villages_served
-      };
-
-      for (let label in stats) {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `<h3>${label}</h3><p>${stats[label]}</p>`;
-        container.appendChild(card);
-      }
-
-      // Gender Chart
-      const ctx = document.getElementById('genderChart').getContext('2d');
-      if (genderChart) genderChart.destroy();
-      genderChart = new Chart(ctx, {
-        type: 'pie',
+      // Fetch existing event data
+      $.ajax({
+        url: '../api/v1/get_event_details.php',
+        method: 'POST',
         data: {
-          labels: ['Male', 'Female'],
-          datasets: [{
-            label: 'Gender Breakdown',
-            data: [d.gender_male, d.gender_female],
-            backgroundColor: ['#4e79a7', '#f28e2b']
-          }]
+          event_id: eventId
         },
-        options: {
-          responsive: true,
-          plugins: {
-            title: {
-              display: true,
-              text: 'Gender Breakdown of Attendees',
-              font: {
-                size: 16
-              }
-            },
-            legend: {
-              position: 'bottom'
-            }
+        dataType: 'json',
+        success: function(data) {
+          hideLoadingInModal();
+          if (data.success && data.event_details) {
+            populateUpdateModal(data.event_details);
+          } else {
+            // If no existing data, just show empty modal
+            resetUpdateModal();
           }
+          $('#updateEventModal').modal('show');
+        },
+        error: function(xhr, status, error) {
+          hideLoadingInModal();
+          console.error('Error fetching event details:', error);
+          resetUpdateModal();
+          $('#updateEventModal').modal('show');
+          showToast('Could not load existing data', 'warning');
         }
       });
-    } else {
-      alert("Failed to fetch stats: " + result.error);
     }
-  }
 
-  function clearFilters() {
-    document.getElementById('start_date').value = '';
-    document.getElementById('end_date').value = '';
+    // Function to populate modal with existing data
+    function populateUpdateModal(eventDetails) {
+      // Reset modal first
+      resetUpdateModal();
+
+
+      // Populate numeric fields with existing values
+      $('#totalAttendees').val(eventDetails.total_attendees || '');
+      $('#bpScreened').val(eventDetails.bp_screened || '');
+      $('#highBpDetected').val(eventDetails.high_bp_detected || '');
+      $('#repeatAttendees').val(eventDetails.repeat_attendees || '');
+      $('#counselled').val(eventDetails.counselled || '');
+      $('#medicationsDispensed').val(eventDetails.medications_dispensed || '');
+      $('#referrals').val(eventDetails.referrals || '');
+      $('#avgAge').val(eventDetails.average_age || '');
+      $('#genderMale').val(eventDetails.gender_male || '');
+      $('#genderFemale').val(eventDetails.gender_female || '');
+      $('#villagesServed').val(eventDetails.villages_served || '');
+
+      // Populate existing images
+      if (eventDetails.images && eventDetails.images.length > 0) {
+        eventDetails.images.forEach((imagePath, index) => {
+          if (imagePath && index < 6) { // Only handle up to 6 images
+            const boxNumber = index + 1;
+            const fullImagePath = `../uploads/events/${imagePath}`;
+
+            // Set the image preview
+            $(`#imagePreview_${boxNumber} img`).attr('src', fullImagePath);
+            $(`#imagePreview_${boxNumber}`).show();
+            $(`#imagePreview_${boxNumber}`).siblings('.upload-content').hide();
+
+            // Add a data attribute to track existing images
+            $(`#imagePreview_${boxNumber}`).attr('data-existing-image', imagePath);
+
+            // Add existing image indicator
+            $(`#imagePreview_${boxNumber}`).addClass('existing-image');
+
+            // Modify the remove button to handle existing images
+            $(`#imagePreview_${boxNumber} .remove-btn`).attr('onclick', `removeExistingImage(${boxNumber})`);
+          }
+        });
+      }
+    }
+
+    // Function to reset modal to empty state
+    function resetUpdateModal() {
+      // Clear all form fields
+      $('#updateEventModal input[type="number"]').val('');
+
+      // Reset all image upload boxes
+      for (let i = 1; i <= 6; i++) {
+        $(`#imageUpload_${i}`).val('');
+        $(`#imagePreview_${i}`).hide();
+        $(`#imagePreview_${i} img`).attr('src', '');
+        $(`#imagePreview_${i}`).removeAttr('data-existing-image');
+        $(`#imagePreview_${i}`).removeClass('existing-image');
+        $(`#imagePreview_${i}`).siblings('.upload-content').show();
+        $(`#imagePreview_${i} .remove-btn`).attr('onclick', `removeUploadedImage(${i})`);
+      }
+
+      // Remove any tracking inputs for deleted images
+      $('input[name="deleted_images[]"]').remove();
+    }
+
+    // Function to show loading state in modal
+    function showLoadingInModal() {
+      const loadingHtml = `
+    <div id="loading-indicator" class="text-center p-4" style="background: rgba(255, 255, 255, 0.9); border-radius: 8px; margin: 20px 0;">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="mt-2">Loading existing data...</div>
+    </div>
+    `;
+      $('#updateEventModal .modal-body').prepend(loadingHtml);
+    }
+
+    // Function to hide loading state
+    function hideLoadingInModal() {
+      $('#loading-indicator').remove();
+    }
+
+    // Enhanced remove function for existing images
+    function removeExistingImage(boxNumber) {
+      const existingImage = $(`#imagePreview_${boxNumber}`).attr('data-existing-image');
+
+      if (existingImage) {
+        // Add hidden input to track deleted images
+        if (!$(`input[name="deleted_images[]"][value="${existingImage}"]`).length) {
+          $('#image-form').append(`<input type="hidden" name="deleted_images[]" value="${existingImage}">`);
+        }
+
+        // Remove the existing image attribute
+        $(`#imagePreview_${boxNumber}`).removeAttr('data-existing-image');
+        $(`#imagePreview_${boxNumber}`).removeClass('existing-image');
+      }
+
+      // Clear the file input and reset the box
+      $(`#imageUpload_${boxNumber}`).val('');
+      $(`#imagePreview_${boxNumber}`).hide();
+      $(`#imagePreview_${boxNumber} img`).attr('src', '');
+      $(`#imagePreview_${boxNumber}`).siblings('.upload-content').show();
+      $(`#imagePreview_${boxNumber} .remove-btn`).attr('onclick', `removeUploadedImage(${boxNumber})`);
+    }
+
+    // Enhanced remove uploaded image function
+    function removeUploadedImage(boxNumber) {
+      $('#imageUpload_' + boxNumber).val(''); // Clear the file input
+      $('#imagePreview_' + boxNumber).hide(); // Hide the preview
+      $('#imagePreview_' + boxNumber + ' img').attr('src', ''); // Clear the image
+      $('#imagePreview_' + boxNumber).removeAttr('data-existing-image');
+      $('#imagePreview_' + boxNumber).removeClass('existing-image');
+      $('#imagePreview_' + boxNumber).siblings('.upload-content').show(); // Show the upload box again
+    }
+
+    // Enhanced image preview handling
+    $(document).ready(function() {
+      // Call it on page load
+      initializeCKEditor();
+
+      // Initialize DataTable
+      $('#volunteersTable').DataTable({
+        dom: '<"row mb-3"<"col-md-4"l>>' + // Show entries
+          '<"row mb-3"<"col-md-6"B><"col-md-6 text-end"f>>' + // Buttons and Search filter
+          'rt' +
+          '<"row mt-3"<"col-md-5"i><"col-md-7"p>>', // Info and Pagination
+        buttons: [{
+            extend: 'copy',
+            className: 'btn btn-primary btn-sm me-1'
+          },
+          {
+            extend: 'csv',
+            className: 'btn btn-secondary btn-sm me-1'
+          },
+          {
+            extend: 'excel',
+            className: 'btn btn-success btn-sm me-1'
+          },
+          {
+            extend: 'pdf',
+            className: 'btn btn-danger btn-sm me-1'
+          },
+          {
+            extend: 'print',
+            className: 'btn btn-dark btn-sm'
+          }
+        ],
+        language: {
+          paginate: {
+            next: 'Next',
+            previous: 'Prev'
+          },
+          search: 'Search Filter',
+          lengthMenu: 'Show _MENU_ entries',
+          info: 'Showing _START_ to _END_ of _TOTAL_ entries'
+        }
+      });
+
+      // Function to handle image preview for all upload boxes
+      function handleImagePreview(inputId, previewId) {
+        $(inputId).change(function() {
+          const file = this.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              $(previewId + ' img').attr('src', e.target.result);
+              $(previewId).show();
+              $(previewId).siblings('.upload-content').hide();
+
+              // Remove existing image attribute since we're uploading new
+              $(previewId).removeAttr('data-existing-image');
+              $(previewId).removeClass('existing-image');
+              $(previewId + ' .remove-btn').attr('onclick', `removeUploadedImage(${previewId.split('_')[1]})`);
+            }
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      // Initialize preview for all 6 image upload boxes
+      for (let i = 1; i <= 6; i++) {
+        handleImagePreview('#imageUpload_' + i, '#imagePreview_' + i);
+      }
+
+      // Enhanced drag and drop functionality
+      $('.upload-box').each(function() {
+        const $box = $(this);
+
+        $box.on('dragover', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $box.addClass('dragover');
+        });
+
+        $box.on('dragleave', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $box.removeClass('dragover');
+        });
+
+        $box.on('drop', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $box.removeClass('dragover');
+
+          const files = e.originalEvent.dataTransfer.files;
+          if (files.length > 0) {
+            const input = $box.find('.file-input')[0];
+            input.files = files;
+            $(input).trigger('change');
+          }
+        });
+      });
+    });
+
+    // Enhanced form submission handler
+    $('#image-form').on('submit', function(e) {
+      e.preventDefault();
+
+      // Remove loading indicator if exists
+      hideLoadingInModal();
+
+      const formData = new FormData(this);
+
+      // Show submitting state
+      const submitBtn = $('#image-form button[type="submit"]');
+      const originalText = submitBtn.text();
+      submitBtn.prop('disabled', true).text('Updating...');
+
+      $.ajax({
+        url: '../api/v1/update_event_details.php',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function(data) {
+          if (data.success === true) {
+            showToast(data.message, 'success');
+            $('#updateEventModal').modal('hide');
+            setTimeout(() => window.location.reload(), 2000);
+          } else {
+            showToast(data.message || 'Error occurred', 'error');
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('Error:', error);
+          let errorMessage = 'An error occurred while updating the event';
+
+          // Try to get more specific error message
+          if (xhr.responseJSON && xhr.responseJSON.message) {
+            errorMessage = xhr.responseJSON.message;
+          }
+
+          showToast(errorMessage, 'error');
+        },
+        complete: function() {
+          // Reset button state
+          submitBtn.prop('disabled', false).text(originalText);
+        }
+      });
+    });
+
+    // Clean up when modal is hidden
+    $('#updateEventModal').on('hidden.bs.modal', function() {
+      hideLoadingInModal();
+      $('input[name="deleted_images[]"]').remove();
+    });
+
+    // View Event Function
+    function viewEvent(eventId) {
+      $('#viewEventModal' + eventId).modal('show');
+    }
+
+    // Edit Event Function
+    function editEvent(eventId, title, date, time, description, body, location, status, image) {
+      $('#editEventId').val(eventId);
+      $('#editEventTitle').val(title);
+      $('#editEventDate').val(date);
+      $('#editEventTime').val(time);
+      $('#editEventDescription').val(description);
+      $('#editEventLocation').val(location);
+      $('#editEventStatus').val(status);
+      $('#editPreview').attr('src', image);
+
+      // Store the body content to set after editor is created
+      const eventBody = body;
+
+      // Destroy CKEditor instance if it already exists
+      if (editEventEditor) {
+        editEventEditor.destroy().then(() => {
+          createEditor(eventBody); // Pass the body content
+        });
+      } else {
+        createEditor(eventBody); // Pass the body content
+      }
+
+      currentEventId = eventId;
+      $('#editEventModal').modal('show');
+    }
+
+    // Updated createEditor function to accept body content
+    function createEditor(bodyContent = '') {
+      CKEDITOR.ClassicEditor
+        .create(document.getElementById("editEventBody"), {
+          toolbar: {
+            items: [
+              'exportPDF', 'exportWord', '|',
+              'findAndReplace', 'selectAll', '|',
+              'heading', '|',
+              'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript',
+              'removeFormat', '|',
+              'bulletedList', 'numberedList', 'todoList', '|',
+              'outdent', 'indent', '|',
+              'undo', 'redo',
+              '-',
+              'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+              'alignment', '|',
+              'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed',
+              '|',
+              'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+              'textPartLanguage', '|',
+              'sourceEditing'
+            ],
+            shouldNotGroupWhenFull: true
+          },
+          list: {
+            properties: {
+              styles: true,
+              startIndex: true,
+              reversed: true
+            }
+          },
+          heading: {
+            options: [{
+                model: 'paragraph',
+                title: 'Paragraph',
+                class: 'ck-heading_paragraph'
+              },
+              {
+                model: 'heading1',
+                view: 'h1',
+                title: 'Heading 1',
+                class: 'ck-heading_heading1'
+              },
+              {
+                model: 'heading2',
+                view: 'h2',
+                title: 'Heading 2',
+                class: 'ck-heading_heading2'
+              },
+              {
+                model: 'heading3',
+                view: 'h3',
+                title: 'Heading 3',
+                class: 'ck-heading_heading3'
+              },
+              {
+                model: 'heading4',
+                view: 'h4',
+                title: 'Heading 4',
+                class: 'ck-heading_heading4'
+              },
+              {
+                model: 'heading5',
+                view: 'h5',
+                title: 'Heading 5',
+                class: 'ck-heading_heading5'
+              },
+              {
+                model: 'heading6',
+                view: 'h6',
+                title: 'Heading 6',
+                class: 'ck-heading_heading6'
+              }
+            ]
+          },
+          placeholder: 'Enter a detailed description',
+          fontFamily: {
+            options: [
+              'default',
+              'Arial, Helvetica, sans-serif',
+              'Courier New, Courier, monospace',
+              'Georgia, serif',
+              'Lucida Sans Unicode, Lucida Grande, sans-serif',
+              'Tahoma, Geneva, sans-serif',
+              'Times New Roman, Times, serif',
+              'Trebuchet MS, Helvetica, sans-serif',
+              'Verdana, Geneva, sans-serif'
+            ],
+            supportAllValues: true
+          },
+          fontSize: {
+            options: [10, 12, 14, 'default', 18, 20, 22],
+            supportAllValues: true
+          },
+          htmlSupport: {
+            allow: [{
+              name: /.*/,
+              attributes: true,
+              classes: true,
+              styles: true
+            }]
+          },
+          htmlEmbed: {
+            showPreviews: true
+          },
+          link: {
+            decorators: {
+              addTargetToExternalLinks: true,
+              defaultProtocol: 'https://',
+              toggleDownloadable: {
+                mode: 'manual',
+                label: 'Downloadable',
+                attributes: {
+                  download: 'file'
+                }
+              }
+            }
+          },
+          mention: {
+            feeds: [{
+              marker: '@',
+              feed: [
+                '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes',
+                '@chocolate', '@cookie', '@cotton', '@cream',
+                '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread',
+                '@gummi', '@ice', '@jelly-o',
+                '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding',
+                '@sesame', '@snaps', '@soufflé',
+                '@sugar', '@sweet', '@topping', '@wafer'
+              ],
+              minimumCharacters: 1
+            }]
+          },
+          removePlugins: [
+            'CKBox',
+            'CKFinder',
+            'EasyImage',
+            'RealTimeCollaborativeComments',
+            'RealTimeCollaborativeTrackChanges',
+            'RealTimeCollaborativeRevisionHistory',
+            'PresenceList',
+            'Comments',
+            'TrackChanges',
+            'TrackChangesData',
+            'RevisionHistory',
+            'Pagination',
+            'WProofreader',
+            'MathType',
+            'SlashCommand',
+            'Template',
+            'DocumentOutline',
+            'FormatPainter',
+            'TableOfContents'
+          ]
+        })
+        .then(editor => {
+          editEventEditor = editor;
+          // Set the body content after editor is created
+          if (bodyContent) {
+            editor.setData(bodyContent);
+          }
+        })
+        .catch(error => {
+          console.error('CKEditor error:', error);
+        });
+    }
+
+    // Delete Event Function
+    function deleteEvent(eventId, eventName) {
+      currentEventId = eventId;
+      currentEventName = eventName;
+      $('#deleteEventName').text(`Delete ${eventName} and ${currentEventId} ? `);
+      $('#deleteEventModal').modal('show');
+    }
+
+    // Add Event AJAX
+    $('#addEventBtn').on('click', function() {
+      if (eventEditor) {
+        $('#eventBody').val(eventEditor.getData());
+      }
+
+      const form = $('#addEventForm')[0];
+      let formData = new FormData(form);
+
+      $.ajax({
+        url: '../api/v1/add_events.php',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function(data) {
+          if (data.success === true) {
+            showToast(data.message, 'success');
+            $('#addEventModal').modal('hide');
+            setTimeout(() => window.location.reload(), 2000);
+          } else {
+            showToast(data.message || 'Error occurred', 'error');
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('Error:', error);
+          showToast('An error occurred while adding the event', 'error');
+        }
+      });
+    });
+
+    // Update Event AJAX
+    $('#updateEventBtn').on('click', function() {
+      // Get CKEditor content
+      if (editEventEditor) {
+        const editorData = editEventEditor.getData();
+        $('#editEventBody').val(editorData); // set the hidden form input
+      }
+
+      const form = $('#editEventForm')[0];
+      let formData = new FormData(form);
+
+      $.ajax({
+        url: '../api/v1/update_event.php',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        success: function(data) {
+          if (data.success === true) {
+            showToast(data.message, 'success');
+            $('#editEventModal').modal('hide');
+            setTimeout(() => window.location.reload(), 2000);
+          } else {
+            showToast(data.message || 'Error occurred', 'error');
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('Error:', error);
+          showToast('An error occurred while updating the event', 'error');
+        }
+      });
+    });
+
+    // Delete Event AJAX
+    $('#confirmDeleteBtn').on('click', function() {
+      $.ajax({
+        url: '../api/v1/delete_event.php',
+        method: 'POST',
+        data: {
+          eventId: currentEventId
+        },
+        dataType: 'json',
+        success: function(data) {
+          if (data.success === true) {
+            showToast(data.message, 'success');
+            $('#deleteEventModal').modal('hide');
+            setTimeout(() => window.location.reload(), 2000);
+          } else {
+            showToast(data.message || 'Error occurred', 'error');
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('Error:', error);
+          showToast('An error occurred while deleting the event', 'error');
+        }
+      });
+    });
+
+    // Helper Functions
+    function showToast(message, type) {
+      if (type === 'success') {
+        $('#toast-message').text(message);
+        $('#toast-success').addClass('show');
+        setTimeout(() => $('#toast-success').removeClass('show'), 5000);
+      } else {
+        $('#bad-toast-message').text(message);
+        $('#bad-toast').addClass('show');
+        setTimeout(() => $('#bad-toast').removeClass('show'), 5000);
+      }
+    }
+
+    function hideToast() {
+      $('#toast-success').removeClass('show');
+      $('#bad-toast').removeClass('show');
+    }
+
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        $('#preview').attr('src', reader.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function previewEditImage(event) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        $('#editPreview').attr('src', reader.result);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function initializeCKEditor() {
+      CKEDITOR.ClassicEditor
+        .create(document.getElementById('eventBody'), {
+          toolbar: {
+            items: [
+              'exportPDF', 'exportWord', '|',
+              'findAndReplace', 'selectAll', '|',
+              'heading', '|',
+              'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript',
+              'removeFormat', '|',
+              'bulletedList', 'numberedList', 'todoList', '|',
+              'outdent', 'indent', '|',
+              'undo', 'redo',
+              '-',
+              'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+              'alignment', '|',
+              'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed',
+              '|',
+              'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+              'textPartLanguage', '|',
+              'sourceEditing'
+            ],
+            shouldNotGroupWhenFull: true
+          },
+          list: {
+            properties: {
+              styles: true,
+              startIndex: true,
+              reversed: true
+            }
+          },
+          heading: {
+            options: [{
+                model: 'paragraph',
+                title: 'Paragraph',
+                class: 'ck-heading_paragraph'
+              },
+              {
+                model: 'heading1',
+                view: 'h1',
+                title: 'Heading 1',
+                class: 'ck-heading_heading1'
+              },
+              {
+                model: 'heading2',
+                view: 'h2',
+                title: 'Heading 2',
+                class: 'ck-heading_heading2'
+              },
+              {
+                model: 'heading3',
+                view: 'h3',
+                title: 'Heading 3',
+                class: 'ck-heading_heading3'
+              },
+              {
+                model: 'heading4',
+                view: 'h4',
+                title: 'Heading 4',
+                class: 'ck-heading_heading4'
+              },
+              {
+                model: 'heading5',
+                view: 'h5',
+                title: 'Heading 5',
+                class: 'ck-heading_heading5'
+              },
+              {
+                model: 'heading6',
+                view: 'h6',
+                title: 'Heading 6',
+                class: 'ck-heading_heading6'
+              }
+            ]
+          },
+          placeholder: 'Enter a detailed description',
+          fontFamily: {
+            options: [
+              'default',
+              'Arial, Helvetica, sans-serif',
+              'Courier New, Courier, monospace',
+              'Georgia, serif',
+              'Lucida Sans Unicode, Lucida Grande, sans-serif',
+              'Tahoma, Geneva, sans-serif',
+              'Times New Roman, Times, serif',
+              'Trebuchet MS, Helvetica, sans-serif',
+              'Verdana, Geneva, sans-serif'
+            ],
+            supportAllValues: true
+          },
+          fontSize: {
+            options: [10, 12, 14, 'default', 18, 20, 22],
+            supportAllValues: true
+          },
+          htmlSupport: {
+            allow: [{
+              name: /.*/,
+              attributes: true,
+              classes: true,
+              styles: true
+            }]
+          },
+          htmlEmbed: {
+            showPreviews: true
+          },
+          link: {
+            decorators: {
+              addTargetToExternalLinks: true,
+              defaultProtocol: 'https://',
+              toggleDownloadable: {
+                mode: 'manual',
+                label: 'Downloadable',
+                attributes: {
+                  download: 'file'
+                }
+              }
+            }
+          },
+          mention: {
+            feeds: [{
+              marker: '@',
+              feed: [
+                '@apple', '@bears', '@brownie', '@cake', '@candy', '@canes',
+                '@chocolate', '@cookie', '@cotton', '@cream',
+                '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread',
+                '@gummi', '@ice', '@jelly-o',
+                '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding',
+                '@sesame', '@snaps', '@soufflé',
+                '@sugar', '@sweet', '@topping', '@wafer'
+              ],
+              minimumCharacters: 1
+            }]
+          },
+          removePlugins: [
+            'CKBox',
+            'CKFinder',
+            'EasyImage',
+            'RealTimeCollaborativeComments',
+            'RealTimeCollaborativeTrackChanges',
+            'RealTimeCollaborativeRevisionHistory',
+            'PresenceList',
+            'Comments',
+            'TrackChanges',
+            'TrackChangesData',
+            'RevisionHistory',
+            'Pagination',
+            'WProofreader',
+            'MathType',
+            'SlashCommand',
+            'Template',
+            'DocumentOutline',
+            'FormatPainter',
+            'TableOfContents'
+          ]
+        })
+        .then(editor => {
+          eventEditor = editor;
+        })
+        .catch(error => {
+          console.error('CKEditor initialization error:', error);
+        });
+    }
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    let genderChart = null;
+
+    function buildURL() {
+      const url = new URL('../api/v1/stats.php', window.location.href);
+      const start = document.getElementById('start_date').value;
+      const end = document.getElementById('end_date').value;
+
+      if (start && end) {
+        url.searchParams.append('start_date', start);
+        url.searchParams.append('end_date', end);
+      }
+
+      return url;
+    }
+
+    async function fetchStats() {
+      const url = buildURL();
+      const res = await fetch(url);
+      const result = await res.json();
+
+      const container = document.getElementById('stats-cards');
+      container.innerHTML = '';
+
+      if (result.success) {
+        const d = result.data;
+        const stats = {
+          "Total Attendees": d.total_attendees,
+          "BP Screened": d.bp_screened,
+          "High BP Detected": d.high_bp_detected,
+          "Repeat Attendees": d.repeat_attendees,
+          "Counselled": d.counselled,
+          "Medications Dispensed": d.medications_dispensed,
+          "Referrals": d.referrals,
+          "Average Age": parseFloat(d.average_age).toFixed(1),
+          "Villages Served": d.villages_served
+        };
+
+        for (let label in stats) {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `<h3>${label}</h3><p>${stats[label]}</p>`;
+          container.appendChild(card);
+        }
+
+        // Gender Chart
+        const ctx = document.getElementById('genderChart').getContext('2d');
+        if (genderChart) genderChart.destroy();
+        genderChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ['Male', 'Female'],
+            datasets: [{
+              label: 'Gender Breakdown',
+              data: [d.gender_male, d.gender_female],
+              backgroundColor: ['#4e79a7', '#f28e2b']
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Gender Breakdown of Attendees',
+                font: {
+                  size: 16
+                }
+              },
+              legend: {
+                position: 'bottom'
+              }
+            }
+          }
+        });
+      } else {
+        alert("Failed to fetch stats: " + result.error);
+      }
+    }
+
+    function clearFilters() {
+      document.getElementById('start_date').value = '';
+      document.getElementById('end_date').value = '';
+      fetchStats();
+    }
+
+    // Initial fetch
     fetchStats();
-  }
-
-  // Initial fetch
-  fetchStats();
-</script>
+  </script>
 
 
 </body>

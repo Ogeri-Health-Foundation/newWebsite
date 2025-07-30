@@ -765,7 +765,7 @@ $addons = array(
 
     <div class="modal add-border-blue" id="volunteerDetailsModal">
       <div class="modal-dialog modal-dialog-centered modal-lg" style="display:flex; justify-content:center; width: 100%; height: 90vh;">
-        <div class="modal-content" style='background-color: #fff; width: 100%; height: 100%; overflow: scroll;'>
+        <div class="modal-content" style="background-color: #fff; width: 100%; height: 100%; overflow-y: auto;">
           <div class="modal-header">
             <h5 class="modal-title">Blog Details</h5>
             <svg xmlns="http://www.w3.org/2000/svg" class="btn-close" style="cursor: pointer;" data-bs-dismiss="modal" aria-label="Close" id="close-modal" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="13" height="13">
@@ -795,11 +795,11 @@ $addons = array(
                 </div>
                 <div class="detail-item">
                   <h6 class="detail-label">Description:</h6>
-                  <p class="detail-value" id="detailsDescription"></p>
+                  <p class="detail-value" id="detailsDescription" style="word-wrap: break-word; white-space: pre-wrap;"></p>
                 </div>
                 <div class="detail-item">
                   <h6 class="detail-label">Body:</h6>
-                  <p class="detail-value" id="detailsBody"></p>
+                  <p class="detail-value" id="detailsBody" style="word-wrap: break-word; white-space: pre-wrap;"></p>
                 </div>
 
               </div>
@@ -810,6 +810,7 @@ $addons = array(
         </div>
       </div>
     </div>
+
 
 
     <section class="head">
@@ -1506,7 +1507,7 @@ $addons = array(
       });
     });
   </script> -->
-
+  l
 
   <script>
     // Global variables
