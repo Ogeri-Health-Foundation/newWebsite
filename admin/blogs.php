@@ -407,61 +407,6 @@ $addons = array(
 
   <main>
 
-    <!-- <div class="modal" tabindex="-1" id="edit-modal">
-      <div class="justify-content-center modal-bodyy mt-5">
-
-        <div class="row justify-content-center ">
-          <div class="col-md-8">
-            <h2 class="mb-4 fw-bold">Edit Blog Post</h2>
-
-            <form method="POST" id="postForm" enctype="multipart/form-data">
-
-              <div class="mb-3">
-                <label class="form-label">Blog Title*</label>
-                <input type="text" id="Title" class="form-control" name="Title" placeholder="Enter Blog Title" value="<?php echo isset($post) ? $post['title'] : ''; ?>" required>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Cover Image</label>
-                <div class="upload-box text-center" onclick="document.getElementById('cover_image').click();">
-                  <input type="file" id="cover_image" name="cover_image" accept="image/*" hidden onchange="previewImage(event)">
-                  <img id="preview" src="<?php echo isset($post['image']) ? 'uploads/' . $post['image'] : 'assets/images/upload-placeholder.svg'; ?>" alt="Upload Image">
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Blog Description*</label>
-                <input type="text" id="Description" class="form-control" name="Description" placeholder="Enter Description" value="<?php echo isset($post) ? $post['description'] : ''; ?>" required>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Category*</label>
-                <select class="form-select" name="Category" id="Category" required>
-                  <option value="">Choose a Category...</option>
-                  <option value="tech" <?php echo (isset($post) && $post['category'] == 'tech') ? 'selected' : ''; ?>>Tech</option>
-                  <option value="business" <?php echo (isset($post) && $post['category'] == 'business') ? 'selected' : ''; ?>>Business</option>
-                  <option value="health" <?php echo (isset($post) && $post['category'] == 'health') ? 'selected' : ''; ?>>Health</option>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Body*</label>
-                <textarea class="form-control text-areaa" id="Body" name="Body" row="30"></textarea>
-              </div>
-
-              <div class="d-flex justify-content-between">
-                <button type="submit" name="save_publish" class="btn btn-primary" id="Publish">Update And Publish</button>
-                <button type="submit" name="save_draft" class="btn btn-secondary" id="Draft">Update as Draft</button>
-              </div>
-
-            </form>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-
-
 
     <style>
       /* Edit Modal Styles */
@@ -772,35 +717,53 @@ $addons = array(
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
             <div class="status-badge-container">
-              <span class="status-badge" id="detailsStatusBlog">Pending</span>
+              <span class="bg-warning py-2 px-4 rounded text-capitalize" id="detailsStatusBlog">Pending</span>
             </div>
-            <div class="volunteer-info">
-              <div class="volunteer-photo">
-                <img src="../assets/images/includes/user1.svg" id="detailsImage" style="width: 150px;min-width:150px;">
+            <div class="volunteer-info row">
+              <div class="col-12">
+                <div class="volunteer-photo">
+                  <img src="../assets/images/includes/user1.svg" id="detailsImage">
+                </div>
               </div>
-              <div class="volunteer-details">
-                <div class="detail-item">
-                  <h6 class="detail-label">Blog title:</h6>
-                  <p class="detail-value" id="detailsTitle"></p>
+
+              <div class="details">
+
+                <div class="row mb-2">
+                  <div class="col-md-12 d-flex align-items-start">
+                    <h6 class="me-2" style="min-width: 100px;">Blog title:</h6>
+                    <h6 class="detail-value text-muted" id="detailsTitle"></h6>
+                  </div>
+                  <div class="col-md-12 d-flex">
+                    <h6 class="me-2" style="min-width: 100px;">Posted Date:</h6>
+                    <h6 class="detail-value text-muted" id="detailsDate"></h6>
+                  </div>
+                  <div class="col-md-12 d-flex">
+                    <h6 class="me-2" style="min-width: 100px;">Category:</h6>
+                    <h6 class="detail-value text-muted text-capitalize" id="detailsCategory"></h6>
+                  </div>
                 </div>
-                <div class="detail-item">
-                  <h6 class="detail-label">Posted Date:</h6>
-                  <p class="detail-value" id="detailsDate"></p>
+
+
+                <!-- Description (Full Width) -->
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <h6>Description:</h6>
+                    <p id="detailsDescription"></p>
+                  </div>
                 </div>
-                <div class="detail-item">
-                  <h6 class="detail-label">Category:</h6>
-                  <p class="detail-value" id="detailsCategory"></p>
+
+                <!-- Body Content (Full Width) -->
+                <div class="row">
+                  <div class="col-12">
+                    <h6>Body:</h6>
+                    <div class="ck-content p-3 border rounded" style="width: 100%;">
+                      <p class="" id="detailsBody"></p>
+                    </div>
+                  </div>
                 </div>
-                <div class="detail-item">
-                  <h6 class="detail-label">Description:</h6>
-                  <p class="detail-value" id="detailsDescription" style="word-wrap: break-word; white-space: pre-wrap;"></p>
-                </div>
-                <div class="detail-item">
-                  <h6 class="detail-label">Body:</h6>
-                  <p class="detail-value" id="detailsBody" style="word-wrap: break-word; white-space: pre-wrap;"></p>
-                </div>
+
 
               </div>
             </div>
@@ -1090,424 +1053,7 @@ $addons = array(
       padding: 5px 35px;
     }
   </style>
-  <!-- <script>
-    // Global variables
 
-
-    function previewImage(event) {
-      const reader = new FileReader();
-      reader.onload = function() {
-        document.getElementById('preview').src = reader.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-
-    function hideBadToast() {
-      const BadToast = document.getElementById('bad-toast');
-      BadToast.classList.remove('show');
-    }
-
-    function hideToast() {
-      const Toast = document.getElementById('toast-success');
-      Toast.classList.remove('show');
-    }
-
-
-    $(document).ready(function() {
-      fetch('../api/v1/fetch_all_blog.php') // You may remove pagination here for DataTables
-        .then(response => response.json())
-        .then(data => {
-          let rows = data.data.map((blog, index) => `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${blog.blog_title}</td>
-          <td>${blog.category.replace(/_/g, ' ')}</td>
-          <td>${blog.created_at}</td>
-          <td>${blog.published_at || "Not Published"}</td>
-          <td><span class="${blog.status.toLowerCase()}">${blog.status}</span></td>
-          <td><img src="./assets/images/resources/img/Icon.png" data-id="${blog.blog_id}" alt="More actions" class="dot-btn"/></td>
-        </tr>
-      `).join("");
-
-          $('.table-body').html(rows);
-
-          $('#blogTable').DataTable({
-            dom: '<"row mb-3"<"col-md-4"l>>' +
-              '<"row mb-3"<"col-md-6"B><"col-md-6 text-end"f>>' +
-              'rt' +
-              '<"row mt-3"<"col-md-5"i><"col-md-7"p>>',
-            buttons: [{
-                extend: 'copy',
-                className: 'btn btn-primary btn-sm me-1'
-              },
-              {
-                extend: 'csv',
-                className: 'btn btn-secondary btn-sm me-1'
-              },
-              {
-                extend: 'excel',
-                className: 'btn btn-success btn-sm me-1'
-              },
-              {
-                extend: 'pdf',
-                className: 'btn btn-danger btn-sm me-1'
-              },
-              {
-                extend: 'print',
-                className: 'btn btn-dark btn-sm'
-              }
-            ]
-          });
-
-          addDotBtnListeners(); // Optional if you're keeping the dot-btn modal
-        });
-    });
-
-    function addDotBtnListeners() {
-      document.querySelectorAll(".dot-btn").forEach((btn) => {
-        btn.addEventListener("click", function(event) {
-          const actionMenu = document.querySelector(".modal-box-blog");
-
-          // Get button position relative to viewport
-          const rect = event.target.getBoundingClientRect();
-          const viewportWidth = window.innerWidth;
-          const viewportHeight = window.innerHeight;
-
-          let x = rect.left + window.scrollX + 220; // Adjusted to position near the button
-          let y = rect.top + window.scrollY + 20; // Slightly below the button
-
-          // Prevent action menu from going off-screen
-          if (x + actionMenu.offsetWidth > viewportWidth) {
-            actionMenu.style.display = "none";
-            x = viewportWidth - actionMenu.offsetWidth - 220; // Adjust to keep inside viewport
-          }
-          if (y + actionMenu.offsetHeight > viewportHeight) {
-            y = viewportHeight - actionMenu.offsetHeight - 10;
-          }
-
-          // Set position and show modal
-          actionMenu.style.left = `${x}px`;
-          actionMenu.style.top = `${y}px`;
-          // actionMenu.classList.remove("hidden");
-          actionMenu.style.display = "block";
-
-          actionMenu.setAttribute("data-blog-id", event.target.getAttribute("data-id"));
-
-          console.log(`Showing action menu near dot-btn at: ${x}px, ${y}px`);
-        });
-      });
-    }
-
-    document.addEventListener("click", function(event) {
-      if (!event.target.closest(".dot-btn") && !event.target.closest(".modal-box-blog")) {
-        modalBox.style.display = "none";
-      }
-    });
-
-    document.querySelectorAll(".modal-box-blog .action").forEach(action => {
-      action.addEventListener("click", function() {
-        const modalBox = document.querySelector(".modal-box-blog");
-        const actionName = this.textContent.trim();
-        const blogId = modalBox.getAttribute("data-blog-id");
-
-        if (!blogId) {
-          console.error("No blog ID found for this action.");
-          return;
-        }
-
-        if (this.textContent.includes("View details")) {
-          console.log(`Viewing details for Blog ID: ${blogId}`);
-          const ViewModal = document.getElementById("volunteerDetailsModal");
-          ViewModal.classList.add('active');
-          fetchDataValuee(blogId)
-
-          async function fetchDataValuee(blogId) {
-            try {
-              const response = await fetch(`../api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
-              const data = await response.json();
-
-              console.log("Fetched Data:", data);
-
-              let DetailTitle = document.getElementById("detailsTitle");
-              let DetailsStatusBlog = document.getElementById("detailsStatusBlog");
-              let Image = document.getElementById("detailsImage");
-              let DetailDate = document.getElementById("detailsDate");
-              let DetailCategory = document.getElementById("detailsCategory");
-              let DetailDescription = document.getElementById("detailsDescription");
-              let DetailBody = document.getElementById("detailsBody");
-
-              // Populate form fields
-              DetailTitle.textContent = data.blog_title;
-              DetailsStatusBlog.textContent = data.status;
-              DetailDate.textContent = data.created_at;
-              DetailDescription.textContent = data.blog_description;
-              DetailCategory.textContent = data.category;
-              DetailBody.innerHTML = data.body;
-              Image.src = `../uploads/${data.image}`;
-
-            } catch (error) {
-              console.error("Error fetching data:", error);
-            }
-
-
-            const CloseModal = document.getElementById("close-modal");
-            CloseModal.addEventListener("click", function() {
-              ViewModal.classList.remove('active');
-
-            })
-          }
-
-
-
-
-
-        } else if (this.textContent.includes("Edit Blog")) {
-          const EditModal = document.getElementById("edit-modal");
-          EditModal.classList.add('active');
-          fetchDataValue(blogId);
-
-          // this is to fetch the data dynamically and insert it in each fields value
-
-
-          async function fetchDataValue(blogId) {
-            try {
-              const response = await fetch(`../api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
-              const data = await response.json();
-
-              console.log("Fetched Data:", data);
-
-              // Get input fields
-              let Title = document.getElementById("Title");
-              let Description = document.getElementById("Description");
-              let Category = document.getElementById("Category");
-              let Body = document.getElementById("Body");
-              let Image = document.getElementById("preview");
-
-              // Populate form fields
-              Title.value = data.blog_title;
-              Description.value = data.blog_description;
-              Category.value = data.category;
-              Body.value = data.body;
-              Image.src = `../uploads/${data.image}`; // Set image preview
-
-            } catch (error) {
-              console.error("Error fetching data:", error);
-            }
-          }
-
-          // Listen for form submission
-          document.getElementById("Publish").addEventListener("click", function() {
-            const form = document.getElementById("postForm");
-
-            form.onsubmit = (e) => {
-              e.preventDefault();
-            };
-
-            let formData = new FormData(form);
-            let isValid = true;
-
-            // Validate form inputs
-            for (let [key, value] of formData.entries()) {
-              if (typeof value === "string") {
-                let trimmedValue = value.trim();
-                formData.set(key, trimmedValue); // Set trimmed value
-
-                if (trimmedValue === "") {
-                  isValid = false;
-
-                  const BadToast = document.getElementById('bad-toast');
-                  const BadToastMesaage = document.getElementById('bad-toast-message');
-                  BadToast.classList.add('show');
-                  BadToastMesaage.textContent = `${key} cannot be empty or only spaces.`;
-                  setTimeout(hideBadToast, 5000);
-
-
-
-                  return;
-                }
-              }
-            }
-
-            formData.append("blogId", blogId);
-
-            if (!isValid) return;
-
-            // Check if an image is uploaded
-            const fileInput = document.getElementById("cover_image");
-            if (fileInput.files.length > 0) {
-              formData.append("cover_image", fileInput.files[0]); // Append new image
-            }
-
-            // Send form data to server
-            fetch("../api/v1/update_post_blog.php", {
-                method: "POST",
-                body: formData
-              })
-              .then(response => response.json()) // Fixed incorrect `.json()` call
-              .then(data => {
-                if (data.success === true) {
-                  const toast = document.getElementById('toast-success');
-                  const toastMesaage = document.getElementById('toast-message');
-                  toast.classList.add('show');
-                  toastMesaage.textContent = data.message;
-                  setTimeout(hideToast, 5000);
-
-                  // Update preview image dynamically
-                  let imageUrl;
-                  if (fileInput.files.length > 0) {
-                    imageUrl = URL.createObjectURL(fileInput.files[0]); // Use newly uploaded image
-                  } else if (data.image) {
-                    imageUrl = `../uploads/${data.image}`; // Use existing image
-                  }
-
-                  if (imageUrl) {
-                    document.getElementById("preview").src = imageUrl;
-                  }
-
-                  // Reset form (except image preview)
-                  form.reset();
-                  document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
-
-                } else {
-                  const BadToast = document.getElementById('bad-toast');
-                  const BadToastMesaage = document.getElementById('bad-toast-message');
-                  BadToast.classList.add('show');
-                  BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;
-                  setTimeout(hideBadToast, 5000);
-
-
-                }
-              })
-              .catch(error => {
-                console.error("Error:", error);
-                const BadToast = document.getElementById('bad-toast');
-                const BadToastMesaage = document.getElementById('bad-toast-message');
-                BadToast.classList.add('show');
-                BadToastMesaage.textContent = "Something went wrong.";
-                setTimeout(hideBadToast, 5000);
-
-
-              });
-          });
-
-          function hideBadToast() {
-            const BadToast = document.getElementById('bad-toast');
-            BadToast.classList.remove('show');
-          }
-
-
-
-
-
-
-
-
-          // this to save as draf
-        } else if (this.textContent.includes("Save Draft")) {
-
-          const type = "draft";
-          fetch("../api/v1/update_blog.php", {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                blogId,
-                type
-              }),
-            })
-            .then(response => response.json())
-            .then(data => {
-              if (data.success === true) {
-                const toast = document.getElementById('toast-success');
-                const toastMesaage = document.getElementById('toast-message');
-                toast.classList.add('show');
-                toastMesaage.textContent = data.message;
-                setTimeout(hideToast, 5000);
-                form.reset();
-                document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
-
-                //         function hideToast() {
-                //         const toast = document.getElementById('toast-success');
-                //         toast.classList.remove('show');
-                // }
-
-              } else {
-                const BadToast = document.getElementById('bad-toast');
-                const BadToastMesaage = document.getElementById('bad-toast-message');
-                BadToast.classList.add('show');
-                BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;;
-                setTimeout(hideBadToast, 5000);
-
-                // function hideBadToast() {
-                // const BadToast = document.getElementById('bad-toast');
-                // BadToast.classList.remove('show');
-                // }
-              }
-
-            })
-            .catch(error => {
-              console.error("Error:", error);
-              // alert("An error occurred.");
-            });
-
-        } else if (this.textContent.includes("Publish Blog")) {
-          console.log(`Publishing Blog ID: ${blogId}`);
-
-
-          // this to save as published
-          const type = "publish";
-          fetch("../api/v1/update_blog.php", {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                blogId,
-                type
-              }),
-            })
-            .then(response => response.json())
-            .then(data => {
-              if (data.success === true) {
-                const toast = document.getElementById('toast-success');
-                const toastMesaage = document.getElementById('toast-message');
-                toast.classList.add('show');
-                toastMesaage.textContent = data.message;
-                setTimeout(hideToast, 5000);
-                form.reset();
-                document.getElementById('preview').src = "assets/images/upload-placeholder.svg";
-
-                //         function hideToast() {
-                //         const toast = document.getElementById('toast-success');
-                //         toast.classList.remove('show');
-                // }
-
-              } else {
-                const BadToast = document.getElementById('bad-toast');
-                const BadToastMesaage = document.getElementById('bad-toast-message');
-                BadToast.classList.add('show');
-                BadToastMesaage.textContent = data.message || `Error ${xhr.status}: ${xhr.statusText}`;;
-                setTimeout(hideBadToast, 5000);
-
-                function hideBadToast() {
-                  const BadToast = document.getElementById('bad-toast');
-                  BadToast.classList.remove('show');
-                }
-              }
-
-            })
-            .catch(error => {
-              console.error("Error:", error);
-              // alert("An error occurred.");
-            });
-        }
-
-        modalBox.style.display = "none";
-      });
-    });
-  </script> -->
-  l
 
   <script>
     // Global variables
@@ -1714,7 +1260,7 @@ $addons = array(
         <tr>
           <td>${index + 1}</td>
           <td>${blog.blog_title}</td>
-          <td>${blog.category.replace(/_/g, ' ')}</td>
+          <td class="text-capitalize">${blog.category.replace(/_/g, ' ')}</td>
           <td>${blog.created_at}</td>
           <td>${blog.published_at || "Not Published"}</td>
           <td><span class="${blog.status.toLowerCase()}">${blog.status}</span></td>
@@ -1832,7 +1378,7 @@ $addons = array(
               DetailsStatusBlog.textContent = data.status;
               DetailDate.textContent = data.created_at;
               DetailDescription.textContent = data.blog_description;
-              DetailCategory.textContent = data.category;
+              DetailCategory.textContent = data.category.replace(/_/g, ' ');
               DetailBody.innerHTML = data.body;
               Image.src = `../uploads/${data.image}`;
 
