@@ -36,8 +36,17 @@ switch ($filter) {
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $topBlogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$labels = json_encode(array_column($topBlogs, 'blog_title'));
+// $labels = json_encode(array_column($topBlogs, 'blog_title'));
+// $values = json_encode(array_column($topBlogs, 'views'));
+
+$labels = json_encode(array_map(function ($blog) {
+    return strlen($blog['blog_title']) > 45
+        ? substr($blog['blog_title'], 0, 40) . '...'
+        : $blog['blog_title'];
+}, $topBlogs));
+
 $values = json_encode(array_column($topBlogs, 'views'));
+
 
 ?>
 
@@ -792,35 +801,53 @@ $addons = array(
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                         <div class="status-badge-container">
-                            <span class="status-badge" id="detailsStatusBlog">Pending</span>
+                            <span class="bg-warning py-2 px-4 rounded text-capitalize" id="detailsStatusBlog">Pending</span>
                         </div>
-                        <div class="volunteer-info">
-                            <div class="volunteer-photo">
-                                <img src="../assets/images/includes/user1.svg" id="detailsImage">
+                        <div class="volunteer-info row">
+                            <div class="col-12">
+                                <div class="volunteer-photo">
+                                    <img src="../assets/images/includes/user1.svg" id="detailsImage">
+                                </div>
                             </div>
-                            <div class="volunteer-details">
-                                <div class="detail-item">
-                                    <h6 class="detail-label">Blog title:</h6>
-                                    <p class="detail-value" id="detailsTitle"></p>
+
+                            <div class="details">
+
+                                <div class="row mb-2">
+                                    <div class="col-md-12 d-flex align-items-start">
+                                        <h6 class="me-2" style="min-width: 100px;">Blog title:</h6>
+                                        <h6 class="detail-value text-muted" id="detailsTitle"></h6>
+                                    </div>
+                                    <div class="col-md-12 d-flex">
+                                        <h6 class="me-2" style="min-width: 100px;">Posted Date:</h6>
+                                        <h6 class="detail-value text-muted" id="detailsDate"></h6>
+                                    </div>
+                                    <div class="col-md-12 d-flex">
+                                        <h6 class="me-2" style="min-width: 100px;">Category:</h6>
+                                        <h6 class="detail-value text-muted text-capitalize" id="detailsCategory"></h6>
+                                    </div>
                                 </div>
-                                <div class="detail-item">
-                                    <h6 class="detail-label">Posted Date:</h6>
-                                    <p class="detail-value" id="detailsDate"></p>
+
+
+                                <!-- Description (Full Width) -->
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <h6>Description:</h6>
+                                        <p id="detailsDescription"></p>
+                                    </div>
                                 </div>
-                                <div class="detail-item">
-                                    <h6 class="detail-label">Category:</h6>
-                                    <p class="detail-value" id="detailsCategory"></p>
+
+                                <!-- Body Content (Full Width) -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h6>Body:</h6>
+                                        <div class="ck-content p-3 border rounded" style="width: 100%;">
+                                            <p class="" id="detailsBody"></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="detail-item">
-                                    <h6 class="detail-label">Description:</h6>
-                                    <p class="detail-value" id="detailsDescription"></p>
-                                </div>
-                                <div class="detail-item">
-                                    <h6 class="detail-label">Body:</h6>
-                                    <p class="detail-value" id="detailsBody"></p>
-                                </div>
+
 
                             </div>
                         </div>
@@ -1186,7 +1213,7 @@ $addons = array(
                         row.innerHTML = `
                         <td>${sn++}</td>
                         <td class="blog-title">${blog.blog_title}</td>
-                        <td>${blog.category.replace(/_/g, ' ')}</td>
+                        <td class="text-capitalize">${blog.category.replace(/_/g, ' ')}</td>
                         <td>${formatDate(blog.created_at)}</td>
                         <td>${formatDate(blog.published_at)}</td>
                         <td><span class="${blog.status.toLowerCase()}">${blog.status}</span></td>
@@ -1235,7 +1262,7 @@ $addons = array(
                 DisplayNum2.textContent = data.total;
             } catch (error) {
                 console.error("Error fetching blog total:", error);
-                showBadToast("Error loading blog statistics");
+                // showBadToast("Error loading blog statistics");
             }
         }
 
@@ -1288,10 +1315,12 @@ $addons = array(
                 const response = await fetch(`../api/v1/post_blog.php?blogId=${encodeURIComponent(blogId)}`);
                 const data = await response.json();
 
+
+
                 document.getElementById("detailsTitle").textContent = data.blog_title;
                 document.getElementById("detailsStatusBlog").textContent = data.status;
                 document.getElementById("detailsDate").textContent = data.created_at;
-                document.getElementById("detailsCategory").textContent = data.category;
+                document.getElementById("detailsCategory").textContent = data.category.replace(/_/g, ' ');
                 document.getElementById("detailsDescription").textContent = data.blog_description;
                 document.getElementById("detailsBody").innerHTML = data.body;
                 document.getElementById("detailsImage").src = `../uploads/${data.image}`;
