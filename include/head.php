@@ -53,17 +53,17 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="assets/img/favicons/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <meta content="<?php echo $page_title; ?>" property="og:title">
-	<meta content="<?php echo $page_description; ?>" property="og:description">
-	<meta content="<?php echo $banner_image; ?>" property="og:image">
-	<meta content="<?php echo $page_url; ?>" property="og:url">
+ <!--   <meta content="<?php echo $page_title; ?>" property="og:title">-->
+	<!--<meta content="<?php echo $page_description; ?>" property="og:description">-->
+	<!--<meta content="<?php echo $banner_image; ?>" property="og:image">-->
+	<!--<meta content="<?php echo $page_url; ?>" property="og:url">-->
 	<meta content="website" property="og:type">
 
     <!-- Twitter Card meta tags for Twitter sharing -->
-	<meta content="<?php echo $banner_image; ?>" name="twitter:card">
-	<meta content="<?php echo $page_title; ?>" name="twitter:title">
-	<meta content="<?php echo $page_description; ?>" name="twitter:description">
-	<meta content="<?php echo $banner_image; ?>" name="twitter:image">
+	<!--<meta content="<?php echo $banner_image; ?>" name="twitter:card">-->
+	<!--<meta content="<?php echo $page_title; ?>" name="twitter:title">-->
+	<!--<meta content="<?php echo $page_description; ?>" name="twitter:description">-->
+	<!--<meta content="<?php echo $banner_image; ?>" name="twitter:image">-->
     
     <link href="assets/img/favicon.svg" rel="icon" />
 
