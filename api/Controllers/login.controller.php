@@ -60,5 +60,5 @@ class LoginContrl extends Login
     private function invalidEmail() {
         return filter_var($this->email, FILTER_VALIDATE_EMAIL);
     }
-
+ 
 }

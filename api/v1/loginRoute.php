@@ -11,7 +11,7 @@ USE PHPMailer\PHPMailer\Exception;
 
 include_once '../Database/DatabaseConn.php';
 include_once '../Models/Login.php';
-include_once '../Controllers/login.controller.php';
+include_once '../Controllers/login.controller.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
