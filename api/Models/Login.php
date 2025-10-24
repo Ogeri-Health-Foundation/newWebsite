@@ -37,7 +37,7 @@ class Login extends DatabaseConn {
                     WHERE a.email = :email
                     
                 ");
-
+ 
                 $stmt->bindParam(':email', $email);
 
                 if (!$stmt->execute()) {

@@ -13,7 +13,7 @@ trait sendMail
     
                     try {
                         $mail->isSMTP();
-                        $mail->Host       = 'mail.ogerihealth.org';
+                        $mail->Host       = 'mail.ogerihealth.org'; 
                         $mail->SMTPAuth   = true;
                         $mail->Username   = 'info@ogerihealth.org';
                         $mail->Password   = '0s)lArHP7LxR';  // ❗ Make sure to store this securely
