@@ -660,7 +660,7 @@ $addons = array(
 
         <div class="volunteer-card">
           <?php
-                      $primaryPath = "volunteer_uploads/profiles/" . $profilePicture;
+                      $primaryPath = "volunteer_upload/profiles/" . $profilePicture;
                       $fallbackPath = "admin/assets/images/volunteer-img-uploads/" . $profilePicture;
 
                       if (file_exists($primaryPath)) {

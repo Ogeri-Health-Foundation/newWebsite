@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-require_once "../Middleware/GlobalAuth.php";
+// require_once "../Middleware/GlobalAuth.php";
 
 // $authenticate = new Auth();
 // $authenticate->authenticate();
@@ -10,6 +10,10 @@ require_once "../Models/Events.php";
 require_once "../Middleware/EventsWare.php";
 
 $route = new EventRoute();
-$route->store();
-$route->FetchEvents();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $route->store();
+} elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $route->FetchEvents();
+}
 

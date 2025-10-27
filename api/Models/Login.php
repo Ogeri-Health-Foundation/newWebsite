@@ -8,123 +8,70 @@ class Login extends DatabaseConn {
 
     use sendMail;
 
-    public function loginAdmin(string $email, string $password) {
-        try {
-            $stmt = $this->connect()->prepare("
-            SELECT password FROM admins WHERE email = :email
-        
-        ");
-
+  public function loginAdmin(string $email, string $password)
+{
+    try {
+        $stmt = $this->connect()->prepare("SELECT unique_id, password FROM admins WHERE email = :email");
         $stmt->bindParam(':email', $email);
+        $stmt->execute();
 
-        if (!$stmt->execute()) {
-            throw new Exception("Error checking user.");
+        if ($stmt->rowCount() === 0) {
+            return ["message" => "Invalid email or password", "status" => 400];
         }
 
-        if ($stmt->rowCount() > 0) {
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($password !== $result['password']) {
-                return false;
-            }
+        // If plain passwords (for now)
+        if ($password !== $admin['password']) {
+            return ["message" => "Invalid email or password", "status" => 400];
         }
-            $DbQuery = $this->checkDeviceAuth($email);
-            if ($DbQuery) {
-                $stmt = $this->connect()->prepare(" SELECT admin_s.unique_id, admin_s.session_1, 
-                           a.password, admin_s.browser_agent, admin_s.ip_address
-                    FROM admins a
-                    JOIN admin_sessions admin_s ON a.unique_id = admin_s.unique_id
-                    WHERE a.email = :email
-                    
-                ");
- 
-                $stmt->bindParam(':email', $email);
 
-                if (!$stmt->execute()) {
-                    throw new Exception("Error checking user.");
-                }
+        $uniqueId = $admin['unique_id'];
+        $currentBrowserAgent = $_SERVER["HTTP_USER_AGENT"] ?? "";
 
-                if ($stmt->rowCount() > 0) {
-                    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        // ✅ Check if this device/browser already has an active session
+        $sessionStmt = $this->connect()->prepare("
+            SELECT id FROM admin_sessions 
+            WHERE unique_id = :uid AND browser_agent = :agent
+        ");
+        $sessionStmt->bindParam(':uid', $uniqueId);
+        $sessionStmt->bindParam(':agent', $currentBrowserAgent);
+        $sessionStmt->execute();
 
-                    if ($password !== $result['password']) {
-                        return[
-                "message" =>"nooo"
-            ]; 
-                    }
-
-                    $sessionId = bin2hex(random_bytes(60));
-                    $encryptedUniqueId = $result['unique_id'];
-
-                    $this->setEncryptedCookie('usid_id', $sessionId);
-                    $this->setEncryptedCookie('_variable_', $encryptedUniqueId);
-                    $this->setAdditionalCookies();
-                    $currentBrowserAgent = $_SERVER["HTTP_USER_AGENT"] ?? "";
-                    $currentIpAddress = $_SERVER['REMOTE_ADDR'] ?? "";
-            
-                    $updateStmt = $this->connect()->prepare("
-                        UPDATE admin_sessions 
-                        SET session_1 = :session_1 
-                        WHERE browser_agent = :browser_agent 
-                        AND ip_address = :ip_address
+        if ($sessionStmt->rowCount() === 0) {
+            // New device/browser → create new session
+            $sessionID = bin2hex(random_bytes(32));
+            $insert = $this->connect()->prepare("
+                INSERT INTO admin_sessions (unique_id, session_1, browser_agent, ip_address, created_at)
+                VALUES (:uid, :sid, :agent, :ip, NOW())
             ");
-
-            $updateStmt->bindParam(':session_1', $sessionId);
-            $updateStmt->bindParam(':browser_agent',   $currentBrowserAgent);
-            $updateStmt->bindParam(':ip_address',  $currentIpAddress);
-
-                    if ($updateStmt->execute()) {
-                        return [
-                            "message" => "Signed In Successfully", true
-                        ];
-                    }
-
-                } else {
-                    return  [
-                        "message" => "Unable to sign in",
-                    ];
-                }
-            }else {
-                $this->InvokeAuth($email);
-               
-            }
-        } catch (Exception $e) {
-            error_log($e->getMessage());
-            return[
-                "message" =>"nooo"
-            ];
+            $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+            $insert->bindParam(':uid', $uniqueId);
+            $insert->bindParam(':sid', $sessionID);
+            $insert->bindParam(':agent', $currentBrowserAgent);
+            $insert->bindParam(':ip', $ip);
+            $insert->execute();
+        } else {
+            // Existing trusted device
+            $session = $sessionStmt->fetch(PDO::FETCH_ASSOC);
+            $sessionID = $session['id']; // use existing session
         }
+
+        // ✅ Set encrypted cookies for authentication
+        $this->setEncryptedCookie('_variable_', $uniqueId);
+        $this->setEncryptedCookie('usid_id', (string)$sessionID);
+
+        // Optional extra cookies (security padding)
+        $this->setAdditionalCookies();
+
+        return [
+            "message" => "Login successful",
+            "status" => 200
+        ];
+    } catch (Exception $e) {
+        return ["message" => "Server error: " . $e->getMessage(), "status" => 500];
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+}
 
     public function InvokeAuth(string $email){
         $stmt = $this->connect()->prepare("
@@ -148,11 +95,12 @@ class Login extends DatabaseConn {
 
                     $encryptedUniqueId = $result['unique_id'];
                     $this->setEncryptedCookie('_variable_', $encryptedUniqueId);
-                    http_response_code(200);
-                    echo json_encode([
-                        "message" => "Otp Sent: Please Check your email to re-login",
-                        "status" => 200
+                    
+                   echo json_encode([
+                        "status" => "success",
+                        "message" => "Otp Sent: Please check your email to re-login"
                     ]);
+                    http_response_code(200);
                     exit;
                 } else {
                     
@@ -166,55 +114,35 @@ class Login extends DatabaseConn {
                 
     }
 
-    public function checkDeviceAuth(string $email) {
+    // ✅ Replace the old checkDeviceAuth() with this:
+    public function checkDeviceAuth(string $email): bool {
         try {
-            $currentBrowserAgent = $_SERVER["HTTP_USER_AGENT"] ?? "";
-            $currentIpAddress = $_SERVER['REMOTE_ADDR'] ?? "";
-    
-           
-            $userStmt = $this->connect()->prepare("
-                SELECT unique_id FROM admins WHERE email = :email
-            ");
+            $userStmt = $this->connect()->prepare("SELECT unique_id FROM admins WHERE email = :email");
             $userStmt->bindParam(':email', $email);
             $userStmt->execute();
-            
-            if ($userStmt->rowCount() == 0) {
-                return false;
-            }
-            
+
+            if ($userStmt->rowCount() === 0) return false;
+
             $userData = $userStmt->fetch(PDO::FETCH_ASSOC);
             $uniqueId = $userData['unique_id'];
-            
-           
+
+            $currentBrowserAgent = $_SERVER["HTTP_USER_AGENT"] ?? "";
+
             $sessionStmt = $this->connect()->prepare("
-                SELECT browser_agent, ip_address
-                FROM admin_sessions
-                WHERE unique_id = :unique_id
+                SELECT id FROM admin_sessions
+                WHERE unique_id = :uid AND browser_agent = :agent
             ");
-            $sessionStmt->bindParam(':unique_id', $uniqueId);
+            $sessionStmt->bindParam(':uid', $uniqueId);
+            $sessionStmt->bindParam(':agent', $currentBrowserAgent);
             $sessionStmt->execute();
-            
-            if ($sessionStmt->rowCount() == 0) {
-                return false;
-            }
-            
-           
-            while ($session = $sessionStmt->fetch(PDO::FETCH_ASSOC)) {
-                if ($currentBrowserAgent === $session["browser_agent"] && 
-                    $currentIpAddress === $session["ip_address"]) {
-                    return true; 
-                }
-                // return false;
-            }
-            
-            return false;
+
+            return $sessionStmt->rowCount() > 0;
         } catch (Exception $e) {
-            error_log($e->getMessage());
-            return[
-                "message" =>"nooo"
-            ];
+            error_log("Device check error: " . $e->getMessage());
+            return false;
         }
     }
+
 
     private function encryptCookieValue($value) {
         $iv_length = openssl_cipher_iv_length($this->cipher);

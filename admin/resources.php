@@ -1236,6 +1236,10 @@ $addons = array(
                                     <i class="fas fa-upload"></i>
                                     <span>Publish Blog</span>
                                 </div>
+                                <div class="action delete-action">
+                                    <i class="fas fa-trash"></i>
+                                    <span>Delete Blog</span>
+                                </div>
                             </div>
                         </td>
                     `;
@@ -1341,6 +1345,46 @@ $addons = array(
             isEditModalOpen = true;
             fetchDataValue(blogId);
         }
+        
+       function deleteBlog(blogId) {
+          if (confirm("Are you sure you want to delete this blog? This action cannot be undone.")) {
+            fetch("../api/v1/delete_blog.php", {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ blogId })
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                const toast = document.getElementById('toast-success');
+                const toastMessage = document.getElementById('toast-message');
+                toast.classList.add('show');
+                toastMessage.textContent = data.message;
+                setTimeout(() => toast.classList.remove('show'), 4000);
+        
+                // Refresh blogs list
+                fetchBlogs();
+              } else {
+                const badToast = document.getElementById('bad-toast');
+                const badToastMessage = document.getElementById('bad-toast-message');
+                badToast.classList.add('show');
+                badToastMessage.textContent = data.message || "Failed to delete blog.";
+                setTimeout(() => badToast.classList.remove('show'), 4000);
+              }
+            })
+            .catch(error => {
+              console.error("Error deleting blog:", error);
+              const badToast = document.getElementById('bad-toast');
+              const badToastMessage = document.getElementById('bad-toast-message');
+              badToast.classList.add('show');
+              badToastMessage.textContent = "Something went wrong while deleting.";
+              setTimeout(() => badToast.classList.remove('show'), 4000);
+            });
+          }
+        }
+
 
         function closeEditModal() {
             const editModal = document.getElementById("edit-modal");
@@ -1516,6 +1560,7 @@ $addons = array(
                 .then(doctors => {
                     const tableContainer = document.querySelector(".table-container");
                     const table = document.querySelector(".filled-doctors-table");
+                    const noDoctor= document.querySelector(".no-doctors-message");
                     const tbody = table ? table.querySelector("tbody") : null;
                     let emptyMessage = document.querySelector(".empty-doctors-table");
 
@@ -1525,21 +1570,22 @@ $addons = array(
 
                     if (doctors.length === 0) {
                         table.style.display = "none";
-                        if (!emptyMessage) {
-                            emptyMessage = document.createElement("div");
-                            emptyMessage.classList.add("computer-img-box", "empty-doctors-table");
-                            emptyMessage.innerHTML = `
-                            <img src="./assets/images/resources/img/doctor-image.png" alt="computer-image" class="computer-img" />
-                            <p>No Health workers Yet</p>
-                        `;
-                            tableContainer.appendChild(emptyMessage);
-                        } else {
-                            emptyMessage.style.display = "block";
-                        }
-                        return;
+                        noDoctor.style.display ="block"
+                        // if (!emptyMessage) {
+                        //     emptyMessage = document.createElement("div");
+                        //     emptyMessage.classList.add("computer-img-box", "empty-doctors-table");
+                        //     emptyMessage.innerHTML = `
+                        //     <img src="./assets/images/resources/img/doctor-image.png" alt="computer-image" class="computer-img" />
+                        //     <p>No Health workers Yet</p>
+                        // `;
+                        //     tableContainer.appendChild(emptyMessage);
+                        // } else {
+                        //     emptyMessage.style.display = "block";
+                        // }
+                        // return;
                     }
 
-                    if (emptyMessage) emptyMessage.style.display = "none";
+                    // if (emptyMessage) emptyMessage.style.display = "none";
                     table.style.display = "table";
 
                     doctors.forEach((doctor, index) => {
@@ -1922,15 +1968,17 @@ $addons = array(
                 const blogId = dotBtn.getAttribute("data-id");
 
                 const text = action.textContent.trim();
-                if (text.includes("View details")) {
-                    fetchBlogDetails(blogId);
-                } else if (text.includes("Edit Blog")) {
-                    openEditModal(blogId);
-                } else if (text.includes("Save Draft")) {
-                    updateBlogStatus(blogId, "draft");
-                } else if (text.includes("Publish Blog")) {
-                    updateBlogStatus(blogId, "publish");
-                }
+               if (text.includes("View details")) {
+                fetchBlogDetails(blogId);
+            } else if (text.includes("Edit Blog")) {
+                openEditModal(blogId);
+            } else if (text.includes("Save Draft")) {
+                updateBlogStatus(blogId, "draft");
+            } else if (text.includes("Publish Blog")) {
+                updateBlogStatus(blogId, "publish");
+            } else if (text.includes("Delete Blog")) {
+                deleteBlog(blogId);
+            }
 
                 modalBox2.style.display = "none";
             });

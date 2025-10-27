@@ -110,12 +110,19 @@ if (isset($_GET['action']) && $_GET['action'] === 'fetch') {
     $offset = ($page - 1) * $limit;
     try {
 
-        $stmt = $conn->prepare("SELECT * FROM donation_events LIMIT ? OFFSET ?");
-        $stmt->bindValue(1, $limit, PDO::PARAM_INT);
-        $stmt->bindValue(2, $offset, PDO::PARAM_INT);
-        $stmt->execute();
-        $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        $stmt = $conn->prepare("
+        SELECT 
+            e.*,
+            GROUP_CONCAT(DISTINCT CONCAT(s.currency, ' ', FORMAT(s.amount, 2)) SEPARATOR '<br>') AS original_displays
+        FROM donation_events e
+        LEFT JOIN donation_single s ON e.id = s.donation_event_id
+        GROUP BY e.id
+        LIMIT ? OFFSET ?
+    ");
+    $stmt->bindValue(1, $limit, PDO::PARAM_INT);
+    $stmt->bindValue(2, $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $countStmt = $conn->query("SELECT COUNT(*) AS total FROM donation_events");
         $totalCount = $countStmt->fetch(PDO::FETCH_ASSOC)['total'];
@@ -141,7 +148,39 @@ if (isset($_GET['action']) && $_GET['action'] === 'fetch') {
     }
     exit; // Ensure no extra output
 }
+if (isset($_GET['action']) && $_GET['action'] === 'fetch_general') {
+    $limit = isset($_GET['limit']) ? max(1, intval($_GET['limit'])) : 10;
+    $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+    $offset = ($page - 1) * $limit;
 
+    try {
+        $stmt = $conn->prepare("SELECT * FROM donations ORDER BY created_at DESC LIMIT ? OFFSET ?");
+        $stmt->bindValue(1, $limit, PDO::PARAM_INT);
+        $stmt->bindValue(2, $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Count total
+        $countStmt = $conn->query("SELECT COUNT(*) AS total FROM donations");
+        $totalCount = $countStmt->fetch(PDO::FETCH_ASSOC)['total'];
+        $totalPages = ($limit > 0) ? ceil($totalCount / $limit) : 1;
+
+        // Calculate total donations in NGN
+        $sumStmt = $conn->query("SELECT SUM(amount_ngn) AS total_ngn FROM donations");
+        $totalNGN = $sumStmt->fetch(PDO::FETCH_ASSOC)['total_ngn'] ?? 0;
+
+        echo json_encode([
+            "status" => "success",
+            "donations" => $donations,
+            "totalPages" => $totalPages,
+            "currentPage" => $page,
+            "totalNGN" => $totalNGN
+        ]);
+    } catch (PDOException $e) {
+        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
+    }
+    exit;
+}
 
 // Fetch Single Opportunity (For Edit Mode)
 if (isset($_GET['action']) && $_GET['action'] === 'get' && isset($_GET['id'])) {
@@ -159,12 +198,28 @@ if (isset($_GET['action']) && $_GET['action'] === 'get' && isset($_GET['id'])) {
         }
 
         // Fetch the donors for this donation event
-        $stmtDonors = $conn->prepare("SELECT donor_name, amount, currency FROM donation_single WHERE donation_event_id = ? ORDER BY donation_date DESC");
+            $stmtDonors = $conn->prepare("
+            SELECT donor_name, amount, currency 
+            FROM donation_single 
+            WHERE donation_event_id = ? 
+            ORDER BY donation_date DESC
+        ");
         $stmtDonors->execute([$donationId]);
         $donors = $stmtDonors->fetchAll(PDO::FETCH_ASSOC);
 
-        // Include donors in the response
+        // Aggregate total per currency
+        $stmtTotals = $conn->prepare("
+            SELECT currency, SUM(amount) AS total_amount
+            FROM donation_single 
+            WHERE donation_event_id = ?
+            GROUP BY currency
+        ");
+        $stmtTotals->execute([$donationId]);
+        $currencyTotals = $stmtTotals->fetchAll(PDO::FETCH_ASSOC);
+
+        // Include donors and currency totals in the response
         $donation['donors'] = $donors;
+        $donation['currency_totals'] = $currencyTotals;
 
         echo json_encode($donation);
     } catch (PDOException $e) {

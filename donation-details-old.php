@@ -287,90 +287,156 @@ $addons = array(
 
     <!-- Flutterwave Payment Script -->
     <script src="https://checkout.flutterwave.com/v3.js"></script>
-    <script>
-        document.getElementById("currency").addEventListener("change", function() {
-            const currency = this.value;
-            document.getElementById("currency_symbol").innerText = currency === "NGN" ? "₦" : "£";
-        });
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // --- Handle amount buttons ---
+        const amountButtons = document.querySelectorAll('.amount-option-btn');
+        const donationAmountInput = document.getElementById('donation_amount');
 
-        document.getElementById("pay-button").addEventListener("click", function() {
-            const amount = document.getElementById("donation_amount").value;
-            const currency = document.getElementById("currency").value;
-            const name = document.getElementById("name").value;
-            const lastname = document.getElementById("lastname").value;
-            const email = document.getElementById("email").value;
-            const message = document.getElementById("message").value;
-            const event_id = document.getElementById("event_id").value;
-            console.log(event_id);
-
-            if (!amount || !email) {
-                alert("Please enter all required fields.");
-                return;
-            }
-
-            FlutterwaveCheckout({
-                public_key: "FLWPUBK_TEST-7343bad195d49ea19fed9bae134b8c87-X",
-                tx_ref: "DONATE-" + Math.floor(Math.random() * 1000000),
-                amount: parseFloat(amount),
-                currency: currency,
-                customer: {
-                    email: email,
-                    name: name + " " + lastname,
-                },
-                callback: function(response) {
-                    fetch("verify-transaction-single.php", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                transaction_id: response.transaction_id,
-                                donation_event_id: event_id,
-                                message: message
-                            })
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.status === "success") {
-                                // Redirect with success message
-                                window.location.href = "donation.php?success=1&message=" + encodeURIComponent("Donation successful! Thank you for your support.");
-                            } else {
-                                alert("Payment verification failed. Please contact support.");
-                            }
-                        })
-                        .catch(error => console.error("Error:", error));
-                },
-                onclose: function() {
-                    console.log("Payment window closed.");
-                },
-                customizations: {
-                    title: "OHF Donation",
-                    description: "Support our cause",
-                    logo: "assets/img/favicon.svg",
-                },
+        amountButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                amountButtons.forEach(btn => btn.classList.remove('selected'));
+                this.classList.add('selected');
+                donationAmountInput.value = this.textContent.trim();
             });
         });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            let limit = 5; // Initial limit
-            function loadDonors() {
-                fetch(`api/Models/fetch_recent_donors.php?limit=${limit}&id=<?= $eventId ?>`)
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("donors-list").innerHTML = data;
+
+        donationAmountInput.addEventListener('focus', function() {
+            amountButtons.forEach(btn => btn.classList.remove('selected'));
+        });
+    });
+
+    // --- Handle currency change ---
+    document.getElementById("currency").addEventListener("change", function () {
+        const currency = this.value;
+        let symbol;
+
+        switch (currency) {
+            case "NGN": symbol = "₦"; break;
+            case "USD": symbol = "$"; break;
+            case "EUR": symbol = "€"; break;
+            default: symbol = "₦";
+        }
+
+        document.querySelectorAll(".amount-option-btn").forEach(btn => {
+            const rawText = btn.textContent.replace(/[₦$€£,\s]/g, "");
+            if (!isNaN(rawText) && rawText.length > 0) {
+                btn.textContent = `${symbol}${Number(rawText).toLocaleString()}`;
+            }
+        });
+
+        const donationInput = document.getElementById("donation_amount");
+        donationInput.placeholder = `${symbol}100,000`;
+        donationInput.value = `${symbol}100,000`;
+    });
+
+    // --- Handle Pay Button Click ---
+    document.getElementById("pay-button").addEventListener("click", function() {
+        const payBtn = this;
+        payBtn.disabled = true;
+        payBtn.innerText = "Processing...";
+
+        const rawAmount = document.getElementById("donation_amount").value;
+        const amount = parseFloat(rawAmount.replace(/[^0-9.]/g, ''));
+        const currency = document.getElementById("currency").value;
+        const name = document.getElementById("name").value;
+        const lastname = document.getElementById("lastname").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
+        const event_id = document.getElementById("event_id").value;
+
+        if (!amount || !email) {
+            alert("Please enter all required fields.");
+            payBtn.disabled = false;
+            payBtn.innerText = "Donate Now";
+            return;
+        }
+
+        FlutterwaveCheckout({
+            public_key: "FLWPUBK_TEST-7343bad195d49ea19fed9bae134b8c87-X",
+            tx_ref: "DONATE-" + Math.floor(Math.random() * 1000000),
+            amount: parseFloat(amount),
+            currency: currency,
+            customer: {
+                email: email,
+                name: name + " " + lastname,
+            },
+            callback: function(response) {
+                fetch("verify-transaction-single.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        transaction_id: response.transaction_id,
+                        donation_event_id: event_id,
+                        message: message,
+                        name: name + " " + lastname,
+                        email: email
                     })
-                    .catch(error => console.error('Error:', error));
-            }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    payBtn.disabled = false;
+                    payBtn.innerText = "Donate Now";
 
-            loadDonors(); // Load initial donors
-
-            document.getElementById("view-more-btn").addEventListener("click", function() {
-                limit += 5; // Increase the limit
-                loadDonors();
-            });
+                    if (data.status === "success") {
+                        window.location.href = "donation.php?success=1&message=" + encodeURIComponent("Donation successful! Thank you for your support.");
+                    } else {
+                        alert("Payment verification failed. Please contact support.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    payBtn.disabled = false;
+                    payBtn.innerText = "Donate Now";
+                });
+            },
+            onclose: function() {
+                console.log("Payment window closed.");
+                payBtn.disabled = false;
+                payBtn.innerText = "Donate Now";
+            },
+            customizations: {
+                title: "OHF Donation",
+                description: "Support our cause",
+                logo: "assets/img/favicon.svg", 
+            },
         });
-    </script>
+    });
+</script>
+
+<script>
+    function closeAlert() {
+        const alertBox = document.querySelector(".alert");
+        if (alertBox) {
+            alertBox.style.display = "none";
+            const url = new URL(window.location.href);
+            url.searchParams.delete("success");
+            url.searchParams.delete("message");
+            window.history.replaceState(null, null, url.toString());
+        }
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let limit = 5;
+        function loadDonors() {
+            fetch(`api/Models/fetch_recent_donors.php?limit=${limit}&id=<?= $eventId ?>`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("donors-list").innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        loadDonors();
+
+        document.getElementById("view-more-btn").addEventListener("click", function() {
+            limit += 5;
+            loadDonors();
+        });
+    });
+</script>
 
 
 </body>

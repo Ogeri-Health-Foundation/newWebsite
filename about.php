@@ -297,7 +297,7 @@ heroes who make it all happen!</p>
                         <div class="leader-div"  data-aos="flip-right"
      data-aos-delay="200">
                             <?php
-                                $primaryPath = "volunteer_uploads/profiles/" . $profilePicture;
+                                $primaryPath = "volunteer_upload/profiles/" . $profilePicture;
                                 $fallbackPath = "admin/assets/images/volunteer-img-uploads/" . $profilePicture;
 
                                 if (file_exists($primaryPath)) {

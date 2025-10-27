@@ -14,6 +14,43 @@ body {
   background-color: #f8f4f4;
 } */
 
+#alertBox {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 300px;
+  z-index: 100000;
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0.95;
+  animation: slideIn 0.3s ease-in-out;
+  position: relative;
+}
+
+.alert-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.alert-error {
+  background-color: #dc3545;
+  color: white;
+}
+
+.alert-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .hero-section {
   position: relative;
   width: 100%;
