@@ -29,7 +29,7 @@ try {
         $raisedAmount = number_format($event['amount_raised'], 2);
         $goalAmount = number_format($event['goal_amount'], 2);
         $percentageRaised = ($event['goal_amount'] > 0) ? round(($event['amount_raised'] / $event['goal_amount']) * 100) : 0;
-        $image = !empty($event['image']) ? $event['image'] : "assets/img/donate/donation2-1.png";
+        $image = !empty($event['banner_image']) ? $event['banner_image'] : "assets/img/donate/donation2-1.png";
     } else {
         throw new Exception("Event not found.");
     }
@@ -72,7 +72,318 @@ $addons = array(
     <script src="https://kit.fontawesome.com/706f90924a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/blog.css">
+    <style>
 
+        a{
+            text-decoration: none!important;
+        }
+
+        .hero-section {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+        }
+
+        .hero-section img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.5);
+        }
+
+        .overlay-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        text-align: center;
+        width: 100%;
+        }
+
+        .overlay-text p {
+        font-size: 20px;
+        margin-bottom: 20px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        }
+
+        .overlay-text h1 {
+        font-size: 60px;
+        margin-bottom: 20px;
+        }
+
+        .donate-btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        }
+        .donate-btn {
+        background-color: var(--button-bg-color);
+        color: white;
+        }
+
+        .amounts {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #333;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .amounts .label {
+            color: #8c8c8c;
+            font-weight: 400;
+        }
+
+        .amounts .value {
+            color: black;
+            font-weight: 600;
+        }
+
+        /* Donate section */
+        .donate-section {
+            background-color: #f8f4f4;
+            padding: 50px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .donate-container {
+            width: 100%;
+        }
+
+        .donation-form {
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .headers1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .headers1::before {
+            background: none !important;
+        }
+
+        .headers1 .title-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .headers1 img {
+            width: 60px;
+            margin-bottom: 15px;
+        }
+
+        .headers1 h2 {
+            color: var(--button-bg-color);
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .headers1 p {
+            color: #000000;
+            font-size: 20px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+        }
+
+        .form-section h3 {
+            color: #333;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            font-size: 26px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #8c8c8c;
+            font-weight: 500;
+        }
+
+        .form-group select,
+        .form-group input[type="text"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="text"]::placeholder,
+        .form-group textarea::placeholder {
+            color: #000000;
+            font-family: "Poppins", sans-serif;
+            font-weight: 300;
+            font-size: 12px;
+        }
+
+        .form-group select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.9H5.4c-7.9%200-11.2%209.4-6.4%2014.2l130.4%20129.2c4.4%204.3%2011.6%204.3%2016%200l130.4-129.2c4.8-4.8%201.6-14.2-6.3-14.2z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 10px;
+        }
+
+        .amount-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .amount-option-btn {
+            background-color: #f0f0f0;
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px !important;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            color: #333;
+            transition: background-color 0.3s, border-color 0.3s;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+        }
+
+        .amount-option-btn:hover {
+            background-color: #e5e5e5;
+            border-color: #d0d0d0;
+        }
+
+        .amount-option-btn.selected {
+            background-color: #ff8c00;
+            border-color: #ff8c00;
+            color: #fff;
+        }
+
+        .row {
+            /* display: flex; */
+            /* flex-wrap: wrap; */
+            /* gap: 15px; */
+        }
+
+        .row .form-group {
+            flex: 1 1 calc(50% - 15px);
+            min-width: 0;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-button2 {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px;
+            background-color: var(--button-bg-color) !important;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto 0;
+        }
+
+        .submit-button:hover {
+            background-color: #e67e00;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .donate-section {
+                padding: 30px 15px;
+            }
+
+            .headers1 h2 {
+                font-size: 1.5em;
+            }
+
+            .headers1 p {
+                font-size: 16px;
+            }
+
+            .form-section h3 {
+                font-size: 20px;
+            }
+
+            .amount-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .row .form-group {
+                flex: 1 1 100%;
+            }
+
+            .submit-button2 {
+                width: 100%;
+                font-size: 1em;
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .headers1 img {
+                width: 50px;
+            }
+
+            .headers1 h2 {
+                font-size: 1.3em;
+            }
+
+            .amount-options {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group select,
+            .form-group input[type="text"],
+            .form-group textarea {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
 
 </head>
 
@@ -84,17 +395,6 @@ $addons = array(
   	<![endif]-->
 
 
-    <!--********************************
-   		Code Start From Here 
-	******************************** -->
-
-    <!--==============================
-     Preloader
-  ==============================-->
-    <!--==============================
-    Header
-============================== -->
-
     <?php include 'include/header.php'; ?>
 
 
@@ -102,7 +402,7 @@ $addons = array(
     Breadcumb
 ============================== -->
     <!-- header section starts -->
-    <section class="headers">
+    <!-- <section class="headers">
         <img src="./assets/img/donate/donation2-2.png" class="header-img img-fluid img-responsive" alt="header-img" style="object-fit:cover;object-position:bottom">
 
         <div class="header-details" class="text-danger" style="z-index: 0;">
@@ -113,13 +413,18 @@ $addons = array(
             </div>
         </div>
 
+    </section> -->
+    <section class="hero-section">
+        <img src="admin/<?= $image ?>" alt="" />
+        <div class="overlay-text text-white">
+            <p class="text-white">Bringing Hope through Health</p>
+            <h1 class="text-white">Empower Change with your Contribution</h1>
+
+            <div class="cta-buttons">
+                <a href="#theDonate" class="donate-btn th-btn style3">Donate Now</a>
+            </div>
+        </div>
     </section>
-
-
-
-
-
-
     <!-- header section ends --><!--==============================
     Blog Area
 ==============================-->
@@ -138,13 +443,12 @@ $addons = array(
                             </div>
                         </div>
 
-                        <div class="btn bg-green px-5" style="border-radius:15px">
+                        <!-- <div class="btn bg-green px-5" style="border-radius:15px">
                             <div class="text-white"><?= $category ?></div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <!-- BLOG LIST ends -->
-
 
             </div>
 
@@ -166,8 +470,6 @@ $addons = array(
                     </div>
                 </div>
             </div>
-
-
 
             <div class="row d-flex align-items-center mt-5" id="theDonate">
                 <div class="col-12 col-md-8">
@@ -200,283 +502,6 @@ $addons = array(
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <style>
-                .amounts {
-                    display: flex;
-                    justify-content: space-between;
-                    font-size: 14px;
-                    color: #333;
-                    font-family: "Poppins", sans-serif;
-                }
-
-                .amounts .label {
-                    color: #8c8c8c;
-                    font-weight: 400;
-                }
-
-                .amounts .value {
-                    color: black;
-                    font-weight: 600;
-                }
-
-                /* Donate section */
-                .donate-section {
-                    background-color: #f8f4f4;
-                    padding: 50px 20px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                .donate-container {
-                    width: 100%;
-                }
-
-                .donation-form {
-                    border-radius: 10px;
-                    border: 2px solid #ddd;
-                    padding: 10px;
-                    width: 100%;
-                }
-
-                .headers1 {
-                    text-align: center;
-                    margin-bottom: 30px;
-                }
-
-                .headers1::before {
-                    background: none !important;
-                }
-
-                .headers1 .title-row {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 10px;
-                }
-
-                .headers1 img {
-                    width: 60px;
-                    margin-bottom: 15px;
-                }
-
-                .headers1 h2 {
-                    color: var(--button-bg-color);
-                    font-size: 2em;
-                    margin-bottom: 5px;
-                }
-
-                .headers1 p {
-                    color: #000000;
-                    font-size: 20px;
-                    font-family: "Poppins", sans-serif;
-                    font-weight: 400;
-                }
-
-                .form-section {
-                    margin-bottom: 30px;
-                    font-family: "Poppins", sans-serif;
-                    font-weight: 500;
-                }
-
-                .form-section h3 {
-                    color: #333;
-                    font-family: "Poppins", sans-serif;
-                    font-weight: 500;
-                    font-size: 26px;
-                    margin-bottom: 20px;
-                    border-bottom: 1px solid #eee;
-                    padding-bottom: 10px;
-                }
-
-                .form-group {
-                    margin-bottom: 20px;
-                    font-family: "Poppins", sans-serif;
-                    font-weight: 500;
-                }
-
-                .form-group label {
-                    display: block;
-                    margin-bottom: 8px;
-                    color: #8c8c8c;
-                    font-weight: 500;
-                }
-
-                .form-group select,
-                .form-group input[type="text"],
-                .form-group textarea {
-                    width: 100%;
-                    padding: 12px 15px;
-                    border: 1px solid #ddd;
-                    border-radius: 6px;
-                    font-size: 1em;
-                    color: #333;
-                    box-sizing: border-box;
-                }
-
-                .form-group input[type="text"]::placeholder,
-                .form-group textarea::placeholder {
-                    color: #000000;
-                    font-family: "Poppins", sans-serif;
-                    font-weight: 300;
-                    font-size: 12px;
-                }
-
-                .form-group select {
-                    appearance: none;
-                    -webkit-appearance: none;
-                    -moz-appearance: none;
-                    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.9H5.4c-7.9%200-11.2%209.4-6.4%2014.2l130.4%20129.2c4.4%204.3%2011.6%204.3%2016%200l130.4-129.2c4.8-4.8%201.6-14.2-6.3-14.2z%22%2F%3E%3C%2Fsvg%3E");
-                    background-repeat: no-repeat;
-                    background-position: right 15px center;
-                    background-size: 10px;
-                }
-
-                .amount-options {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                    gap: 10px;
-                    margin-top: 10px;
-                    margin-bottom: 20px;
-                }
-
-                .amount-option-btn {
-                    background-color: #f0f0f0;
-                    border: 1px solid #e0e0e0;
-                    padding: 12px 15px !important;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    font-size: 1em;
-                    color: #333;
-                    transition: background-color 0.3s, border-color 0.3s;
-                    text-align: center;
-                    width: 100%;
-                    box-sizing: border-box;
-                    border: none;
-                }
-
-                .amount-option-btn:hover {
-                    background-color: #e5e5e5;
-                    border-color: #d0d0d0;
-                }
-
-                .amount-option-btn.selected {
-                    background-color: #ff8c00;
-                    border-color: #ff8c00;
-                    color: #fff;
-                }
-
-                .row {
-                    /* display: flex; */
-                    /* flex-wrap: wrap; */
-                    /* gap: 15px; */
-                }
-
-                .row .form-group {
-                    flex: 1 1 calc(50% - 15px);
-                    min-width: 0;
-                }
-
-                textarea {
-                    resize: vertical;
-                    min-height: 100px;
-                }
-
-                .submit-button2 {
-                    width: 100%;
-                    max-width: 500px;
-                    padding: 15px;
-                    background-color: var(--button-bg-color) !important;
-                    color: #fff;
-                    border: none;
-                    border-radius: 50px;
-                    font-size: 1.2em;
-                    font-weight: 600;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin: 30px auto 0;
-                }
-
-                .submit-button:hover {
-                    background-color: #e67e00;
-                }
-
-                /* Responsive Design */
-                @media (max-width: 768px) {
-                    .donate-section {
-                        padding: 30px 15px;
-                    }
-
-                    .headers1 h2 {
-                        font-size: 1.5em;
-                    }
-
-                    .headers1 p {
-                        font-size: 16px;
-                    }
-
-                    .form-section h3 {
-                        font-size: 20px;
-                    }
-
-                    .amount-options {
-                        grid-template-columns: repeat(2, 1fr);
-                    }
-
-                    .row .form-group {
-                        flex: 1 1 100%;
-                    }
-
-                    .submit-button2 {
-                        width: 100%;
-                        font-size: 1em;
-                        padding: 12px;
-                    }
-                }
-
-                @media (max-width: 480px) {
-                    .headers1 img {
-                        width: 50px;
-                    }
-
-                    .headers1 h2 {
-                        font-size: 1.3em;
-                    }
-
-                    .amount-options {
-                        grid-template-columns: 1fr;
-                    }
-
-                    .form-group select,
-                    .form-group input[type="text"],
-                    .form-group textarea {
-                        padding: 10px 12px;
-                        font-size: 14px;
-                    }
-                }
-            </style>
-
-
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" style="z-index:9999999999;">
                 <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
@@ -661,11 +686,30 @@ $addons = array(
             });
         });
 
-        document.getElementById("currency").addEventListener("change", function() {
-            const currency = this.value;
-            document.getElementById("currency_symbol").innerText = currency === "NGN" ? "₦" : "£";
-        });
+       document.getElementById("currency").addEventListener("change", function () {
+    const currency = this.value;
+    let symbol;
 
+    switch (currency) {
+        case "NGN": symbol = "₦"; break;
+        case "USD": symbol = "$"; break;
+        case "EUR": symbol = "€"; break;
+        default: symbol = "₦";
+    }
+
+    // Update amount buttons
+    document.querySelectorAll(".amount-option-btn").forEach(btn => {
+        const rawText = btn.textContent.replace(/[₦$€£,\s]/g, ""); // Remove old symbols
+        if (!isNaN(rawText) && rawText.length > 0) {
+            btn.textContent = `${symbol}${Number(rawText).toLocaleString()}`;
+        }
+    });
+
+    // Update input placeholder
+    const donationInput = document.getElementById("donation_amount");
+    donationInput.placeholder = `${symbol}100,000`;
+    donationInput.value = `${symbol}100,000`;
+});
         document.getElementById("pay-button").addEventListener("click", function() {
             const rawAmount = document.getElementById("donation_amount").value;
             const amount = parseFloat(rawAmount.replace(/[^0-9.]/g, ''));
@@ -696,17 +740,17 @@ $addons = array(
                     name: name + " " + lastname, // Make sure this is properly concatenated
                 },
                 callback: function(response) {
-                    fetch("verify-transaction-single.php", {
+                   fetch("verify-transaction-single.php", {
                             method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
+                            headers: { "Content-Type": "application/json" },
                             body: JSON.stringify({
                                 transaction_id: response.transaction_id,
                                 donation_event_id: event_id,
-                                message: message
+                                message: message,
+                                name: name + " " + lastname,
+                                email: email
                             })
-                        })
+                            })
                         .then(res => res.json())
                         .then(data => {
                             if (data.status === "success") {
@@ -724,7 +768,7 @@ $addons = array(
                 customizations: {
                     title: "OHF Donation",
                     description: "Support our cause",
-                    logo: "assets/img/favicon.svg",
+                    logo: "assets/img/favicon.svg", 
                 },
             });
         });

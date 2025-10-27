@@ -48,6 +48,7 @@ $addons = array(
 
 <body>
   <?php include 'include/header.php'; ?>
+  <div id="alertBox"></div>
 
   <section class="hero-section">
     <img src="./assets/img/danation-hero-banner.jpg" alt="" />
@@ -63,9 +64,12 @@ $addons = array(
   <?php
     if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['message'])) {
         $message = htmlspecialchars($_GET['message']);
-        echo "<div class='alert'>
-                <span class='close-btn' onclick='closeAlert()'>&times;</span>
-                <strong>Success!</strong> $message
+        echo "<div id='alertBox'>
+                <div class='alert alert-success'>
+                  <span class='close-btn' onclick='closeAlert()'>&times;</span>
+                  <strong>Success!</strong> $message
+                </div>
+                
               </div>";
     }
   ?>
@@ -475,42 +479,54 @@ $addons = array(
         }
 
         FlutterwaveCheckout({
-            public_key: "FLWPUBK_TEST-7343bad195d49ea19fed9bae134b8c87-X",
-            tx_ref: "DONATE-" + Math.floor(Math.random() * 1000000),
-            amount: parseFloat(amount),
-            currency: currency,
-            customer: {
-                email: email,
-                name: name + " " + lastname,
-            },
-            callback: function(response) {
-                fetch("verify_transaction.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ transaction_id: response.transaction_id,   message: message })
-                })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status === "success") {
-                        // Redirect with success message
-                        window.location.href = "donation.php?success=1&message=" + encodeURIComponent("Donation successful! Thank you for your support.");
-                    } else {
-                        alert("Payment verification failed. Please contact support.");
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-            },
-            onclose: function() {
-                console.log("Payment window closed."); 
-            },
-            customizations: {
-                title: "OHF Donation",
-                description: "Support our cause",
-                logo: "assets/img/favicon.svg",
-            },
-        });
+        public_key: "FLWPUBK_TEST-8e160e741ef62ce04057e02cf600b239-X",
+        tx_ref: "DONATE-" + Math.floor(Math.random() * 1000000),
+        amount: parseFloat(amount),
+        currency: currency,
+        customer: {
+          email: email,
+          name: name + " " + lastname,
+        },
+        callback: function (response) {
+          fetch("verify_transaction.php", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            }, 
+            body: JSON.stringify({
+              transaction_id: response.transaction_id,
+              message: message,
+              name: name + " " + lastname,
+              email: email,
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.status === "success") {
+                showAlert("success", "Donation successful! Thank you for your support.");
+                setTimeout(() => {
+                  window.location.href =
+                    "donation.php?success=1&message=" +
+                    encodeURIComponent("Donation successful! Thank you for your support.");
+                }, 2000);
+              } else {
+                showAlert("error", "Payment verification failed. Please contact support.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              showAlert("error", "An error occurred while verifying your payment.");
+            });
+        },
+        onclose: function () {
+          console.log("Payment window closed.");
+        },
+        customizations: {
+          title: "OHF Donation",
+          description: "Support our cause",
+          logo: "assets/img/favicon.svg",
+        },
+      });
     });
 </script>
 <script>
@@ -567,6 +583,29 @@ $addons = array(
             window.addEventListener('load', animateCounters);
         }
     </script>
+    <script>
+      function showAlert(type, message) {
+        const alertBox = document.createElement("div");
+        alertBox.className = `alert ${type === "success" ? "alert-success" : "alert-error"}`;
+        alertBox.innerHTML = `
+          <span class="alert-close" onclick="this.parentElement.remove()">&times;</span>
+          <strong>${type === "success" ? "Success!" : "Error!"}</strong> ${message}
+        `;
+
+        const alertContainer = document.getElementById("alertBox") || (() => {
+          const div = document.createElement("div");
+          div.id = "alertBox";
+          document.body.appendChild(div);
+          return div;
+        })();
+
+        alertContainer.appendChild(alertBox);
+
+        // Auto remove after 5s
+        setTimeout(() => alertBox.remove(), 5000);
+      }
+    </script>
+
 </body>
 
 </html>

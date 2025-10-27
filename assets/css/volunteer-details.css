@@ -37,10 +37,26 @@
      
 }
 
-.box_1>img {
+.box_1 {
     height: auto;
+    max-width: 39%;
+   
+    margin-left: 100px;
+}
+
+.box_1>img {
+    display: inline-block;
+    height: 100%;
     max-width: 100%;
     width: 100%;
+    
+   
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    object-fit: cover;
 }
 
 .box_2 {
@@ -68,10 +84,14 @@
     font-family: "Poppins";
 }
 
-.social_icons >img {
+
+
+.social_icons >a {
     padding: 2px;
     border-radius: 50%;
     background-color: #fff;
+    margin-right: 10px;
+   
 }
 
 .box_2_text p {

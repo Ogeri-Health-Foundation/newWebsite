@@ -1,31 +1,41 @@
 <?php
+declare(strict_types=1);
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
-
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
-
+require_once "../../vendor/autoload.php";
 include_once '../Database/DatabaseConn.php';
 include_once '../Models/Verify.php';
 include_once '../Controllers/verify.controller.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
-        if (!isset($_GET["code"]) || empty($_GET["code"])) {
+        $code = $_GET['code'] ?? null;
+
+        if (empty($code)) {
             throw new Exception("Missing or empty code parameter.");
         }
 
-        $code = $_GET["code"];
-
         $verifying = new verifyingUserContrl($code);
-        $verifying->verifyingUser();
-        header("Location: https://web.ogerihealth.org/admin/index.php");
-        // header("Location:../../admin/resources.php");
+        $result = $verifying->verifyingUser();
+
+       if ($result['status'] === 200) {
+    $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
+        . "://" . $_SERVER['HTTP_HOST']
+        . str_replace('/api/v1', '', rtrim(dirname($_SERVER['PHP_SELF']), '/'));
+
+    header("Location: $baseUrl/admin/index.php");
+    exit;
+
+        } else {
+            echo json_encode($result);
+        }
+
     } catch (Exception $e) {
-        echo json_encode(["message" => $e->getMessage()]);
         http_response_code(400);
+        echo json_encode(["message" => $e->getMessage()]);
     }
 } else {
-    echo json_encode(["message" => "Invalid request method."]);
     http_response_code(405);
+    echo json_encode(["message" => "Invalid request method."]);
 }
-?>

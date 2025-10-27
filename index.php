@@ -729,7 +729,7 @@ $addons = array(
                                 if (file_exists($primaryPath)) {
                                     $imgSrc =  $primaryPath;
                                 } else {
-                                    $imgSrc = $fallbackPath;
+                                    $imgSrc = $fallbackPath; 
                                 }
                                 ?>
                             <img src="<?php echo $imgSrc; ?>" alt="" class="vol-img">
@@ -1014,7 +1014,7 @@ $addons = array(
         }
 
         FlutterwaveCheckout({
-            public_key: "FLWPUBK_TEST-7343bad195d49ea19fed9bae134b8c87-X",
+            public_key: "FLWPUBK_TEST-8e160e741ef62ce04057e02cf600b239-X", 
             tx_ref: "DONATE-" + Math.floor(Math.random() * 1000000),
             amount: parseFloat(amount),
             currency: currency,
@@ -1028,7 +1028,12 @@ $addons = array(
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ transaction_id: response.transaction_id,   message: message })
+                    body: JSON.stringify({
+                    transaction_id: response.transaction_id,
+                    message: message,
+                    name: name + " " + lastname,
+                    email: email,
+                    })
                 })
                 .then(res => res.json())
                 .then(data => {

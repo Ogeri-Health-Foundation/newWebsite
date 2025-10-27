@@ -8,25 +8,29 @@ USE PHPMailer\PHPMailer\Exception;
 trait sendMail
     {
         public function sendMail($email, $otp_link_code){ 
+            try{
+                $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")
+                . "://" . $_SERVER['HTTP_HOST']
+                . rtrim(dirname($_SERVER['PHP_SELF']), '/');
 
+            $verifyLink = "$baseUrl/verifyRoute.php?code=$otp_link_code";
             $mail = new PHPMailer(true);
-    
-                    try {
-                        $mail->isSMTP();
-                        $mail->Host       = 'mail.ogerihealth.org'; 
-                        $mail->SMTPAuth   = true;
-                        $mail->Username   = 'info@ogerihealth.org';
-                        $mail->Password   = '0s)lArHP7LxR';  // ❗ Make sure to store this securely
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                        $mail->Port       = 465;
+        
+                   $mail->isSMTP();
+                        $mail->Host = 'mail.dreamlenxenterprise.com.ng'; 
+                        $mail->SMTPAuth = true;
+                        $mail->Username = 'info@dreamlenxenterprise.com.ng'; 
+                        $mail->Password = 'info@dreamlenxxx123456'; 
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
+                        $mail->Port = 465;
                         
     
-                $mail->setFrom('info@ogerihealth.org', 'Ogeri Health Foundation');
-                $mail->addAddress($email, 'Admin');
-                
+                $mail->setFrom('info@dreamlenxenterprise.com.ng', 'Ogeri Health Foundation');
+                $mail->addAddress($email);
     
                 $mail->isHTML(true);
                 $mail->Subject = 'Verify Your Email - Action Required';
+            
 
                 $mail->Body = "
                 <!DOCTYPE html>
@@ -86,13 +90,11 @@ trait sendMail
                         <h2>Email Verification Required</h2>
                         <p>Hello Admin,</p>
                         <p>Thank you for signing in. To complete your authentication, please verify your email address by clicking the button below:</p>
-                        <a href='https://web.ogerihealth.org/api/v1/verifyRoute.php?code=$otp_link_code' class='btn'>Verify Email</a>
+                        <a href='$verifyLink' class='btn'>Verify Email</a>
                         <p>If you did not request this, please ignore this email.</p>
                         <p class='footer'>If the button does not work, copy and paste this link into your browser:</p>
                         <p class='footer'>
-                            <a href='https://web.ogerihealth.org/api/v1/verifyRoute.php?code=$otp_link_code'>
-                                https://web.ogerihealth.org/api/v1/verifyRoute.php?code=$otp_link_code
-                            </a>
+                           <a href='$verifyLink'>$verifyLink</a>
                         </p>
                         <p class='footer'>&copy; " . date('Y') . " Your Company. All rights reserved.</p>
                     </div>
@@ -136,12 +138,12 @@ trait sendMail
     
                     try {
                 $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'praiseonojs@gmail.com';
-                $mail->Password   = 'ktle eksd aybh fgsw';  // ❗ Make sure to store this securely
-                 $mail->SMTPSecure = 'ssl';
-                $mail->Port       = 465;
+                $mail->Host = 'mail.dreamlenxenterprise.com.ng'; 
+                $mail->SMTPAuth = true;
+                $mail->Username = 'info@dreamlenxenterprise.com.ng'; 
+                $mail->Password = 'info@dreamlenxxx123456'; 
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
+                $mail->Port = 465;
     
                 $mail->setFrom($senderEmail, $senderName);
                 $mail->addAddress($Adminemail);

@@ -64,6 +64,22 @@ window.onload = function () {
       
 
     </script>
+    <style>
+       /* #generalDonationsTable {
+        width: 100%;
+        table-layout: auto;
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
+        } */
+
+#generalDonationsTable td,
+#generalDonationsTable th {
+  white-space: normal;
+  word-break: break-word;
+  min-width: 100px;
+  max-width: 100%;
+}
+    </style>
     <!-- header section -->
     <?php $page = 'Blog'; ?>
     <?php include $page_rel . 'admin/includes/topbar.php'; ?>
@@ -101,8 +117,9 @@ window.onload = function () {
                                 <th>S/N</th>
                                 <th>Title</th>
                                 <th>category</th>
-                                <th>Amount to be Raised</th>
-                                <th>Raised Amount</th>
+                                <th>Amount to be Raised (NGN)</th>
+                                <th>Raised Amount (Default) (NGN)</th>
+                                <!-- <th>Other Currencies</th> -->
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -110,15 +127,43 @@ window.onload = function () {
                         <tbody></tbody>
                     </table>
                 </div>
-                
-            </section>
+          
+                <div class="pagination"></div>
+        </section>
 
-            <section>
-
-            </section>
+            
         <!-- navigation section -->
-        <section class="container d-flex justify-content-center pt-5">
-        <div class="pagination"></div>
+        
+
+        <section class="container-fluid">
+            <div class="mt-5">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4>General Donations</h4>
+                    <div>
+                    <strong>Total Donation (₦): </strong><span id="totalDonationNGN">0.00</span>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table volunteers-table" id="generalDonationsTable">
+                    <thead>
+                        <tr>
+                        <th>#</th>
+                        <th>Donor Name</th>
+                        <th>Email</th>
+                        <th>Original Amount</th>
+                        <th>Amount (₦)</th>
+                        <th>Currency</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    </table>
+
+                    <div class="pagination d-flex justify-content-center mt-3"></div>
+                </div>
+            </div>
         </section>
 
         <section class="container">
@@ -244,6 +289,8 @@ window.onload = function () {
                       <hr>
                       <div class="" style="text-align: left;">
                           <div id="donorsList"></div>
+                          <hr>
+                        <div id="currencyTotalsList" class="mt-3"></div>
                       </div>
                   </div>
               </div>
@@ -336,6 +383,69 @@ window.onload = function () {
 });
 
 
+
+$(document).ready(function () {
+  let generalPage = 1;
+  const limit = 10;
+
+  function loadGeneralDonations(page = 1) {
+    $.ajax({
+      url: `donation-backend.php?action=fetch_general&page=${page}&limit=${limit}`,
+      type: "GET",
+      dataType: "json",
+      success: function (data) {
+        if (data.status !== "success") {
+          $("#generalDonationsTable tbody").html("<tr><td colspan='8'>No donations found.</td></tr>");
+          return;
+        }
+
+        let html = "";
+        data.donations.forEach((donation, index) => {
+          html += `
+            <tr>
+              <td>${index + 1 + (page - 1) * limit}</td>
+              <td>${donation.donor_name || "—"}</td>
+              <td>${donation.donor_email || "—"}</td>
+              <td>${donation.original_display || `${donation.currency} ${Number(donation.amount).toLocaleString()}`}</td>
+              <td>${Number(donation.amount_ngn).toLocaleString()}</td>
+              <td>${donation.currency}</td>
+              <td>${donation.message || "—"}</td>
+              <td>${donation.payment_status}</td>
+              <td>${donation.created_at}</td>
+            </tr>`;
+        });
+
+        $("#generalDonationsTable tbody").html(html);
+        $("#totalDonationNGN").html(`${Number(data.totalNGN).toLocaleString()}`);
+
+        updatePagination(data.totalPages, page);
+      },
+      error: function (xhr, status, error) {
+        console.error("Error loading general donations:", error);
+      }
+    });
+  }
+
+  $(document).on("click", ".btn-page", function () {
+    generalPage = $(this).data("page");
+    loadGeneralDonations(generalPage);
+  });
+
+  $(document).on("click", "#prevPageBtn", function () {
+    if (generalPage > 1) {
+      generalPage--;
+      loadGeneralDonations(generalPage);
+    }
+  });
+
+  $(document).on("click", "#nextPageBtn", function () {
+    generalPage++;
+    loadGeneralDonations(generalPage);
+  });
+
+  loadGeneralDonations();
+});
+
     // Populate form when editing
    
     function editDonation(id) {
@@ -424,8 +534,9 @@ $(document).on("click", ".edit-btn", function () {
                             <td>${donation.title}</td>
                             <td>${donation.category}</td>
                             <td>${Number(donation.goal_amount).toLocaleString()}</td>
-                            <td>${Number(donation.amount_raised).toLocaleString()}</td>
+                           <td>${Number(donation.amount_raised).toLocaleString()}</td>
                           
+                                                    
                             <td class="${
                                 donation.status === 'ongoing' ? 'status-pending' :
                                 donation.status === 'completed' ? 'status-approved' :
@@ -470,7 +581,7 @@ $(document).on("click", ".edit-btn", function () {
             error: function (xhr, status, error) {
                 console.error("AJAX Error:", status, error, "\nResponse:", xhr.responseText);
             }
-        });
+        }); 
     }
 
     function updatePagination(totalPages, currentPage) {
@@ -511,15 +622,15 @@ $(document).on("click", ".edit-btn", function () {
     loadDonations();
 });
 
-    // Handle View Details Click
-   $(document).on("click", ".view-details-btn", function () {
+  // Handle View Details Click
+$(document).on("click", ".view-details-btn", function () {
     let donationId = $(this).data("id");
     console.log("Selected Donation ID:", donationId);
 
     $.ajax({
         url: "donation-backend.php?action=get&id=" + donationId,
         type: "GET",
-        dataType: "json", 
+        dataType: "json",
         success: function (donation) {
             console.log("Donation Details:", donation);
 
@@ -531,14 +642,23 @@ $(document).on("click", ".edit-btn", function () {
             $("#descriptions").text(donation.full_description);
             $("#short").text(donation.short_description);
 
-            let imageUrl = donation.banner_image ? donation.banner_image : "../assets/images/includes/donation.svg";
+            let imageUrl = donation.banner_image
+                ? donation.banner_image
+                : "../assets/images/includes/donation.svg";
             $("#detailsImages").attr("src", imageUrl);
 
-            let statusClass = donation.status === "ongoing" ? "status-pending" : 
-                              donation.status === "completed" ? "status-approved" : "";
-            $("#detailsStatusBadges").removeClass().addClass("status-badge " + statusClass).text(donation.status);
+            let statusClass =
+                donation.status === "ongoing"
+                    ? "status-pending"
+                    : donation.status === "completed"
+                    ? "status-approved"
+                    : "";
+            $("#detailsStatusBadges")
+                .removeClass()
+                .addClass("status-badge " + statusClass)
+                .text(donation.status);
 
-           // Handle Donors List
+            // Handle Donors List
             let donorsList = $("#donorsList"); // Ensure you have a div or ul with this ID in the modal
             donorsList.empty(); // Clear existing list
 
@@ -565,11 +685,28 @@ $(document).on("click", ".edit-btn", function () {
             } else {
                 donorsList.append(`<p style="font-size: 18px; font-weight: bold;">No donors yet.</p>`);
             }
+
+            // ✅ Handle Currency Totals (new section)
+            let currencyTotalsList = $("#currencyTotalsList");
+            currencyTotalsList.empty(); // Clear existing totals
+
+            if (donation.currency_totals && donation.currency_totals.length > 0) {
+                let totalsHtml = `<hr><h4 style="margin-top: 10px;">Total Amount by Currency</h4>`;
+                donation.currency_totals.forEach(function (ct) {
+                    totalsHtml += `
+                        <p style="font-size: 16px; font-weight: bold;">
+                            ${ct.currency}: ${Number(ct.total_amount).toLocaleString()}
+                        </p>`;
+                });
+                currencyTotalsList.append(totalsHtml);
+            } else {
+                currencyTotalsList.append(`<hr><p style="font-size: 16px;">No other currency donations yet.</p>`);
+            }
         },
         error: function (xhr, status, error) {
             console.error("AJAX Error:", status, error);
             console.error("Response:", xhr.responseText);
-        }
+        },
     });
 });
 

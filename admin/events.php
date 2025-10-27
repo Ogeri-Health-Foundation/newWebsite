@@ -1585,7 +1585,7 @@ $addons = array(
           console.error('Error:', error);
           showToast('An error occurred while adding the event', 'error');
         }
-      });
+      }); 
     });
 
     // Update Event AJAX

@@ -130,7 +130,7 @@ $addons = array(
           if (data.status === "success") {
 
             // location.href = "https://ogerihealth.org/admin/resources.php";
-            location.href = "../admin/resources.php";
+            location.href = "../admin/index.php";
           }
         })
         .catch(error => {
@@ -221,112 +221,102 @@ $addons = array(
   </div>
 
   <script src="assets/js/login.js"></script>
-  <script>
-    function togglePassword() {
-      var passwordInput = document.getElementById("password");
-      var eyeIcon = document.getElementById("eye-icon");
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.classList.remove("fa-eye");
-        eyeIcon.classList.add("fa-eye-slash");
-      } else {
-        passwordInput.type = "password";
-        eyeIcon.classList.remove("fa-eye-slash");
-        eyeIcon.classList.add("fa-eye");
-      }
+ <script>
+  function togglePassword() {
+    const passwordInput = document.getElementById("password");
+    const eyeIcon = document.getElementById("eye-icon");
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+      passwordInput.type = "password";
+      eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
     }
+  }
 
-    function closeSuccessMessage() {
-      document.getElementById("successMessage").style.display = "none";
-    }
+  const form = document.querySelector("form");
+  const Button = form.querySelector(".submit");
 
+  form.onsubmit = (e) => e.preventDefault();
 
+  Button.onclick = () => {
+    Button.disabled = true;
+    const originalHTML = Button.innerHTML;
+    Button.innerHTML =
+      `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...`;
 
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "../api/v1/loginRoute.php", true);
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
+    xhr.onload = () => {
+      // ✅ Always restore button state
+      Button.disabled = false;
+      Button.innerHTML = originalHTML;
 
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        try {
+          const response = JSON.parse(xhr.responseText);
+          const msg = response.message || "";
 
+          // ✅ Case 1: Full login success
+          if (response.status === 200 && msg.toLowerCase().includes("login successful")) {
+            showSuccessToast(msg);
+            setTimeout(() => (window.location.href = "index.php"), 1500);
 
+          // ✅ Case 2: OTP sent flow
+          } else if (response.status === 200 && msg.toLowerCase().includes("otp sent")) {
+            showInfoToast(msg);
 
-
-
-
-
-
-
-    const form = document.querySelector('form');
-    const Button = form.querySelector('.submit');
-    const errorText = document.querySelector('.success-message');
-
-    form.onsubmit = (e) => {
-      e.preventDefault();
-    };
-
-    Button.onclick = () => {
-      Button.disabled = true;
-      const originalHTML = Button.innerHTML;
-      Button.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...`;
-      let xhr = new XMLHttpRequest();
-      xhr.open('POST', '../api/v1/loginRoute.php', true);
-      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // Ensure AJAX request
-
-      xhr.onload = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          try {
-            let response = JSON.parse(xhr.responseText);
-            if (xhr.status === 200) {
-
-              const toast = document.getElementById('toast-success');
-              const toastMesaage = document.getElementById('toast-message');
-              toast.classList.add('show');
-              toastMesaage.textContent = response.message;
-              // setTimeout(hideToast, 3000);
-
-              function hideToast() {
-                const toast = document.getElementById('toast-success');
-                toast.classList.remove('show');
-              }
-
-              if (response.message === "Signed In Successfully") {
-                setTimeout(() => {
-                  window.location.href = "index.php";
-                }, 2000);
-              }
-            } else {
-
-              const BadToast = document.getElementById('bad-toast');
-              const BadToastMesaage = document.getElementById('bad-toast-message');
-              BadToast.classList.add('show');
-              BadToastMesaage.textContent = response.message || `Error ${xhr.status}: ${xhr.statusText}`;;
-              setTimeout(hideBadToast, 3000);
-
-              function hideBadToast() {
-                const BadToast = document.getElementById('bad-toast');
-                BadToast.classList.remove('show');
-              }
-
-
-            }
-          } catch (error) {
-
-            console.error("Invalid JSON response:", error);
-            errorText.textContent = "An unexpected error occurred. Please try again.";
-            errorText.style.display = 'block';
-            errorText.style.color = 'red';
+          // ❌ Case 3: Any other failure
+          } else {
+            showErrorToast(msg || `Error ${xhr.status}: ${xhr.statusText}`);
           }
+
+        } catch (error) {
+          console.error("Invalid JSON response:", error);
+          showErrorToast("An unexpected error occurred. Please try again.");
         }
-      };
-
-      xhr.onerror = () => {
-
-        errorText.textContent = "Network error. Please check your connection.";
-        errorText.style.display = 'block';
-        errorText.style.color = 'red';
-      };
-
-      let formData = new FormData(form);
-      xhr.send(formData);
+      }
     };
-  </script>
+
+    xhr.onerror = () => {
+      // ✅ Always restore button
+      Button.disabled = false;
+      Button.innerHTML = originalHTML;
+      showErrorToast("Network error. Please check your connection.");
+    };
+
+    const formData = new FormData(form);
+    xhr.send(formData);
+  };
+
+  // ✅ Toast helpers
+  function showSuccessToast(message) {
+    const toast = document.getElementById("toast-success");
+    const msgEl = document.getElementById("toast-message");
+    msgEl.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2000);
+  }
+
+  function showInfoToast(message) {
+    const toast = document.getElementById("info-toast");
+    const msgEl = document.getElementById("info-toast-message");
+    msgEl.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+
+  function showErrorToast(message) {
+    const toast = document.getElementById("bad-toast");
+    const msgEl = document.getElementById("bad-toast-message");
+    msgEl.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+</script>
+
   </body>
 
 </html>

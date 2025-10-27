@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once "../Database/DatabaseConn.php";
 
@@ -8,27 +8,25 @@ class Auth extends DatabaseConn {
     private $cipher = 'AES-128-CBC'; 
 
     public function authenticate() {
-        if (!isset($_COOKIE['_variable_']) || !isset($_COOKIE['usid_id'])) {
-            error_log("Cookies are missing.");
-            $this->clearCookies(); 
+        // Ensure both cookies exist
+        if (empty($_COOKIE['_variable_']) || empty($_COOKIE['usid_id'])) {
+            $this->clearCookies();
             http_response_code(401);
-            echo json_encode(["message" => "Unauthorized"]);
-            exit; // 💥 added here
+            echo json_encode(["message" => "Missing authentication cookies"]);
+            exit;
         }
-    
-        $encrypted_id = $_COOKIE['_variable_'];
-        $encrypted_session = $_COOKIE['usid_id'];
-        $uniqueID = $this->decryptCookieValue($encrypted_id);
-        $sessionID = $this->decryptCookieValue($encrypted_session);
-    
+
+        // Decrypt cookie values
+        $uniqueID = $this->decryptCookieValue($_COOKIE['_variable_']);
+        $sessionID = $this->decryptCookieValue($_COOKIE['usid_id']);
+
         if (!$uniqueID || !$sessionID) {
-            error_log("Decryption failed or values are missing.");
-            $this->clearCookies(); 
+            $this->clearCookies();
             http_response_code(401);
-            echo json_encode(["message" => "Unauthorized"]);
-            exit; // 💥 added here
+            echo json_encode(["message" => "Invalid session cookies"]);
+            exit;
         }
-    
+
         try {
             $stmt = $this->connect()->prepare("
                 SELECT * FROM admin_sessions 
@@ -38,43 +36,49 @@ class Auth extends DatabaseConn {
             $stmt->bindParam(':session_id', $sessionID);
             $stmt->execute();
             $session = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!$session) {
-                error_log("Invalid session, redirecting.");
                 $this->clearCookies();
                 http_response_code(401);
-                echo json_encode(["message" => "Unauthorized"]);
-                exit; // ✅ added here instead of redirect if this is API
+                echo json_encode(["message" => "Session not found"]);
+                exit;
             }
-    
+
+            // Get user agent for device recognition
             $currentBrowserAgent = $_SERVER["HTTP_USER_AGENT"] ?? "";
-            $currentIpAddress = $_SERVER['REMOTE_ADDR'] ?? "";
-    
-            if ($currentBrowserAgent !== $session['browser_agent'] || $currentIpAddress !== $session['ip_address']) {
-                error_log("Session mismatch: browser or IP address changed.");
+
+            // ✅ Instead of forcing exact IP match, only check same browser/device
+            if ($currentBrowserAgent !== $session['browser_agent']) {
+                // Device or browser changed → force re-login
                 $this->clearCookies();
                 http_response_code(401);
-                echo json_encode(["message" => "Unauthorized"]);
-                exit; // ✅
+                echo json_encode(["message" => "New device detected, please re-login"]);
+                exit;
             }
-    
+
+            // ✅ Optional: update last_seen to track activity
+            $update = $this->connect()->prepare("
+                UPDATE admin_sessions SET last_seen = NOW() WHERE unique_id = :uid
+            ");
+            $update->bindParam(':uid', $uniqueID);
+            $update->execute();
+
             return true;
-    
+
         } catch (Exception $e) {
-            error_log("Database query error: " . $e->getMessage());
+            error_log("Auth error: " . $e->getMessage());
             http_response_code(500);
-            echo json_encode(["message" => "Server error"]);
-            exit; // ✅
+            echo json_encode(["message" => "Server error during authentication"]);
+            exit;
         }
     }
-    
 
     private function decryptCookieValue($encrypted_value) {
         try {
             list($encrypted_data, $iv) = explode('::', base64_decode($encrypted_value), 2);
             return openssl_decrypt($encrypted_data, $this->cipher, $this->encryption_key, 0, $iv);
         } catch (Exception $e) {
-            error_log("Decryption error: " . $e->getMessage());
+            error_log("Decryption failed: " . $e->getMessage());
             return false;
         }
     }

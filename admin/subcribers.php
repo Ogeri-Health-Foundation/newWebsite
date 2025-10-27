@@ -153,7 +153,7 @@ $addons = array(
                         <label class="block mb-1 font-medium">Message</label>
                         <textarea name="body" rows="6" required class="w-100 border border-gray-300 rounded px-3 py-2"></textarea>
                     </div>
-                    <button type="submit" class="bg-success text-white px-4 py-2 rounded hover:bg-success-700">Send Newsletter</button>
+                    <button type="submit" class="btn text-white px-4 py-2 rounded hover:bg-success-700" style="background-color: #FF6E3B">Send Newsletter</button>
                 </form>
             </div>
         </section>
