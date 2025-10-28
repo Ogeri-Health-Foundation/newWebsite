@@ -448,12 +448,12 @@ heroes who make it all happen!</p>
                                 <div class="col-md-4 mb-4" data-aos="fade-up">
                                     <div class="bg-white p-4 rounded shadow position-relative h-100 test-card">
                                         <i class="fas fa-quote-left"></i>
-                                        <p class="text-muted mt-4">Lorem ipsum dolor sit amet, consectetur tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <p class="text-muted mt-4">I am grateful for the continuous care and free medications. I always get better each time I take medications given to me.</p>
                                         <div class="d-flex align-items-center mt-4">
                                         <img src="assets/img/about/vol-1.svg" alt="profile" class="rounded-circle me-3" width="50" height="50">
                                         <div>
-                                            <h6 class="mb-0">Opara Dara</h6>
-                                            <small class="text-muted">Teacher</small>
+                                            <h6 class="mb-0">Isu Patience Ugo</h6>
+                                            <small class="text-muted">Ezi Ukie Compound, Mgbom Communit</small>
                                         </div>
                                         </div>
                                     </div>
@@ -463,12 +463,12 @@ heroes who make it all happen!</p>
                                 <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
                                     <div class="p-4 rounded shadow text-white test-card" style="background-color: #1AC0A2;">
                                         <i class="fas fa-quote-left bg-white" style="color: #24ABA0"></i>
-                                        <p class="mt-4">Lorem ipsum dolor sit amet, consectetur tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <p class="mt-4 text-white">I received treatment for hypertension since the first outreach in March, 2024. I pray that God will continue to bless the Foundation in all her endeavors.</p>
                                         <div class="d-flex align-items-center mt-4">
                                         <img src="assets/img/about/vol-2.svg" alt="profile" class="rounded-circle me-3" width="50" height="50">
                                         <div>
-                                            <h6 class="mb-0 text-white">Opara Dara</h6>
-                                            <small>Teacher</small>
+                                            <h6 class="mb-0 text-white">Mrs. Ajuka Oko</h6>
+                                            <small>Ezi Abagha Compound, Mgbom Community</small>
                                         </div>
                                         </div>
                                     </div>
@@ -478,11 +478,11 @@ heroes who make it all happen!</p>
                                 <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
                                     <div class="bg-white p-4 rounded shadow position-relative test-card">
                                         <i class="fas fa-quote-left"></i>
-                                        <p class="text-muted mt-4">Lorem ipsum dolor sit amet, consectetur tur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                        <p class="text-muted mt-4">I have been treated of Malaria, Osteoarthritis and some other complaints I had. The Foundation is doing a wonderful Job and I urge them to continue in the same manner.</p>
                                         <div class="d-flex align-items-center mt-4">
                                         <img src="assets/img/about/vol-3.svg" alt="profile" class="rounded-circle me-3" width="50" height="50">
                                         <div>
-                                            <h6 class="mb-0">Opara Dara</h6>
+                                            <h6 class="mb-0">Mr. Isu Ukie</h6>
                                             <small class="text-muted">Teacher</small>
                                         </div>
                                         </div>
@@ -499,12 +499,12 @@ heroes who make it all happen!</p>
                                 <div class="col-md-4 mb-4">
                                     <div class="bg-white p-4 rounded shadow position-relative test-card">
                                         <i class="fas fa-quote-left"></i>
-                                        <p class="text-muted mt-4">Lorem ipsum dolor sit amet...</p>
+                                        <p class="text-muted mt-4">I have been keeping to my medications and there has been a great improvement in my health.</p>
                                         <div class="d-flex align-items-center mt-4">
                                             <img src="assets/img/about/vol-3.svg" class="rounded-circle me-3" width="50" height="50">
                                             <div>
-                                                <h6 class="mb-0">Opara Dara</h6>
-                                                <small class="text-muted">Teacher</small>
+                                                <h6 class="mb-0">Mr. Chukwu Inya Chukwu</h6>
+                                                <small class="text-muted">Ezi Akpuka Compound</small>
                                             </div>
                                         </div>
                                     </div>
@@ -512,12 +512,12 @@ heroes who make it all happen!</p>
                                 <div class="col-md-4 mb-4">
                                     <div class="bg-white p-4 rounded shadow position-relative test-card">
                                         <i class="fas fa-quote-left"></i>
-                                        <p class="text-muted mt-4">Lorem ipsum dolor sit amet...</p>
+                                        <p class="text-muted mt-4">I come for the monthly outreaches and I have noticed significant improvement in my health</p>
                                         <div class="d-flex align-items-center mt-4">
                                             <img src="assets/img/about/vol-3.svg" class="rounded-circle me-3" width="50" height="50">
                                             <div>
-                                                <h6 class="mb-0">Opara Dara</h6>
-                                                <small class="text-muted">Teacher</small>
+                                                <h6 class="mb-0">Mr. Michael</h6>
+                                                <small class="text-muted">Community Member</small>
                                             </div>
                                         </div>
                                     </div>

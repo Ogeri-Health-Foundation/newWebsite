@@ -1,84 +1,84 @@
-// For testimonials slider functionality
-const container = document.querySelector(".testimonials-container");
-const dotsWrapper = document.querySelector(".pagination-dots");
-const cards = document.querySelectorAll(".testimonial-card");
+// // For testimonials slider functionality
+// const container = document.querySelector(".testimonials-container");
+// const dotsWrapper = document.querySelector(".pagination-dots");
+// const cards = document.querySelectorAll(".testimonial-card");
 
-let currentSlide = 0;
-let cardsPerSlide = getCardsPerSlide(); // Based on screen size
-let cardWidth = cards[0].offsetWidth + 30; // 30px is the gap
-let totalSlides = getTotalSlides();
+// let currentSlide = 0;
+// let cardsPerSlide = getCardsPerSlide(); // Based on screen size
+// let cardWidth = cards[0].offsetWidth + 30; // 30px is the gap
+// let totalSlides = getTotalSlides();
 
-// To dynamically create dots based on totalSlides
-function renderDots() {
-  dotsWrapper.innerHTML = "";
-  for (let i = 0; i < totalSlides; i++) {
-    const dot = document.createElement("span");
-    dot.classList.add("dot");
-    if (i === 0) dot.classList.add("active");
-    dot.addEventListener("click", () => {
-      goToSlide(i);
-      resetAutoSlide();
-    });
-    dotsWrapper.appendChild(dot);
-  }
-}
+// // To dynamically create dots based on totalSlides
+// function renderDots() {
+//   dotsWrapper.innerHTML = "";
+//   for (let i = 0; i < totalSlides; i++) {
+//     const dot = document.createElement("span");
+//     dot.classList.add("dot");
+//     if (i === 0) dot.classList.add("active");
+//     dot.addEventListener("click", () => {
+//       goToSlide(i);
+//       resetAutoSlide();
+//     });
+//     dotsWrapper.appendChild(dot);
+//   }
+// }
 
-// To detect screen size to determine cardsPerSlide
-function getCardsPerSlide() {
-  if (window.innerWidth <= 768) return 1; // Mobile
-  if (window.innerWidth <= 1024) return 2; // Tablet
-  return 3; // Desktop
-}
+// // To detect screen size to determine cardsPerSlide
+// function getCardsPerSlide() {
+//   if (window.innerWidth <= 768) return 1; // Mobile
+//   if (window.innerWidth <= 1024) return 2; // Tablet
+//   return 3; // Desktop
+// }
 
-// To calculate how many slides are needed
-function getTotalSlides() {
-  return Math.ceil(cards.length / cardsPerSlide);
-}
+// // To calculate how many slides are needed
+// function getTotalSlides() {
+//   return Math.ceil(cards.length / cardsPerSlide);
+// }
 
-function goToSlide(index) {
-  currentSlide = index;
+// function goToSlide(index) {
+//   currentSlide = index;
 
-  // To prevent scrolling past the last full set of cards
-  const maxOffset = (cards.length - cardsPerSlide) * cardWidth;
-  const offset = Math.min(index * cardWidth, maxOffset);
+//   // To prevent scrolling past the last full set of cards
+//   const maxOffset = (cards.length - cardsPerSlide) * cardWidth;
+//   const offset = Math.min(index * cardWidth, maxOffset);
 
-  container.style.transform = `translateX(-${offset}px)`;
+//   container.style.transform = `translateX(-${offset}px)`;
 
-  document.querySelectorAll(".dot").forEach((dot, i) => {
-    dot.classList.toggle("active", i === index);
-  });
-}
+//   document.querySelectorAll(".dot").forEach((dot, i) => {
+//     dot.classList.toggle("active", i === index);
+//   });
+// }
 
-// To handle window resizing
-function handleResize() {
-  cardsPerSlide = getCardsPerSlide();
-  cardWidth = cards[0].offsetWidth + 30;
-  totalSlides = getTotalSlides();
-  if (currentSlide > totalSlides - 1) {
-    currentSlide = totalSlides - 1;
-  }
-  renderDots();
-  goToSlide(currentSlide);
-}
+// // To handle window resizing
+// function handleResize() {
+//   cardsPerSlide = getCardsPerSlide();
+//   cardWidth = cards[0].offsetWidth + 30;
+//   totalSlides = getTotalSlides();
+//   if (currentSlide > totalSlides - 1) {
+//     currentSlide = totalSlides - 1;
+//   }
+//   renderDots();
+//   goToSlide(currentSlide);
+// }
 
-let autoSlideInterval = setInterval(() => {
-  currentSlide = (currentSlide + 1) % totalSlides;
-  goToSlide(currentSlide);
-}, 6000);
+// let autoSlideInterval = setInterval(() => {
+//   currentSlide = (currentSlide + 1) % totalSlides;
+//   goToSlide(currentSlide);
+// }, 6000);
 
-function resetAutoSlide() {
-  clearInterval(autoSlideInterval);
-  autoSlideInterval = setInterval(() => {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    goToSlide(currentSlide);
-  }, 6000);
-}
+// function resetAutoSlide() {
+//   clearInterval(autoSlideInterval);
+//   autoSlideInterval = setInterval(() => {
+//     currentSlide = (currentSlide + 1) % totalSlides;
+//     goToSlide(currentSlide);
+//   }, 6000);
+// }
 
-window.addEventListener("resize", handleResize);
+// window.addEventListener("resize", handleResize);
 
-// To initialize on load
-handleResize();
-goToSlide(0);
+// // To initialize on load
+// handleResize();
+// goToSlide(0);
 
 // For the donation amount selection
 document.addEventListener("DOMContentLoaded", () => {
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const currencySymbols = {
     NGN: "₦",
     USD: "$",
-    EUR: "€",
+    GBP: "£",
   };
 
   const amountValues = [100000, 50000, 20000, 10000, 5000];

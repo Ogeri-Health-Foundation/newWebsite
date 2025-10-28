@@ -92,15 +92,17 @@ $addons = array(
                                 <img src="assets/img/what-we-do/hero-pic.jpg" alt="Community Health Outreach" class="img-fluid shadow rounded w-100">
                             </div>
                             <div class="col-md-6">
-                                <h5 class="text-theme2 fw-bold">Community Health Outreach</h5>
-                                <p class="text-muted">We bring free health checks, education, and medical support directly to communities.</p>
+                                <h5 class="text-theme2 fw-bold">Monthly Community Health Outreach</h5>
+                                <p class="text-muted">Friendly, local clinics every month so care is easier to access.</p>
                                 <ul class="text-muted text-ul">
-                                    <li> <b>Blood Pressure Checks – </b>High blood pressure is a leading cause of heart disease and stroke, yet many people remain unaware of their risk. Our BP screenings help with early detection, allowing individuals 
-to take control of their health before complications arise.</li>
-                                    <li><b>Health Education –</b>Simple, practical advice on staying healthy. Knowledge is key to preventing disease. Through interactive health talks, community workshops, and one-on-one discussions, we provide simple, practical guidance on healthy eating, physical activity, and managing conditions like hypertension.</li>
-                                    <li><b>Consultations & Referrals –</b>Connecting patients with doctors when needed. Our team of trained health workers provides basic medical consultations and refer individuals with doctors, specialists, and healthcare facilities when further care is needed. We ensure that those at risk receive timely interventions before conditions worsen.</li>
-                                    <li><b>Why it Matters -</b>These communities face barriers to healthcare, from financial constraints to lack of awareness. By bringing healthcare to them, we empower individuals to take charge of their well-being, prevent long-term illnesses, and access the support they need for a healthier future.</li>
+                                    <li> <b>Screening & Prevention – </b> Blood pressure checks and brief advice to find issues early and reduce risk.
+</li>
+                                    <li><b>Health Education –</b>We carry out talks during our monthly outreaches and share simple, culturally rooted materials. Future projects aim to broaden our audience to improve the health knowledge of people in rural communities</li>
+                                    <li><b>Strengthening Local Services –</b>facilitate community‑led action so local services better serve residents: we co‑design improvements with community leaders and health‑centre staff, support referral pathways chosen locally, and leave simple tools that local teams own and run.
+</li>
+                                    
                                 </ul>
+                                <a href="about.php" class="learn">Learn more about our work -></a>
                             </div>
                         </div>
                     </div>

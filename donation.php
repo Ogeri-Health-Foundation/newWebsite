@@ -114,180 +114,161 @@ $addons = array(
         </section>
 
   <section class="testimonials-section">
-    <div class="background-image">
-      <img
-        src="./assets/img/donation-testimonial-bg.jpg"
-        alt="Background image of people" />
-    </div>
-    <div class="content-overlay">
-      <div class="section-header">
-        <h1>Testimonials</h1>
-        <p>What People Say About Our Charity</p>
-      </div>
-      <div class="slider-wrapper">
-        <div class="testimonials-container">
-          <div class="testimonial-card">
-            <div class="quote-icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path
-                  d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-              </svg>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="author-info">
-              <img src="./assets/img/testimonial-1.png" alt="Opera Dara" />
-              <div>
-                <p class="author-name">Opera Dara</p>
-                <p class="author-title">Teacher</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card colored-card">
-            <div class="quote-icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path
-                  d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-              </svg>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="author-info">
-              <img src="./assets/img/testimonial-2.png" alt="Opera Dara" />
-              <div>
-                <p class="author-name">Opera Dara</p>
-                <p class="author-title">Teacher</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="quote-icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path
-                  d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-              </svg>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="author-info">
-              <img src="./assets/img/testimonial-1.png" alt="Opera Dara" />
-              <div>
-                <p class="author-name">Opera Dara</p>
-                <p class="author-title">Teacher</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card colored-card">
-            <div class="quote-icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path
-                  d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-              </svg>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="author-info">
-              <img src="./assets/img/testimonial-2.png" alt="Opera Dara" />
-              <div>
-                <p class="author-name">Opera Dara</p>
-                <p class="author-title">Teacher</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="quote-icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path
-                  d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-              </svg>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="author-info">
-              <img src="./assets/img/testimonial-1.png" alt="Opera Dara" />
-              <div>
-                <p class="author-name">Opera Dara</p>
-                <p class="author-title">Teacher</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card colored-card">
-            <div class="quote-icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path
-                  d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-              </svg>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="author-info">
-              <img src="./assets/img/testimonial-2.png" alt="Opera Dara" />
-              <div>
-                <p class="author-name">Opera Dara</p>
-                <p class="author-title">Teacher</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-card">
-            <div class="quote-icon-wrapper">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path
-                  d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-              </svg>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            </p>
-            <div class="author-info">
-              <img src="./assets/img/testimonial-1.png" alt="Opera Dara" />
-              <div>
-                <p class="author-name">Opera Dara</p>
-                <p class="author-title">Teacher</p>
-              </div>
-            </div>
-          </div>
+        <div class="background-image">
+            <img src="./assets/img/donation-testimonial-bg-min.jpg" alt="Background image of people" />
         </div>
-      </div>
-      <div class="pagination-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
-    </div>
-  </section>
+        <div class="content-overlay">
+            <div class="section-header">
+                <h1>Testimonials</h1>
+                <p>What People Say About Our Charity</p>
+            </div>
+
+            <!-- Toggle Buttons -->
+            <div class="toggle-container">
+                <button class="toggle-btn active" id="wordsBtn" onclick="showWords()">Words</button>
+                <button class="toggle-btn" id="videosBtn" onclick="showVideos()">Videos</button>
+            </div>
+
+            <!-- Words Carousel -->
+            <div class="slider-wrapper" id="wordsCarousel" style="display: block;">
+                <div class="testimonials-container" id="wordsContainer">
+                    <div class="testimonial-card">
+                        <div class="quote-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
+                            </svg>
+                        </div>
+                        <p>I am grateful for the continuous care and free medications. I always get better each time I take medications given to me.</p>
+                        <div class="author-info">
+                            <img src="./assets/img/testimonial-1.png" alt="Isu Patience Ugo" />
+                            <div>
+                                <p class="author-name">Isu Patience Ugo</p>
+                                <p class="author-title">Ezi Ukie Compound, Mgbom Community</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card colored-card">
+                        <div class="quote-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
+                            </svg>
+                        </div>
+                        <p>I received treatment for hypertension since the first outreach in March, 2024. I pray that God will continue to bless the Foundation in all her endeavors.</p>
+                        <div class="author-info">
+                            <img src="./assets/img/testimonial-2.png" alt="Mrs. Ajuka Oko" />
+                            <div>
+                                <p class="author-name">Mrs. Ajuka Oko</p>
+                                <p class="author-title">Ezi Abagha Compound, Mgbom Community</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="quote-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
+                            </svg>
+                        </div>
+                        <p>I have been treated of Malaria, Osteoarthritis and some other complaints I had. The Foundation is doing a wonderful Job and I urge them to continue in the same manner.</p>
+                        <div class="author-info">
+                            <img src="./assets/img/testimonial-1.png" alt="Mr. Isu Ukie" />
+                            <div>
+                                <p class="author-name">Mr. Isu Ukie</p>
+                                <p class="author-title">Community Member</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card colored-card">
+                        <div class="quote-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
+                            </svg>
+                        </div>
+                        <p>I have been keeping to my medications and there has been a great improvement in my health.</p>
+                        <div class="author-info">
+                            <img src="./assets/img/testimonial-2.png" alt="Mr. Chukwu Inya Chukwu" />
+                            <div>
+                                <p class="author-name">Mr. Chukwu Inya Chukwu</p>
+                                <p class="author-title">Ezi Akpuka Compound</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="quote-icon-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
+                            </svg>
+                        </div>
+                        <p>I come for the monthly outreaches and I have noticed significant improvement in my health.</p>
+                        <div class="author-info">
+                            <img src="./assets/img/testimonial-1.png" alt="Mr. Michael" />
+                            <div>
+                                <p class="author-name">Mr. Michael</p>
+                                <p class="author-title">Community Member</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Videos Carousel -->
+            <div class="slider-wrapper" id="videosCarousel" style="display: none;">
+                <div class="testimonials-container" id="videosContainer">
+                    <div class="video-card">
+                        <video controls>
+                            <source src="./assets/videos/testimonial-1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-info">
+                            <p class="video-title">Patient Testimonial 1</p>
+                            <p class="video-description">Isu Patience Ugo shares her experience with The Ogeri Health Foundation</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <video controls>
+                            <source src="./assets/videos/testimonial-2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-info">
+                            <p class="video-title">Patient Testimonial 2</p>
+                            <p class="video-description">Mrs. Ajuka Oko discusses her hypertension treatment</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <video controls>
+                            <source src="./assets/videos/testimonial-3.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-info">
+                            <p class="video-title">Patient Testimonial 3</p>
+                            <p class="video-description">Mr. Isu Ukie talks about his recovery journey</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <video controls>
+                            <source src="./assets/videos/testimonial-4.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-info">
+                            <p class="video-title">Patient Testimonial 4</p>
+                            <p class="video-description">Community members share their health improvements</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
 
   <section class="causes-section">
     <div class="header2">
@@ -370,7 +351,7 @@ $addons = array(
               <select id="currency">
                 <option value="NGN">NGN (Nigerian Naira)</option>
                 <option value="USD">USD (United States Dollar)</option>
-                <option value="EUR">EUR (Euro)</option>
+                <option value="GBP">Pounds (GBP)</option>
               </select>
             </div>
 
@@ -459,10 +440,7 @@ $addons = array(
   
   <script src="https://checkout.flutterwave.com/v3.js"></script>
 <script>
-    document.getElementById("currency").addEventListener("change", function() {
-        const currency = this.value;
-        document.getElementById("currency_symbol").innerText = currency === "NGN" ? "₦" : "£";
-    });
+   
 
     document.getElementById("pay-button").addEventListener("click", function() {
         const rawAmount = document.getElementById("donation_amount").value;
@@ -479,7 +457,7 @@ $addons = array(
         }
 
         FlutterwaveCheckout({
-        public_key: "FLWPUBK_TEST-8e160e741ef62ce04057e02cf600b239-X",
+        public_key: "FLWPUBK-41d90e5fb8b282ba7a221837359b8ff6-X",
         tx_ref: "DONATE-" + Math.floor(Math.random() * 1000000),
         amount: parseFloat(amount),
         currency: currency,
@@ -604,6 +582,138 @@ $addons = array(
         // Auto remove after 5s
         setTimeout(() => alertBox.remove(), 5000);
       }
+    </script>
+      <script>
+        let currentSlide = 0;
+        let isWordsView = true;
+        let autoSlideInterval;
+        let isAnyVideoPlaying = false;
+
+        // Track video play/pause events
+        function setupVideoListeners() {
+            const videos = document.querySelectorAll('.video-card video');
+            videos.forEach(video => {
+                video.addEventListener('play', () => {
+                    isAnyVideoPlaying = true;
+                    pauseAutoSlide();
+                });
+                
+                video.addEventListener('pause', () => {
+                    // Check if any other video is still playing
+                    const anyPlaying = Array.from(videos).some(v => !v.paused);
+                    if (!anyPlaying) {
+                        isAnyVideoPlaying = false;
+                        resumeAutoSlide();
+                    }
+                });
+                
+                video.addEventListener('ended', () => {
+                    // Check if any other video is still playing
+                    const anyPlaying = Array.from(videos).some(v => !v.paused);
+                    if (!anyPlaying) {
+                        isAnyVideoPlaying = false;
+                        resumeAutoSlide();
+                    }
+                });
+            });
+        }
+
+        function pauseAutoSlide() {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = null;
+            }
+        }
+
+        function resumeAutoSlide() {
+            if (!autoSlideInterval && !isAnyVideoPlaying) {
+                startAutoSlide();
+            }
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(() => {
+                if (!isAnyVideoPlaying) {
+                    const container = isWordsView ? 
+                        document.getElementById('wordsContainer') : 
+                        document.getElementById('videosContainer');
+                    const maxSlides = Math.ceil(container.children.length / getCardsPerSlide()) - 1;
+                    currentSlide = (currentSlide + 1) > maxSlides ? 0 : currentSlide + 1;
+                    updateSlide();
+                }
+            }, 5000);
+        }
+
+        function getCardsPerSlide() {
+            if (window.innerWidth <= 480) return 1;
+            if (window.innerWidth <= 768) return 1;
+            return 3;
+        }
+
+        function showWords() {
+            // Pause all videos when switching
+            const videos = document.querySelectorAll('.video-card video');
+            videos.forEach(video => video.pause());
+            
+            document.getElementById('wordsBtn').classList.add('active');
+            document.getElementById('videosBtn').classList.remove('active');
+            document.getElementById('wordsCarousel').style.display = 'block';
+            document.getElementById('videosCarousel').style.display = 'none';
+            isWordsView = true;
+            currentSlide = 0;
+            updateSlide();
+            resumeAutoSlide();
+        }
+
+        function showVideos() {
+            document.getElementById('videosBtn').classList.add('active');
+            document.getElementById('wordsBtn').classList.remove('active');
+            document.getElementById('videosCarousel').style.display = 'block';
+            document.getElementById('wordsCarousel').style.display = 'none';
+            isWordsView = false;
+            currentSlide = 0;
+            updateSlide();
+            resumeAutoSlide();
+        }
+
+        function updateSlide() {
+            const container = isWordsView ? 
+                document.getElementById('wordsContainer') : 
+                document.getElementById('videosContainer');
+            
+            const cardWidth = container.children[0].offsetWidth;
+            const gap = window.innerWidth <= 768 ? 20 : 31;
+            const cardsPerSlide = getCardsPerSlide();
+            const offset = currentSlide * (cardWidth * cardsPerSlide + gap * cardsPerSlide);
+            container.style.transform = `translateX(-${offset}px)`;
+            
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        document.querySelectorAll('.dot').forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                currentSlide = i;
+                updateSlide();
+            });
+        });
+
+        // Initialize video listeners
+        setupVideoListeners();
+
+        // Start auto-slide
+        startAutoSlide();
+
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                updateSlide();
+            }, 250);
+        });
     </script>
 
 </body>
