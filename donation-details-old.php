@@ -174,8 +174,9 @@ $addons = array(
                             <div class="form-group">
                                 <label for="currency">Select Currency:</label>
                                 <select id="currency" class="form-control">
-                                    <option value="NGN" selected>Naira (₦)</option>
-                                    <option value="GBP">Pounds (£)</option>
+                                    <option value="NGN" selected>NGN (Nigerian Naira)</option>
+                                    <option value="">USD (United States Dollar)</option>
+                                    <option value="GBP">GBP (Great British Pounds)</option>
                                 </select>
                             </div>
 
@@ -314,7 +315,7 @@ $addons = array(
         switch (currency) {
             case "NGN": symbol = "₦"; break;
             case "USD": symbol = "$"; break;
-            case "EUR": symbol = "€"; break;
+            case "GBP": symbol = "£"; break;
             default: symbol = "₦";
         }
 
@@ -353,7 +354,7 @@ $addons = array(
         }
 
         FlutterwaveCheckout({
-            public_key: "FLWPUBK_TEST-7343bad195d49ea19fed9bae134b8c87-X",
+            public_key: "FLWPUBK-41d90e5fb8b282ba7a221837359b8ff6-X",
             tx_ref: "DONATE-" + Math.floor(Math.random() * 1000000),
             amount: parseFloat(amount),
             currency: currency,

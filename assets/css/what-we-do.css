@@ -50,6 +50,14 @@
     line-height: 1.8;
 }
 
+.learn{
+    color: #FF6B35;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 40px;
+}
+
 .highlight-text {
     color: #FF6B35;
     font-weight: bold;

@@ -152,7 +152,7 @@ $addons = array(
     <section id="hero-section">
 
         <div id="hero-words">
-            <p class="text-white"><span>-</span> Registered non-profit • Community-led since 2023 •  Prevention first</p>
+            <p class="text-white"><span>-</span> Preventing Disease. Promoting Awareness. Supporting Management.</p>
             <h1 class="text-white">
                 Stronger communities through prevention.
  
@@ -162,10 +162,10 @@ $addons = array(
 
             </p>
 
-            <div class="d-flex gap-3 ">
+            <div>
 
                 <p class="hero-button"><a id="hero-button" href="#donation">Donate now <img src="./assets/img/icon/arrow-icon.svg" /></a></p>
-                <p class="hero-button"><a id="hero-button2" href="volunteer.php">Join Us <img src="./assets/img/icon/arrow-icon.svg" /></a></p>
+                <p class="hero-button"><a id="hero-button" href="volunteer.php">Join Us <img src="./assets/img/icon/arrow-icon.svg" /></a></p>
             </div>
         </div>
     </section>
@@ -282,7 +282,7 @@ $addons = array(
                         <select id="currency">
                             <option value="NGN">NGN (Nigerian Naira)</option>
                             <option value="USD">USD (United States Dollar)</option>
-                            <option value="GBP">Pounds (GBP)</option>
+                            <option value="EUR">EUR (Euro)</option>
                         </select>
                         </div>
 
@@ -335,34 +335,26 @@ $addons = array(
     <section class="py-5 section-bg px-3 px-md-0">
         <div class="container content-wrapper">
             <div class="text-center mb-5">
-                <h4 class="text-theme2 fw-bold mb-4">Our Impact</h4>
+                <h4 class="text-theme2 fw-bold mb-4">Technical Statistics</h4>
             </div>
             
             <div class="row g-3 mb-5 mx-auto">
                 <div class="col-lg-3 col-md-4  mx-auto">
                     <div class="stats-card text-center">
-                        <div class="stats-number"><span class="counter" data-target="976">0</span>+</div>
-                        <div class="stats-label">older adults reached at monthly outreaches
-                        </div>
+                        <div class="stats-number"><span class="counter" data-target="257">0</span>+</div>
+                        <div class="stats-label">People Screened</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 mx-auto">
                     <div class="stats-card text-center">
-                        <div class="stats-number"><span class="counter" data-target="19">0</span>+</div>
-                        <div class="stats-label">Health Outreaches Held</div>
+                        <div class="stats-number"><span class="counter" data-target="11">0</span>+</div>
+                        <div class="stats-label">Health Outreaches</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-4 mx-auto">
                     <div class="stats-card text-center">
-                        <div class="stats-number"><span class="counter" data-target="505">0</span>+</div>
-                        <div class="stats-label">Patients Diagnosed With High Blood Pressure and linked to care
-                        </div>
-                    </div>
-                </div>
-                 <div class="col-lg-3 col-md-4  mx-auto">
-                    <div class="stats-card text-center">
-                        <div class="stats-number"><span class="counter" data-target="90.3">0%</span></div>
-                        <div class="stats-label">People returned within 60 days for a follow-up outreach</div>
+                        <div class="stats-number"><span class="counter" data-target="90">0</span>+</div>
+                        <div class="stats-label">Patients Diagnosed With High Blood Pressure</div>
                     </div>
                 </div>
             </div>
@@ -516,7 +508,7 @@ $addons = array(
         </div>
     </section>
 
-     <section class="testimonials-section2">
+   <section class="testimonials-section2">
         <div class="background-image">
             <img src="./assets/img/donation-testimonial-bg-min.jpg" alt="Background image of people" />
         </div>
@@ -672,6 +664,7 @@ $addons = array(
             </div>
         </div>
     </section>
+
     <section>
         <div class="container mt-5">
             <div class="text-center">
@@ -988,59 +981,10 @@ $addons = array(
     <?php include 'include/footer.php'; ?>
     <script src="https://checkout.flutterwave.com/v3.js"></script>
     <script>
-   document.addEventListener("DOMContentLoaded", () => {
-        const amountButtons = document.querySelectorAll(".amount-option-btn");
-        const customAmountInput = document.getElementById("donation_amount");
-        const currencySelect = document.getElementById("currency");
-
-
-        const currencySymbols = {
-            NGN: "₦",
-            USD: "$",
-            GBP: "£",
-        };
-
-        const amountValues = [100000, 50000, 20000, 10000, 5000];
-        let selectedCurrency = currencySelect.value;
-
-        // Format amount with currency symbol
-        function formatAmount(amount, currency) {
-            return currencySymbols[currency] + amount.toLocaleString();
-        }
-
-        // Update amount buttons and custom input placeholder/value
-        function updateAmounts() {
-            selectedCurrency = currencySelect.value;
-
-            amountButtons.forEach((btn, i) => {
-            btn.textContent = formatAmount(amountValues[i], selectedCurrency);
-            });
-
-            const selectedBtn = document.querySelector(".amount-option-btn.selected");
-            if (selectedBtn) {
-            customAmountInput.value = selectedBtn.textContent;
-            customAmountInput.placeholder = selectedBtn.textContent;
-            }
-        }
-
-        // Amount button click handler
-        amountButtons.forEach((button) => {
-            button.addEventListener("click", () => {
-            amountButtons.forEach((btn) => btn.classList.remove("selected"));
-            button.classList.add("selected");
-            customAmountInput.value = button.textContent;
-            });
-        });
-
-        // Currency change handler
-        currencySelect.addEventListener("change", () => {
-            updateAmounts();
-        });
-
-        // Initialize default values
-        updateAmounts();
-
-        });
+    document.getElementById("currency").addEventListener("change", function() {
+        const currency = this.value;
+        document.getElementById("currency_symbol").innerText = currency === "NGN" ? "₦" : "£";
+    });
 
     document.getElementById("pay-button").addEventListener("click", function() {
         const rawAmount = document.getElementById("donation_amount").value;
@@ -1057,7 +1001,7 @@ $addons = array(
         }
 
         FlutterwaveCheckout({
-            public_key: "FLWPUBK-41d90e5fb8b282ba7a221837359b8ff6-X", 
+            public_key: "FLWPUBK_TEST-8e160e741ef62ce04057e02cf600b239-X", 
             tx_ref: "DONATE-" + Math.floor(Math.random() * 1000000),
             amount: parseFloat(amount),
             currency: currency,
@@ -1179,61 +1123,49 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 </script>
  <script>
-    const counters = document.querySelectorAll('.counter');
-    let hasCounted = false;
+            const counters = document.querySelectorAll('.counter');
+            let hasCounted = false;
 
-    function animateCounters() {
-        if (hasCounted) return; // prevents multiple triggers
+            function animateCounters() {
+                if (hasCounted) return; // prevents multiple triggers
+                counters.forEach(counter => {
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 2000; // total animation time in ms
+                    const stepTime = 10; // how often to update in ms
+                    const increment = target / (duration / stepTime);
+                    let count = 0;
 
-        counters.forEach(counter => {
-            // detect if it's a percent counter
-            const isPercent = counter.innerText.includes('%') || counter.getAttribute('data-target').includes('%');
-            
-            // remove any '%' sign to parse number safely
-            const target = parseFloat(counter.getAttribute('data-target').replace('%', ''));
-            const duration = 2000; // total animation time in ms
-            const stepTime = 10;   // how often to update in ms
-            const increment = target / (duration / stepTime);
-            let count = 0;
+                    const updateCounter = () => {
+                        count += increment;
+                        if (count < target) {
+                            counter.innerText = Math.floor(count);
+                            setTimeout(updateCounter, stepTime);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
 
-            const updateCounter = () => {
-                count += increment;
-                if (count < target) {
-                    counter.innerText = isPercent 
-                        ? count.toFixed(1) + '%' 
-                        : Math.floor(count);
-                    setTimeout(updateCounter, stepTime);
-                } else {
-                    counter.innerText = isPercent 
-                        ? target + '%' 
-                        : Math.floor(target);
-                }
-            };
-
-            updateCounter();
-        });
-
-        hasCounted = true;
-    }
-
-    // Trigger when section is visible (intersection observer)
-    const statsSection = document.querySelector('.stats-card')?.parentElement;
-
-    if ('IntersectionObserver' in window && statsSection) {
-        const observer = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-                animateCounters();
-                observer.disconnect();
+                    updateCounter();
+                });
+                hasCounted = true;
             }
-        }, { threshold: 0.5 });
-        observer.observe(statsSection);
-    } else {
-        // fallback
-        window.addEventListener('load', animateCounters);
-    }
-</script>
 
+            // Optional: Trigger when in view using Intersection Observer
+            const statsSection = document.querySelector('.stats-card')?.parentElement;
 
+            if ('IntersectionObserver' in window && statsSection) {
+                const observer = new IntersectionObserver(entries => {
+                    if (entries[0].isIntersecting) {
+                        animateCounters();
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.5 });
+                observer.observe(statsSection);
+            } else {
+                // fallback
+                window.addEventListener('load', animateCounters);
+            }
+        </script>
          <script>
         let currentSlide = 0;
         let isWordsView = true;
@@ -1366,6 +1298,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 250);
         });
     </script>
+
 <script src="./assets/js/donations.js"></script>
     
 </body>

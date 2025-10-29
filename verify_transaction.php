@@ -3,7 +3,7 @@ $connectX = true;
 include 'include/connectionx.php';
 header("Content-Type: application/json");
 
-$flutterwave_secret_key = "FLWSECK_TEST-127b655c5746169b7d8f89d9610bcde1-X";
+$flutterwave_secret_key = "FLWSECK-f923d36472165ee959388430688d25f6-19a1c78f076vt-X";
 
 // Read incoming JSON from frontend
 $input = file_get_contents("php://input");
