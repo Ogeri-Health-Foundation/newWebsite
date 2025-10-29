@@ -197,28 +197,38 @@ $addons = array(
             <section class="py-5 section-bg">
                 <div class="container content-wrapper">
                     <div class="text-center mb-5">
-                        <h4 class="text-theme2 fw-bold mb-4">Technical Statistics</h4>
+                        <h4 class="text-theme2 fw-bold mb-4">Our Impact</h4>
                     </div>
                     
-                    <div class="row g-4 mb-5">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="stats-card text-center">
-                                <div class="stats-number"><span class="counter" data-target="257">0</span>+</div>
-                                <div class="stats-label">People Screened</div>
+                    <div class="row g-3 mb-5">
+                        <div class="col-lg-3 col-md-6">
+                           <div class="stats-card text-center">
+                                <div class="stats-number"><span class="counter" data-target="976">0</span>+</div>
+                                <div class="stats-label">older adults reached at monthly outreaches
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-3 col-md-6">
                             <div class="stats-card text-center">
-                                <div class="stats-number"><span class="counter" data-target="11">0</span>+</div>
-                                <div class="stats-label">Health Outreaches</div>
+                                <div class="stats-number"><span class="counter" data-target="19">0</span>+</div>
+                                <div class="stats-label">Health Outreaches Held</div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-3 col-md-6">
                             <div class="stats-card text-center">
-                                <div class="stats-number"><span class="counter" data-target="90">0</span>+</div>
-                                <div class="stats-label">Patients Diagnosed With High Blood Pressure</div>
+                                <div class="stats-number"><span class="counter" data-target="505">0</span>+</div>
+                                <div class="stats-label">Patients Diagnosed With High Blood Pressure and linked to care</div>
                             </div>
                         </div>
+
+                        <div class="col-lg-3 col-md-6">
+                            <div class="stats-card text-center">
+                                <div class="stats-number"><span class="counter" data-target="90.3">0%</span>%</div>
+                                <div class="stats-label">People returned within 60 days for a follow-up outreach</div>
+                            </div>
+                        </div>
+
+                        
                     </div>
 
                     

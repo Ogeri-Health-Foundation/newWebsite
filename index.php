@@ -152,7 +152,7 @@ $addons = array(
     <section id="hero-section">
 
         <div id="hero-words">
-            <p class="text-white"><span>-</span> Preventing Disease. Promoting Awareness. Supporting Management.</p>
+            <p class="text-white"><span>-</span> Registered non-profit • Community-led since 2023 •  Prevention first</p>
             <h1 class="text-white">
                 Stronger communities through prevention.
  
@@ -361,7 +361,7 @@ $addons = array(
                 </div>
                  <div class="col-lg-3 col-md-4  mx-auto">
                     <div class="stats-card text-center">
-                        <div class="stats-number"><span class="counter" data-target="90.3">0%</span>+</div>
+                        <div class="stats-number"><span class="counter" data-target="90.3">0%</span></div>
                         <div class="stats-label">People returned within 60 days for a follow-up outreach</div>
                     </div>
                 </div>

@@ -104,28 +104,28 @@ $addons = array(
                     <div class="row justify-content-center gy-4">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle text-center">
-                                <p class="text-dark fs-3"><b><span class="counter" data-target="257">0</span>+</b></p>
-                                <p class="w-75 mx-auto">People Screened Through Medical Outreach Programs</p>
+                                <p class="text-dark fs-3"><b><span class="counter" data-target="976">0</span>+</b></p>
+                                <p class="w-75 mx-auto">People Screened Through Monthly Medical Outreach Programs</p>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle bg-theme text-white text-center">
-                                <p class="text-white fs-3"><b><span class="counter" data-target="11">0</span>+</b></p>
-                                <p class="text-white w-75 mx-auto">Health Outreach</p>
+                                <p class="text-white fs-3"><b><span class="counter" data-target="19">0</span>+</b></p>
+                                <p class="text-white w-75 mx-auto">Health Outreach Held</p>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle text-center">
-                                <p class="text-dark fs-3"><b><span class="counter" data-target="90">0</span>+</b></p>
-                                <p class="w-75 mx-auto">Patients Diagnosed With High Blood pressure</p>
+                                <p class="text-dark fs-3"><b><span class="counter" data-target="505">0</span>+</b></p>
+                                <p class="w-75 mx-auto">Patients Diagnosed with elevated blood pressure identified and linked to care</p>
                             </div>
                         </div>
-                        <!-- <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
                             <div class="impact-circle bg-theme text-white text-center">
-                                <p class="text-white fs-3"><b><span class="counter" data-target="50">0</span>+</b></p>
-                                <p class="text-white w-75 mx-auto">Communities reached with health education initiatives</p>
+                                <p class="text-white fs-3"><b><span class="counter" data-target="90.2">0</span>%</b></p>
+                                <p class="text-white w-75 mx-auto">Returned within 60 days for a follow-up outreach</p>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
 

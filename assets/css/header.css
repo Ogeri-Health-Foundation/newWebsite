@@ -422,3 +422,81 @@ header button,
   transform: rotate(180deg);
   transition: transform 0.3s ease;
 }
+
+/* --- CTA Buttons --- */
+.cta-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.btn-donate, .btn-volunteer {
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Primary CTA - Donate */
+.btn-donate {
+  background-color: #f15a24;
+  color: white;
+}
+
+.btn-donate:hover {
+  background-color: #d94f1f;
+}
+
+/* Secondary CTA - Volunteer */
+.btn-volunteer {
+  background-color: transparent;
+  border: 1px solid #f15a24;
+  color: #f15a24;
+}
+
+.btn-volunteer:hover {
+  background-color: #f15a24;
+  color: white;
+}
+
+/* --- Dropdown hover behavior --- */
+.menu-item-has-children {
+  position: relative;
+}
+
+.sub-menu {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  list-style: none;
+  padding: 10px 0;
+}
+
+.menu-item-has-children:hover .sub-menu {
+  display: block;
+}
+
+.sub-menu li a {
+  color: #333;
+  padding: 10px 20px;
+  display: block;
+  text-decoration: none;
+}
+
+.sub-menu li a:hover {
+  background-color: #f15a24;
+  color: white;
+}
+
+#getInvolvedToggle{
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 500;
+}
+#getInvolvedToggle:hover {
+  color: #f15a24 !important;
+}
