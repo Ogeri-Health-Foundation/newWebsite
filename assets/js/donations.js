@@ -86,37 +86,53 @@ document.addEventListener("DOMContentLoaded", () => {
   const customAmountInput = document.getElementById("donation_amount");
   const currencySelect = document.getElementById("currency");
 
-
   const currencySymbols = {
     NGN: "₦",
-    USD: "$",
     GBP: "£",
+    USD: "$"
   };
 
-  const amountValues = [100000, 50000, 20000, 10000, 5000];
-  let selectedCurrency = currencySelect.value;
+  const amountsByCurrency = {
+    NGN: [5000, 20000, 50000, 100000],
+    GBP: [25, 100, 500, 1000],
+    USD: [30, 120, 600, 1200]
+  };
 
-  // Format amount with currency symbol
+  const conversionRates = {
+    NGN: 1,
+    GBP: 0.005,
+    USD: 0.006
+  };
+
   function formatAmount(amount, currency) {
     return currencySymbols[currency] + amount.toLocaleString();
   }
 
-  // Update amount buttons and custom input placeholder/value
-  function updateAmounts() {
-    selectedCurrency = currencySelect.value;
+  function updateAmounts(selectedValue = null) {
+    const selectedCurrency = currencySelect.value;
+    const currentAmounts = amountsByCurrency[selectedCurrency];
 
+    // Update buttons
     amountButtons.forEach((btn, i) => {
-      btn.textContent = formatAmount(amountValues[i], selectedCurrency);
+      btn.textContent = formatAmount(currentAmounts[i], selectedCurrency);
     });
 
-    const selectedBtn = document.querySelector(".amount-option-btn.selected");
-    if (selectedBtn) {
-      customAmountInput.value = selectedBtn.textContent;
-      customAmountInput.placeholder = selectedBtn.textContent;
+    // Convert custom amount if switching currency
+    if (selectedValue === null) {
+      selectedValue = parseFloat(customAmountInput.value.replace(/[^0-9.]/g, '')) || currentAmounts[0];
     }
+
+    // Convert using NGN as base
+    const baseNGN = selectedCurrency === "NGN" ? selectedValue :
+                    selectedCurrency === "GBP" ? selectedValue / conversionRates.GBP :
+                    selectedValue / conversionRates.USD;
+
+    const newValue = Math.round(baseNGN * conversionRates[selectedCurrency]);
+    customAmountInput.value = formatAmount(newValue, selectedCurrency);
+    customAmountInput.placeholder = formatAmount(newValue, selectedCurrency);
   }
 
-  // Amount button click handler
+  // Button click
   amountButtons.forEach((button) => {
     button.addEventListener("click", () => {
       amountButtons.forEach((btn) => btn.classList.remove("selected"));
@@ -125,12 +141,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Currency change handler
+  // Currency change
   currencySelect.addEventListener("change", () => {
-    updateAmounts();
+    const selectedBtn = document.querySelector(".amount-option-btn.selected");
+    const selectedValue = parseFloat(selectedBtn.textContent.replace(/[^0-9.]/g, ''));
+    updateAmounts(selectedValue);
   });
 
-  // Initialize default values
+  // Initialize
   updateAmounts();
-
 });
+
