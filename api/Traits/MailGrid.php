@@ -17,15 +17,17 @@ trait sendMail
             $mail = new PHPMailer(true);
         
                    $mail->isSMTP();
-                        $mail->Host = 'mail.dreamlenxenterprise.com.ng'; 
-                        $mail->SMTPAuth = true;
-                        $mail->Username = 'info@dreamlenxenterprise.com.ng'; 
-                        $mail->Password = 'info@dreamlenxxx123456'; 
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
-                        $mail->Port = 465;
+                    $mail->Host       = 'smtp.sendgrid.net';
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = 'apikey'; // IMPORTANT: literally the word "apikey"
+                    $mail->Password   = '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'; // paste your API key here
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port       = 587;
                         
     
-                $mail->setFrom('info@dreamlenxenterprise.com.ng', 'Ogeri Health Foundation');
+                $mail->setFrom('info@ogerihealth.org', 'Ogeri Health Foundation');
+                $mail->addReplyTo('info@ogerihealth.org', 'Ogeri Health Foundation');
+                $mail->Sender = 'info@ogerihealth.org';
                 $mail->addAddress($email);
     
                 $mail->isHTML(true);
@@ -138,14 +140,16 @@ trait sendMail
     
                     try {
                 $mail->isSMTP();
-                $mail->Host = 'mail.dreamlenxenterprise.com.ng'; 
-                $mail->SMTPAuth = true;
-                $mail->Username = 'info@dreamlenxenterprise.com.ng'; 
-                $mail->Password = 'info@dreamlenxxx123456'; 
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
-                $mail->Port = 465;
+                    $mail->Host       = 'smtp.sendgrid.net';
+                    $mail->SMTPAuth   = true;
+                    $mail->Username   = 'apikey'; 
+                    $mail->Password   = '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'; 
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Port       = 587;
     
-                $mail->setFrom($senderEmail, $senderName);
+                $mail->setFrom('info@ogerihealth.org', 'Ogeri Health Foundation');
+                $mail->addReplyTo('info@ogerihealth.org', 'Ogeri Health Foundation');
+                $mail->Sender = 'info@ogerihealth.org.com.ng';
                 $mail->addAddress($Adminemail);
     
                 $mail->isHTML(true);

@@ -1,0 +1,21 @@
+"Analytics Report"
+Period,"This Week"
+
+Summary
+Visitors,1
+Sessions,1
+"Top Page",/admin/analytics
+"Bounce Rate",0%
+
+"Leads by Source"
+Source,Count,Share
+"Website Contact Form",0,0%
+"Social Media",0,0%
+WhatsApp,0,0%
+Referral,0,0%
+
+"Lead Conversion Metrics"
+CTA,Views,Clicks,Conversions,Rate
+"Request Quote",1,0,0,0%
+"Contact Form",0,0,0,0%
+"Career Apply",1,0,0,0%
