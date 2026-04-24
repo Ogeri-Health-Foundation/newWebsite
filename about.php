@@ -163,64 +163,87 @@ $addons = array(
             </div>
         </section>
 
-        <section class="mt-5">
+       <section class="mt-5">
             <div class="container">
                 <div class="text-center">
-                    
                     <h4 class="text-theme2">Our Core Values</h4>
                     <p class="text-dark">Guiding Principles That Drive Our Mission</p>
                 </div>
 
-                <div class="row g-4   mt-5">
+                <div class="row g-4 mt-5">
                     <div class="col-md-6 d-flex justify-content-center">
-                        <div class="values-card ">
+                        <div class="values-card">
                             <div class="d-flex align-items-center gap-2 mb-3">
                                 <img src="assets/img/about/donor-friendly.svg" alt="">
-                                <h5 class="text-theme2">Donor Friendly</h5>
+                                <h5 class="text-theme2">Community First</h5>
                             </div>
-                            <p>Stay updated with the latest news, events, and impact stories from our organization. Subscribe to our newsletter</p>
-
+                            <p>We work hand in hand with the people we serve, ensuring every project is rooted in local knowledge, ownership, and participation.</p>
                         </div>
                     </div>
+                    
                     <div class="col-md-6 d-flex justify-content-center">
-                        <div class="values-card ">
+                        <div class="values-card">
                             <div class="d-flex align-items-center gap-2 mb-3">
                                 <img src="assets/img/about/fundrising.svg" alt="">
-                                <h5 class="text-theme2">Fundraising Trust</h5>
+                                <h5 class="text-theme2">Integrity and Accountability</h5>
                             </div>
-                            <p>Stay updated with the latest news, events, and impact stories from our organization. Subscribe to our newsletter</p>
-
+                            <p>We uphold the highest standards of transparency in how we raise, manage, and use resources, ensuring every contribution creates visible impact.</p>
                         </div>
                     </div>
+                    
                     <div class="col-md-6 d-flex justify-content-center">
-                        <div class="values-card ">
+                        <div class="values-card">
                             <div class="d-flex align-items-center gap-2 mb-3">
                                 <img src="assets/img/about/charity.svg" alt="">
-                                <h5 class="text-theme2">Charity Donate</h5>
+                                <h5 class="text-theme2">Compassion in Action</h5>
                             </div>
-                            <p>Stay updated with the latest news, events, and impact stories from our organization. Subscribe to our newsletter</p>
-
+                            <p>Our work is driven by empathy, treating every individual with dignity and respect while providing accessible, person-centred support.</p>
                         </div>
                     </div>
+                    
                     <div class="col-md-6 d-flex justify-content-center">
-                        <div class="values-card ">
+                        <div class="values-card">
                             <div class="d-flex align-items-center gap-2 mb-3">
                                 <img src="assets/img/about/treatment.svg" alt="">
-                                <h5 class="text-theme2">Treatment Help</h5>
+                                <h5 class="text-theme2">Prevention and Empowerment</h5>
                             </div>
-                            <p>Stay updated with the latest news, events, and impact stories from our organization. Subscribe to our newsletter</p>
-
+                            <p>We focus on education and early action to prevent illness, helping communities take charge of their own health.</p>
                         </div>
                     </div>
 
+                    <div class="col-md-6 d-flex justify-content-center">
+                        <div class="values-card">
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <img src="assets/img/about/treatment.svg" alt="">
+                                <h5 class="text-theme2">Collaboration and Trust</h5>
+                            </div>
+                            <p>We believe lasting change happens through partnerships with donors, local health workers, and communities built on mutual respect and shared purpose.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
+
         <section style="background-color: #F8F4F4;">
             <div class="container mt-5 py-5">
                 <h4 class="text-theme2 text-center">Meet The Brilliant Leaders Of Ogeri Health Foundation </h4>
+                <div class="mt-5 mx-auto">
+                    <div class="mb-3">
+                        <div class="leader-div"  data-aos="flip-left"
+     data-aos-delay="200">
+                            <img src="assets/img/about/ceo-obyEnwo.jpg" alt="" class="leader-img vol-img"  >
+                            <div class="text-center leader-card">
+                                <p class="text-theme2 leader-name" >Dr. Oby Enwo </p>
+                                <p class="text-dark mt-1">Founder and CEO</p>
 
+                                <div class="th-social style2 text-center">
+                                    <a target="_blank" href="https://www.linkedin.com/in/obyenwo/"><i class="fab fa-linkedin"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row mt-5">
                     <div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-3">
                         <div class="leader-div"  data-aos="flip-left"
@@ -256,7 +279,7 @@ $addons = array(
             <div class="container mt-5">
                  <div class="text-center">
                     
-                    <h4 class="text-theme2">Meet Our Volunteers</h4>
+                    <h4 class="text-theme2">Meet Our Health Care Outreach Team</h4>
                     <p class="text-dark">Behind every smile, direction, and helping hand is a volunteer making a difference. Meet the 
 heroes who make it all happen!</p>
                 </div>
@@ -450,7 +473,7 @@ heroes who make it all happen!</p>
                                         <i class="fas fa-quote-left"></i>
                                         <p class="text-muted mt-4">I am grateful for the continuous care and free medications. I always get better each time I take medications given to me.</p>
                                         <div class="d-flex align-items-center mt-4">
-                                        <img src="assets/img/about/vol-1.svg" alt="profile" class="rounded-circle me-3" width="50" height="50">
+                                        <img src="assets/img/about/mrs_patience.png" alt="profile" class="rounded-circle me-3" width="50" height="50">
                                         <div>
                                             <h6 class="mb-0">Isu Patience Ugo</h6>
                                             <small class="text-muted">Ezi Ukie Compound, Mgbom Communit</small>
@@ -465,7 +488,7 @@ heroes who make it all happen!</p>
                                         <i class="fas fa-quote-left bg-white" style="color: #24ABA0"></i>
                                         <p class="mt-4 text-white">I received treatment for hypertension since the first outreach in March, 2024. I pray that God will continue to bless the Foundation in all her endeavors.</p>
                                         <div class="d-flex align-items-center mt-4">
-                                        <img src="assets/img/about/vol-2.svg" alt="profile" class="rounded-circle me-3" width="50" height="50">
+                                        <img src="assets/img/about/2nd-woman.jpg" alt="profile" class="rounded-circle me-3" width="50" height="50">
                                         <div>
                                             <h6 class="mb-0 text-white">Mrs. Ajuka Oko</h6>
                                             <small>Ezi Abagha Compound, Mgbom Community</small>
@@ -480,7 +503,7 @@ heroes who make it all happen!</p>
                                         <i class="fas fa-quote-left"></i>
                                         <p class="text-muted mt-4">I have been treated of Malaria, Osteoarthritis and some other complaints I had. The Foundation is doing a wonderful Job and I urge them to continue in the same manner.</p>
                                         <div class="d-flex align-items-center mt-4">
-                                        <img src="assets/img/about/vol-3.svg" alt="profile" class="rounded-circle me-3" width="50" height="50">
+                                        <img src="assets/img/about/mr-isu.jpg" alt="profile" class="rounded-circle me-3" width="50" height="50">
                                         <div>
                                             <h6 class="mb-0">Mr. Isu Ukie</h6>
                                             <small class="text-muted">Teacher</small>
@@ -501,7 +524,7 @@ heroes who make it all happen!</p>
                                         <i class="fas fa-quote-left"></i>
                                         <p class="text-muted mt-4">I have been keeping to my medications and there has been a great improvement in my health.</p>
                                         <div class="d-flex align-items-center mt-4">
-                                            <img src="assets/img/about/vol-3.svg" class="rounded-circle me-3" width="50" height="50">
+                                            <img src="assets/img/about/mr-chukwu.png" class="rounded-circle me-3" width="50" height="50">
                                             <div>
                                                 <h6 class="mb-0">Mr. Chukwu Inya Chukwu</h6>
                                                 <small class="text-muted">Ezi Akpuka Compound</small>
@@ -514,7 +537,7 @@ heroes who make it all happen!</p>
                                         <i class="fas fa-quote-left"></i>
                                         <p class="text-muted mt-4">I come for the monthly outreaches and I have noticed significant improvement in my health</p>
                                         <div class="d-flex align-items-center mt-4">
-                                            <img src="assets/img/about/vol-3.svg" class="rounded-circle me-3" width="50" height="50">
+                                            <img src="assets/img/about/mr-micheal.png" class="rounded-circle me-3" width="50" height="50">
                                             <div>
                                                 <h6 class="mb-0">Mr. Michael</h6>
                                                 <small class="text-muted">Community Member</small>

@@ -122,6 +122,7 @@ $addons = array(
         cursor: pointer;
         font-family: "Poppins", sans-serif;
         font-weight: 600;
+
         }
         .donate-btn {
         background-color: var(--button-bg-color);
@@ -336,11 +337,11 @@ $addons = array(
                 padding: 30px 15px;
             }
 
-            .headers1 h2 {
-                font-size: 1.5em;
+            .overlay-text h1 {
+                font-size: 1.9em;
             }
 
-            .headers1 p {
+            .overlay-text p {
                 font-size: 16px;
             }
 
@@ -368,8 +369,8 @@ $addons = array(
                 width: 50px;
             }
 
-            .headers1 h2 {
-                font-size: 1.3em;
+            .overlay-text h1 {
+                font-size: 1.7em;
             }
 
             .amount-options {
@@ -420,7 +421,7 @@ $addons = array(
             <p class="text-white">Bringing Hope through Health</p>
             <h1 class="text-white">Empower Change with your Contribution</h1>
 
-            <div class="cta-buttons">
+            <div class="cta-buttons d-flex justify-content-center">
                 <a href="#theDonate" class="donate-btn th-btn style3">Donate Now</a>
             </div>
         </div>
@@ -522,40 +523,27 @@ $addons = array(
                                             <div class="form-group">
                                                 <label for="currency">Currency</label>
                                                 <select id="currency">
+                                                     <option value="GBP">Pounds (GBP)</option>
                                                     <option value="NGN">NGN (Nigerian Naira)</option>
                                                     <option value="USD">USD (United States Dollar)</option>
-                                                    <option value="GBP">Pounds (GBP)</option>
+                                                   
                                                 </select>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Amount</label>
                                                 <div class="amount-options">
-                                                    <button type="button" class="amount-option-btn selected">
-                                                        &#x20A6;100,000
-                                                    </button>
-                                                    <button type="button" class="amount-option-btn">
-                                                        &#x20A6;50,000
-                                                    </button>
-                                                    <button type="button" class="amount-option-btn">
-                                                        &#x20A6;20,000
-                                                    </button>
-                                                    <button type="button" class="amount-option-btn">
-                                                        &#x20A6;10,000
-                                                    </button>
-                                                    <button type="button" class="amount-option-btn">
-                                                        &#x20A6;5,000
-                                                    </button>
+                                                    <button type="button" class="amount-option-btn selected"></button>
+                                                    <button type="button" class="amount-option-btn"></button>
+                                                    <button type="button" class="amount-option-btn"></button>
+                                                    <button type="button" class="amount-option-btn"></button>
+                                                    <button type="button" class="amount-option-btn"></button>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="custom-amount">Custom Amount</label>
-                                                <input
-                                                    type="text"
-                                                    id="donation_amount"
-                                                    placeholder="&#x20A6;100,000"
-                                                    value="&#x20A6;100,000" />
+                                                <input type="text" id="donation_amount" />
                                             </div>
 
                                             <div class="form-group">
@@ -662,53 +650,70 @@ $addons = array(
     <script src="https://checkout.flutterwave.com/v3.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Get all amount buttons and the donation amount input
-            const amountButtons = document.querySelectorAll('.amount-option-btn');
-            const donationAmountInput = document.getElementById('donation_amount');
+    const amountButtons = document.querySelectorAll(".amount-option-btn");
+    const donationAmountInput = document.getElementById("donation_amount");
+    const currencySelect = document.getElementById("currency");
 
-            // Add click event to each amount button
-            amountButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // 1. Remove 'selected' class from all buttons
-                    amountButtons.forEach(btn => btn.classList.remove('selected'));
+    const currencySymbols = { NGN: "₦", USD: "$", GBP: "£" };
 
-                    // 2. Add 'selected' class to clicked button
-                    this.classList.add('selected');
+    const amountsByCurrency = {
+        NGN: [5000, 10000, 20000, 50000, 100000],
+        GBP: [25, 100, 500, 1000, 2000], // added fifth button reasonable
+        USD: [30, 120, 600, 1200, 2400]
+    };
 
-                    // 3. Update the donation input with the clicked amount
-                    donationAmountInput.value = this.textContent.trim();
-                });
-            });
+    const conversionRates = { NGN: 1, GBP: 0.005, USD: 0.006 };
 
-            // Optional: Handle custom amount input to deselect buttons when typing
-            donationAmountInput.addEventListener('focus', function() {
-                amountButtons.forEach(btn => btn.classList.remove('selected'));
-            });
-        });
-
-       document.getElementById("currency").addEventListener("change", function () {
-    const currency = this.value;
-    let symbol;
-
-    switch (currency) {
-        case "NGN": symbol = "₦"; break;
-        case "USD": symbol = "$"; break;
-        case "GBP": symbol = "£"; break;
-        default: symbol = "₦";
+    function formatAmount(amount, currency) {
+        return currencySymbols[currency] + amount.toLocaleString();
     }
 
-    // Update amount buttons
-    document.querySelectorAll(".amount-option-btn").forEach(btn => {
-        const rawText = btn.textContent.replace(/[₦$€£,\s]/g, ""); // Remove old symbols
-        if (!isNaN(rawText) && rawText.length > 0) {
-            btn.textContent = `${symbol}${Number(rawText).toLocaleString()}`;
+    function updateAmounts(selectedValue = null) {
+        const selectedCurrency = currencySelect.value;
+        const currentAmounts = amountsByCurrency[selectedCurrency];
+
+        // Update buttons
+        amountButtons.forEach((btn, i) => {
+            btn.textContent = formatAmount(currentAmounts[i], selectedCurrency);
+        });
+
+        // Convert custom amount if switching currency
+        if (selectedValue === null) {
+            selectedValue = parseFloat(donationAmountInput.value.replace(/[^0-9.]/g, "")) || currentAmounts[0];
         }
+
+        const baseNGN = selectedCurrency === "NGN" ? selectedValue :
+                        selectedCurrency === "GBP" ? selectedValue / conversionRates.GBP :
+                        selectedValue / conversionRates.USD;
+
+        const newValue = Math.round(baseNGN * conversionRates[selectedCurrency]);
+        donationAmountInput.value = formatAmount(newValue, selectedCurrency);
+        donationAmountInput.placeholder = formatAmount(newValue, selectedCurrency);
+    }
+
+    // Button click
+    amountButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            amountButtons.forEach(btn => btn.classList.remove("selected"));
+            button.classList.add("selected");
+            donationAmountInput.value = button.textContent;
+        });
     });
 
-    // Update input placeholder
-    const donationInput = document.getElementById("donation_amount");
-    donationInput.placeholder = `${symbol}100,000`;
-    donationInput.value = `${symbol}100,000`;
+    // Custom input focus deselects buttons
+    donationAmountInput.addEventListener("focus", () => {
+        amountButtons.forEach(btn => btn.classList.remove("selected"));
+    });
+
+    // Currency change
+    currencySelect.addEventListener("change", () => {
+        const selectedBtn = document.querySelector(".amount-option-btn.selected");
+        const selectedValue = selectedBtn ? parseFloat(selectedBtn.textContent.replace(/[^0-9.]/g, "")) : null;
+        updateAmounts(selectedValue);
+    });
+
+    // Initialize
+    updateAmounts();
 });
         document.getElementById("pay-button").addEventListener("click", function() {
             const rawAmount = document.getElementById("donation_amount").value;

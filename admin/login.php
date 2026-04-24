@@ -114,7 +114,7 @@ $addons = array(
   </style>
 
 </head>
-<body">
+<body>
   <script>
     window.onload = function() {
       // fetch("https://ogerihealth.org/api/v1/auth.php") 
@@ -220,55 +220,57 @@ $addons = array(
     </div>
   </div>
 
-  <script src="assets/js/login.js"></script>
- <script>
-  function togglePassword() {
-    const passwordInput = document.getElementById("password");
-    const eyeIcon = document.getElementById("eye-icon");
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-      eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
-    } else {
-      passwordInput.type = "password";
-      eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
+  <!-- <script src="assets/js/login.js"></script> -->
+  <script>
+
+   function togglePassword() {
+      const passwordInput = document.getElementById("password");
+      const eyeIcon = document.getElementById("eye-icon");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
+      } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
+      }
     }
-  }
+  document.addEventListener("DOMContentLoaded", () => {
+   
+    console.log("DOM loaded");
+    const form = document.querySelector("form");
+    const Button = form.querySelector(".submit");
+    console.log("Form found:", form);
+  console.log("Button found:", Button);
 
-  const form = document.querySelector("form");
-  const Button = form.querySelector(".submit");
+    form.onsubmit = (e) => e.preventDefault();
 
-  form.onsubmit = (e) => e.preventDefault();
+    Button.onclick = () => {
+      console.log("Button clicked");
+      Button.disabled = true;
+      const originalHTML = Button.innerHTML;
+      Button.innerHTML =
+        `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...`;
 
-  Button.onclick = () => {
-    Button.disabled = true;
-    const originalHTML = Button.innerHTML;
-    Button.innerHTML =
-      `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...`;
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://localhost/newWebsite/api/v1/loginRoute.php", true);
+      xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "../api/v1/loginRoute.php", true);
-    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+      xhr.onload = () => {
+        Button.disabled = false;
+        Button.innerHTML = originalHTML;
 
-    xhr.onload = () => {
-      // ✅ Always restore button state
-      Button.disabled = false;
-      Button.innerHTML = originalHTML;
+        console.log(">>>> STATUS:", xhr.status);
+        console.log("RAW:", xhr.responseText);
 
-      if (xhr.readyState === XMLHttpRequest.DONE) {
         try {
           const response = JSON.parse(xhr.responseText);
           const msg = response.message || "";
 
-          // ✅ Case 1: Full login success
           if (response.status === 200 && msg.toLowerCase().includes("login successful")) {
             showSuccessToast(msg);
             setTimeout(() => (window.location.href = "index.php"), 1500);
-
-          // ✅ Case 2: OTP sent flow
           } else if (response.status === 200 && msg.toLowerCase().includes("otp sent")) {
             showInfoToast(msg);
-
-          // ❌ Case 3: Any other failure
           } else {
             showErrorToast(msg || `Error ${xhr.status}: ${xhr.statusText}`);
           }
@@ -277,19 +279,18 @@ $addons = array(
           console.error("Invalid JSON response:", error);
           showErrorToast("An unexpected error occurred. Please try again.");
         }
-      }
-    };
 
-    xhr.onerror = () => {
-      // ✅ Always restore button
-      Button.disabled = false;
-      Button.innerHTML = originalHTML;
-      showErrorToast("Network error. Please check your connection.");
-    };
+      };
 
-    const formData = new FormData(form);
-    xhr.send(formData);
-  };
+      xhr.onerror = () => {
+        Button.disabled = false;
+        Button.innerHTML = originalHTML;
+        showErrorToast("Network error. Please check your connection.");
+      };
+
+      xhr.send(new FormData(form));
+    };
+});
 
   // ✅ Toast helpers
   function showSuccessToast(message) {
@@ -315,8 +316,8 @@ $addons = array(
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 3000);
   }
-</script>
-
+</script> 
+ 
   </body>
 
 </html>

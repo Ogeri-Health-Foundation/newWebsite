@@ -64,7 +64,7 @@
                 </ul>
             </li>
            
-             <li class="nav-list btn-donate getInvolvedBtn"><a href="./donate.php#donatenow" >Donate</a></li>
+             <li class="nav-list btn-donate getInvolvedBtn"><a href="./donation.php#donatenow" >Donate</a></li>
             <li class="nav-list btn-volunteer getInvolvedBtn"><a href="./volunteer.php" >Volunteer</a></li>
         </ul>
 

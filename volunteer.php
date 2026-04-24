@@ -616,7 +616,7 @@ $addons = array(
     <!-- VOLUNTEER SECTION -->
     <section class="volunteer-section container px-4 py-5">
       <div class="volunteer-header pb-3 text-center">
-        <h2>Meet Our Volunteer</h2>
+        <h2>Meet Our Health Care Outreach Team</h2>
         <p class="">
           Behind every smile, direction, and helping hand is a volunteer making
           a difference. Meet the heroes who make it all happen!
@@ -723,23 +723,26 @@ $addons = array(
                ?>
        
       </div>
+      <div class="d-flex flex-wrap gap-3 mt-4 justify-content-center">
+        <img src="assets/img/volunteer/img/group1.jpg " class="w-100 w-lg-50" alt="" >
+        <img src="assets/img/volunteer/img/group2.jpg" class="w-100 w-lg-50" alt="">
+      </div>
     </section>
     <!-- BENEFIT SECTION -->
     <section
       class="benefit-section container px-4 py-5 gap-4 d-flex flex-column flex-column-reverse flex-lg-row"
     >
-      <div class="image-container align-self-center">
+      <div class="image-container align-self-center w-100"  style="width: 40%;"  >
         <img
           src="./assets/img/volunteer/img/volunteer-image.png"
           alt=""
           class=""
         />
       </div>
-      <div class="benefit-list">
+      <div class="benefit-list w-100 w-lg-50" >
         <h2 class="benefit-header">Benefits Of Volunteering</h2>
         <p class="benefit-sub-header">
-          Volunteering opens doors to new experiences, connections, and
-          opportunities.
+          Volunteering with the Ogeri Health Foundation is more than just giving your time—it’s about making a real impact in communities that need it most.
         </p>
         <div class="benefit-container">
           <div class="benefit container-fluid">
@@ -758,8 +761,7 @@ $addons = array(
               alt="location pin icon"
             />
             <p>
-              Make a Difference – Help bring essential healthcare services to
-              underserved communities and contribute to improving lives.
+              Gain Valuable Experience – Develop hands-on skills in public health, community outreach, and leadership, while working alongside medical professionals and experts.
             </p>
           </div>
           <div class="benefit">
@@ -768,8 +770,8 @@ $addons = array(
               alt="location pin icon"
             />
             <p>
-              Make a Difference – Help bring essential healthcare services to
-              underserved communities and contribute to improving lives.
+             Be Part of a Community – Join a passionate network of changemakers, build meaningful connections, and collaborate with people who share your commitment to health equity.
+
             </p>
           </div>
           <div class="benefit">
@@ -778,28 +780,19 @@ $addons = array(
               alt="location pin icon"
             />
             <p>
-              Make a Difference – Help bring essential healthcare services to
-              underserved communities and contribute to improving lives.
+              Enhance Your Career – Whether you're a student, professional, or just looking to give back, volunteering can boost your resume and open doors to new opportunities in healthcare, advocacy, and social impact.
+
             </p>
           </div>
+          
           <div class="benefit">
             <img
               src="./assets/img/volunteer/icons/location-icon-3.png"
               alt="location pin icon"
             />
             <p>
-              Make a Difference – Help bring essential healthcare services to
-              underserved communities and contribute to improving lives.
-            </p>
-          </div>
-          <div class="benefit">
-            <img
-              src="./assets/img/volunteer/icons/location-icon-3.png"
-              alt="location pin icon"
-            />
-            <p>
-              Make a Difference – Help bring essential healthcare services to
-              underserved communities and contribute to improving lives.
+              Personal Growth & Fulfillment – Experience the joy and satisfaction of knowing your efforts are creating lasting change for individuals and communities.
+
             </p>
           </div>
         </div>

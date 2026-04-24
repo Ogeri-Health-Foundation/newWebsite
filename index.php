@@ -44,6 +44,11 @@ $addons = array(
 <head>
     <?php include 'include/head.php'; ?>
     <style>
+
+    .small-hero-text {
+        font-size: .9rem;
+        margin-top: -17px !important;
+    }
         /* NEWS ARTICLE SECTION */
 .news-art-head {
   font-family: var(--header-font);
@@ -152,7 +157,8 @@ $addons = array(
     <section id="hero-section">
 
         <div id="hero-words">
-            <p class="text-white"><span>-</span> Registered non-profit • Community-led since 2023 •  Prevention first</p>
+            <h1 class="fs-1 text-white" > The Ogeri Health Foundation</h1>
+            <p class="text-white small-hero-text"><span>-</span> Registered non-profit • Community-led since 2023 •  Prevention first</p>
             <h1 class="text-white">
                 Stronger communities through prevention.
  
@@ -278,42 +284,28 @@ $addons = array(
                     </div>
                     <div class="form-section">
                         <div class="form-group">
-                        <label for="currency">Currency</label>
-                        <select id="currency">
-                            <option value="NGN">NGN (Nigerian Naira)</option>
-                            <option value="USD">USD (United States Dollar)</option>
-                            <option value="GBP">Pounds (GBP)</option>
-                        </select>
+                            <label for="currency">Currency</label>
+                            <select id="currency">
+                                <option value="GBP">Pounds (GBP)</option>
+                                <option value="NGN">NGN (Nigerian Naira)</option>
+                                <option value="USD">USD (United States Dollar)</option>
+                                
+                            </select>
                         </div>
 
-                        <div class="form-group">
+                         <div class="form-group">
                             <label>Amount</label>
                             <div class="amount-options">
-                                <button type="button" class="amount-option-btn selected">
-                                &#x20A6;100,000
-                                </button>
-                                <button type="button" class="amount-option-btn">
-                                &#x20A6;50,000
-                                </button>
-                                <button type="button" class="amount-option-btn">
-                                &#x20A6;20,000
-                                </button>
-                                <button type="button" class="amount-option-btn">
-                                &#x20A6;10,000
-                                </button>
-                                <button type="button" class="amount-option-btn">
-                                &#x20A6;5,000
-                                </button>
+                                <button type="button" class="amount-option-btn selected"></button>
+                                <button type="button" class="amount-option-btn"></button>
+                                <button type="button" class="amount-option-btn"></button>
+                                <button type="button" class="amount-option-btn"></button>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="custom-amount">Custom Amount</label>
-                            <input
-                                type="text"
-                                id="donation_amount"
-                                placeholder="&#x20A6;100,000"
-                                value="&#x20A6;100,000" />
+                            <input type="text" id="donation_amount" />
                         </div>
 
                         <div class="form-group">
@@ -370,7 +362,43 @@ $addons = array(
             
         </div>
     </section>
+    
+   <section id="partners" class="py-5  px-3 px-md-0">
+        <div class="container content-wrapper">
+            <div class="text-center mb-5">
+                <h4 class="text-theme2 fw-bold mb-2">Our Partners</h4>
+                <p class="text-dark">We proudly collaborate with organizations that share our mission and values</p>
+            </div>
 
+            <div class="row g-4 justify-content-center align-items-center">
+                <!-- Partner Logo 1 -->
+                <div class="col-lg-2 col-md-3 col-4 text-center">
+                    <img src="assets/img/partnership/partner1.jpg" alt="Partner 1 Logo" class="img-fluid">
+                </div>
+
+                <!-- Partner Logo 2 -->
+                <!-- <div class="col-lg-2 col-md-3 col-4 text-center">
+                    <img src="assets/img/partners/partner2.png" alt="Partner 2 Logo" class="img-fluid">
+                </div> -->
+
+                <!-- Partner Logo 3 -->
+                <!-- <div class="col-lg-2 col-md-3 col-4 text-center">
+                    <img src="assets/img/partners/partner3.png" alt="Partner 3 Logo" class="img-fluid">
+                </div> -->
+
+                <!-- Partner Logo 4 -->
+                <!-- <div class="col-lg-2 col-md-3 col-4 text-center">
+                    <img src="assets/img/partners/partner4.png" alt="Partner 4 Logo" class="img-fluid">
+                </div> -->
+
+                <!-- Partner Logo 5 -->
+                <!-- <div class="col-lg-2 col-md-3 col-4 text-center">
+                    <img src="assets/img/partners/partner5.png" alt="Partner 5 Logo" class="img-fluid">
+                </div> -->
+            </div>
+        </div>
+    </section>
+    <!-- Programs Section -->
     <section id="programs-section">
         <div id="programs">
             <div class="programs" data-aos="fade-up"
@@ -516,167 +544,182 @@ $addons = array(
         </div>
     </section>
 
-     <section class="testimonials-section2">
+    <section class="testimonials-section2">
         <div class="background-image">
             <img src="./assets/img/donation-testimonial-bg-min.jpg" alt="Background image of people" />
         </div>
+
         <div class="content-overlay">
             <div class="section-header">
                 <h1>Testimonials</h1>
                 <p>What People Say About Our Charity</p>
             </div>
 
-            <!-- Toggle Buttons -->
-            <div class="toggle-container">
-                <button class="toggle-btn active" id="wordsBtn" onclick="showWords()">Words</button>
-                <button class="toggle-btn" id="videosBtn" onclick="showVideos()">Videos</button>
-            </div>
+            <!-- VIDEO SECTION -->
+            <div class="video-display">
+                <div class="video-wrapper">
+                    <video id="testimonialVideo" controls>
+                        <source src="./assets/videos/testimonial-1.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
 
-            <!-- Words Carousel -->
-            <div class="slider-wrapper" id="wordsCarousel" style="display: block;">
-                <div class="testimonials-container" id="wordsContainer">
-                    <div class="testimonial-card">
-                        <div class="quote-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-                            </svg>
-                        </div>
-                        <p>I am grateful for the continuous care and free medications. I always get better each time I take medications given to me.</p>
-                        <div class="author-info">
-                            <img src="./assets/img/testimonial-1.png" alt="Isu Patience Ugo" />
-                            <div>
-                                <p class="author-name">Isu Patience Ugo</p>
-                                <p class="author-title">Ezi Ukie Compound, Mgbom Community</p>
-                            </div>
-                        </div>
+                    <!-- Video info -->
+                    <div class="video-info">
+                        <h3 id="videoName">Isu Patience Ugo</h3>
+                        <p id="videoDesc">Isu shares her experience with The Ogeri Health Foundation</p>
                     </div>
 
-                    <div class="testimonial-card colored-card">
-                        <div class="quote-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-                            </svg>
-                        </div>
-                        <p>I received treatment for hypertension since the first outreach in March, 2024. I pray that God will continue to bless the Foundation in all her endeavors.</p>
-                        <div class="author-info">
-                            <img src="./assets/img/testimonial-2.png" alt="Mrs. Ajuka Oko" />
-                            <div>
-                                <p class="author-name">Mrs. Ajuka Oko</p>
-                                <p class="author-title">Ezi Abagha Compound, Mgbom Community</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="quote-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-                            </svg>
-                        </div>
-                        <p>I have been treated of Malaria, Osteoarthritis and some other complaints I had. The Foundation is doing a wonderful Job and I urge them to continue in the same manner.</p>
-                        <div class="author-info">
-                            <img src="./assets/img/testimonial-1.png" alt="Mr. Isu Ukie" />
-                            <div>
-                                <p class="author-name">Mr. Isu Ukie</p>
-                                <p class="author-title">Community Member</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card colored-card">
-                        <div class="quote-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-                            </svg>
-                        </div>
-                        <p>I have been keeping to my medications and there has been a great improvement in my health.</p>
-                        <div class="author-info">
-                            <img src="./assets/img/testimonial-2.png" alt="Mr. Chukwu Inya Chukwu" />
-                            <div>
-                                <p class="author-name">Mr. Chukwu Inya Chukwu</p>
-                                <p class="author-title">Ezi Akpuka Compound</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="quote-icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13c0-3.93 1.5-7.43 4.29-10.3l1.42 1.42C16.03 10.06 15.17 13.39 15.17 17z" />
-                            </svg>
-                        </div>
-                        <p>I come for the monthly outreaches and I have noticed significant improvement in my health.</p>
-                        <div class="author-info">
-                            <img src="./assets/img/testimonial-1.png" alt="Mr. Michael" />
-                            <div>
-                                <p class="author-name">Mr. Michael</p>
-                                <p class="author-title">Community Member</p>
-                            </div>
-                        </div>
+                    <!-- Navigation -->
+                    <div class="video-nav">
+                        <button id="prevVideo" class="nav-btn">❮ Prev</button>
+                        <span id="videoCount">1 / 5</span>
+                        <button id="nextVideo" class="nav-btn">Next ❯</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Videos Carousel -->
-            <div class="slider-wrapper" id="videosCarousel" style="display: none;">
-                <div class="testimonials-container" id="videosContainer">
-                    <div class="video-card">
-                        <video controls>
-                            <source src="./assets/videos/testimonial-1.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <div class="video-info">
-                            <p class="video-title">Patient Testimonial 1</p>
-                            <p class="video-description">Isu Patience Ugo shares her experience with The Ogeri Health Foundation</p>
+            <!-- TESTIMONIAL CARDS -->
+            <!-- TESTIMONIAL CARDS SLIDER -->
+        <!-- TESTIMONIAL CARDS SLIDER -->
+            <div class="testimonials-slider">
+                <div class="testimonials-wrapper">
+                    <div class="testimonials-container" id="testimonialsContainer">
+                        <!-- 1 -->
+                        <div class="testimonial-card">
+                            <div class="quote-icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path
+                                        d="M6.17 17H4c0-3.93 1.5-7.43 4.29-10.3l1.42 
+                                        1.42C7.03 10.06 6.17 13.39 6.17 17zm9 0H13
+                                        c0-3.93 1.5-7.43 4.29-10.3l1.42 
+                                        1.42C16.03 10.06 15.17 13.39 15.17 17z" />
+                                </svg>
+                            </div>
+                            <p>I am grateful for the continuous care and free medications. I always get better each time I take medications given to me.</p>
+                            <div class="author-info">
+                                <img src="assets/img/about/mrs_patience.png" alt="Isu Patience Ugo" />
+                                <div>
+                                    <p class="author-name">Isu Patience Ugo</p>
+                                    <p class="author-title">Ezi Ukie Compound, Mgbom Community</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="video-card">
-                        <video controls>
-                            <source src="./assets/videos/testimonial-2.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <div class="video-info">
-                            <p class="video-title">Patient Testimonial 2</p>
-                            <p class="video-description">Mrs. Ajuka Oko discusses her hypertension treatment</p>
+                        <!-- 2 -->
+                        <div class="testimonial-card colored-card">
+                            <div class="quote-icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path
+                                        d="M6.17 17H4c0-3.93 
+                                        1.5-7.43 4.29-10.3l1.42 
+                                        1.42C7.03 10.06 6.17 13.39 
+                                        6.17 17zm9 0H13c0-3.93 
+                                        1.5-7.43 4.29-10.3l1.42 
+                                        1.42C16.03 10.06 15.17 
+                                        13.39 15.17 17z" />
+                                </svg>
+                            </div>
+                            <p>I received treatment for hypertension since the first outreach in March 2024. God bless the Foundation.</p>
+                            <div class="author-info">
+                                <img src="assets/img/about/2nd-woman.jpg" alt="Mrs. Ajuka Oko" />
+                                <div>
+                                    <p class="author-name">Mrs. Ajuka Oko</p>
+                                    <p class="author-title">Ezi Abagha Compound, Mgbom Community</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="video-card">
-                        <video controls>
-                            <source src="./assets/videos/testimonial-3.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <div class="video-info">
-                            <p class="video-title">Patient Testimonial 3</p>
-                            <p class="video-description">Mr. Isu Ukie talks about his recovery journey</p>
+                        <!-- 3 -->
+                        <div class="testimonial-card">
+                            <div class="quote-icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path
+                                        d="M6.17 17H4c0-3.93 
+                                        1.5-7.43 4.29-10.3l1.42 
+                                        1.42C7.03 10.06 6.17 13.39 
+                                        6.17 17zm9 0H13c0-3.93 
+                                        1.5-7.43 4.29-10.3l1.42 
+                                        1.42C16.03 10.06 15.17 
+                                        13.39 15.17 17z" />
+                                </svg>
+                            </div>
+                            <p>I have been treated of malaria, osteoarthritis and more. The Foundation is doing a wonderful job!</p>
+                            <div class="author-info">
+                                <img src="assets/img/about/mr-isu.jpg" alt="Mr. Isu Ukie" />
+                                <div>
+                                    <p class="author-name">Mr. Isu Ukie</p>
+                                    <p class="author-title">Community Member</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="video-card">
-                        <video controls>
-                            <source src="./assets/videos/testimonial-4.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <div class="video-info">
-                            <p class="video-title">Patient Testimonial 4</p>
-                            <p class="video-description">Community members share their health improvements</p>
+                        <!-- 4 -->
+                        <div class="testimonial-card colored-card">
+                            <div class="quote-icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path
+                                        d="M6.17 17H4c0-3.93 
+                                        1.5-7.43 4.29-10.3l1.42 
+                                        1.42C7.03 10.06 6.17 13.39 
+                                        6.17 17zm9 0H13c0-3.93 
+                                        1.5-7.43 4.29-10.3l1.42 
+                                        1.42C16.03 10.06 15.17 
+                                        13.39 15.17 17z" />
+                                </svg>
+                            </div>
+                            <p>I have been keeping to my medications and there has been a great improvement in my health.</p>
+                            <div class="author-info">
+                                <img src="assets/img/about/mr-chukwu.png" alt="Mr. Chukwu Inya Chukwu" />
+                                <div>
+                                    <p class="author-name">Mr. Chukwu Inya Chukwu</p>
+                                    <p class="author-title">Ezi Akpuka Compound</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5 -->
+                        <div class="testimonial-card">
+                            <div class="quote-icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path
+                                        d="M6.17 17H4c0-3.93 
+                                        1.5-7.43 4.29-10.3l1.42 
+                                        1.42C7.03 10.06 6.17 13.39 
+                                        6.17 17zm9 0H13c0-3.93 
+                                        1.5-7.43 4.29-10.3l1.42 
+                                        1.42C16.03 10.06 15.17 
+                                        13.39 15.17 17z" />
+                                </svg>
+                            </div>
+                            <p>I come for the monthly outreaches and I have noticed significant improvement in my health.</p>
+                            <div class="author-info">
+                                <img src="assets/img/about/mr-micheal.png" alt="Mr. Michael" />
+                                <div>
+                                    <p class="author-name">Mr. Michael</p>
+                                    <p class="author-title">Community Member</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Buttons moved BELOW -->
+                
+            </div>
+            <div class="testimonial-buttons">
+                <button class="testimonial-arrow left2" id="prevTestimonial">❮</button>
+                <button class="testimonial-arrow right2" id="nextTestimonial">❯</button>
             </div>
 
-            <div class="pagination-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-            </div>
+
         </div>
     </section>
+
     <section>
         <div class="container mt-5">
             <div class="text-center">
             
-                <h4 class="text-theme2">Meet Our Volunteers</h4>
+                <h4 class="text-theme2">Meet Our Health Care Outreach Team</h4>
                 <p class="text-dark">Behind every smile, direction, and helping hand is a volunteer making a difference. Meet the 
     heroes who make it all happen!</p>
             </div>
@@ -894,6 +937,7 @@ $addons = array(
                     while ($event = $stmt->fetch(PDO::FETCH_ASSOC)) {
                         $eventName = htmlspecialchars($event['title']);
                         $shortdesc = htmlspecialchars($event['short_description']);
+                        $category = htmlspecialchars($event['category']);
                         $raisedAmount = number_format($event['amount_raised'], 2);
                         $goalAmount = number_format($event['goal_amount'], 2);
                         $percentageRaised = ($event['goal_amount'] > 0) ? round(($event['amount_raised'] / $event['goal_amount']) * 100) : 0;
@@ -902,23 +946,25 @@ $addons = array(
         <div class="card" data-aos="fade-up"
      data-aos-delay="400">
             <img src="admin/<?= $image ?>" alt="Education cause" />
-            <div class="card-tag">Education</div>
+            <div class="card-tag"><?= $category?></div>
             <div class="card-content">
             <h3><a href="donation-details.php?id=<?= $event['id'] ?>"><?= $eventName ?></a></h3>
             <p>
-                Far far away, behind the word mountains, far from the countries
-                Vokalia and Consonantia.
+               <?= $shortdesc?>
             </p>
             </div>
             <div class="card-bottom">
-            <div class="progress-bar-container">
-                <div class="progress-bar" style="width: <?= $percentageRaised ?>%;"><?= $percentageRaised ?> %</div>
-            </div>
-            <div class="amounts">
-                <span class="label">Amount Raised:
-                <span class="value">&#x20A6;<?= $raisedAmount ?></span></span>
-                <span class="label">Goal: <span class="value">&#x20A6;<?= $goalAmount ?></span></span>
-            </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: <?= $percentageRaised ?>%;"><?= $percentageRaised ?> %</div>
+                </div>
+                <div class="amounts">
+                    <span class="label">Amount Raised:
+                    <span class="value">&#x20A6;<?= $raisedAmount ?></span></span>
+                    <span class="label">Goal: <span class="value">&#x20A6;<?= $goalAmount ?></span></span>
+                </div>
+                <div>
+                    <button class="th-btn style3"><a href="donation-details.php?id=<?= $event['id'] ?>" style="color: white; text-decoration: none;">Donate Now</a></button>
+                </div>
             </div>
         </div>
         <?php
@@ -989,58 +1035,78 @@ $addons = array(
     <script src="https://checkout.flutterwave.com/v3.js"></script>
     <script>
    document.addEventListener("DOMContentLoaded", () => {
-        const amountButtons = document.querySelectorAll(".amount-option-btn");
-        const customAmountInput = document.getElementById("donation_amount");
-        const currencySelect = document.getElementById("currency");
+    const amountButtons = document.querySelectorAll(".amount-option-btn");
+    const customAmountInput = document.getElementById("donation_amount");
+    const currencySelect = document.getElementById("currency");
 
+    const currencySymbols = {
+        NGN: "₦",
+        GBP: "£",
+        USD: "$"
+    };
 
-        const currencySymbols = {
-            NGN: "₦",
-            USD: "$",
-            GBP: "£",
-        };
+    const amountsByCurrency = {
+        NGN: [5000, 20000, 50000, 100000],
+        GBP: [25, 100, 500, 1000],
+        USD: [30, 120, 600, 1200]
+    };
 
-        const amountValues = [100000, 50000, 20000, 10000, 5000];
-        let selectedCurrency = currencySelect.value;
+    // Approximate conversion rates relative to NGN
+    const conversionRates = {
+        NGN: 1,
+        GBP: 0.005,   // 1 NGN ≈ £0.005
+        USD: 0.006    // 1 NGN ≈ $0.006
+    };
 
-        // Format amount with currency symbol
-        function formatAmount(amount, currency) {
-            return currencySymbols[currency] + amount.toLocaleString();
+    let selectedCurrency = currencySelect.value;
+
+    function formatAmount(amount, currency) {
+        return currencySymbols[currency] + amount.toLocaleString();
+    }
+
+    function updateAmounts(selectedValue = null) {
+        selectedCurrency = currencySelect.value;
+        const currentAmounts = amountsByCurrency[selectedCurrency];
+
+        // Update buttons
+        amountButtons.forEach((btn, i) => {
+            btn.textContent = formatAmount(currentAmounts[i], selectedCurrency);
+        });
+
+        // Convert custom amount if switching currency
+        if (selectedValue === null) {
+            selectedValue = parseFloat(customAmountInput.value.replace(/[^0-9.]/g, '')) || currentAmounts[0];
         }
 
-        // Update amount buttons and custom input placeholder/value
-        function updateAmounts() {
-            selectedCurrency = currencySelect.value;
+        // Convert using base NGN as reference
+        const baseNGN = selectedCurrency === "NGN" ? selectedValue :
+                        selectedCurrency === "GBP" ? selectedValue / conversionRates.GBP :
+                        selectedValue / conversionRates.USD;
 
-            amountButtons.forEach((btn, i) => {
-            btn.textContent = formatAmount(amountValues[i], selectedCurrency);
-            });
+        const newValue = Math.round(baseNGN * conversionRates[selectedCurrency]);
+        customAmountInput.value = formatAmount(newValue, selectedCurrency);
+        customAmountInput.placeholder = formatAmount(newValue, selectedCurrency);
+    }
 
-            const selectedBtn = document.querySelector(".amount-option-btn.selected");
-            if (selectedBtn) {
-            customAmountInput.value = selectedBtn.textContent;
-            customAmountInput.placeholder = selectedBtn.textContent;
-            }
-        }
-
-        // Amount button click handler
-        amountButtons.forEach((button) => {
-            button.addEventListener("click", () => {
+    // Button click
+    amountButtons.forEach((button) => {
+        button.addEventListener("click", () => {
             amountButtons.forEach((btn) => btn.classList.remove("selected"));
             button.classList.add("selected");
             customAmountInput.value = button.textContent;
-            });
         });
+    });
 
-        // Currency change handler
-        currencySelect.addEventListener("change", () => {
-            updateAmounts();
-        });
+    // Currency change
+    currencySelect.addEventListener("change", () => {
+        const selectedBtn = document.querySelector(".amount-option-btn.selected");
+        const selectedValue = parseFloat(selectedBtn.textContent.replace(/[^0-9.]/g, ''));
+        updateAmounts(selectedValue);
+    });
 
-        // Initialize default values
-        updateAmounts();
-
-        });
+    // Initialize
+    updateAmounts();
+});
 
     document.getElementById("pay-button").addEventListener("click", function() {
         const rawAmount = document.getElementById("donation_amount").value;
@@ -1234,138 +1300,97 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 
-         <script>
-        let currentSlide = 0;
-        let isWordsView = true;
-        let autoSlideInterval;
-        let isAnyVideoPlaying = false;
-
-        // Track video play/pause events
-        function setupVideoListeners() {
-            const videos = document.querySelectorAll('.video-card video');
-            videos.forEach(video => {
-                video.addEventListener('play', () => {
-                    isAnyVideoPlaying = true;
-                    pauseAutoSlide();
-                });
-                
-                video.addEventListener('pause', () => {
-                    // Check if any other video is still playing
-                    const anyPlaying = Array.from(videos).some(v => !v.paused);
-                    if (!anyPlaying) {
-                        isAnyVideoPlaying = false;
-                        resumeAutoSlide();
-                    }
-                });
-                
-                video.addEventListener('ended', () => {
-                    // Check if any other video is still playing
-                    const anyPlaying = Array.from(videos).some(v => !v.paused);
-                    if (!anyPlaying) {
-                        isAnyVideoPlaying = false;
-                        resumeAutoSlide();
-                    }
-                });
-            });
+ <script>
+    const videos = [
+        {
+            src: "./assets/videos/testimonial-1.mp4",
+            name: "Mr Chukwu Inya Chukwu",
+            desc: "Mr Chukwu shares his experience with The Ogeri Health Foundation"
+        },
+        {
+            src: "./assets/videos/testimonial-2.mp4",
+            name: "Mr. Micheal",
+            desc: "Mr. Micheal talks about his recovery journey"
+        },
+        {
+            src: "./assets/videos/testimonial-3.mp4",
+            name: "Mr. Isu Ukie",
+            desc: "Mr. Ukie talks about his recovery journey"
+        },
+        {
+            src: "./assets/videos/testimonial-4.mp4",
+            name: "Mrs Isu Patience Ugo",
+            desc: "Mrs Isu Patience shares her health improvements"
+        },
+        {
+            src: "./assets/videos/testimonial-5.mp4",
+            name: "Mrs Ajuka Oko",
+            desc: "Mrs Ajuka Oko shares her health improvements"
         }
+    ];
 
-        function pauseAutoSlide() {
-            if (autoSlideInterval) {
-                clearInterval(autoSlideInterval);
-                autoSlideInterval = null;
-            }
+    let currentVideo = 0;
+
+    const videoElement = document.getElementById("testimonialVideo");
+    const videoName = document.getElementById("videoName");
+    const videoDesc = document.getElementById("videoDesc");
+    const videoCount = document.getElementById("videoCount");
+
+    function updateVideo(index) {
+        const v = videos[index];
+        videoElement.src = v.src;
+        videoName.textContent = v.name;
+        videoDesc.textContent = v.desc;
+        videoCount.textContent = `${index + 1} / ${videos.length}`;
+    }
+
+    document.getElementById("nextVideo").addEventListener("click", () => {
+        currentVideo = (currentVideo + 1) % videos.length;
+        updateVideo(currentVideo);
+    });
+
+    document.getElementById("prevVideo").addEventListener("click", () => {
+        currentVideo = (currentVideo - 1 + videos.length) % videos.length;
+        updateVideo(currentVideo);
+    });
+
+    // Initialize
+    updateVideo(currentVideo);
+</script>
+<script>
+    const testimonialContainer = document.getElementById("testimonialsContainer");
+    const nextTestimonial = document.getElementById("nextTestimonial");
+    const prevTestimonial = document.getElementById("prevTestimonial");
+
+    let testimonialIndex = 0;
+    const totalTestimonials = document.querySelectorAll(".testimonial-card").length;
+    const cardsPerView = 3; // adjust to 1 or 2 for mobile if you want responsiveness
+
+    nextTestimonial.addEventListener("click", () => {
+        if (testimonialIndex < totalTestimonials - cardsPerView) {
+            testimonialIndex++;
+        } else {
+            testimonialIndex = 0;
         }
+        updateTestimonialSlide();
+    });
 
-        function resumeAutoSlide() {
-            if (!autoSlideInterval && !isAnyVideoPlaying) {
-                startAutoSlide();
-            }
+    prevTestimonial.addEventListener("click", () => {
+        if (testimonialIndex > 0) {
+            testimonialIndex--;
+        } else {
+            testimonialIndex = totalTestimonials - cardsPerView;
         }
+        updateTestimonialSlide();
+    });
 
-        function startAutoSlide() {
-            autoSlideInterval = setInterval(() => {
-                if (!isAnyVideoPlaying) {
-                    const container = isWordsView ? 
-                        document.getElementById('wordsContainer') : 
-                        document.getElementById('videosContainer');
-                    const maxSlides = Math.ceil(container.children.length / getCardsPerSlide()) - 1;
-                    currentSlide = (currentSlide + 1) > maxSlides ? 0 : currentSlide + 1;
-                    updateSlide();
-                }
-            }, 5000);
-        }
+    function updateTestimonialSlide() {
+        const offset = testimonialIndex * (testimonialContainer.children[0].offsetWidth + 25);
+        testimonialContainer.style.transform = `translateX(-${offset}px)`;
+    }
+</script>
 
-        function getCardsPerSlide() {
-            if (window.innerWidth <= 480) return 1;
-            if (window.innerWidth <= 768) return 1;
-            return 3;
-        }
 
-        function showWords() {
-            // Pause all videos when switching
-            const videos = document.querySelectorAll('.video-card video');
-            videos.forEach(video => video.pause());
-            
-            document.getElementById('wordsBtn').classList.add('active');
-            document.getElementById('videosBtn').classList.remove('active');
-            document.getElementById('wordsCarousel').style.display = 'block';
-            document.getElementById('videosCarousel').style.display = 'none';
-            isWordsView = true;
-            currentSlide = 0;
-            updateSlide();
-            resumeAutoSlide();
-        }
-
-        function showVideos() {
-            document.getElementById('videosBtn').classList.add('active');
-            document.getElementById('wordsBtn').classList.remove('active');
-            document.getElementById('videosCarousel').style.display = 'block';
-            document.getElementById('wordsCarousel').style.display = 'none';
-            isWordsView = false;
-            currentSlide = 0;
-            updateSlide();
-            resumeAutoSlide();
-        }
-
-        function updateSlide() {
-            const container = isWordsView ? 
-                document.getElementById('wordsContainer') : 
-                document.getElementById('videosContainer');
-            
-            const cardWidth = container.children[0].offsetWidth;
-            const gap = window.innerWidth <= 768 ? 20 : 31;
-            const cardsPerSlide = getCardsPerSlide();
-            const offset = currentSlide * (cardWidth * cardsPerSlide + gap * cardsPerSlide);
-            container.style.transform = `translateX(-${offset}px)`;
-            
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentSlide);
-            });
-        }
-
-        document.querySelectorAll('.dot').forEach((dot, i) => {
-            dot.addEventListener('click', () => {
-                currentSlide = i;
-                updateSlide();
-            });
-        });
-
-        // Initialize video listeners
-        setupVideoListeners();
-
-        // Start auto-slide
-        startAutoSlide();
-
-        // Handle window resize
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                updateSlide();
-            }, 250);
-        });
-    </script>
-<script src="./assets/js/donations.js"></script>
+<!-- <script src="./assets/js/donations.js"></script> -->
     
 </body>
